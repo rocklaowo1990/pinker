@@ -26,7 +26,7 @@ class IndexView extends GetView<IndexController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-              onPressed: controller.handleSignIn,
+              onPressed: controller.handleGoSignBeforePage,
               icon: const Icon(Icons.precision_manufacturing)),
           logo,
           const Icon(Icons.precision_manufacturing),

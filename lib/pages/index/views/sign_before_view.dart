@@ -21,7 +21,7 @@ class SignBeforeView extends GetView<IndexController> {
     );
 
     var signUpButton = buttonWidget(
-      onPressed: controller.handleSignUp,
+      onPressed: controller.handleGoSignUpPage,
       text: '创建账号',
     );
 
@@ -36,7 +36,7 @@ class SignBeforeView extends GetView<IndexController> {
               text: ' 去登陆',
               style: TextStyle(fontSize: 8.sp, color: AppColors.main),
               recognizer: TapGestureRecognizer()
-                ..onTap = controller.handleSignIn,
+                ..onTap = controller.handleGoSignInPage,
             ),
           ],
         ),

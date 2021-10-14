@@ -17,11 +17,25 @@ Widget input({
   bool isPassword = false;
   TextInputType keyboardType = TextInputType.emailAddress;
   RxString obs = controller.text.obs;
+  void Function()? onPressed;
+
+  void clearText() {
+    controller.text = '';
+    obs.value = controller.text;
+  }
+
+  void showText() {}
+
+  void onChanged(String value) {
+    obs.value = value;
+  }
 
   switch (type) {
     case InputType.count:
+      onPressed = clearText;
       break;
     case InputType.password:
+      onPressed = showText;
       isPassword = true;
       keyboardType = TextInputType.visiblePassword;
       break;
@@ -29,13 +43,8 @@ Widget input({
     default:
   }
 
-  void _onPressed() {
-    controller.text = '';
-    obs.value = controller.text;
-  }
-
-  var suffixIcon = IconButton(
-    onPressed: _onPressed,
+  IconButton suffixIcon = IconButton(
+    onPressed: onPressed,
     icon: Icon(
       IconFont.delete,
       color: AppColors.inputHint,
@@ -43,7 +52,7 @@ Widget input({
     ),
   );
 
-  var textField = Obx(() {
+  Obx textField = Obx(() {
     return TextField(
       focusNode: focusNode,
       controller: controller,
@@ -66,10 +75,7 @@ Widget input({
           )),
       style: TextStyle(fontSize: 8.sp, color: AppColors.white),
       obscureText: isPassword,
-      onChanged: (e) {
-        obs.value = e;
-        debugPrint(controller.value.text);
-      },
+      onChanged: onChanged,
     );
   });
 

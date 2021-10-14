@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/pages/index/index.dart';
 
@@ -8,14 +9,21 @@ class IndexController extends GetxController {
   final TextEditingController userCountController = TextEditingController();
   final TextEditingController userPasswordController = TextEditingController();
 
-  /// 登陆按钮
-  void handleSignIn() {
+  /// 去登陆页面按钮
+  void handleGoSignInPage() async {
     Get.toNamed(pages[1], id: 1);
   }
 
-  /// 注册按钮
-  void handleSignUp() {
+  /// 去注册页面按钮
+  void handleGoSignUpPage() {
     Get.toNamed(pages[2], id: 1);
+  }
+
+  /// 返回默认页面按钮
+  void handleGoSignBeforePage() async {
+    FocusScope.of(Get.context!).requestFocus(FocusNode());
+    await Future.delayed(const Duration(milliseconds: 200));
+    Get.back(id: 1);
   }
 
   GetPageRoute _getPageRoute({
