@@ -9,8 +9,11 @@ class IndexController extends GetxController {
   final TextEditingController userCountController = TextEditingController();
   final TextEditingController userPasswordController = TextEditingController();
 
+  RxBool isMax = false.obs;
+
   /// 去登陆页面按钮
   void handleGoSignInPage() async {
+    isMax.value = true;
     Get.toNamed(pages[1], id: 1);
   }
 
@@ -21,6 +24,7 @@ class IndexController extends GetxController {
 
   /// 返回默认页面按钮
   void handleGoSignBeforePage() async {
+    isMax.value = false;
     FocusScope.of(Get.context!).requestFocus(FocusNode());
     await Future.delayed(const Duration(milliseconds: 200));
     Get.back(id: 1);
@@ -34,7 +38,7 @@ class IndexController extends GetxController {
       settings: settings,
       page: () => page,
       transition: Transition.rightToLeftWithFade,
-      transitionDuration: const Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 300),
     );
   }
 

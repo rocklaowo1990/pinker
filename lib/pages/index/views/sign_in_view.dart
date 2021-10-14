@@ -25,7 +25,7 @@ class SignInView extends GetView<IndexController> {
       children: [
         Padding(
           padding: EdgeInsets.only(
-            top: 30.h,
+            top: 40.h,
             right: 20.w,
             left: 20.w,
           ),

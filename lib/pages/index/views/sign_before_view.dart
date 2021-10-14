@@ -64,9 +64,20 @@ class SignBeforeView extends GetView<IndexController> {
         ],
       ),
     );
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: body,
-    );
+    return Obx(() {
+      return Scaffold(
+        backgroundColor: Colors.transparent,
+        body: controller.isMax.value
+            ? Stack(
+                children: [
+                  body,
+                  Container(
+                    color: Colors.black12,
+                  )
+                ],
+              )
+            : body,
+      );
+    });
   }
 }

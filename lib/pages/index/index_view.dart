@@ -19,9 +19,9 @@ class IndexView extends GetView<IndexController> {
     );
 
     var appBar = Container(
-      padding: EdgeInsets.only(top: 15.h),
+      padding: EdgeInsets.only(top: 16.h),
       width: double.infinity,
-      height: 22.h + 15.h,
+      height: 48.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

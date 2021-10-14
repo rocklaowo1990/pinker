@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
 
         /// 默认页面切换动画
         defaultTransition: Transition.rightToLeftWithFade,
-        transitionDuration: const Duration(milliseconds: 400),
+        transitionDuration: const Duration(milliseconds: 300),
 
         /// 路由
         getPages: AppPages.routes,
