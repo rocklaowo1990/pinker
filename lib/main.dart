@@ -14,31 +14,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //填入设计稿中设备的屏幕尺寸,单位dp
+    /// 填入设计稿中设备的屏幕尺寸,单位dp
     return ScreenUtilInit(
       designSize: const Size(187.5, 406),
       builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
 
-        // 日志
+        /// 日志
         enableLog: true,
         logWriterCallback: Logger.write,
 
-        // 路由
+        /// 路由
         getPages: AppPages.routes,
         unknownRoute: AppPages.unknown,
 
-        // 启动页面
+        /// 启动页面
         initialRoute: AppPages.initial,
         // initialBinding: SplashBinding(),
         // home: SplashPage(),
 
-        // 多语言
+        /// 多语言
         // locale: TranslationService.locale,
         // fallbackLocale: TranslationService.fallbackLocale,
         // translations: TranslationService(),
 
-        // 主题
+        /// 主题
         // theme: appThemeData,
       ),
     );

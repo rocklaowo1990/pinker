@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:pinker/middleware/middleware.dart';
 import 'package:pinker/pages/application/index.dart';
-import 'package:pinker/pages/frame/index/index.dart';
+import 'package:pinker/pages/index/index.dart';
+
 import 'package:pinker/pages/unknown/index.dart';
 
 part 'app_routes.dart';
@@ -30,6 +31,18 @@ class AppPages {
       name: AppRoutes.index,
       page: () => const IndexView(),
       binding: IndexBinding(),
+      children: [
+        GetPage(
+          name: AppRoutes.signIn,
+          page: () => const SignInView(),
+          binding: SignInBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.signUp,
+          page: () => const SignUpView(),
+          binding: SignUpBinding(),
+        ),
+      ],
     ),
   ];
 }
