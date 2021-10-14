@@ -22,7 +22,16 @@ class IndexView extends GetView<IndexController> {
       padding: EdgeInsets.only(top: 15.h),
       width: double.infinity,
       height: 22.h + 15.h,
-      child: logo,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+              onPressed: controller.handleSignIn,
+              icon: const Icon(Icons.precision_manufacturing)),
+          logo,
+          const Icon(Icons.precision_manufacturing),
+        ],
+      ),
     );
 
     var body = Navigator(
@@ -38,7 +47,6 @@ class IndexView extends GetView<IndexController> {
         gradient: AppColors.linearGradientContainer,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           appBar,
           Expanded(

@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/index/index.dart';
 
 class IndexController extends GetxController {
-  static IndexController get to => Get.find();
   final pages = <String>['/signBefore', '/signIn', '/signUp'];
+
+  final TextEditingController userCountController = TextEditingController();
+  final TextEditingController userPasswordController = TextEditingController();
 
   /// 登陆按钮
   void handleSignIn() {
@@ -47,5 +49,12 @@ class IndexController extends GetxController {
     }
 
     return null;
+  }
+
+  @override
+  void dispose() {
+    userCountController.dispose();
+    userPasswordController.dispose();
+    super.dispose();
   }
 }

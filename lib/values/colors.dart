@@ -18,6 +18,12 @@ class AppColors {
   /// 白色
   static const Color white = Color(0xffffffff);
 
+  /// 输入框颜色
+  static const Color inputFiled = Color(0xff20232a);
+
+  /// 输入框hint提示文本或输入框右侧按钮颜色
+  static const Color inputHint = Color(0xff94a3b2);
+
   /// 暗色文本 7d8998
   static const Color darkText = Color(0xff7d8998);
 
