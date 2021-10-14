@@ -26,23 +26,11 @@ class AppPages {
       ],
     ),
 
-    // 初始页面
+    /// 初始页面框架，包含登陆，注册，初始
     GetPage(
       name: AppRoutes.index,
       page: () => const IndexView(),
       binding: IndexBinding(),
-      children: [
-        GetPage(
-          name: AppRoutes.signIn,
-          page: () => const SignInView(),
-          binding: SignInBinding(),
-        ),
-        GetPage(
-          name: AppRoutes.signUp,
-          page: () => const SignUpView(),
-          binding: SignUpBinding(),
-        ),
-      ],
     ),
   ];
 }

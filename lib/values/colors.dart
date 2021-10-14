@@ -26,5 +26,5 @@ class AppColors {
     Color(0xffffffff),
     Color(0x4cffffff),
   ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-      .createShader(Rect.fromLTWH(0.w, 180.h, 0.w, 40.h));
+      .createShader(Rect.fromLTWH(0.w, 147.h, 0.w, 40.h));
 }

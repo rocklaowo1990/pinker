@@ -24,6 +24,10 @@ class MyApp extends StatelessWidget {
         enableLog: true,
         logWriterCallback: Logger.write,
 
+        /// 默认页面切换动画
+        defaultTransition: Transition.rightToLeftWithFade,
+        transitionDuration: const Duration(milliseconds: 400),
+
         /// 路由
         getPages: AppPages.routes,
         unknownRoute: AppPages.unknown,
