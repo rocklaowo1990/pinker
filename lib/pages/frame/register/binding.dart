@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pinker/pages/index/register/index.dart';
+import 'package:pinker/pages/frame/register/index.dart';
 
 class RegisterBinding implements Bindings {
   @override

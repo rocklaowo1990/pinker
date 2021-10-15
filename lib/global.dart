@@ -61,13 +61,8 @@ class Global {
     var _profileJSON = StorageUtil().getJSON(storageUserProfileKey);
     if (_profileJSON != null) {
       profile = _profileJSON;
-      debugPrint(profile);
-
       isOfflineLogin = true;
     }
-
-    debugPrint('初始化：第一次登陆：$isFirstOpen');
-    debugPrint('初始化：是否可以离线登陆：$isOfflineLogin');
 
     // android 状态栏为透明的沉浸
     // if (Platform.isAndroid) {

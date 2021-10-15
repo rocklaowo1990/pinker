@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/middleware/middleware.dart';
 import 'package:pinker/pages/application/index.dart';
-import 'package:pinker/pages/index/index.dart';
+import 'package:pinker/pages/frame/index.dart';
 
 import 'package:pinker/pages/unknown/index.dart';
 
@@ -36,8 +36,8 @@ class AppPages {
     /// 初始页面框架，包含登陆，注册，初始
     GetPage(
       name: AppRoutes.index,
-      page: () => const IndexView(),
-      binding: IndexBinding(),
+      page: () => const FrameView(),
+      binding: FrameBinding(),
     ),
   ];
 }

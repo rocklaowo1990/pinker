@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/pages/frame/index/index.dart';
 
-import 'package:pinker/pages/index/frame/index.dart';
-import 'package:pinker/pages/index/login/index.dart';
-import 'package:pinker/pages/index/register/index.dart';
+import 'package:pinker/pages/frame/login/index.dart';
+import 'package:pinker/pages/frame/register/index.dart';
 
-class IndexController extends GetxController {
-  final pages = <String>['/frame', '/login', '/register'];
+class FrameController extends GetxController {
+  final pages = <String>['/index', '/login', '/register'];
 
   RxBool isShow = false.obs; //控制蒙版是否显示
 
@@ -35,9 +35,9 @@ class IndexController extends GetxController {
   Route? onGenerateRoute(RouteSettings settings) {
     if (settings.name == pages[0]) {
       return _getPageRoute(
-        page: const FrameView(),
+        page: const IndexView(),
         settings: settings,
-        binding: FrameBinding(),
+        binding: IndexBinding(),
       );
     } else if (settings.name == pages[1]) {
       return _getPageRoute(

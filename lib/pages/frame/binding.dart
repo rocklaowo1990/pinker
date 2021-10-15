@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pinker/pages/index/frame/index.dart';
+import 'package:pinker/pages/frame/controller.dart';
 
 class FrameBinding implements Bindings {
   @override

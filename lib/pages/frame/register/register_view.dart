@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/index/register/controller.dart';
+import 'package:pinker/pages/frame/register/controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);

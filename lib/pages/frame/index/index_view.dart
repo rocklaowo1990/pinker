@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:pinker/pages/index/frame/index.dart';
+import 'package:pinker/pages/frame/index/index.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class FrameView extends GetView<FrameController> {
-  const FrameView({Key? key}) : super(key: key);
+class IndexView extends GetView<IndexController> {
+  const IndexView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class FrameView extends GetView<FrameController> {
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.transparent,
-        body: controller.indexController.isShow.value
+        body: controller.frameController.isShow.value
             ? Stack(
                 // 遮罩层
                 children: [
