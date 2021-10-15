@@ -10,7 +10,7 @@ import 'entities/entities.dart';
 class Global {
   /// 用户配置
   static UserLoginResponseEntity profile = UserLoginResponseEntity(
-    accessToken: null,
+    token: null,
   );
 
   /// 发布渠道
@@ -53,9 +53,9 @@ class Global {
     // 包信息
     // Global.packageInfo = await PackageInfo.fromPlatform();
 
-    // 工具初始
-    // await StorageUtil().init();
-    // HttpUtil();
+    /// 工具初始
+    await StorageUtil().init();
+    HttpUtil();
 
     // 读取设备第一次打开
     isFirstOpen = StorageUtil().getBool(storageDeviceFirstOpenKey);
@@ -67,6 +67,9 @@ class Global {
       profile = UserLoginResponseEntity.fromJson(_profileJSON);
       isOfflineLogin = true;
     }
+
+    debugPrint(isFirstOpen.toString());
+    debugPrint(isOfflineLogin.toString());
 
     // android 状态栏为透明的沉浸
     // if (Platform.isAndroid) {

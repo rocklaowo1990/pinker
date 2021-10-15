@@ -4,4 +4,5 @@ class AppRoutes {
   static const initial = '/';
   static const unknown = '/unknown';
   static const index = '/index';
+  static const application = '/application';
 }

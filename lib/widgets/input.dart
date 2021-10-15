@@ -13,52 +13,80 @@ Widget input({
   required String type,
   required TextEditingController controller,
   FocusNode? focusNode,
+  bool? autofocus,
+  TextInputAction? textInputAction,
+  void Function()? onEditingComplete,
 }) {
-  bool isPassword = false;
+  /// 判断是否是密码输入框
+  RxBool isPassword = false.obs;
+
+  /// 根据不同的类型给予不同的键盘类型
   TextInputType keyboardType = TextInputType.emailAddress;
-  RxString obs = controller.text.obs;
+
+  /// 右侧按钮状态管理
+  RxString textObs = controller.text.obs;
+
+  /// 右侧按钮图标
+  Rx<IconData> suffixIcon = IconFont.delete.obs;
+
+  /// 右侧按钮点击事件
   void Function()? onPressed;
 
+  /// 清除文本
   void clearText() {
     controller.text = '';
-    obs.value = controller.text;
+    textObs.value = controller.text;
+    FocusScope.of(Get.context!).requestFocus(focusNode);
   }
 
-  void showText() {}
+  /// 显示密码 和 隐藏密码
+  void passwordText() {
+    isPassword.value = !isPassword.value;
+    FocusScope.of(Get.context!).requestFocus(focusNode);
+    suffixIcon.value =
+        isPassword.value ? Icons.visibility_off : Icons.visibility;
+  }
 
+  /// 文本改变事件
   void onChanged(String value) {
-    obs.value = value;
+    textObs.value = value;
   }
 
+  /// 根据不同的类型 初始化
   switch (type) {
     case InputType.count:
       onPressed = clearText;
       break;
     case InputType.password:
-      onPressed = showText;
-      isPassword = true;
+      onPressed = passwordText;
+      isPassword.value = true;
       keyboardType = TextInputType.visiblePassword;
+      suffixIcon.value = Icons.visibility_off;
       break;
 
     default:
   }
 
-  IconButton suffixIcon = IconButton(
-    onPressed: onPressed,
-    icon: Icon(
-      IconFont.delete,
-      color: AppColors.inputHint,
-      size: 9.w,
-    ),
-  );
-
+  /// 组件
   Obx textField = Obx(() {
     return TextField(
+      onEditingComplete: onEditingComplete,
+      textInputAction: textInputAction,
+      autofocus: autofocus ?? false,
       focusNode: focusNode,
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-          suffixIcon: obs.value.isEmpty ? null : suffixIcon,
+          suffixIcon: textObs.value.isEmpty
+              ? null
+              : IconButton(
+                  onPressed: onPressed,
+                  icon: Icon(
+                    suffixIcon.value,
+                    color: AppColors.inputHint,
+                    size: 9.w,
+                  ),
+                ),
           contentPadding: EdgeInsets.fromLTRB(10.w, 6.h, 10.w, 6.h),
           filled: true,
           fillColor: AppColors.inputFiled,
@@ -74,7 +102,7 @@ Widget input({
             color: AppColors.darkText,
           )),
       style: TextStyle(fontSize: 8.sp, color: AppColors.white),
-      obscureText: isPassword,
+      obscureText: isPassword.value,
       onChanged: onChanged,
     );
   });

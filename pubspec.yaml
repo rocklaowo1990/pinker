@@ -44,6 +44,14 @@ dependencies:
 
   # 缓存
   shared_preferences: ^2.0.8
+
+  # http 请求
+  dio: ^4.0.0
+  cookie_jar: ^3.0.1
+  dio_cookie_manager: ^2.0.0
+
+  # 加密安全 SHA
+  crypto: ^3.0.1
   
 
 dev_dependencies:

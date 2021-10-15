@@ -11,6 +11,7 @@ class SignBeforeView extends GetView<IndexController> {
 
   @override
   Widget build(BuildContext context) {
+    /// 标题
     var text = Text(
       '查看世界正在发生的新鲜事情',
       style: TextStyle(
@@ -20,11 +21,13 @@ class SignBeforeView extends GetView<IndexController> {
       ),
     );
 
+    /// 去注册页面的按钮
     var signUpButton = buttonWidget(
       onPressed: controller.handleGoSignUpPage,
       text: '创建账号',
     );
 
+    /// 去登陆页面的按钮
     var signInbutton = SizedBox(
       width: double.infinity,
       child: RichText(
@@ -43,6 +46,7 @@ class SignBeforeView extends GetView<IndexController> {
       ),
     );
 
+    /// body 布局
     var body = Padding(
       padding: EdgeInsets.only(
         right: 20.w,
@@ -64,11 +68,13 @@ class SignBeforeView extends GetView<IndexController> {
         ],
       ),
     );
+
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.transparent,
-        body: controller.isMax.value
+        body: controller.isShow.value
             ? Stack(
+                // 遮罩层
                 children: [
                   body,
                   Container(
