@@ -24,24 +24,39 @@ class UserLoginRequestEntity {
 class UserLoginResponseEntity {
   UserLoginResponseEntity({
     this.code,
-    this.token,
+    this.data,
     this.msg,
   });
 
   int? code;
-  String? token;
+  Data? data;
   String? msg;
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
         code: json["code"],
-        token: json["data"] == '' ? null : json["data"]['token'],
+        data: json['data'],
         msg: json["msg"],
       );
 
   Map<String, dynamic> toJson() => {
         "code": code,
-        "token": token,
+        "token": data,
         "msg": msg,
+      };
+}
+
+class Data {
+  Data({
+    this.token,
+  });
+
+  String? token;
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        token: json["token"],
+      );
+  Map<String, dynamic> toJson() => {
+        "token": token,
       };
 }

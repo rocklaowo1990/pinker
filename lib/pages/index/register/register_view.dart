@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/index/index.dart';
+import 'package:pinker/pages/index/register/controller.dart';
 
-class SignUpView extends GetView<IndexController> {
-  const SignUpView({Key? key}) : super(key: key);
+class RegisterView extends GetView<RegisterController> {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

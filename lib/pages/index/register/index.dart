@@ -1,5 +1,5 @@
-library index;
+library register;
 
-export 'index_view.dart';
 export 'binding.dart';
 export 'controller.dart';
+export 'register_view.dart';

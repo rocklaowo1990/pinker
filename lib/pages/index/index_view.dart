@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pinker/pages/index/index.dart';
-
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -59,7 +59,7 @@ class IndexView extends GetView<IndexController> {
     /// body 嵌套路由
     var body = Navigator(
       key: Get.nestedKey(1),
-      initialRoute: '/signBefore',
+      initialRoute: controller.pages[0],
       onGenerateRoute: controller.onGenerateRoute,
     );
 

@@ -4,14 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
-import 'entities/entities.dart';
-
 /// 全局静态数据
 class Global {
   /// 用户配置
-  static UserLoginResponseEntity profile = UserLoginResponseEntity(
-    token: null,
-  );
+  static String profile = '';
 
   /// 发布渠道
   // static String channel = "xiaomi";
@@ -64,12 +60,14 @@ class Global {
     // 读取离线用户信息
     var _profileJSON = StorageUtil().getJSON(storageUserProfileKey);
     if (_profileJSON != null) {
-      profile = UserLoginResponseEntity.fromJson(_profileJSON);
+      profile = _profileJSON;
+      debugPrint(profile);
+
       isOfflineLogin = true;
     }
 
-    debugPrint(isFirstOpen.toString());
-    debugPrint(isOfflineLogin.toString());
+    debugPrint('初始化：第一次登陆：$isFirstOpen');
+    debugPrint('初始化：是否可以离线登陆：$isOfflineLogin');
 
     // android 状态栏为透明的沉浸
     // if (Platform.isAndroid) {
@@ -85,8 +83,8 @@ class Global {
   }
 
   // 持久化 用户信息
-  static Future<bool> saveProfile(UserLoginResponseEntity userResponse) {
-    profile = userResponse;
-    return StorageUtil().setJSON(storageUserProfileKey, userResponse.toJson());
+  static Future<bool> saveProfile(String token) {
+    profile = token;
+    return StorageUtil().setJSON(storageUserProfileKey, token);
   }
 }

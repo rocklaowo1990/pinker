@@ -2,12 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/index/index.dart';
+
+import 'package:pinker/pages/index/frame/index.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class SignBeforeView extends GetView<IndexController> {
-  const SignBeforeView({Key? key}) : super(key: key);
+class FrameView extends GetView<FrameController> {
+  const FrameView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class SignBeforeView extends GetView<IndexController> {
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.transparent,
-        body: controller.isShow.value
+        body: controller.indexController.isShow.value
             ? Stack(
                 // 遮罩层
                 children: [

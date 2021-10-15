@@ -163,12 +163,10 @@ class HttpUtil {
   /// 读取本地配置
   Map<String, dynamic>? getAuthorizationHeader() {
     Map<String, String>? headers;
-    String? accessToken = Global.profile.token;
-    if (accessToken != null) {
-      headers = {
-        'Authorization': 'Bearer $accessToken',
-      };
-    }
+    String? accessToken = Global.profile;
+    headers = {
+      'Authorization': 'Bearer $accessToken',
+    };
     return headers;
   }
 

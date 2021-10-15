@@ -10,8 +10,8 @@ class RouteAuthMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    if (Global.isFirstOpen != true) {
-      return const RouteSettings(name: AppRoutes.index);
+    if (Global.isOfflineLogin) {
+      return null;
     }
     return const RouteSettings(name: AppRoutes.index);
   }
