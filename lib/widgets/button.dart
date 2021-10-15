@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/values/values.dart';
 
+/// 按钮封装
 Widget buttonWidget({
   /// 按钮的背景色
   Color? background,

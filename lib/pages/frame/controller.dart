@@ -6,9 +6,11 @@ import 'package:pinker/pages/frame/login/index.dart';
 import 'package:pinker/pages/frame/register/index.dart';
 
 class FrameController extends GetxController {
+  /// 嵌套路由路径
   final pages = <String>['/index', '/login', '/register'];
 
-  RxBool isShow = false.obs; //控制蒙版是否显示
+  /// 控制蒙版是否显示
+  RxBool isShow = false.obs;
 
   /// 返回默认页面按钮
   void handleGoSignBeforePage() async {
@@ -18,6 +20,7 @@ class FrameController extends GetxController {
     Get.back(id: 1);
   }
 
+  /// 嵌套路由封装
   GetPageRoute _getPageRoute({
     required RouteSettings settings,
     required Widget page,
@@ -32,6 +35,7 @@ class FrameController extends GetxController {
     );
   }
 
+  /// 嵌套路由设置
   Route? onGenerateRoute(RouteSettings settings) {
     if (settings.name == pages[0]) {
       return _getPageRoute(

@@ -4,6 +4,7 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:get/get.dart';
 
+/// 输入框封装
 class InputType {
   static const String count = '手机号码、邮箱地址或账号';
   static const String password = '密码';

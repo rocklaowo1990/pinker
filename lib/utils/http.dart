@@ -4,15 +4,7 @@ import 'package:pinker/values/values.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
-/*
-  * http 操作类
-  *
-  * 手册
-  * https://github.com/flutterchina/dio/blob/master/README-ZH.md
-  *
-  * 从 3 升级到 4
-  * https://github.com/flutterchina/dio/blob/master/migration_to_4.x.md
-*/
+/// http 请求封装
 class HttpUtil {
   static final HttpUtil _instance = HttpUtil._internal();
   factory HttpUtil() => _instance;
