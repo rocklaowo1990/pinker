@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/global.dart';
-
 import 'routes/app_pages.dart';
 import 'utils/utils.dart';
 
@@ -44,12 +44,20 @@ class MyApp extends StatelessWidget {
         // home: SplashPage(),
 
         /// 多语言
-        // locale: TranslationService.locale,
-        // fallbackLocale: TranslationService.fallbackLocale,
-        // translations: TranslationService(),
+        // locale: const Locale('zh', 'CH'), // 将会按照此处指定的语言翻译
+        // fallbackLocale: const Locale('en', 'US'), // 备用语言
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate, //多加这行代码
+        ],
+        supportedLocales: const [
+          Locale('zh', 'CN'), // 中文简体
+          Locale('en', 'US'), // 美国英语
+        ],
 
         /// 主题
-        theme: ThemeData.dark(),
+        // theme: ThemeData.dark(),
       ),
     );
   }

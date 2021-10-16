@@ -41,6 +41,6 @@ dateBottom({
   );
   return Get.bottomSheet(
     bottomsheet,
-    backgroundColor: AppColors.backgroundLight,
+    backgroundColor: AppColors.inputHint,
   );
 }
