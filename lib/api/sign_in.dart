@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:pinker/entities/entities.dart';
 import 'package:pinker/utils/utils.dart';
 
 class AccountApi {
-  static Future signIn({
+  static Future<UserLoginResponseEntity> signIn({
     data,
   }) async {
     var response = await HttpUtil().post(
@@ -12,6 +13,6 @@ class AccountApi {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     );
-    return response;
+    return UserLoginResponseEntity.fromJson(response);
   }
 }

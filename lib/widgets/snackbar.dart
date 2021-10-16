@@ -21,7 +21,7 @@ void snackbar({
     messageText: const SizedBox(height: 0),
     icon: Icon(
       Icons.error,
-      size: 14.w,
+      size: 12.w,
       color: Colors.red,
     ),
     padding: EdgeInsets.only(

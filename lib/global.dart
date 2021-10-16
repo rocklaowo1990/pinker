@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:pinker/entities/user.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
 /// 全局静态数据
 class Global {
   /// 用户配置
-  static String profile = '';
+  static UserLoginResponseEntity? profile = UserLoginResponseEntity(
+    data: null,
+  );
 
   /// 发布渠道
   // static String channel = "xiaomi";
@@ -60,7 +63,7 @@ class Global {
     // 读取离线用户信息
     var _profileJSON = StorageUtil().getJSON(storageUserProfileKey);
     if (_profileJSON != null) {
-      profile = _profileJSON;
+      profile = UserLoginResponseEntity.fromJson(_profileJSON);
       isOfflineLogin = true;
     }
 
@@ -78,8 +81,8 @@ class Global {
   }
 
   // 持久化 用户信息
-  static Future<bool> saveProfile(String token) {
-    profile = token;
-    return StorageUtil().setJSON(storageUserProfileKey, token);
+  static Future<bool> saveProfile(UserLoginResponseEntity profile) {
+    profile = profile;
+    return StorageUtil().setJSON(storageUserProfileKey, profile);
   }
 }

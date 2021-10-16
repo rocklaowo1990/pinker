@@ -51,7 +51,7 @@ class LoginView extends GetView<LoginController> {
 
     /// 底部 bottom 布局
     var bottom = Container(
-      padding: EdgeInsets.only(left: 10.w, right: 10.w),
+      padding: EdgeInsets.only(left: 5.w, right: 5.w),
       width: double.infinity,
       height: 25.h,
       color: AppColors.backgroundLight,

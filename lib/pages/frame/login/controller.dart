@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/api/api.dart';
+import 'package:pinker/entities/user.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/frame/index.dart';
 import 'package:pinker/utils/utils.dart';
@@ -35,23 +36,35 @@ class LoginController extends GetxController {
       return;
     }
 
+    String _accoutnType() {
+      if (userCountController.text.isNum) return '1';
+      if (userCountController.text.isEmail) return '2';
+      return '3';
+    }
+
+    debugPrint(_accoutnType());
+
     /// 准备请求数据
     Map<String, String> data = {
       'account': userCountController.text,
       'password': duMD5(userPasswordController.text),
-      'accountType': '1',
+      'accountType': _accoutnType(),
     };
 
     /// 等待请求结果
-    var userProfile = await AccountApi.signIn(data: data);
+    UserLoginResponseEntity userProfile = await AccountApi.signIn(data: data);
 
     /// 返回数据处理
-    if (userProfile['code'] == 200) {
-      Global.saveProfile(userProfile['data']['token']);
+    if (userProfile.code == 200) {
+      // 储存用户数据
+      Global.saveProfile(userProfile);
+      // 储存第一次登陆信息
       Global.saveAlreadyOpen();
+      // 去往首页
       Get.offAllNamed('/application');
     } else {
-      snackbar(title: userProfile['msg']);
+      // 返回错误信息
+      snackbar(title: userProfile.msg);
     }
   }
 

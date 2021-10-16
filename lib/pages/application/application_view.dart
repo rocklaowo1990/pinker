@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pinker/pages/application/index.dart';
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 class ApplicationView extends GetView<ApplicationController> {
   const ApplicationView({Key? key}) : super(key: key);
@@ -13,11 +14,11 @@ class ApplicationView extends GetView<ApplicationController> {
       appBar: AppBar(
         title: const Text('ApplicationView'),
       ),
-      body: const Center(
-        child: IconButton(
-          icon: Icon(Icons.home),
-          color: AppColors.main,
+      body: Center(
+        child: buttonWidget(
           onPressed: goLoginPage,
+          text: '退出登陆',
+          width: 100.w,
         ),
       ),
     );

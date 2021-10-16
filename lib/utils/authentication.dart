@@ -14,7 +14,7 @@ Future<bool> isAuthenticated() async {
 /// 删除缓存 token
 Future deleteAuthentication() async {
   await StorageUtil().remove(storageUserProfileKey);
-  Global.profile = '';
+  Global.profile = null;
 }
 
 /// 重新登录
