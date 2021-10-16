@@ -70,10 +70,10 @@ class IndexView extends GetView<IndexController> {
       ),
     );
 
-    return Obx(() {
-      return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: controller.frameController.isShow.value
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Obx(
+        () => controller.frameController.isShow.value
             ? Stack(
                 // 遮罩层
                 children: [
@@ -84,7 +84,7 @@ class IndexView extends GetView<IndexController> {
                 ],
               )
             : body,
-      );
-    });
+      ),
+    );
   }
 }

@@ -23,6 +23,9 @@ class AppColors {
   /// 浅灰背景
   static const Color backgroundLight = Color(0xff454a5a);
 
+  /// 按钮禁用状态背景
+  static const Color buttonDisable = Color(0x50919aab);
+
   /// 文字渐变色
   static Shader linearGradientText = const LinearGradient(
     colors: <Color>[

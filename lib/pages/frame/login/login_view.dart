@@ -20,14 +20,13 @@ class LoginView extends GetView<LoginController> {
       controller: controller.userCountController,
       autofocus: true,
       focusNode: controller.userCountFocusNode,
-      onEditingComplete: controller.handleSignIn,
+      textInputAction: TextInputAction.next,
     );
 
     /// 密码输入框
     var userPassword = input(
       type: InputType.password,
       controller: controller.userPasswordController,
-      onEditingComplete: controller.handleSignIn,
       focusNode: controller.userPasswordFocusNode,
     );
 
@@ -42,11 +41,20 @@ class LoginView extends GetView<LoginController> {
     );
 
     /// 登陆按钮
-    var loginButton = buttonWidget(
-      onPressed: controller.handleSignIn,
-      width: 40.w,
-      height: 18.h,
-      text: '登陆',
+    var loginButton = Obx(
+      () => buttonWidget(
+        onPressed: controller.loginButtonDisable.value
+            ? () {}
+            : controller.handleSignIn,
+        width: 40.w,
+        height: 18.h,
+        text: '登陆',
+        textColor:
+            controller.loginButtonDisable.value ? AppColors.darkText : null,
+        background: controller.loginButtonDisable.value
+            ? AppColors.buttonDisable
+            : null,
+      ),
     );
 
     /// 底部 bottom 布局
@@ -88,12 +96,11 @@ class LoginView extends GetView<LoginController> {
       ],
     );
 
-    return Obx(
-      () => Scaffold(
-        backgroundColor: Colors.transparent,
-        body: controller.indexController.isShow.value
-            ? body
-            : Stack(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Obx(
+        () => !controller.indexController.isShow.value
+            ? Stack(
                 // 遮罩层
                 children: [
                   body,
@@ -101,7 +108,8 @@ class LoginView extends GetView<LoginController> {
                     color: Colors.black12,
                   )
                 ],
-              ),
+              )
+            : body,
       ),
     );
   }

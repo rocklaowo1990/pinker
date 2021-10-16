@@ -6,7 +6,14 @@ import 'package:pinker/global.dart';
 import 'routes/app_pages.dart';
 import 'utils/utils.dart';
 
-void main() => Global.init().then((value) => runApp(const MyApp()));
+Future<void> main() async {
+  await initServices();
+  runApp(const MyApp());
+}
+
+Future<void> initServices() async {
+  await Global.init();
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -42,7 +49,7 @@ class MyApp extends StatelessWidget {
         // translations: TranslationService(),
 
         /// 主题
-        // theme: appThemeData,
+        theme: ThemeData.dark(),
       ),
     );
   }

@@ -8,6 +8,9 @@ import 'package:get/get.dart';
 class InputType {
   static const String count = '手机号码、邮箱地址或账号';
   static const String password = '密码';
+  static const String phone = '手机号码';
+  static const String email = '邮箱地址';
+  static const String brith = '1990 年 1 月 1 日';
 }
 
 Widget input({
@@ -16,7 +19,8 @@ Widget input({
   FocusNode? focusNode,
   bool? autofocus,
   TextInputAction? textInputAction,
-  void Function()? onEditingComplete,
+  VoidCallback? onEditingComplete,
+  VoidCallback? onTap,
 }) {
   /// 判断是否是密码输入框
   RxBool isPassword = false.obs;
@@ -55,9 +59,6 @@ Widget input({
 
   /// 根据不同的类型 初始化
   switch (type) {
-    case InputType.count:
-      onPressed = clearText;
-      break;
     case InputType.password:
       onPressed = passwordText;
       isPassword.value = true;
@@ -66,6 +67,8 @@ Widget input({
       break;
 
     default:
+      onPressed = clearText;
+      break;
   }
 
   /// 组件
@@ -105,6 +108,7 @@ Widget input({
       style: TextStyle(fontSize: 8.sp, color: AppColors.white),
       obscureText: isPassword.value,
       onChanged: onChanged,
+      onTap: onTap,
     );
   });
 

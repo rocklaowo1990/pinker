@@ -17,11 +17,38 @@ class LoginController extends GetxController {
   final FocusNode userCountFocusNode = FocusNode();
   final FocusNode userPasswordFocusNode = FocusNode();
 
+  /// 默认按钮为禁用状态
+  RxBool loginButtonDisable = true.obs;
+
+  void _listenerButton() {
+    if (userCountController.text.isNotEmpty &&
+        userPasswordController.text.isNotEmpty) {
+      loginButtonDisable.value = false;
+    } else {
+      loginButtonDisable.value = true;
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    userCountController.addListener(() {
+      _listenerButton();
+    });
+
+    userPasswordController.addListener(() {
+      _listenerButton();
+    });
+  }
+
   /// 去找回密码页面
   void handleGoForgetPasswordPage() {}
 
   /// 用户登陆
   void handleSignIn() async {
+    /// 防抖
+    loginButtonDisable.value = true;
+
     /// 账号为空，退出
     if (userCountController.text.isEmpty) {
       snackbar(title: '请输入手机号码、邮箱或账号');
@@ -42,8 +69,6 @@ class LoginController extends GetxController {
       return '3';
     }
 
-    debugPrint(_accoutnType());
-
     /// 准备请求数据
     Map<String, String> data = {
       'account': userCountController.text,
@@ -56,6 +81,8 @@ class LoginController extends GetxController {
 
     /// 返回数据处理
     if (userProfile.code == 200) {
+      userCountFocusNode.unfocus();
+      userPasswordFocusNode.unfocus();
       // 储存用户数据
       Global.saveProfile(userProfile);
       // 储存第一次登陆信息
@@ -63,6 +90,10 @@ class LoginController extends GetxController {
       // 去往首页
       Get.offAllNamed('/application');
     } else {
+      /// 启用按钮
+      Future.delayed(const Duration(seconds: 3), () {
+        loginButtonDisable.value = false;
+      });
       // 返回错误信息
       snackbar(title: userProfile.msg);
     }

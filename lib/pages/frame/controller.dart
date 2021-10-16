@@ -15,8 +15,6 @@ class FrameController extends GetxController {
   /// 返回默认页面按钮
   void handleGoSignBeforePage() async {
     isShow.value = false;
-    FocusScope.of(Get.context!).requestFocus(FocusNode());
-    // await Future.delayed(const Duration(milliseconds: 200));
     Get.back(id: 1);
   }
 
