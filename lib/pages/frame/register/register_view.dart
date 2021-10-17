@@ -36,16 +36,16 @@ class RegisterView extends GetView<RegisterController> {
       background: AppColors.inputFiled,
     );
 
-    /// 改用电子邮箱
-    var forgetPasswordButton = Obx(
+    /// 切换手机和邮箱登陆方式
+    var registerChanged = Obx(
       () => buttonWidget(
         onPressed: controller.handleChangeRegister,
         text: controller.phoneRegister.value
-            ? Lang.registerEmail.tr
-            : Lang.registerPhone.tr,
+            ? Lang.registerPhone.tr
+            : Lang.registerEmail.tr,
         height: 16.h,
         background: Colors.transparent,
-        textColor: AppColors.main,
+        textColor: AppColors.mainColor,
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 5.w),
       ),
@@ -60,7 +60,7 @@ class RegisterView extends GetView<RegisterController> {
         height: 18.h,
         text: Lang.registerNext.tr,
         textColor:
-            controller.nextButtonDisable.value ? AppColors.darkText : null,
+            controller.nextButtonDisable.value ? AppColors.secondText : null,
         background:
             controller.nextButtonDisable.value ? AppColors.buttonDisable : null,
       ),
@@ -71,11 +71,11 @@ class RegisterView extends GetView<RegisterController> {
       padding: EdgeInsets.only(left: 5.w, right: 5.w),
       width: double.infinity,
       height: 25.h,
-      color: AppColors.backgroundLight,
+      color: AppColors.secondBacground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: forgetPasswordButton),
+          Expanded(child: registerChanged),
           nextButton,
         ],
       ),

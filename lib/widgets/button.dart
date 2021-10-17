@@ -53,13 +53,13 @@ Widget buttonWidget({
 
         /// 按钮背景色，默认主色
         backgroundColor:
-            MaterialStateProperty.all(background ?? AppColors.main),
+            MaterialStateProperty.all(background ?? AppColors.mainColor),
       ),
       child: Text(
         text,
         style: TextStyle(
           /// 文字默认白色
-          color: textColor ?? AppColors.white,
+          color: textColor ?? AppColors.mainText,
           fontSize: 8.sp,
         ),
       ),

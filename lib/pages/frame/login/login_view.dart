@@ -39,7 +39,7 @@ class LoginView extends GetView<LoginController> {
       text: Lang.loginForget.tr,
       height: 16.h,
       background: Colors.transparent,
-      textColor: AppColors.main,
+      textColor: AppColors.mainColor,
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.only(left: 5.w),
     );
@@ -65,7 +65,7 @@ class LoginView extends GetView<LoginController> {
             width: 10.h,
             height: 10.h,
             child: const CircularProgressIndicator(
-              color: AppColors.white,
+              color: AppColors.mainText,
               strokeWidth: 2.0,
             ),
           ),
@@ -76,7 +76,7 @@ class LoginView extends GetView<LoginController> {
       padding: EdgeInsets.only(left: 5.w, right: 5.w),
       width: double.infinity,
       height: 25.h,
-      color: AppColors.backgroundLight,
+      color: AppColors.secondBacground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

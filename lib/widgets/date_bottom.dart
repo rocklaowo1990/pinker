@@ -9,7 +9,7 @@ Future dateBottom({
   required String title,
 }) {
   var button = Container(
-    color: AppColors.backgroundLight,
+    color: AppColors.secondBacground,
     width: double.infinity,
     height: 25.h,
     child: TextButton(
@@ -18,7 +18,7 @@ Future dateBottom({
       },
       child: Text(
         title,
-        style: const TextStyle(color: AppColors.main),
+        style: const TextStyle(color: AppColors.mainColor),
       ),
     ),
   );

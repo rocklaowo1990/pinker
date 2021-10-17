@@ -10,12 +10,12 @@ void snackbar({
   return Get.snackbar(
     title ?? '',
     '',
-    colorText: AppColors.white,
+    colorText: AppColors.mainText,
     titleText: Text(
       title ?? '',
       style: TextStyle(
         fontSize: 8.sp,
-        color: AppColors.white,
+        color: AppColors.mainText,
       ),
     ),
     messageText: const SizedBox(height: 0),

@@ -101,9 +101,9 @@ Widget input({
           hintText: type,
           hintStyle: TextStyle(
             fontSize: 8.sp,
-            color: AppColors.darkText,
+            color: AppColors.secondText,
           )),
-      style: TextStyle(fontSize: 8.sp, color: AppColors.white),
+      style: TextStyle(fontSize: 8.sp, color: AppColors.mainText),
       obscureText: isPassword.value,
       onChanged: onChanged,
       enabled: enabled?.value == null

@@ -19,7 +19,7 @@ class IndexView extends GetView<IndexController> {
       style: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w600,
-        foreground: Paint()..shader = AppColors.linearGradientText,
+        color: AppColors.mainText,
       ),
     );
 
@@ -35,11 +35,11 @@ class IndexView extends GetView<IndexController> {
       child: RichText(
         text: TextSpan(
           text: Lang.indexHint.tr,
-          style: TextStyle(fontSize: 8.sp, color: AppColors.darkText),
+          style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
           children: [
             TextSpan(
               text: Lang.indexGoLogin.tr,
-              style: TextStyle(fontSize: 8.sp, color: AppColors.main),
+              style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
               recognizer: TapGestureRecognizer()
                 ..onTap = controller.handleGoSignInPage,
             ),

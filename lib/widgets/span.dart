@@ -13,7 +13,7 @@ Widget span({
     text,
     style: TextStyle(
       fontSize: size ?? 8.sp,
-      color: color ?? AppColors.white,
+      color: color ?? AppColors.mainText,
     ),
   );
 }
