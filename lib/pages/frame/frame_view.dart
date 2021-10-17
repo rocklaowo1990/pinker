@@ -24,18 +24,37 @@ class FrameView extends GetView<FrameController> {
       height: 48.h - 16.h,
     );
 
-    /// appBar 左侧的返回按钮
-    var buttonBox = SizedBox(
-      width: 48.h - 16.h,
-      height: 48.h - 16.h,
-      child: IconButton(
-        onPressed: controller.handleGoSignBeforePage,
-        icon: Icon(
-          IconFont.back,
-          color: AppColors.white,
-          size: 8.5.w,
+    /// 按钮函数
+    Widget _buttonBox({
+      required IconData icon,
+      required VoidCallback onPressed,
+      double? size,
+    }) {
+      return SizedBox(
+        width: 48.h - 16.h,
+        height: 48.h - 16.h,
+        child: IconButton(
+          onPressed: onPressed,
+          icon: Icon(
+            icon,
+            color: AppColors.white,
+            size: size ?? 8.5.w,
+          ),
         ),
-      ),
+      );
+    }
+
+    /// appBar 左侧的返回按钮
+    var buttonBox = _buttonBox(
+      icon: IconFont.back,
+      onPressed: controller.handleGoSignBeforePage,
+    );
+
+    /// appBar 右侧的设置按钮
+    var settingBox = _buttonBox(
+      icon: Icons.settings,
+      size: 11.w,
+      onPressed: () {},
     );
 
     /// appBar 布局
@@ -49,7 +68,8 @@ class FrameView extends GetView<FrameController> {
           children: [
             controller.isShow.value ? buttonBox : emptyBox,
             logo,
-            emptyBox,
+            // !controller.isShow.value ? settingBox : emptyBox,
+            settingBox
           ],
         ),
       ),
