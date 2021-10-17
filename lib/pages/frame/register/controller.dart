@@ -48,7 +48,7 @@ class RegisterController extends GetxController {
   void handleChangeRegister() {
     userRegisterController.text = '';
     phoneRegister.value = !phoneRegister.value;
-    FocusScope.of(Get.context!).requestFocus(userRegisterFocusNode);
+    userRegisterFocusNode.requestFocus();
   }
 
   @override

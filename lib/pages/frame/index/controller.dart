@@ -7,7 +7,7 @@ class IndexController extends GetxController {
   /// 去登陆页面按钮
   void handleGoSignInPage() {
     frameController.isShow.value = true;
-    // await Future.delayed(const Duration(milliseconds: 100));
+
     Get.toNamed(frameController.pages[1], id: 1);
   }
 

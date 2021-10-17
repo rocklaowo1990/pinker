@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/index/index.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -14,7 +15,7 @@ class IndexView extends GetView<IndexController> {
   Widget build(BuildContext context) {
     /// 标题
     var text = Text(
-      '查看世界正在发生的新鲜事情',
+      Lang.indexTitle.tr,
       style: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w600,
@@ -25,7 +26,7 @@ class IndexView extends GetView<IndexController> {
     /// 去注册页面的按钮
     var signUpButton = buttonWidget(
       onPressed: controller.handleGoSignUpPage,
-      text: '创建账号',
+      text: Lang.indexGoRegister.tr,
     );
 
     /// 去登陆页面的按钮
@@ -33,11 +34,11 @@ class IndexView extends GetView<IndexController> {
       width: double.infinity,
       child: RichText(
         text: TextSpan(
-          text: '已有账号了？',
+          text: Lang.indexHint.tr,
           style: TextStyle(fontSize: 8.sp, color: AppColors.darkText),
           children: [
             TextSpan(
-              text: ' 去登陆',
+              text: Lang.indexGoLogin.tr,
               style: TextStyle(fontSize: 8.sp, color: AppColors.main),
               recognizer: TapGestureRecognizer()
                 ..onTap = controller.handleGoSignInPage,

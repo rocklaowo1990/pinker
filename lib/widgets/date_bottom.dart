@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/values/values.dart';
 
-dateBottom({
+Future dateBottom({
   required String title,
 }) {
   var button = Container(

@@ -73,9 +73,19 @@ class HttpUtil {
         ErrorEntity eInfo = createErrorEntity(e);
         switch (eInfo.code) {
           case 401: // 没有权限 重新登录
-            // goLoginPage(context);
             break;
+
           default:
+            return handler.resolve(Response(
+              data: {
+                'code': -1,
+                'msg': '网络连接失败',
+                'data': '',
+              },
+              requestOptions: RequestOptions(
+                path: '',
+              ),
+            ));
         }
         return handler.next(e); //continue
         // 如果你想完成请求并返回一些自定义数据，可以resolve 一个`Response`,如`handler.resolve(response)`。

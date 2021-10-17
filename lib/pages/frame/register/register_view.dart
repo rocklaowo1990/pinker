@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/frame/register/controller.dart';
 import 'package:pinker/values/values.dart';
@@ -12,13 +13,14 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    var title = span(text: '创建您的账号', size: 16.sp);
+    var title = span(text: Lang.registerTitle.tr, size: 16.sp);
 
     /// 账号输入框
     var userRegister = Obx(
       () => input(
-        type:
-            controller.phoneRegister.value ? InputType.phone : InputType.email,
+        type: controller.phoneRegister.value
+            ? Lang.inputPhone.tr
+            : Lang.inputEmail.tr,
         controller: controller.userRegisterController,
         autofocus: true,
         focusNode: controller.userRegisterFocusNode,
@@ -28,7 +30,7 @@ class RegisterView extends GetView<RegisterController> {
     /// 生日输入框
     var userBirth = buttonWidget(
       onPressed: controller.birthChoice,
-      text: '1990 年 1 月 1 日',
+      text: '1990 - 01 - 01',
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.only(left: 10.w),
       background: AppColors.inputFiled,
@@ -38,11 +40,14 @@ class RegisterView extends GetView<RegisterController> {
     var forgetPasswordButton = Obx(
       () => buttonWidget(
         onPressed: controller.handleChangeRegister,
-        text: controller.phoneRegister.value ? '改用电子邮箱' : '改用手机',
-        width: controller.phoneRegister.value ? 56.h : 40.h,
+        text: controller.phoneRegister.value
+            ? Lang.registerEmail.tr
+            : Lang.registerPhone.tr,
         height: 16.h,
         background: Colors.transparent,
         textColor: AppColors.main,
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 5.w),
       ),
     );
 
@@ -53,7 +58,7 @@ class RegisterView extends GetView<RegisterController> {
             controller.nextButtonDisable.value ? () {} : controller.handleNext,
         width: 40.w,
         height: 18.h,
-        text: '下一步',
+        text: Lang.registerNext.tr,
         textColor:
             controller.nextButtonDisable.value ? AppColors.darkText : null,
         background:
@@ -70,7 +75,7 @@ class RegisterView extends GetView<RegisterController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          forgetPasswordButton,
+          Expanded(child: forgetPasswordButton),
           nextButton,
         ],
       ),

@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pinker/lang/translation_service.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:get/get.dart';
 
-/// 输入框封装
-class InputType {
-  static const String count = '手机号码、邮箱地址或账号';
-  static const String password = '密码';
-  static const String phone = '手机号码';
-  static const String email = '邮箱地址';
-  static const String brith = '1990 年 1 月 1 日';
-}
-
 Widget input({
+  /// 键盘的类型
   required String type,
+
+  /// 控制器
   required TextEditingController controller,
-  FocusNode? focusNode,
+
+  /// 焦点
+  required FocusNode focusNode,
+
+  /// 是否自动获取焦点
   bool? autofocus,
+
+  /// 是否禁用
+  RxBool? enabled,
+
+  /// 键盘右下角的按钮类型
   TextInputAction? textInputAction,
-  VoidCallback? onEditingComplete,
-  VoidCallback? onTap,
 }) {
   /// 判断是否是密码输入框
   RxBool isPassword = false.obs;
@@ -41,7 +44,7 @@ Widget input({
   void clearText() {
     controller.text = '';
     textObs.value = controller.text;
-    FocusScope.of(Get.context!).requestFocus(focusNode);
+    focusNode.requestFocus();
   }
 
   /// 显示密码 和 隐藏密码
@@ -58,23 +61,18 @@ Widget input({
   }
 
   /// 根据不同的类型 初始化
-  switch (type) {
-    case InputType.password:
-      onPressed = passwordText;
-      isPassword.value = true;
-      keyboardType = TextInputType.visiblePassword;
-      suffixIcon.value = Icons.visibility_off;
-      break;
-
-    default:
-      onPressed = clearText;
-      break;
+  if (type == Lang.inputPassword.tr) {
+    onPressed = passwordText;
+    isPassword.value = true;
+    keyboardType = TextInputType.visiblePassword;
+    suffixIcon.value = Icons.visibility_off;
+  } else {
+    onPressed = clearText;
   }
 
   /// 组件
   Obx textField = Obx(() {
     return TextField(
-      onEditingComplete: onEditingComplete,
       textInputAction: textInputAction,
       autofocus: autofocus ?? false,
       focusNode: focusNode,
@@ -108,7 +106,11 @@ Widget input({
       style: TextStyle(fontSize: 8.sp, color: AppColors.white),
       obscureText: isPassword.value,
       onChanged: onChanged,
-      onTap: onTap,
+      enabled: enabled?.value == null
+          ? null
+          : enabled!.value
+              ? false
+              : true,
     );
   });
 

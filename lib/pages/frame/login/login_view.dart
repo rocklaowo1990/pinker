@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/frame/login/index.dart';
 import 'package:pinker/values/values.dart';
@@ -12,50 +14,63 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    var title = span(text: '登陆 Pinker', size: 16.sp);
+    var title = span(text: Lang.loginTitle.tr, size: 16.sp);
 
     /// 账号输入框
     var userCount = input(
-      type: InputType.count,
+      type: Lang.inputCount.tr,
       controller: controller.userCountController,
       autofocus: true,
       focusNode: controller.userCountFocusNode,
       textInputAction: TextInputAction.next,
+      enabled: controller.loginButtonDisable,
     );
 
     /// 密码输入框
     var userPassword = input(
-      type: InputType.password,
+      type: Lang.inputPassword.tr,
       controller: controller.userPasswordController,
       focusNode: controller.userPasswordFocusNode,
+      enabled: controller.loginButtonDisable,
     );
 
     /// 找回密码按钮
     var forgetPasswordButton = buttonWidget(
       onPressed: controller.handleGoForgetPasswordPage,
-      text: '忘记密码',
-      width: 40.h,
+      text: Lang.loginForget.tr,
       height: 16.h,
       background: Colors.transparent,
       textColor: AppColors.main,
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(left: 5.w),
     );
 
     /// 登陆按钮
-    var loginButton = Obx(
-      () => buttonWidget(
-        onPressed: controller.loginButtonDisable.value
-            ? () {}
-            : controller.handleSignIn,
+    var loginButton = buttonWidget(
+      onPressed: controller.handleSignIn,
+      width: 40.w,
+      height: 18.h,
+      text: Lang.loginButton.tr,
+    );
+
+    /// 登陆按钮禁用状态
+    var loginButtonDisable = Container(
         width: 40.w,
         height: 18.h,
-        text: '登陆',
-        textColor:
-            controller.loginButtonDisable.value ? AppColors.darkText : null,
-        background: controller.loginButtonDisable.value
-            ? AppColors.buttonDisable
-            : null,
-      ),
-    );
+        decoration: BoxDecoration(
+          color: AppColors.buttonDisable,
+          borderRadius: BorderRadius.all(Radius.circular(187.5.w)),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 10.h,
+            height: 10.h,
+            child: const CircularProgressIndicator(
+              color: AppColors.white,
+              strokeWidth: 2.0,
+            ),
+          ),
+        ));
 
     /// 底部 bottom 布局
     var bottom = Container(
@@ -66,8 +81,12 @@ class LoginView extends GetView<LoginController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          forgetPasswordButton,
-          loginButton,
+          Expanded(child: forgetPasswordButton),
+          Obx(
+            () => controller.loginButtonDisable.value
+                ? loginButtonDisable
+                : loginButton,
+          ),
         ],
       ),
     );
@@ -87,8 +106,10 @@ class LoginView extends GetView<LoginController> {
               title,
               SizedBox(height: 30.h),
               userCount,
-              SizedBox(height: 6.h),
-              userPassword,
+              Padding(
+                padding: EdgeInsets.only(top: 6.h),
+                child: userPassword,
+              ),
             ],
           ),
         ),
