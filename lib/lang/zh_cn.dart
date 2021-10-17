@@ -1,6 +1,9 @@
 part of "translation_service.dart";
 
 const Map<String, String> zh = {
+  /// 公共
+  Lang.sure: '确认',
+
   /// 默认页面
   Lang.indexGoLogin: ' 去登陆',
   Lang.indexGoRegister: '创建账号',

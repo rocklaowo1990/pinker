@@ -1,6 +1,9 @@
 part of "translation_service.dart";
 
 const Map<String, String> en = {
+  /// 公共
+  Lang.sure: 'sure',
+
   /// 默认页面
   Lang.indexGoLogin: ' Sign In',
   Lang.indexGoRegister: 'Sign Up',

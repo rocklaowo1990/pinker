@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/login/index.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -33,61 +33,12 @@ class LoginView extends GetView<LoginController> {
       enabled: controller.loginButtonDisable,
     );
 
-    /// 找回密码按钮
-    var forgetPasswordButton = buttonWidget(
-      onPressed: controller.handleGoForgetPasswordPage,
-      text: Lang.loginForget.tr,
-      height: 16.h,
-      background: Colors.transparent,
-      textColor: AppColors.mainColor,
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 5.w),
-    );
-
-    /// 登陆按钮
-    var loginButton = buttonWidget(
-      onPressed: controller.handleSignIn,
-      width: 40.w,
-      height: 18.h,
-      text: Lang.loginButton.tr,
-    );
-
-    /// 登陆按钮禁用状态
-    var loginButtonDisable = Container(
-        width: 40.w,
-        height: 18.h,
-        decoration: BoxDecoration(
-          color: AppColors.buttonDisable,
-          borderRadius: BorderRadius.all(Radius.circular(187.5.w)),
-        ),
-        child: Center(
-          child: SizedBox(
-            width: 10.h,
-            height: 10.h,
-            child: const CircularProgressIndicator(
-              color: AppColors.mainText,
-              strokeWidth: 2.0,
-            ),
-          ),
-        ));
-
-    /// 底部 bottom 布局
-    var bottom = Container(
-      padding: EdgeInsets.only(left: 5.w, right: 5.w),
-      width: double.infinity,
-      height: 25.h,
-      color: AppColors.secondBacground,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child: forgetPasswordButton),
-          Obx(
-            () => controller.loginButtonDisable.value
-                ? loginButtonDisable
-                : loginButton,
-          ),
-        ],
-      ),
+    var bottom = bottomButton(
+      onPressedLeft: controller.handleGoForgetPasswordPage,
+      onPressedRight: controller.handleSignIn,
+      disable: controller.loginButtonDisable,
+      textLeft: Lang.loginForget.tr,
+      textRight: Lang.loginButton.tr,
     );
 
     /// body布局

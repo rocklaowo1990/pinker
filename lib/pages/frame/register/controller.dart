@@ -15,34 +15,35 @@ class RegisterController extends GetxController {
   RxBool phoneRegister = true.obs;
 
   /// 默认按钮为禁用状态
-  RxBool nextButtonDisable = true.obs;
+  RxBool nextButtonDisable = false.obs;
 
-  void _listenerButton() {
-    nextButtonDisable.value =
-        userRegisterController.text.isNotEmpty ? false : true;
+  /// 关闭键盘
+  void _unfocus() {
+    userRegisterFocusNode.unfocus();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    userRegisterController.addListener(() {
-      _listenerButton();
-    });
-  }
+  void handleNext() async {
+    /// 关闭键盘
+    _unfocus();
 
-  void handleNext() {
     /// 防抖
     nextButtonDisable.value = true;
 
-    /// 启用按钮
-    Future.delayed(const Duration(seconds: 3), () {
+    await Future.delayed(const Duration(seconds: 2), () {
       nextButtonDisable.value = false;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 200), () {
+      userRegisterFocusNode.requestFocus();
     });
   }
 
   void birthChoice() {
     userRegisterFocusNode.unfocus();
-    dateBottom(title: 'asfsafas');
+    dateBottom(
+      date: 'Lang.sure.tr',
+      onPressed: () {},
+    );
   }
 
   void handleChangeRegister() {

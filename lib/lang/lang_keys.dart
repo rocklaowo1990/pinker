@@ -1,6 +1,9 @@
 part of 'translation_service.dart';
 
 abstract class Lang {
+  /// 公共
+  static const sure = "sure";
+
   /// 默认页面
   static const indexTitle = "indexTitle";
   static const indexGoRegister = 'indexGoRegister';

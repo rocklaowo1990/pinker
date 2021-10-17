@@ -8,13 +8,13 @@ Widget buttonWidget({
   Color? background,
 
   /// 按钮的点击事件
-  required VoidCallback onPressed,
+  VoidCallback? onPressed,
 
   /// 文字颜色
   Color? textColor,
 
   /// 按钮文本
-  required String text,
+  String? text,
 
   /// 按钮高度
   double? height,
@@ -35,7 +35,7 @@ Widget buttonWidget({
     /// 高度默认是24
     height: height ?? 8.h + 10.h + 10.h,
     child: TextButton(
-      onPressed: onPressed,
+      onPressed: onPressed ?? () {},
       style: ButtonStyle(
         /// 对其方式，默认居中对齐
         alignment: alignment ?? Alignment.center,
@@ -56,7 +56,7 @@ Widget buttonWidget({
             MaterialStateProperty.all(background ?? AppColors.mainColor),
       ),
       child: Text(
-        text,
+        text ?? '',
         style: TextStyle(
           /// 文字默认白色
           color: textColor ?? AppColors.mainText,

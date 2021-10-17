@@ -1,28 +1,44 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/button.dart';
 
 Future dateBottom({
-  required String title,
+  required String date,
+  required VoidCallback onPressed,
 }) {
   var button = Container(
+    padding: EdgeInsets.only(right: 10.w, left: 10.w),
     color: AppColors.secondBacground,
     width: double.infinity,
-    height: 25.h,
-    child: TextButton(
-      onPressed: () {
-        Get.back();
-      },
-      child: Text(
-        title,
-        style: const TextStyle(color: AppColors.mainColor),
-      ),
+    height: 30.h,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            date,
+            style: TextStyle(
+              color: AppColors.mainText,
+              fontSize: 8.sp,
+            ),
+          ),
+        ),
+        buttonWidget(
+          width: 40.w,
+          height: 18.h,
+          onPressed: onPressed,
+          text: Lang.sure.tr,
+        ),
+      ],
     ),
   );
-  var date = CupertinoDatePicker(
+  var dateBox = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: (e) {},
     initialDateTime: DateTime(1990, 1, 1),
@@ -35,7 +51,7 @@ Future dateBottom({
     child: Column(
       children: [
         button,
-        Expanded(child: date),
+        Expanded(child: dateBox),
       ],
     ),
   );

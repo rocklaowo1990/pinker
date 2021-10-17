@@ -40,14 +40,15 @@ class FrameView extends GetView<FrameController> {
 
     /// appBar 左侧的返回按钮
     var buttonBox = _buttonBox(
-      icon: IconFont.back,
+      icon: Icons.arrow_back_ios_new,
+      size: 9.w,
       onPressed: controller.handleGoSignBeforePage,
     );
 
     /// appBar 右侧的设置按钮
     var settingBox = _buttonBox(
       icon: Icons.settings,
-      size: 11.w,
+      size: 10.w,
       onPressed: () {},
     );
 
@@ -63,6 +64,7 @@ class FrameView extends GetView<FrameController> {
       leading: Obx(() => controller.isShow.value ? buttonBox : emptyBox),
       actions: [
         settingBox,
+        SizedBox(width: 3.w),
       ],
     );
 

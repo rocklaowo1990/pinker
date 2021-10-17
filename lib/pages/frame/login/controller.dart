@@ -44,17 +44,25 @@ class LoginController extends GetxController {
 
     /// 账号为空，退出
     if (userCountController.text.isEmpty) {
-      snackbar(title: '请输入手机号码、邮箱或账号');
-      userCountFocusNode.requestFocus();
-      loginButtonDisable.value = false;
+      await Future.delayed(const Duration(seconds: 2), () {
+        loginButtonDisable.value = false;
+      });
+      await Future.delayed(const Duration(milliseconds: 200), () {
+        userCountFocusNode.requestFocus();
+        snackbar(title: '请输入手机号码、邮箱或账号');
+      });
       return;
     }
 
     /// 密码为空，退出
     if (userPasswordController.text.isEmpty) {
-      snackbar(title: '密码不能为空');
-      userPasswordFocusNode.requestFocus();
-      loginButtonDisable.value = false;
+      await Future.delayed(const Duration(seconds: 2), () {
+        loginButtonDisable.value = false;
+      });
+      await Future.delayed(const Duration(milliseconds: 200), () {
+        userPasswordFocusNode.requestFocus();
+        snackbar(title: '密码不能为空');
+      });
       return;
     }
 

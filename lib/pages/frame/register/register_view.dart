@@ -24,22 +24,28 @@ class RegisterView extends GetView<RegisterController> {
         controller: controller.userRegisterController,
         autofocus: true,
         focusNode: controller.userRegisterFocusNode,
+        enabled: controller.nextButtonDisable,
       ),
     );
 
     /// 生日输入框
-    var userBirth = buttonWidget(
-      onPressed: controller.birthChoice,
-      text: '1990 - 01 - 01',
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 10.w),
-      background: AppColors.inputFiled,
+    var userBirth = Obx(
+      () => buttonWidget(
+        onPressed:
+            controller.nextButtonDisable.value ? () {} : controller.birthChoice,
+        text: '1990 - 01 - 01',
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 10.w),
+        background: AppColors.inputFiled,
+      ),
     );
 
     /// 切换手机和邮箱登陆方式
     var registerChanged = Obx(
       () => buttonWidget(
-        onPressed: controller.handleChangeRegister,
+        onPressed: controller.nextButtonDisable.value
+            ? () {}
+            : controller.handleChangeRegister,
         text: controller.phoneRegister.value
             ? Lang.registerPhone.tr
             : Lang.registerEmail.tr,
@@ -76,6 +82,7 @@ class RegisterView extends GetView<RegisterController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(child: registerChanged),
+          const Spacer(),
           nextButton,
         ],
       ),
