@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:pinker/entities/user.dart';
-import 'package:pinker/global.dart';
-import 'package:pinker/values/values.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+
+import 'package:pinker/entities/entities.dart';
+import 'package:pinker/global.dart';
+import 'package:pinker/values/values.dart';
 
 /// http 请求封装
 class HttpUtil {

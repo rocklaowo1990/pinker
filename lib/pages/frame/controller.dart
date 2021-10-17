@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/frame/index/index.dart';
 
+import 'package:pinker/pages/frame/index/index.dart';
 import 'package:pinker/pages/frame/login/index.dart';
 import 'package:pinker/pages/frame/register/index.dart';
 

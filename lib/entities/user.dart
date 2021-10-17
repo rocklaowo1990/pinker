@@ -1,26 +1,4 @@
-// 登录请求
-class UserLoginRequestEntity {
-  String email;
-  String password;
-
-  UserLoginRequestEntity({
-    required this.email,
-    required this.password,
-  });
-
-  factory UserLoginRequestEntity.fromJson(Map<String, dynamic> json) =>
-      UserLoginRequestEntity(
-        email: json["email"],
-        password: json["password"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "email": email,
-        "password": password,
-      };
-}
-
-// 登录返回
+// 登录返回数据格式化
 class UserLoginResponseEntity {
   UserLoginResponseEntity({
     this.code,

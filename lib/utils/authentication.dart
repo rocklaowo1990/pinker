@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:get/get.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/utils/utils.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pinker/lang/translation_service.dart';
+import 'package:get/get.dart';
 
+import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
-import 'package:get/get.dart';
 
 Widget input({
   /// 键盘的类型
