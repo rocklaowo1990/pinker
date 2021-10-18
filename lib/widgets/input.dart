@@ -19,13 +19,13 @@ Widget input({
   /// 是否自动获取焦点
   bool? autofocus,
 
-  /// 是否禁用
+  /// 禁用启用开关
   RxBool? enabled,
 
   /// 键盘右下角的按钮类型
   TextInputAction? textInputAction,
 }) {
-  /// 判断是否是密码输入框
+  /// 判断是否显示密码
   RxBool isPassword = false.obs;
 
   /// 根据不同的类型给予不同的键盘类型
@@ -50,7 +50,7 @@ Widget input({
   /// 显示密码 和 隐藏密码
   void passwordText() {
     isPassword.value = !isPassword.value;
-    FocusScope.of(Get.context!).requestFocus(focusNode);
+    focusNode.requestFocus();
     suffixIcon.value =
         isPassword.value ? Icons.visibility_off : Icons.visibility;
   }
@@ -86,7 +86,7 @@ Widget input({
                   icon: Icon(
                     suffixIcon.value,
                     color: AppColors.inputHint,
-                    size: 9.w,
+                    size: 8.sp,
                   ),
                 ),
           contentPadding: EdgeInsets.fromLTRB(10.w, 6.h, 10.w, 6.h),

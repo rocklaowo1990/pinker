@@ -14,23 +14,20 @@ class IndexView extends GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    var text = Text(
-      Lang.indexTitle.tr,
-      style: TextStyle(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w600,
-        color: AppColors.mainText,
-      ),
+    Widget text = span(
+      text: Lang.indexTitle.tr,
+      size: 16.sp,
+      fontWeight: FontWeight.w600,
     );
 
     /// 去注册页面的按钮
-    var signUpButton = buttonWidget(
+    Widget signUpButton = buttonWidget(
       onPressed: controller.handleGoSignUpPage,
-      text: Lang.indexGoRegister.tr,
+      child: span(text: Lang.indexGoRegister.tr),
     );
 
     /// 去登陆页面的按钮
-    var signInbutton = SizedBox(
+    Widget signInbutton = SizedBox(
       width: double.infinity,
       child: RichText(
         text: TextSpan(
@@ -49,7 +46,7 @@ class IndexView extends GetView<IndexController> {
     );
 
     /// body 布局
-    var body = Padding(
+    Widget body = Padding(
       padding: EdgeInsets.only(
         right: 20.w,
         bottom: 30.h,

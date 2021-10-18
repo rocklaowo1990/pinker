@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/register/controller.dart';
 import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterView extends GetView<RegisterController> {
@@ -13,10 +14,10 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    var title = span(text: Lang.registerTitle.tr, size: 16.sp);
+    Widget title = span(text: Lang.registerTitle.tr, size: 16.sp);
 
     /// 账号输入框
-    var userRegister = Obx(
+    Widget userRegister = Obx(
       () => input(
         type: controller.phoneRegister.value
             ? Lang.inputPhone.tr
@@ -24,72 +25,39 @@ class RegisterView extends GetView<RegisterController> {
         controller: controller.userRegisterController,
         autofocus: true,
         focusNode: controller.userRegisterFocusNode,
-        enabled: controller.nextButtonDisable,
+        enabled: controller.loading,
       ),
     );
 
     /// 生日输入框
-    var userBirth = Obx(
+    Widget userBirth = Obx(
       () => buttonWidget(
-        onPressed:
-            controller.nextButtonDisable.value ? () {} : controller.birthChoice,
-        text: '1990 - 01 - 01',
+        onPressed: controller.loading.value ? () {} : controller.birthChoice,
+        child: span(
+            text:
+                '${controller.dateTime.value.year}-${controller.dateTime.value.month}-${controller.dateTime.value.day}'),
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 10.w),
         background: AppColors.inputFiled,
       ),
     );
 
-    /// 切换手机和邮箱登陆方式
-    var registerChanged = Obx(
-      () => buttonWidget(
-        onPressed: controller.nextButtonDisable.value
-            ? () {}
-            : controller.handleChangeRegister,
-        text: controller.phoneRegister.value
+    /// 底部
+    Widget bottom = Obx(
+      () => bottomButton(
+        onPressedLeft: controller.handleChangeRegister,
+        onPressedRight: controller.handleNext,
+        disable: controller.buttonDisable,
+        loading: controller.loading,
+        textLeft: controller.phoneRegister.value
             ? Lang.registerPhone.tr
             : Lang.registerEmail.tr,
-        height: 16.h,
-        background: Colors.transparent,
-        textColor: AppColors.mainColor,
-        alignment: Alignment.centerLeft,
-        padding: EdgeInsets.only(left: 5.w),
-      ),
-    );
-
-    /// 下一步按钮
-    var nextButton = Obx(
-      () => buttonWidget(
-        onPressed:
-            controller.nextButtonDisable.value ? () {} : controller.handleNext,
-        width: 40.w,
-        height: 18.h,
-        text: Lang.registerNext.tr,
-        textColor:
-            controller.nextButtonDisable.value ? AppColors.secondText : null,
-        background:
-            controller.nextButtonDisable.value ? AppColors.buttonDisable : null,
-      ),
-    );
-
-    /// 底部 bottom 布局
-    var bottom = Container(
-      padding: EdgeInsets.only(left: 5.w, right: 5.w),
-      width: double.infinity,
-      height: 25.h,
-      color: AppColors.secondBacground,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child: registerChanged),
-          const Spacer(),
-          nextButton,
-        ],
+        textRight: Lang.registerNext.tr,
       ),
     );
 
     /// body布局
-    var body = Column(
+    Widget body = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(

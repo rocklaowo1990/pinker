@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 /// 顶部弹窗封装
-void snackbar({
-  String? title,
+void snackError({
+  String? msg,
+  IconData? iconData,
 }) {
   return Get.snackbar(
-    title ?? '',
+    msg ?? '',
     '',
     colorText: AppColors.mainText,
-    titleText: Text(
-      title ?? '',
-      style: TextStyle(
-        fontSize: 8.sp,
-        color: AppColors.mainText,
-      ),
-    ),
+    titleText: span(text: msg ?? ''),
     messageText: const SizedBox(height: 0),
     icon: Icon(
-      Icons.error,
+      iconData ?? Icons.error,
       size: 12.w,
       color: Colors.red,
     ),

@@ -10,11 +10,8 @@ Widget buttonWidget({
   /// 按钮的点击事件
   VoidCallback? onPressed,
 
-  /// 文字颜色
-  Color? textColor,
-
-  /// 按钮文本
-  String? text,
+  /// 子组件
+  required Widget child,
 
   /// 按钮高度
   double? height,
@@ -22,7 +19,7 @@ Widget buttonWidget({
   /// 按钮宽度
   double? width,
 
-  /// 文字对齐方式
+  /// 子组件对齐方式
   AlignmentGeometry? alignment,
 
   /// padding
@@ -40,6 +37,7 @@ Widget buttonWidget({
         /// 对其方式，默认居中对齐
         alignment: alignment ?? Alignment.center,
 
+        /// 按钮文字样式
         textStyle: MaterialStateProperty.all(
           const TextStyle(fontWeight: FontWeight.normal),
         ),
@@ -55,14 +53,7 @@ Widget buttonWidget({
         backgroundColor:
             MaterialStateProperty.all(background ?? AppColors.mainColor),
       ),
-      child: Text(
-        text ?? '',
-        style: TextStyle(
-          /// 文字默认白色
-          color: textColor ?? AppColors.mainText,
-          fontSize: 8.sp,
-        ),
-      ),
+      child: child,
     ),
   );
 }

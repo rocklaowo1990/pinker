@@ -49,17 +49,20 @@ class FrameView extends GetView<FrameController> {
     var settingBox = _buttonBox(
       icon: Icons.settings,
       size: 10.w,
-      onPressed: () {},
+      onPressed: controller.handleGoSettingView,
     );
 
     /// appBar
     var appBar = AppBar(
       title: logo,
       backgroundColor: Colors.transparent,
+      foregroundColor: AppColors.mainText,
       elevation: 0,
       centerTitle: true,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
       ),
       leading: Obx(() => controller.isShow.value ? buttonBox : emptyBox),
       actions: [

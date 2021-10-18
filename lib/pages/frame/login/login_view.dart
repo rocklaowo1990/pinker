@@ -13,36 +13,37 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    var title = span(text: Lang.loginTitle.tr, size: 16.sp);
+    Widget title = span(text: Lang.loginTitle.tr, size: 16.sp);
 
     /// 账号输入框
-    var userCount = input(
+    Widget userCount = input(
       type: Lang.inputCount.tr,
       controller: controller.userCountController,
       autofocus: true,
       focusNode: controller.userCountFocusNode,
       textInputAction: TextInputAction.next,
-      enabled: controller.loginButtonDisable,
+      enabled: controller.loading,
     );
 
     /// 密码输入框
-    var userPassword = input(
+    Widget userPassword = input(
       type: Lang.inputPassword.tr,
       controller: controller.userPasswordController,
       focusNode: controller.userPasswordFocusNode,
-      enabled: controller.loginButtonDisable,
+      enabled: controller.loading,
     );
 
-    var bottom = bottomButton(
+    Widget bottom = bottomButton(
       onPressedLeft: controller.handleGoForgetPasswordPage,
       onPressedRight: controller.handleSignIn,
-      disable: controller.loginButtonDisable,
+      disable: controller.buttonDisable,
+      loading: controller.loading,
       textLeft: Lang.loginForget.tr,
       textRight: Lang.loginButton.tr,
     );
 
     /// body布局
-    var body = Column(
+    Widget body = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(

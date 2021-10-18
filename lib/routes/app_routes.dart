@@ -1,8 +1,8 @@
 part of 'app_pages.dart';
 
 class AppRoutes {
-  static const initial = '/';
+  static const initial = '/application';
   static const unknown = '/unknown';
   static const index = '/index';
-  static const application = '/application';
+  static const set = '/set';
 }

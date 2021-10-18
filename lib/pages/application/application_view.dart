@@ -20,7 +20,7 @@ class ApplicationView extends GetView<ApplicationController> {
           children: [
             buttonWidget(
               onPressed: goLoginPage,
-              text: '退出登陆',
+              child: const Text('data'),
               width: 100.w,
             ),
             buttonWidget(
@@ -28,7 +28,7 @@ class ApplicationView extends GetView<ApplicationController> {
                 var locale = const Locale('en', 'US');
                 Get.updateLocale(locale);
               },
-              text: '改变语言',
+              child: const Text('data'),
               width: 100.w,
             ),
           ],

@@ -6,57 +6,47 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
-import 'package:pinker/widgets/button.dart';
+
+import 'package:pinker/widgets/widgets.dart';
 
 Future dateBottom({
-  required String date,
+  String? text,
+  DateTime? initialDateTime,
   required VoidCallback onPressed,
+  required void Function(DateTime) onDateTimeChanged,
 }) {
-  var button = Container(
-    padding: EdgeInsets.only(right: 10.w, left: 10.w),
-    color: AppColors.secondBacground,
-    width: double.infinity,
-    height: 30.h,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Text(
-            date,
-            style: TextStyle(
-              color: AppColors.mainText,
-              fontSize: 8.sp,
-            ),
-          ),
-        ),
-        buttonWidget(
-          width: 40.w,
-          height: 18.h,
-          onPressed: onPressed,
-          text: Lang.sure.tr,
-        ),
-      ],
-    ),
+  /// 顶部的工具栏
+  var title = bottomButton(
+    textLeft: text,
+    textRight: Lang.sure.tr,
+    onPressedRight: onPressed,
   );
+
+  /// 日期选择器
   var dateBox = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.date,
-    onDateTimeChanged: (e) {},
-    initialDateTime: DateTime(1990, 1, 1),
+    onDateTimeChanged: onDateTimeChanged,
+    initialDateTime: initialDateTime ?? DateTime(1990, 1, 1),
     maximumYear: DateTime.now().year,
     minimumYear: DateTime.now().year - 100,
     dateOrder: DatePickerDateOrder.ymd,
   );
+
+  /// 组合
   var bottomsheet = SizedBox(
     height: 160.h,
     child: Column(
       children: [
-        button,
+        title,
         Expanded(child: dateBox),
       ],
     ),
   );
+
+  /// 返回
   return Get.bottomSheet(
     bottomsheet,
     backgroundColor: AppColors.inputHint,
+    // isDismissible: false, 用户点击空白区域是否可以返回
   );
 }

@@ -5,7 +5,7 @@ import 'package:pinker/pages/frame/index/index.dart';
 import 'package:pinker/pages/frame/login/index.dart';
 import 'package:pinker/pages/frame/register/index.dart';
 
-class FrameController extends GetxController {
+class SettingController extends GetxController {
   /// 嵌套路由路径
   final pages = <String>['/index', '/login', '/register'];
 
@@ -18,11 +18,6 @@ class FrameController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 200));
     isShow.value = false;
     Get.back(id: 1);
-  }
-
-  /// 去设置页面
-  void handleGoSettingView() {
-    Get.toNamed('/set');
   }
 
   /// 嵌套路由封装

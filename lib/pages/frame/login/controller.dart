@@ -17,13 +17,36 @@ class LoginController extends GetxController {
   final FocusNode userCountFocusNode = FocusNode();
   final FocusNode userPasswordFocusNode = FocusNode();
 
-  /// 默认按钮为禁用状态
-  RxBool loginButtonDisable = false.obs;
+  /// 全局禁用状态
+  RxBool loading = false.obs;
+
+  /// 按钮专用禁用状态
+  RxBool buttonDisable = true.obs;
 
   /// 关闭键盘
   void _unfocus() {
     userCountFocusNode.unfocus();
     userPasswordFocusNode.unfocus();
+  }
+
+  /// 输入框文本监听
+  void _textListener() {
+    buttonDisable.value =
+        userCountController.text.isEmpty || userPasswordController.text.isEmpty
+            ? true
+            : false;
+  }
+
+  /// 初始化
+  @override
+  void onInit() {
+    super.onInit();
+    userCountController.addListener(() {
+      _textListener();
+    });
+    userPasswordController.addListener(() {
+      _textListener();
+    });
   }
 
   /// 去找回密码页面
@@ -40,31 +63,7 @@ class LoginController extends GetxController {
     _unfocus();
 
     /// 防抖
-    loginButtonDisable.value = true;
-
-    /// 账号为空，退出
-    if (userCountController.text.isEmpty) {
-      await Future.delayed(const Duration(seconds: 2), () {
-        loginButtonDisable.value = false;
-      });
-      await Future.delayed(const Duration(milliseconds: 200), () {
-        userCountFocusNode.requestFocus();
-        snackbar(title: '请输入手机号码、邮箱或账号');
-      });
-      return;
-    }
-
-    /// 密码为空，退出
-    if (userPasswordController.text.isEmpty) {
-      await Future.delayed(const Duration(seconds: 2), () {
-        loginButtonDisable.value = false;
-      });
-      await Future.delayed(const Duration(milliseconds: 200), () {
-        userPasswordFocusNode.requestFocus();
-        snackbar(title: '密码不能为空');
-      });
-      return;
-    }
+    loading.value = true;
 
     /// 判断账号类型
     String _accoutnType() {
@@ -85,21 +84,23 @@ class LoginController extends GetxController {
 
     /// 返回数据处理
     if (userProfile.code == 200) {
-      // 储存用户数据
+      /// 储存用户数据
       Global.saveProfile(userProfile);
-      // 储存第一次登陆信息
+
+      /// 储存第一次登陆信息
       Global.saveAlreadyOpen();
-      // 去往首页
+
+      /// 去往首页
       Get.offAllNamed('/application');
     } else {
-      // 返回错误信息
+      /// 返回错误信息
       /// 3 秒后重新启用按钮
       await Future.delayed(const Duration(seconds: 2), () {
-        loginButtonDisable.value = false;
+        loading.value = false;
       });
       await Future.delayed(const Duration(milliseconds: 200), () {
         userCountFocusNode.requestFocus();
-        snackbar(title: userProfile.msg);
+        snackError(msg: userProfile.msg);
       });
     }
   }

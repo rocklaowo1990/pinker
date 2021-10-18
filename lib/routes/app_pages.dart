@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:pinker/middleware/middleware.dart';
 import 'package:pinker/pages/application/index.dart';
 import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/pages/setting/index.dart';
 
 import 'package:pinker/pages/unknown/index.dart';
 
@@ -26,18 +27,18 @@ class AppPages {
       ],
     ),
 
-    /// APP 主页
-    GetPage(
-      name: AppRoutes.application,
-      page: () => const ApplicationView(),
-      binding: ApplicationBinding(),
-    ),
-
     /// 初始页面框架，包含登陆，注册，初始
     GetPage(
       name: AppRoutes.index,
       page: () => const FrameView(),
       binding: FrameBinding(),
+    ),
+
+    /// 初始页面框架，包含登陆，注册，初始
+    GetPage(
+      name: AppRoutes.set,
+      page: () => const SettingView(),
+      binding: SettingBinding(),
     ),
   ];
 }
