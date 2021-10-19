@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pinker/global.dart';
+import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
@@ -18,5 +19,5 @@ Future deleteAuthentication() async {
 /// 重新登录
 Future goLoginPage() async {
   await deleteAuthentication();
-  Get.offAllNamed('/index');
+  Get.offAllNamed(AppRoutes.frame);
 }

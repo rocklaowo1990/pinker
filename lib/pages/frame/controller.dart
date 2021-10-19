@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/frame/index/index.dart';
 import 'package:pinker/pages/frame/login/index.dart';
 import 'package:pinker/pages/frame/register/index.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 class FrameController extends GetxController {
   /// 嵌套路由路径
@@ -22,7 +23,7 @@ class FrameController extends GetxController {
 
   /// 去设置页面
   void handleGoSettingView() {
-    Get.toNamed('/set');
+    Get.toNamed(AppRoutes.set);
   }
 
   /// 嵌套路由封装

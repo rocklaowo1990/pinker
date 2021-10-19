@@ -5,6 +5,7 @@ import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/user.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/widgets/widgets.dart';
@@ -50,18 +51,15 @@ class LoginController extends GetxController {
   /// 去找回密码页面
   void handleGoForgetPasswordPage() async {
     _unfocus();
-    Get.dialog(
-      Container(),
-      barrierDismissible: false,
-    );
-    await Future.delayed(const Duration(seconds: 3), () {});
-    Get.back();
   }
 
   /// 用户登陆
   void handleSignIn() async {
     /// 关闭键盘
     _unfocus();
+
+    await Future.delayed(const Duration(milliseconds: 200));
+    getDialog();
 
     /// 判断账号类型
     String _accoutnType() {
@@ -83,16 +81,17 @@ class LoginController extends GetxController {
     /// 返回数据处理
     if (userProfile.code == 200) {
       /// 储存用户数据
-      Global.saveProfile(userProfile);
+      await Global.saveProfile(userProfile);
 
       /// 储存第一次登陆信息
       Global.saveAlreadyOpen();
 
       /// 去往首页
-      Get.offAllNamed('/application');
+      Get.offAllNamed(AppRoutes.application);
     } else {
+      Get.back();
+
       /// 返回错误信息
-      /// 3 秒后重新启用按钮
       await Future.delayed(const Duration(milliseconds: 200), () {
         userCountFocusNode.requestFocus();
         getSnackTop(msg: userProfile.msg);
@@ -102,6 +101,7 @@ class LoginController extends GetxController {
 
   @override
   void dispose() {
+    super.dispose();
     frameController.dispose();
 
     userCountController.dispose();
@@ -109,7 +109,5 @@ class LoginController extends GetxController {
 
     userCountFocusNode.dispose();
     userPasswordFocusNode.dispose();
-
-    super.dispose();
   }
 }

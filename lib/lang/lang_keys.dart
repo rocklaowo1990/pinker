@@ -37,4 +37,5 @@ abstract class Lang {
   static const langTitle = 'langTitle';
   static const langCN = 'langCN';
   static const langEN = 'langEN';
+  static const langMsg = 'langMsg';
 }

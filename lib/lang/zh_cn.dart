@@ -37,4 +37,5 @@ const Map<String, String> zh = {
   Lang.langCN: '简体中文',
   Lang.langEN: 'English',
   Lang.langTitle: '选择语言',
+  Lang.langMsg: '语言修改成功',
 };

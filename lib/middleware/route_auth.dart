@@ -13,6 +13,6 @@ class RouteAuthMiddleware extends GetMiddleware {
     if (Global.isOfflineLogin) {
       return null;
     }
-    return const RouteSettings(name: AppRoutes.index);
+    return const RouteSettings(name: AppRoutes.frame);
   }
 }
