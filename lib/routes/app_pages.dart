@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/middleware/middleware.dart';
 import 'package:pinker/pages/application/index.dart';
-import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/pages/frame/frame.dart';
 import 'package:pinker/pages/setting/index.dart';
 import 'package:pinker/pages/setting/language/index.dart';
 import 'package:pinker/pages/unknown/index.dart';

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/user.dart';
 import 'package:pinker/global.dart';
-import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/pages/frame/frame.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 
