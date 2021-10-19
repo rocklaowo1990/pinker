@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/values/values.dart';
 
 /// 按钮封装
-Widget buttonWidget({
+Widget getButton({
   /// 按钮的背景色
   Color? background,
 
@@ -19,6 +19,9 @@ Widget buttonWidget({
   /// 按钮宽度
   double? width,
 
+  /// 按钮宽度
+  double? radius,
+
   /// 子组件对齐方式
   AlignmentGeometry? alignment,
 
@@ -27,7 +30,7 @@ Widget buttonWidget({
 }) {
   return SizedBox(
     /// 宽度不填的话，默认是无无限宽
-    width: width ?? double.infinity,
+    width: width,
 
     /// 高度默认是24
     height: height ?? 8.h + 10.h + 10.h,
@@ -44,7 +47,7 @@ Widget buttonWidget({
 
         /// 按钮圆角
         shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(186.5.w))),
+            borderRadius: BorderRadius.circular(radius ?? 186.5.w))),
 
         /// 清空按钮的padding
         padding: MaterialStateProperty.all(padding ?? EdgeInsets.zero),

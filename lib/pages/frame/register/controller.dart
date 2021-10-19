@@ -20,9 +20,6 @@ class RegisterController extends GetxController {
   /// 判断是手机注册 还是 邮箱注册
   RxBool phoneRegister = true.obs;
 
-  /// 全局禁用状态
-  RxBool loading = false.obs;
-
   /// 按钮专用禁用状态
   RxBool buttonDisable = true.obs;
 
@@ -59,13 +56,6 @@ class RegisterController extends GetxController {
     /// 关闭键盘
     _unfocus();
 
-    /// 防抖
-    loading.value = true;
-
-    await Future.delayed(const Duration(seconds: 2), () {
-      loading.value = false;
-    });
-
     await Future.delayed(const Duration(milliseconds: 200), () {
       userRegisterFocusNode.requestFocus();
     });
@@ -88,8 +78,7 @@ class RegisterController extends GetxController {
   /// 点击生日输入框，调出日期选择器
   void birthChoice() {
     userRegisterFocusNode.unfocus();
-    dateBottom(
-      text: '',
+    getDateBox(
       onPressed: _onSure,
       onDateTimeChanged: _timeChanged,
       initialDateTime: dateTime.value,

@@ -6,19 +6,17 @@ import 'package:pinker/entities/user.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/frame/index.dart';
 import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class LoginController extends GetxController {
-  final indexController = Get.put(FrameController());
+  final frameController = Get.put(FrameController());
 
   final TextEditingController userCountController = TextEditingController();
   final TextEditingController userPasswordController = TextEditingController();
 
   final FocusNode userCountFocusNode = FocusNode();
   final FocusNode userPasswordFocusNode = FocusNode();
-
-  /// 全局禁用状态
-  RxBool loading = false.obs;
 
   /// 按钮专用禁用状态
   RxBool buttonDisable = true.obs;
@@ -50,20 +48,20 @@ class LoginController extends GetxController {
   }
 
   /// 去找回密码页面
-  void handleGoForgetPasswordPage() {
+  void handleGoForgetPasswordPage() async {
     _unfocus();
-    const localZH = Locale('zh', 'CN');
-    const localEN = Locale('en', 'US');
-    Get.updateLocale(Get.locale == localEN ? localZH : localEN);
+    Get.dialog(
+      Container(),
+      barrierDismissible: false,
+    );
+    await Future.delayed(const Duration(seconds: 3), () {});
+    Get.back();
   }
 
   /// 用户登陆
   void handleSignIn() async {
     /// 关闭键盘
     _unfocus();
-
-    /// 防抖
-    loading.value = true;
 
     /// 判断账号类型
     String _accoutnType() {
@@ -95,19 +93,16 @@ class LoginController extends GetxController {
     } else {
       /// 返回错误信息
       /// 3 秒后重新启用按钮
-      await Future.delayed(const Duration(seconds: 2), () {
-        loading.value = false;
-      });
       await Future.delayed(const Duration(milliseconds: 200), () {
         userCountFocusNode.requestFocus();
-        snackError(msg: userProfile.msg);
+        getSnackTop(msg: userProfile.msg);
       });
     }
   }
 
   @override
   void dispose() {
-    indexController.dispose();
+    frameController.dispose();
 
     userCountController.dispose();
     userPasswordController.dispose();

@@ -4,8 +4,8 @@ import 'package:pinker/values/colors.dart';
 
 /// 文本封装
 /// 传入text size color
-Widget span({
-  String? text,
+Widget getSpan(
+  String? text, {
   double? size,
   Color? color,
   FontWeight? fontWeight,

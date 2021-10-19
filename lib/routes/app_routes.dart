@@ -5,4 +5,5 @@ class AppRoutes {
   static const unknown = '/unknown';
   static const index = '/index';
   static const set = '/set';
+  static const language = '/language';
 }

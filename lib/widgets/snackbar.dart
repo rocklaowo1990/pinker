@@ -5,20 +5,21 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 顶部弹窗封装
-void snackError({
+void getSnackTop({
   String? msg,
   IconData? iconData,
+  Color? iconColor,
 }) {
   return Get.snackbar(
     msg ?? '',
     '',
     colorText: AppColors.mainText,
-    titleText: span(text: msg ?? ''),
+    titleText: getSpan(msg ?? ''),
     messageText: const SizedBox(height: 0),
     icon: Icon(
       iconData ?? Icons.error,
       size: 12.w,
-      color: Colors.red,
+      color: iconColor ?? Colors.red,
     ),
     padding: EdgeInsets.only(
       left: 10.w,

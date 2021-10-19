@@ -3,7 +3,7 @@ import 'package:pinker/middleware/middleware.dart';
 import 'package:pinker/pages/application/index.dart';
 import 'package:pinker/pages/frame/index.dart';
 import 'package:pinker/pages/setting/index.dart';
-
+import 'package:pinker/pages/setting/language/index.dart';
 import 'package:pinker/pages/unknown/index.dart';
 
 part 'app_routes.dart';
@@ -39,6 +39,13 @@ class AppPages {
       name: AppRoutes.set,
       page: () => const SettingView(),
       binding: SettingBinding(),
+      children: [
+        GetPage(
+          name: AppRoutes.language,
+          page: () => const LanguageView(),
+          binding: LanguageBinding(),
+        ),
+      ],
     ),
   ];
 }

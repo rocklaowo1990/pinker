@@ -18,12 +18,12 @@ class ApplicationView extends GetView<ApplicationController> {
       body: Center(
         child: Column(
           children: [
-            buttonWidget(
+            getButton(
               onPressed: goLoginPage,
               child: const Text('data'),
               width: 100.w,
             ),
-            buttonWidget(
+            getButton(
               onPressed: () {
                 var locale = const Locale('en', 'US');
                 Get.updateLocale(locale);

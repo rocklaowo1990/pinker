@@ -6,7 +6,7 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget input({
+Widget getInput({
   /// 键盘的类型
   required String type,
 
@@ -18,9 +18,6 @@ Widget input({
 
   /// 是否自动获取焦点
   bool? autofocus,
-
-  /// 禁用启用开关
-  RxBool? enabled,
 
   /// 键盘右下角的按钮类型
   TextInputAction? textInputAction,
@@ -71,7 +68,7 @@ Widget input({
   }
 
   /// 组件
-  Obx textField = Obx(() {
+  Widget textField = Obx(() {
     return TextField(
       textInputAction: textInputAction,
       autofocus: autofocus ?? false,
@@ -106,11 +103,6 @@ Widget input({
       style: TextStyle(fontSize: 8.sp, color: AppColors.mainText),
       obscureText: isPassword.value,
       onChanged: onChanged,
-      enabled: enabled?.value == null
-          ? null
-          : enabled!.value
-              ? false
-              : true,
     );
   });
 

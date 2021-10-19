@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/register/controller.dart';
 import 'package:pinker/values/values.dart';
-
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterView extends GetView<RegisterController> {
@@ -14,45 +13,59 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = span(text: Lang.registerTitle.tr, size: 16.sp);
+    Widget title = getSpan(Lang.registerTitle.tr, size: 16.sp);
 
     /// 账号输入框
     Widget userRegister = Obx(
-      () => input(
+      () => getInput(
         type: controller.phoneRegister.value
             ? Lang.inputPhone.tr
             : Lang.inputEmail.tr,
         controller: controller.userRegisterController,
         autofocus: true,
         focusNode: controller.userRegisterFocusNode,
-        enabled: controller.loading,
       ),
     );
 
     /// 生日输入框
     Widget userBirth = Obx(
-      () => buttonWidget(
-        onPressed: controller.loading.value ? () {} : controller.birthChoice,
-        child: span(
-            text:
-                '${controller.dateTime.value.year}-${controller.dateTime.value.month}-${controller.dateTime.value.day}'),
+      () => getButton(
+        onPressed: controller.birthChoice,
+        child: getSpan(
+            '${controller.dateTime.value.year}-${controller.dateTime.value.month}-${controller.dateTime.value.day}'),
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 10.w),
         background: AppColors.inputFiled,
+        width: double.infinity,
       ),
     );
 
     /// 底部
-    Widget bottom = Obx(
-      () => bottomButton(
-        onPressedLeft: controller.handleChangeRegister,
-        onPressedRight: controller.handleNext,
-        disable: controller.buttonDisable,
-        loading: controller.loading,
-        textLeft: controller.phoneRegister.value
-            ? Lang.registerPhone.tr
-            : Lang.registerEmail.tr,
-        textRight: Lang.registerNext.tr,
+    Widget bottom = getBottomBox(
+      leftWidget: getButton(
+        child: Obx(
+          () => getSpan(
+            controller.phoneRegister.value
+                ? Lang.registerPhone.tr
+                : Lang.registerEmail.tr,
+            color: AppColors.mainColor,
+          ),
+        ),
+        height: 18.h,
+        onPressed: controller.handleChangeRegister,
+        background: Colors.transparent,
+      ),
+      rightWidget: Obx(
+        () => getButton(
+          width: 40.w,
+          height: 18.h,
+          child: getSpan(Lang.registerNext.tr),
+          onPressed:
+              controller.buttonDisable.value ? null : controller.handleNext,
+          background: controller.buttonDisable.value
+              ? AppColors.buttonDisable
+              : AppColors.mainColor,
+        ),
       ),
     );
 

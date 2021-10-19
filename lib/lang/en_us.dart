@@ -26,4 +26,15 @@ const Map<String, String> en = {
   Lang.registerPhone: 'chang phone',
   Lang.registerTitle: 'Sign Up',
   Lang.registerNext: 'next',
+
+  /// 设置页面
+  Lang.setTitle: 'Setting',
+  Lang.setLang: 'Language',
+  Lang.setLangValueCN: '简体中文',
+  Lang.setLangValueEN: 'English',
+
+  /// 语言设置
+  Lang.langCN: '简体中文',
+  Lang.langEN: 'English',
+  Lang.langTitle: 'Language',
 };

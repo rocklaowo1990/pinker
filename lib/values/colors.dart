@@ -7,6 +7,9 @@ class AppColors {
   /// 主要Icon
   static const Color mainIcon = Color(0xffffffff);
 
+  /// 次要Icon 949cbd
+  static const Color secondIcon = Color(0xff949cbd);
+
   /// 主要文本
   static const Color mainText = Color(0xffffffff);
 
@@ -16,14 +19,17 @@ class AppColors {
   /// 输入框颜色
   static const Color inputFiled = Color(0xff20232a);
 
+  /// 日期选择器背景
+  static const Color dateBox = Color(0xff949cbd);
+
   /// 输入框提示文本 输入框右侧按钮
   static const Color inputHint = Color(0xff94a3b2);
 
-  /// 主要背景
+  /// 主要背景，一般用于页面背景
   static const Color mainBacground = Color(0xff262932);
 
-  /// 次要背景
-  static const Color secondBacground = Color(0xff454a5a);
+  /// 次要背景，和主要背景拉开层次
+  static const Color secondBacground = Color(0xff2e313c);
 
   /// 按钮禁用状态背景
   static const Color buttonDisable = Color(0x50919aab);

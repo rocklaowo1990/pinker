@@ -14,16 +14,17 @@ class IndexView extends GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget text = span(
-      text: Lang.indexTitle.tr,
+    Widget text = getSpan(
+      Lang.indexTitle.tr,
       size: 16.sp,
       fontWeight: FontWeight.w600,
     );
 
     /// 去注册页面的按钮
-    Widget signUpButton = buttonWidget(
+    Widget signUpButton = getButton(
       onPressed: controller.handleGoSignUpPage,
-      child: span(text: Lang.indexGoRegister.tr),
+      child: getSpan(Lang.indexGoRegister.tr),
+      width: double.infinity,
     );
 
     /// 去登陆页面的按钮

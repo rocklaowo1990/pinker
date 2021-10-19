@@ -13,7 +13,7 @@ class FrameController extends GetxController {
   RxBool isShow = false.obs;
 
   /// 返回默认页面按钮
-  void handleGoSignBeforePage() async {
+  void handleBack() async {
     FocusScope.of(Get.context!).requestFocus(FocusNode());
     await Future.delayed(const Duration(milliseconds: 200));
     isShow.value = false;

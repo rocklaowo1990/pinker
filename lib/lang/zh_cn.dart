@@ -26,4 +26,15 @@ const Map<String, String> zh = {
   Lang.registerPhone: '改用电子邮箱',
   Lang.registerTitle: '创建您的账号',
   Lang.registerNext: '下一步',
+
+  /// 设置页面
+  Lang.setTitle: '设置',
+  Lang.setLang: '语言',
+  Lang.setLangValueCN: '简体中文',
+  Lang.setLangValueEN: 'English',
+
+  /// 语言设置
+  Lang.langCN: '简体中文',
+  Lang.langEN: 'English',
+  Lang.langTitle: '选择语言',
 };

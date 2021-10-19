@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/login/index.dart';
+import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
@@ -13,33 +14,44 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = span(text: Lang.loginTitle.tr, size: 16.sp);
+    Widget title = getSpan(Lang.loginTitle.tr, size: 16.sp);
 
     /// 账号输入框
-    Widget userCount = input(
+    Widget userCount = getInput(
       type: Lang.inputCount.tr,
       controller: controller.userCountController,
       autofocus: true,
       focusNode: controller.userCountFocusNode,
       textInputAction: TextInputAction.next,
-      enabled: controller.loading,
     );
 
     /// 密码输入框
-    Widget userPassword = input(
+    Widget userPassword = getInput(
       type: Lang.inputPassword.tr,
       controller: controller.userPasswordController,
       focusNode: controller.userPasswordFocusNode,
-      enabled: controller.loading,
     );
 
-    Widget bottom = bottomButton(
-      onPressedLeft: controller.handleGoForgetPasswordPage,
-      onPressedRight: controller.handleSignIn,
-      disable: controller.buttonDisable,
-      loading: controller.loading,
-      textLeft: Lang.loginForget.tr,
-      textRight: Lang.loginButton.tr,
+    /// 底部
+    Widget bottom = getBottomBox(
+      leftWidget: getButton(
+        child: getSpan(Lang.loginForget.tr, color: AppColors.mainColor),
+        onPressed: controller.handleGoForgetPasswordPage,
+        height: 18.h,
+        background: Colors.transparent,
+      ),
+      rightWidget: Obx(
+        () => getButton(
+          width: 40.w,
+          height: 18.h,
+          child: getSpan(Lang.loginButton.tr),
+          onPressed:
+              controller.buttonDisable.value ? null : controller.handleSignIn,
+          background: controller.buttonDisable.value
+              ? AppColors.buttonDisable
+              : AppColors.mainColor,
+        ),
+      ),
     );
 
     /// body布局
@@ -71,7 +83,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => !controller.indexController.isShow.value
+        () => !controller.frameController.isShow.value
             ? Stack(
                 // 遮罩层
                 children: [

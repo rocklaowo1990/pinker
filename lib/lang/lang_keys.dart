@@ -26,4 +26,15 @@ abstract class Lang {
   static const registerNext = 'registerNext';
   static const registerPhone = 'registerPhone';
   static const registerEmail = 'registerEmail';
+
+  /// 设置页面
+  static const setTitle = 'setTitle';
+  static const setLang = 'setLang';
+  static const setLangValueCN = 'setLangValueCN';
+  static const setLangValueEN = 'setLangValueEN';
+
+  /// 语言设置
+  static const langTitle = 'langTitle';
+  static const langCN = 'langCN';
+  static const langEN = 'langEN';
 }
