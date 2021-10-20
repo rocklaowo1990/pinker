@@ -7,19 +7,21 @@ class UserLoginResponseEntity {
   });
 
   int? code;
-  dynamic data;
+  Data? data;
   String? msg;
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
       UserLoginResponseEntity(
         code: json["code"],
-        data: json["data"] == '' ? json["data"] : Data.fromJson(json["data"]),
+        data: json["data"] == '' || json['data'] == null
+            ? null
+            : Data.fromJson(json["data"]),
         msg: json["msg"],
       );
 
   Map<String, dynamic> toJson() => {
         "code": code,
-        "data": data.toJson(),
+        "data": data == null ? null : data!.toJson(),
         "msg": msg,
       };
 }

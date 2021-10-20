@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pinker/pages/frame/frame.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 class IndexController extends GetxController {
   final frameController = Get.put(FrameController());
@@ -8,13 +9,13 @@ class IndexController extends GetxController {
   void handleGoSignInPage() {
     frameController.isShow.value = true;
 
-    Get.toNamed(frameController.pages[1], id: 1);
+    Get.toNamed(AppRoutes.login, id: 1);
   }
 
   /// 去注册页面按钮
   void handleGoSignUpPage() {
     frameController.isShow.value = true;
-    Get.toNamed(frameController.pages[2], id: 1);
+    Get.toNamed(AppRoutes.register, id: 1);
   }
 
   @override

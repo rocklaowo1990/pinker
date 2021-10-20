@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/api/account.dart';
+import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/frame/frame.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterController extends GetxController {
-  final indexController = Get.put(FrameController());
+  final frameController = Get.put(FrameController());
 
   final TextEditingController userRegisterController = TextEditingController();
 
@@ -22,6 +24,8 @@ class RegisterController extends GetxController {
 
   /// 按钮专用禁用状态
   RxBool buttonDisable = true.obs;
+
+  /// 注册方式
 
   /// 关闭键盘
   void _unfocus() {
@@ -56,6 +60,18 @@ class RegisterController extends GetxController {
     /// 关闭键盘
     _unfocus();
 
+    /// 准备请求数据
+    Map<String, String> data = {
+      'mobile': userRegisterController.text,
+      'areaCode': '86',
+      'entryType': '1',
+    };
+
+    /// 请求服务器...
+    UserLoginResponseEntity userProfile = await AccountApi.register(data: data);
+
+    debugPrint(
+        'code:${userProfile.code} /n msg:${userProfile.msg} /n data:${userProfile.data}');
     await Future.delayed(const Duration(milliseconds: 200), () {
       userRegisterFocusNode.requestFocus();
     });
@@ -95,10 +111,8 @@ class RegisterController extends GetxController {
   /// 页面销毁
   @override
   void dispose() {
-    indexController.dispose();
-
+    frameController.dispose();
     userRegisterController.dispose();
-
     userRegisterFocusNode.dispose();
 
     super.dispose();

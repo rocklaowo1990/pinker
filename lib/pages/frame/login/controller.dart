@@ -76,7 +76,7 @@ class LoginController extends GetxController {
     };
 
     /// 请求服务器...
-    UserLoginResponseEntity userProfile = await AccountApi.signIn(data: data);
+    UserLoginResponseEntity userProfile = await AccountApi.login(data: data);
 
     /// 返回数据处理
     if (userProfile.code == 200) {
@@ -101,13 +101,11 @@ class LoginController extends GetxController {
 
   @override
   void dispose() {
-    super.dispose();
-    frameController.dispose();
-
     userCountController.dispose();
     userPasswordController.dispose();
 
     userCountFocusNode.dispose();
     userPasswordFocusNode.dispose();
+    super.dispose();
   }
 }

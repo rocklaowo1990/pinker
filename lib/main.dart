@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
         transitionDuration: const Duration(milliseconds: 300),
 
         /// 路由
-        getPages: AppPages.routes,
-        unknownRoute: AppPages.unknown,
+        getPages: AppPages.getPages,
+        unknownRoute: AppPages.unknownRoute,
 
         /// 启动页面
         initialRoute: AppPages.initial,

@@ -55,6 +55,12 @@ dependencies:
 
   # 加密安全 SHA
   crypto: ^3.0.1
+
+  # 读取设备信息
+  device_info: ^2.0.2
+
+  # 读取APP相关信息
+  package_info: ^2.0.2
   
 
 dev_dependencies:

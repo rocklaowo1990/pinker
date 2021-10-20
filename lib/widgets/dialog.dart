@@ -6,12 +6,14 @@ import 'package:pinker/values/values.dart';
 Future getDialog({
   Widget? child,
   bool? autoBack,
+  double? width,
+  double? height,
 }) {
   /// loading
   Widget loading = Center(
     child: Container(
-      width: 40.w,
-      height: 40.w,
+      width: width ?? 40.w,
+      height: height ?? 40.w,
       decoration: BoxDecoration(
         color: AppColors.secondBacground,
         borderRadius: BorderRadius.circular(8.w),

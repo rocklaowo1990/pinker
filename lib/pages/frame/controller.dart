@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:pinker/pages/frame/index/index.dart';
-import 'package:pinker/pages/frame/login/index.dart';
-import 'package:pinker/pages/frame/register/index.dart';
 import 'package:pinker/routes/app_pages.dart';
+import 'index/index.dart';
+import 'login/index.dart';
+import 'register/index.dart';
 
 class FrameController extends GetxController {
-  /// 嵌套路由路径
-  final pages = <String>['/index', '/login', '/register'];
-
   /// 控制蒙版是否显示
   RxBool isShow = false.obs;
+
+  // @override
+  // void onInit() {
+  //   if (Global.isOfflineLogin == true) {
+  //     Get.toNamed(AppRoutes.application);
+  //   }
+  //   super.onInit();
+  // }
 
   /// 返回默认页面按钮
   void handleBack() async {
@@ -22,7 +26,7 @@ class FrameController extends GetxController {
   }
 
   /// 去设置页面
-  void handleGoSettingView() {
+  void handleGoSettingView() async {
     Get.toNamed(AppRoutes.set);
   }
 
@@ -43,21 +47,21 @@ class FrameController extends GetxController {
 
   /// 嵌套路由设置
   Route? onGenerateRoute(RouteSettings settings) {
-    if (settings.name == pages[0]) {
+    if (settings.name == AppRoutes.index) {
       return _getPageRoute(
-        page: const IndexView(),
+        page: const IndexView(key: Key('index')),
         settings: settings,
         binding: IndexBinding(),
       );
-    } else if (settings.name == pages[1]) {
+    } else if (settings.name == AppRoutes.login) {
       return _getPageRoute(
-        page: const LoginView(),
+        page: const LoginView(key: Key('login')),
         settings: settings,
         binding: LoginBinding(),
       );
-    } else if (settings.name == pages[2]) {
+    } else if (settings.name == AppRoutes.register) {
       return _getPageRoute(
-        page: const RegisterView(),
+        page: const RegisterView(key: Key('register')),
         settings: settings,
         binding: RegisterBinding(),
       );

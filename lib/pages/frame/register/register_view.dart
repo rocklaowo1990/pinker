@@ -96,7 +96,7 @@ class RegisterView extends GetView<RegisterController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => !controller.indexController.isShow.value
+        () => !controller.frameController.isShow.value
             ? Stack(
                 // 遮罩层
                 children: [
