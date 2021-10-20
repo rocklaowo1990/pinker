@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/utils/utils.dart';
@@ -37,8 +36,6 @@ class AccountApi {
         'token': Global.token ?? '',
       }),
     );
-    debugPrint(
-        '"platform": ${Global.platform},"osversion": ${Global.osversion},"version": ${Global.packageInfo?.version},"model": ${Global.model},"timestamp": $timestamp, "token": ${Global.token},');
     return UserLoginResponseEntity.fromJson(response);
   }
 }
