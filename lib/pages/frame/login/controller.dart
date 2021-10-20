@@ -84,7 +84,7 @@ class LoginController extends GetxController {
       await Global.saveProfile(userProfile);
 
       /// 储存第一次登陆信息
-      Global.saveAlreadyOpen();
+      // Global.saveAlreadyOpen();
 
       /// 去往首页
       Get.offAllNamed(AppRoutes.application);

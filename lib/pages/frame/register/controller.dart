@@ -68,7 +68,7 @@ class RegisterController extends GetxController {
     };
 
     /// 请求服务器...
-    UserLoginResponseEntity userProfile = await AccountApi.register(data: data);
+    UserLoginResponseEntity userProfile = await AccountApi.sendSms(data: data);
 
     debugPrint(
         'code:${userProfile.code} /n msg:${userProfile.msg} /n data:${userProfile.data}');

@@ -13,7 +13,7 @@ Future<bool> isAuthenticated() async {
 /// 删除缓存 token
 Future deleteAuthentication() async {
   await StorageUtil().remove(storageUserProfileKey);
-  Global.profile = null;
+  Global.token = null;
   Global.isOfflineLogin = false;
 }
 

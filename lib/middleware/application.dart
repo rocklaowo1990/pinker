@@ -10,7 +10,7 @@ class RouteAuthMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    if (Global.profile?.data != null ||
+    if (Global.token != null ||
         route == AppRoutes.frame ||
         Global.isOfflineLogin == true) {
       return null;

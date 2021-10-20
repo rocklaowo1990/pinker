@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
-import 'package:pinker/entities/entities.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/values/values.dart';
 
@@ -167,7 +166,7 @@ class HttpUtil {
   /// 读取本地配置
   Map<String, dynamic>? getAuthorizationHeader() {
     Map<String, String>? headers;
-    UserLoginResponseEntity? accessToken = Global.profile;
+    String? accessToken = Global.token;
     headers = {
       'Authorization': 'Bearer $accessToken',
     };
