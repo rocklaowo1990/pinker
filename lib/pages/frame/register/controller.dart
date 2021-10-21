@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/api/account.dart';
+import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/pages/frame/frame.dart';
+import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/pages/frame/register/index.dart';
+import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterController extends GetxController {
@@ -13,19 +15,7 @@ class RegisterController extends GetxController {
 
   final FocusNode userRegisterFocusNode = FocusNode();
 
-  /// 节流变量
-  Rx<DateTime> dateChanged = DateTime(1990, 1, 1).obs;
-
-  /// 时间
-  Rx<DateTime> dateTime = DateTime(1990, 1, 1).obs;
-
-  /// 判断是手机注册 还是 邮箱注册
-  RxBool phoneRegister = true.obs;
-
-  /// 按钮专用禁用状态
-  RxBool buttonDisable = true.obs;
-
-  /// 注册方式
+  final state = RegisterState();
 
   /// 关闭键盘
   void _unfocus() {
@@ -34,7 +24,7 @@ class RegisterController extends GetxController {
 
   /// 输入框文本监听
   void _textListener() {
-    buttonDisable.value = userRegisterController.text.isEmpty ? true : false;
+    state.isDissable = userRegisterController.text.isEmpty ? true : false;
   }
 
   /// 初始化
@@ -47,9 +37,9 @@ class RegisterController extends GetxController {
 
     /// 节流
     debounce(
-      dateChanged,
+      state.timeChangeRx,
       (date) {
-        dateTime.value = dateChanged.value;
+        state.showTime = state.timeChange;
       },
       time: const Duration(milliseconds: 200),
     );
@@ -68,7 +58,7 @@ class RegisterController extends GetxController {
     };
 
     /// 请求服务器...
-    UserLoginResponseEntity userProfile = await AccountApi.sendSms(data: data);
+    ResponseEntity userProfile = await CommonApi.sendSms(data: data);
 
     debugPrint(
         'code:${userProfile.code} /n msg:${userProfile.msg} /n data:${userProfile.data}');
@@ -77,14 +67,35 @@ class RegisterController extends GetxController {
     });
   }
 
+  /// 区号选择
+  void handleGoCodeList() async {
+    if (userRegisterFocusNode.hasFocus) {
+      _unfocus();
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
+
+    Get.toNamed(AppRoutes.codeList);
+  }
+
   /// 时间确认按钮
   void _onSure() {
     Get.back();
   }
 
+  /// 同意服务条款和隐私政策
+  void handleAgreen() {
+    state.isChooise = !state.isChooise;
+  }
+
+  /// 去服务条款页面
+  void handleGoService() {}
+
+  /// 去隐私政策页面
+  void handleGoPrivacy() {}
+
   /// 时间选择时的事件
   void _timeChanged(DateTime dateTime) {
-    dateChanged.value = DateTime(
+    state.timeChange = DateTime(
       dateTime.year,
       dateTime.month,
       dateTime.day,
@@ -97,14 +108,14 @@ class RegisterController extends GetxController {
     getDateBox(
       onPressed: _onSure,
       onDateTimeChanged: _timeChanged,
-      initialDateTime: dateTime.value,
+      initialDateTime: state.showTime,
     );
   }
 
   /// 切换注册方式
   void handleChangeRegister() {
     userRegisterController.text = '';
-    phoneRegister.value = !phoneRegister.value;
+    state.isPhone = !state.isPhone;
     userRegisterFocusNode.requestFocus();
   }
 
@@ -112,6 +123,7 @@ class RegisterController extends GetxController {
   @override
   void dispose() {
     frameController.dispose();
+
     userRegisterController.dispose();
     userRegisterFocusNode.dispose();
 

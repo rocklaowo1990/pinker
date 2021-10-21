@@ -37,7 +37,7 @@ class SettingView extends GetView<SettingController> {
       title: Lang.setLang.tr,
       secondTitle: Obx(
         () => getSpan(
-            controller.language.value == const Locale('zh', 'CN')
+            controller.state.language == const Locale('zh', 'CN')
                 ? Lang.setLangValueCN.tr
                 : Lang.setLangValueEN.tr,
             color: AppColors.secondIcon),

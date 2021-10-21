@@ -7,8 +7,11 @@ class AppColors {
   /// 主要Icon
   static const Color mainIcon = Color(0xffffffff);
 
-  /// 次要Icon 949cbd
+  /// 次要Icon
   static const Color secondIcon = Color(0xff949cbd);
+
+  /// 半透明Icon
+  static const Color thirdIcon = Color(0x50949cbd);
 
   /// 主要文本
   static const Color mainText = Color(0xffffffff);

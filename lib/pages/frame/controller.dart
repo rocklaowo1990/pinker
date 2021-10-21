@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/pages/frame/state.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'index/index.dart';
 import 'login/index.dart';
 import 'register/index.dart';
 
 class FrameController extends GetxController {
-  /// 控制蒙版是否显示
-  RxBool isShow = false.obs;
-
-  // @override
-  // void onInit() {
-  //   if (Global.isOfflineLogin == true) {
-  //     Get.toNamed(AppRoutes.application);
-  //   }
-  //   super.onInit();
-  // }
+  final state = FrameState();
 
   /// 返回默认页面按钮
   void handleBack() async {
     FocusScope.of(Get.context!).requestFocus(FocusNode());
     await Future.delayed(const Duration(milliseconds: 200));
-    isShow.value = false;
+    state.isShowMax = false;
     Get.back(id: 1);
   }
 

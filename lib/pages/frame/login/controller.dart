@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/api/api.dart';
-import 'package:pinker/entities/user.dart';
+import 'package:pinker/entities/response.dart';
 import 'package:pinker/global.dart';
-import 'package:pinker/pages/frame/frame.dart';
+import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/pages/frame/login/index.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 
@@ -19,8 +20,7 @@ class LoginController extends GetxController {
   final FocusNode userCountFocusNode = FocusNode();
   final FocusNode userPasswordFocusNode = FocusNode();
 
-  /// 按钮专用禁用状态
-  RxBool buttonDisable = true.obs;
+  final state = LoginState();
 
   /// 关闭键盘
   void _unfocus() {
@@ -30,7 +30,7 @@ class LoginController extends GetxController {
 
   /// 输入框文本监听
   void _textListener() {
-    buttonDisable.value =
+    state.isDissable =
         userCountController.text.isEmpty || userPasswordController.text.isEmpty
             ? true
             : false;
@@ -50,7 +50,12 @@ class LoginController extends GetxController {
 
   /// 去找回密码页面
   void handleGoForgetPasswordPage() async {
-    _unfocus();
+    if (userCountFocusNode.hasFocus || userPasswordFocusNode.hasFocus) {
+      _unfocus();
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
+
+    Get.toNamed(AppRoutes.forgot);
   }
 
   /// 用户登陆
@@ -76,7 +81,7 @@ class LoginController extends GetxController {
     };
 
     /// 请求服务器...
-    UserLoginResponseEntity userProfile = await AccountApi.login(data: data);
+    ResponseEntity userProfile = await AccountApi.login(data: data);
 
     /// 返回数据处理
     if (userProfile.code == 200) {
@@ -106,6 +111,8 @@ class LoginController extends GetxController {
 
     userCountFocusNode.dispose();
     userPasswordFocusNode.dispose();
+
+    frameController.dispose();
     super.dispose();
   }
 }

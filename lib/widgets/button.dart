@@ -3,31 +3,38 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/values/values.dart';
 
 /// 按钮封装
-Widget getButton({
-  /// 按钮的背景色
-  Color? background,
+Widget getButton(
+    {
 
-  /// 按钮的点击事件
-  VoidCallback? onPressed,
+    /// 按钮的背景色
+    Color? background,
 
-  /// 子组件
-  required Widget child,
+    /// 按钮的背景色
+    Color? overlayColor,
 
-  /// 按钮高度
-  double? height,
+    /// 按钮的点击事件
+    VoidCallback? onPressed,
 
-  /// 按钮宽度
-  double? width,
+    /// 子组件
+    required Widget child,
 
-  /// 按钮宽度
-  double? radius,
+    /// 按钮高度
+    double? height,
 
-  /// 子组件对齐方式
-  AlignmentGeometry? alignment,
+    /// 按钮宽度
+    double? width,
 
-  /// padding
-  EdgeInsetsGeometry? padding,
-}) {
+    /// 按钮宽度
+    double? radius,
+
+    /// 子组件对齐方式
+    AlignmentGeometry? alignment,
+
+    /// padding
+    EdgeInsetsGeometry? padding,
+
+    /// 边框
+    MaterialStateProperty<BorderSide?>? side}) {
   return SizedBox(
     /// 宽度不填的话，默认是无无限宽
     width: width,
@@ -45,9 +52,14 @@ Widget getButton({
           const TextStyle(fontWeight: FontWeight.normal),
         ),
 
+        overlayColor: MaterialStateProperty.all(overlayColor),
+
         /// 按钮圆角
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 186.5.w))),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius ?? 186.5.w),
+          ),
+        ),
 
         /// 清空按钮的padding
         padding: MaterialStateProperty.all(padding ?? EdgeInsets.zero),

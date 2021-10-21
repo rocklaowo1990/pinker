@@ -26,6 +26,10 @@ abstract class Lang {
   static const registerNext = 'registerNext';
   static const registerPhone = 'registerPhone';
   static const registerEmail = 'registerEmail';
+  static const registerAgreen_1 = 'registerAgreen_1';
+  static const registerAgreen_2 = 'registerAgreen_2';
+  static const registerService = 'registerService';
+  static const registerPrivacy = 'registerPrivacy';
 
   /// 设置页面
   static const setTitle = 'setTitle';
@@ -38,4 +42,7 @@ abstract class Lang {
   static const langCN = 'langCN';
   static const langEN = 'langEN';
   static const langMsg = 'langMsg';
+
+  /// 区号选择
+  static const codeTitle = 'codeTitle';
 }

@@ -10,4 +10,8 @@ class AppRoutes {
   static const index = '/index';
   static const login = '/login';
   static const register = '/register';
+
+  static const forgot = '/forgot';
+
+  static const codeList = '/codeList';
 }

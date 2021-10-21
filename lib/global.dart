@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 
-import 'package:pinker/entities/user.dart';
+import 'package:pinker/entities/response.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
@@ -51,14 +51,14 @@ class Global {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (GetPlatform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      Global.platform = 'android';
-      Global.osversion = 'Android ${androidInfo.version.sdkInt}';
-      Global.model = androidInfo.model;
+      platform = 'android';
+      osversion = 'Android ${androidInfo.version.sdkInt}';
+      model = androidInfo.model;
     } else if (GetPlatform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      Global.platform = 'ios';
-      Global.osversion = 'IOS ${iosInfo.systemVersion}';
-      Global.model = iosInfo.model;
+      platform = 'ios';
+      osversion = 'IOS ${iosInfo.systemVersion}';
+      model = iosInfo.model;
     }
 
     /// 包信息
@@ -75,7 +75,7 @@ class Global {
     // 读取离线用户信息
     var _profileJSON = StorageUtil().getJSON(storageUserProfileKey);
     if (_profileJSON != null) {
-      Global.token = _profileJSON['data']['token'];
+      token = _profileJSON['data']['token'];
       isOfflineLogin = true;
     }
   }
@@ -85,8 +85,8 @@ class Global {
   //   StorageUtil().setBool(storageDeviceFirstOpenKey, false);
   // }
 
-  // 持久化 用户信息
-  static Future<bool> saveProfile(UserLoginResponseEntity profile) {
+  /// 持久化 用户信息
+  static Future<bool> saveProfile(ResponseEntity profile) {
     profile = profile;
     return StorageUtil().setJSON(storageUserProfileKey, profile);
   }

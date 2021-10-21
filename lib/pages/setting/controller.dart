@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/pages/setting/index.dart';
 import 'package:pinker/routes/app_pages.dart';
 
 class SettingController extends GetxController {
-  /// 语言
-  Rx<Locale?> language = Get.locale.obs;
-
-  /// 初始化
-  // @override
-  // void onInit() {}
+  final state = LanguageState();
 
   /// 返回
   void handleGoSignBeforePage() {

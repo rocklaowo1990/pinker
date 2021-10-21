@@ -46,8 +46,8 @@ class LoginView extends GetView<LoginController> {
           height: 18.h,
           child: getSpan(Lang.loginButton.tr),
           onPressed:
-              controller.buttonDisable.value ? null : controller.handleSignIn,
-          background: controller.buttonDisable.value
+              controller.state.isDissable ? null : controller.handleSignIn,
+          background: controller.state.isDissable
               ? AppColors.buttonDisable
               : AppColors.mainColor,
         ),
@@ -83,7 +83,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => !controller.frameController.isShow.value
+        () => !controller.frameController.state.isShowMax
             ? Stack(
                 // 遮罩层
                 children: [

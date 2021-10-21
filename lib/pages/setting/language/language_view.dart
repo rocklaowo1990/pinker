@@ -39,10 +39,10 @@ class LanguageView extends GetView<LanguageController> {
       iconRight: Obx(() => Icon(
             Icons.check_circle,
             size: 9.w,
-            color: controller.settingController.language.value ==
+            color: controller.settingController.state.language ==
                     const Locale('zh', 'CN')
                 ? AppColors.mainColor
-                : AppColors.secondIcon,
+                : AppColors.thirdIcon,
           )),
     );
 
@@ -53,10 +53,10 @@ class LanguageView extends GetView<LanguageController> {
       iconRight: Obx(() => Icon(
             Icons.check_circle,
             size: 9.w,
-            color: controller.settingController.language.value ==
+            color: controller.settingController.state.language ==
                     const Locale('en', 'US')
                 ? AppColors.mainColor
-                : AppColors.secondIcon,
+                : AppColors.thirdIcon,
           )),
     );
 

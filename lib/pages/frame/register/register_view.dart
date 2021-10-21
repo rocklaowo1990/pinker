@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,12 +19,20 @@ class RegisterView extends GetView<RegisterController> {
     /// 账号输入框
     Widget userRegister = Obx(
       () => getInput(
-        type: controller.phoneRegister.value
-            ? Lang.inputPhone.tr
-            : Lang.inputEmail.tr,
+        type:
+            controller.state.isPhone ? Lang.inputPhone.tr : Lang.inputEmail.tr,
         controller: controller.userRegisterController,
         autofocus: true,
         focusNode: controller.userRegisterFocusNode,
+        prefixIcon: controller.state.isPhone
+            ? getButton(
+                child: Text(controller.state.code),
+                background: Colors.transparent,
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(left: 10.w, right: 6.w),
+                onPressed: controller.handleGoCodeList,
+              )
+            : null,
       ),
     );
 
@@ -32,11 +41,58 @@ class RegisterView extends GetView<RegisterController> {
       () => getButton(
         onPressed: controller.birthChoice,
         child: getSpan(
-            '${controller.dateTime.value.year}-${controller.dateTime.value.month}-${controller.dateTime.value.day}'),
+            '${controller.state.showTime.year}-${controller.state.showTime.month}-${controller.state.showTime.day}'),
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 10.w),
         background: AppColors.inputFiled,
         width: double.infinity,
+      ),
+    );
+
+    /// 同意服务条款
+    Widget agreen = getButton(
+      overlayColor: Colors.transparent,
+      onPressed: controller.handleAgreen,
+      width: double.infinity,
+      alignment: Alignment.centerLeft,
+      background: Colors.transparent,
+      child: Row(
+        children: [
+          Obx(
+            () => Icon(
+              Icons.check_circle,
+              size: 9.w,
+              color: controller.state.isChooise
+                  ? AppColors.mainColor
+                  : AppColors.thirdIcon,
+            ),
+          ),
+          SizedBox(width: 2.w),
+          RichText(
+            text: TextSpan(
+              text: Lang.registerAgreen_1.tr,
+              style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+              children: [
+                TextSpan(
+                  text: Lang.registerService.tr,
+                  style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = controller.handleGoService,
+                ),
+                TextSpan(
+                  text: Lang.registerAgreen_2.tr,
+                  style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+                ),
+                TextSpan(
+                  text: Lang.registerPrivacy.tr,
+                  style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = controller.handleGoPrivacy,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
 
@@ -45,7 +101,7 @@ class RegisterView extends GetView<RegisterController> {
       leftWidget: getButton(
         child: Obx(
           () => getSpan(
-            controller.phoneRegister.value
+            controller.state.isPhone
                 ? Lang.registerPhone.tr
                 : Lang.registerEmail.tr,
             color: AppColors.mainColor,
@@ -60,11 +116,12 @@ class RegisterView extends GetView<RegisterController> {
           width: 40.w,
           height: 18.h,
           child: getSpan(Lang.registerNext.tr),
-          onPressed:
-              controller.buttonDisable.value ? null : controller.handleNext,
-          background: controller.buttonDisable.value
-              ? AppColors.buttonDisable
-              : AppColors.mainColor,
+          onPressed: !controller.state.isDissable && controller.state.isChooise
+              ? controller.handleNext
+              : null,
+          background: !controller.state.isDissable && controller.state.isChooise
+              ? AppColors.mainColor
+              : AppColors.buttonDisable,
         ),
       ),
     );
@@ -73,21 +130,29 @@ class RegisterView extends GetView<RegisterController> {
     Widget body = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-            top: 24.h,
-            right: 20.w,
-            left: 20.w,
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 24.h,
+                right: 20.w,
+                left: 20.w,
+              ),
+              child: Column(
+                children: [
+                  title,
+                  SizedBox(height: 30.h),
+                  userRegister,
+                  SizedBox(height: 6.h),
+                  userBirth,
+                  SizedBox(height: 6.h),
+                  agreen,
+                  SizedBox(height: 16.h),
+                ],
+              ),
+            ),
           ),
-          child: Column(
-            children: [
-              title,
-              SizedBox(height: 30.h),
-              userRegister,
-              SizedBox(height: 6.h),
-              userBirth,
-            ],
-          ),
+          flex: 1,
         ),
         bottom,
       ],
@@ -96,7 +161,7 @@ class RegisterView extends GetView<RegisterController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => !controller.frameController.isShow.value
+        () => !controller.frameController.state.isShowMax
             ? Stack(
                 // 遮罩层
                 children: [

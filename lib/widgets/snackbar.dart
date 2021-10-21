@@ -26,5 +26,7 @@ void getSnackTop({
       top: 8.h,
       bottom: 6.h,
     ),
+    animationDuration: const Duration(milliseconds: 500),
+    duration: const Duration(milliseconds: 1000),
   );
 }

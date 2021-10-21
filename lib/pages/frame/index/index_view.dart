@@ -72,7 +72,7 @@ class IndexView extends GetView<IndexController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => controller.frameController.isShow.value
+        () => controller.frameController.state.isShowMax
             ? Stack(
                 // 遮罩层
                 children: [

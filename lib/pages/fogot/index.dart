@@ -1,6 +1,6 @@
-library setting;
+library forgot;
 
-export 'setting_view.dart';
+export 'forgot_view.dart';
 export 'binding.dart';
 export 'controller.dart';
 export 'state.dart';

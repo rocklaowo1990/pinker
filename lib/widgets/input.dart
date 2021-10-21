@@ -21,6 +21,12 @@ Widget getInput({
 
   /// 键盘右下角的按钮类型
   TextInputAction? textInputAction,
+
+  /// padding
+  EdgeInsetsGeometry? contentPadding,
+
+  /// 左侧按钮
+  Widget? prefixIcon,
 }) {
   /// 判断是否显示密码
   RxBool isPassword = false.obs;
@@ -76,6 +82,7 @@ Widget getInput({
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+          prefixIcon: prefixIcon,
           suffixIcon: textObs.value.isEmpty
               ? null
               : IconButton(
@@ -86,7 +93,8 @@ Widget getInput({
                     size: 8.sp,
                   ),
                 ),
-          contentPadding: EdgeInsets.fromLTRB(10.w, 6.h, 10.w, 6.h),
+          contentPadding:
+              contentPadding ?? EdgeInsets.fromLTRB(10.w, 6.h, 10.w, 6.h),
           filled: true,
           fillColor: AppColors.inputFiled,
           border: OutlineInputBorder(

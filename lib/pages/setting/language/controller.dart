@@ -7,43 +7,37 @@ import 'package:pinker/widgets/widgets.dart';
 class LanguageController extends GetxController {
   final settingController = Get.put(SettingController());
 
-  /// 初始化
-  // @override
-  // void onInit() {}
-
   /// 返回
   void handleGoSignBeforePage() {
     Get.back();
   }
 
-  void handleToLanguageCN() {
+  void handleToLanguageCN() async {
     Locale zhCN = const Locale('zh', 'CN');
     if (Get.locale == zhCN) return;
     Get.updateLocale(zhCN);
-    settingController.language.value = zhCN;
+    settingController.state.language = zhCN;
     getSnackTop(
       msg: Lang.langMsg.tr,
       iconData: Icons.check_circle,
       iconColor: Colors.green,
     );
-    // Future.delayed(const Duration(milliseconds: 500), () {
-    //   Get.back();
-    // });
+    await Future.delayed(const Duration(milliseconds: 1000));
+    Get.back();
   }
 
-  void handleToLanguageUS() {
+  void handleToLanguageUS() async {
     Locale enUS = const Locale('en', 'US');
     if (Get.locale == enUS) return;
     Get.updateLocale(enUS);
-    settingController.language.value = enUS;
+    settingController.state.language = enUS;
     getSnackTop(
       msg: Lang.langMsg.tr,
       iconData: Icons.check_circle,
       iconColor: Colors.green,
     );
-    // Future.delayed(const Duration(milliseconds: 500), () {
-    //   Get.back();
-    // });
+    await Future.delayed(const Duration(milliseconds: 1000));
+    Get.back();
   }
 
   /// 页面销毁

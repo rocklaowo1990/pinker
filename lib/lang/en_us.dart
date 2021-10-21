@@ -26,6 +26,10 @@ const Map<String, String> en = {
   Lang.registerPhone: 'chang phone',
   Lang.registerTitle: 'Sign Up',
   Lang.registerNext: 'next',
+  Lang.registerAgreen_1: 'I have read carefully and agree',
+  Lang.registerAgreen_2: 'and',
+  Lang.registerService: ' Terms of Service ',
+  Lang.registerPrivacy: ' Privacy Policy ',
 
   /// 设置页面
   Lang.setTitle: 'Setting',
@@ -37,5 +41,8 @@ const Map<String, String> en = {
   Lang.langCN: '简体中文',
   Lang.langEN: 'English',
   Lang.langTitle: 'Language',
-  Lang.langMsg: 'Successful operation'
+  Lang.langMsg: 'Successful operation',
+
+  /// 区号选择
+  Lang.codeTitle: 'Code chooise',
 };

@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/index.dart';
-import 'package:pinker/pages/frame/frame.dart';
+import 'package:pinker/pages/code_list/index.dart';
+import 'package:pinker/pages/fogot/index.dart';
+import 'package:pinker/pages/frame/index.dart';
 import 'package:pinker/pages/setting/index.dart';
 import 'package:pinker/pages/setting/language/index.dart';
 import 'package:pinker/pages/unknown/index.dart';
@@ -33,6 +35,20 @@ class AppPages {
       name: AppRoutes.frame,
       page: () => const FrameView(),
       binding: FrameBinding(),
+    ),
+
+    /// 忘记密码
+    GetPage(
+      name: AppRoutes.forgot,
+      page: () => const ForgotView(),
+      binding: ForgotBinding(),
+    ),
+
+    /// 区号选择
+    GetPage(
+      name: AppRoutes.codeList,
+      page: () => const CodeListView(),
+      binding: CodeListBinding(),
     ),
 
     // /// 初始页面
