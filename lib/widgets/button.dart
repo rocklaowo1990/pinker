@@ -25,7 +25,7 @@ Widget getButton(
     double? width,
 
     /// 按钮宽度
-    double? radius,
+    BorderRadiusGeometry? radius,
 
     /// 子组件对齐方式
     AlignmentGeometry? alignment,
@@ -57,7 +57,7 @@ Widget getButton(
         /// 按钮圆角
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 186.5.w),
+            borderRadius: radius ?? BorderRadius.circular(186.5.w),
           ),
         ),
 

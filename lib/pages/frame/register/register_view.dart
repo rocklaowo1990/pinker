@@ -49,6 +49,52 @@ class RegisterView extends GetView<RegisterController> {
       ),
     );
 
+    /// 单选按钮默认状态
+    Widget dialogDefault = Icon(
+      Icons.check_circle,
+      size: 8.w,
+      color: AppColors.mainColor,
+    );
+
+    /// 单选按钮选中状态
+    Widget dialogChooise = Container(
+      width: 8.w,
+      height: 8.w,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          width: 0.8.w,
+          color: AppColors.thirdIcon,
+        ),
+      ),
+    );
+
+    /// 服务条款 和 隐私政策富文本
+    Widget richText = RichText(
+      text: TextSpan(
+        text: Lang.registerAgreen_1.tr,
+        style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+        children: [
+          TextSpan(
+            text: Lang.registerService.tr,
+            style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+            recognizer: TapGestureRecognizer()
+              ..onTap = controller.handleGoService,
+          ),
+          TextSpan(
+            text: Lang.registerAgreen_2.tr,
+            style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+          ),
+          TextSpan(
+            text: Lang.registerPrivacy.tr,
+            style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+            recognizer: TapGestureRecognizer()
+              ..onTap = controller.handleGoPrivacy,
+          ),
+        ],
+      ),
+    );
+
     /// 同意服务条款
     Widget agreen = getButton(
       overlayColor: Colors.transparent,
@@ -58,40 +104,9 @@ class RegisterView extends GetView<RegisterController> {
       background: Colors.transparent,
       child: Row(
         children: [
-          Obx(
-            () => Icon(
-              Icons.check_circle,
-              size: 9.w,
-              color: controller.state.isChooise
-                  ? AppColors.mainColor
-                  : AppColors.thirdIcon,
-            ),
-          ),
-          SizedBox(width: 2.w),
-          RichText(
-            text: TextSpan(
-              text: Lang.registerAgreen_1.tr,
-              style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
-              children: [
-                TextSpan(
-                  text: Lang.registerService.tr,
-                  style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = controller.handleGoService,
-                ),
-                TextSpan(
-                  text: Lang.registerAgreen_2.tr,
-                  style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
-                ),
-                TextSpan(
-                  text: Lang.registerPrivacy.tr,
-                  style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = controller.handleGoPrivacy,
-                ),
-              ],
-            ),
-          ),
+          Obx(() => controller.state.isChooise ? dialogDefault : dialogChooise),
+          SizedBox(width: 3.w),
+          Expanded(child: richText, flex: 1),
         ],
       ),
     );

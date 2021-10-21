@@ -13,6 +13,9 @@ class AppColors {
   /// 半透明Icon
   static const Color thirdIcon = Color(0x50949cbd);
 
+  /// 分割线
+  static const Color line = Color(0x20949cbd);
+
   /// 主要文本
   static const Color mainText = Color(0xffffffff);
 

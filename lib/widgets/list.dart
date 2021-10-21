@@ -69,7 +69,7 @@ Widget getList({
   /// 组合
   return getButton(
     child: textButtonChild,
-    radius: 0,
+    radius: BorderRadius.zero,
     background: AppColors.secondBacground,
     height: 30.h,
     padding: EdgeInsets.only(

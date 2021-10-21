@@ -9,12 +9,14 @@ import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterController extends GetxController {
+  /// 遮罩控制器
   final frameController = Get.put(FrameController());
 
+  /// 输入框的控制器和焦点
   final TextEditingController userRegisterController = TextEditingController();
-
   final FocusNode userRegisterFocusNode = FocusNode();
 
+  /// 状态管理
   final state = RegisterState();
 
   /// 关闭键盘
@@ -47,14 +49,29 @@ class RegisterController extends GetxController {
 
   /// 下一步按钮，点击事件
   void handleNext() async {
-    /// 关闭键盘
-    _unfocus();
+    _unfocus(); // 失去焦点
+    getDialog(
+      child: dialogChild(
+        onPressedLeft: _edit,
+        onPressedRight: _goCodePage,
+      ),
+      autoBack: true,
+    );
+  }
+
+  void _edit() {
+    Get.back();
+    userRegisterFocusNode.requestFocus();
+  }
+
+  void _goCodePage() async {
+    Get.back();
 
     /// 准备请求数据
     Map<String, String> data = {
       'mobile': userRegisterController.text,
-      'areaCode': '86',
-      'entryType': '1',
+      'areaCode': state.code,
+      'entryType': state.isPhone ? '1' : '2',
     };
 
     /// 请求服务器...
@@ -78,7 +95,7 @@ class RegisterController extends GetxController {
   }
 
   /// 时间确认按钮
-  void _onSure() {
+  void _back() {
     Get.back();
   }
 
@@ -106,7 +123,7 @@ class RegisterController extends GetxController {
   void birthChoice() {
     userRegisterFocusNode.unfocus();
     getDateBox(
-      onPressed: _onSure,
+      onPressed: _back,
       onDateTimeChanged: _timeChanged,
       initialDateTime: state.showTime,
     );
