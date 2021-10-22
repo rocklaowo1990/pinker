@@ -8,7 +8,7 @@ class VerifyView extends GetView<VerifyController> {
   @override
   Widget build(BuildContext context) {
     /// body 布局
-    Widget body = Container();
+    Widget body = Text(Get.arguments.toString());
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(

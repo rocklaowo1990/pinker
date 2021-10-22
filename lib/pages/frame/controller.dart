@@ -59,6 +59,7 @@ class FrameController extends GetxController {
         binding: RegisterBinding(),
       );
     } else if (settings.name == AppRoutes.verify) {
+      Get.routing.args = settings.arguments;
       return _getPageRoute(
         page: const VerifyView(),
         settings: settings,

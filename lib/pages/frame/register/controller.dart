@@ -137,6 +137,7 @@ class RegisterController extends GetxController {
       AppRoutes.verify,
       id: 1,
       arguments: data,
+      // parameters: {'id': 'dd'},
     );
   }
 
