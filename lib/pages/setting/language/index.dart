@@ -1,4 +1,4 @@
-library setting;
+library language;
 
 export 'language_view.dart';
 export 'binding.dart';

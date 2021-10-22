@@ -3,6 +3,8 @@ part of 'translation_service.dart';
 abstract class Lang {
   /// 公共
   static const sure = "sure";
+  static const edit = "edit";
+  static const cancel = "cancel";
 
   /// 默认页面
   static const indexTitle = "indexTitle";

@@ -2,7 +2,9 @@ part of "translation_service.dart";
 
 const Map<String, String> en = {
   /// 公共
-  Lang.sure: 'sure',
+  Lang.sure: 'Sure',
+  Lang.edit: 'Edit',
+  Lang.cancel: 'Cancel',
 
   /// 默认页面
   Lang.indexGoLogin: ' Sign In',
@@ -11,8 +13,8 @@ const Map<String, String> en = {
   Lang.indexTitle: 'See what is happening in the world',
 
   /// 输入框
-  Lang.inputCount: 'phone / email / count',
-  Lang.inputPassword: 'password',
+  Lang.inputCount: 'Phone / Email / Count',
+  Lang.inputPassword: 'Password',
   Lang.inputPhone: 'Phone',
   Lang.inputEmail: 'Email',
 
@@ -22,12 +24,12 @@ const Map<String, String> en = {
   Lang.loginTitle: 'Login Pinker',
 
   /// 创建您的账号页面
-  Lang.registerEmail: 'chang email',
-  Lang.registerPhone: 'chang phone',
+  Lang.registerEmail: 'Use phone',
+  Lang.registerPhone: 'Use Email',
   Lang.registerTitle: 'Sign Up',
-  Lang.registerNext: 'next',
+  Lang.registerNext: 'Next',
   Lang.registerAgreen_1: 'I have read carefully and agree',
-  Lang.registerAgreen_2: 'and',
+  Lang.registerAgreen_2: 'And',
   Lang.registerService: ' Terms of Service ',
   Lang.registerPrivacy: ' Privacy Policy ',
 

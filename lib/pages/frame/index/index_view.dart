@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/index/index.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -72,7 +73,7 @@ class IndexView extends GetView<IndexController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => controller.frameController.state.isShowMax
+        () => controller.frameController.state.pageIndex != 0
             ? Stack(
                 // 遮罩层
                 children: [

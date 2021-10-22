@@ -16,6 +16,7 @@ Widget getSpan(
       fontSize: size ?? 8.sp,
       color: color ?? AppColors.mainText,
       fontWeight: fontWeight ?? FontWeight.normal,
+      decoration: TextDecoration.none,
     ),
   );
 }

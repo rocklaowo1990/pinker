@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -75,7 +76,7 @@ Widget dialogChild({
               children: [
                 Expanded(
                   child: getButton(
-                      child: Text(leftText ?? '编辑'),
+                      child: Text(leftText ?? Lang.edit.tr),
                       width: double.infinity,
                       height: 30.h,
                       background: Colors.transparent,
@@ -91,7 +92,7 @@ Widget dialogChild({
                 ),
                 Expanded(
                   child: getButton(
-                    child: Text(rightText ?? '确认'),
+                    child: Text(rightText ?? Lang.sure.tr),
                     height: 30.h,
                     width: double.infinity,
                     background: Colors.transparent,

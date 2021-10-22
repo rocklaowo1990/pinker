@@ -3,6 +3,8 @@ part of "translation_service.dart";
 const Map<String, String> zh = {
   /// 公共
   Lang.sure: '确认',
+  Lang.edit: '编辑',
+  Lang.cancel: '取消',
 
   /// 默认页面
   Lang.indexGoLogin: ' 去登陆',

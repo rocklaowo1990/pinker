@@ -26,7 +26,7 @@ class RegisterView extends GetView<RegisterController> {
         focusNode: controller.userRegisterFocusNode,
         prefixIcon: controller.state.isPhone
             ? getButton(
-                child: Text(controller.state.code),
+                child: Text('+${controller.state.code}'),
                 background: Colors.transparent,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10.w, right: 6.w),
@@ -176,7 +176,7 @@ class RegisterView extends GetView<RegisterController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => !controller.frameController.state.isShowMax
+        () => controller.frameController.state.pageIndex != 1
             ? Stack(
                 // 遮罩层
                 children: [

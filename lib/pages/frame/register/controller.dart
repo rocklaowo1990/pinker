@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pinker/api/api.dart';
-import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/frame/index.dart';
 import 'package:pinker/pages/frame/register/index.dart';
 import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/utils/utils.dart';
+import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterController extends GetxController {
@@ -26,16 +27,28 @@ class RegisterController extends GetxController {
 
   /// 输入框文本监听
   void _textListener() {
-    state.isDissable = userRegisterController.text.isEmpty ? true : false;
+    if (userRegisterController.text.isEmpty) {
+      state.isDissable = true;
+    } else if (state.isPhone &&
+        state.code == '+86' &&
+        !isChinaPhoneLegal(userRegisterController.text)) {
+      state.isDissable = true;
+    } else if (!state.isPhone && !userRegisterController.text.isEmail) {
+      state.isDissable = true;
+    } else if (userRegisterController.text.length < 7) {
+      state.isDissable = true;
+    } else if (state.isPhone && !userRegisterController.text.isNum) {
+      state.isDissable = true;
+    } else {
+      state.isDissable = false;
+    }
   }
 
   /// 初始化
   @override
   void onInit() {
     super.onInit();
-    userRegisterController.addListener(() {
-      _textListener();
-    });
+    userRegisterController.addListener(_textListener);
 
     /// 节流
     debounce(
@@ -54,6 +67,19 @@ class RegisterController extends GetxController {
       child: dialogChild(
         onPressedLeft: _edit,
         onPressedRight: _goCodePage,
+        child: Column(
+          children: [
+            state.isPhone
+                ? getSpan('验证手机', size: 9.sp)
+                : getSpan('验证邮箱', size: 9.sp),
+            SizedBox(height: 8.h),
+            state.isPhone
+                ? getSpan('我们会以短信的形式将验证码发送到您尾号12的手机',
+                    size: 8.sp, color: AppColors.secondText)
+                : getSpan('我们会以短信的形式将验证码发送到您尾号12的邮箱',
+                    size: 8.sp, color: AppColors.secondText),
+          ],
+        ),
       ),
       autoBack: true,
     );
@@ -65,23 +91,24 @@ class RegisterController extends GetxController {
   }
 
   void _goCodePage() async {
-    Get.back();
+    Get.back(); //这里是隐藏 dialog 窗口
+    await Future.delayed(const Duration(milliseconds: 200));
 
     /// 准备请求数据
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       'mobile': userRegisterController.text,
       'areaCode': state.code,
       'entryType': state.isPhone ? '1' : '2',
     };
 
-    /// 请求服务器...
-    ResponseEntity userProfile = await CommonApi.sendSms(data: data);
+    debugPrint(data.toString());
 
-    debugPrint(
-        'code:${userProfile.code} /n msg:${userProfile.msg} /n data:${userProfile.data}');
-    await Future.delayed(const Duration(milliseconds: 200), () {
-      userRegisterFocusNode.requestFocus();
-    });
+    frameController.state.pageIndex++;
+    Get.toNamed(
+      AppRoutes.verify,
+      id: 1,
+      arguments: data,
+    );
   }
 
   /// 区号选择

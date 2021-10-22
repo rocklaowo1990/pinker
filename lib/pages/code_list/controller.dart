@@ -38,7 +38,7 @@ class CodeListController extends GetxController {
 
   /// 列表选择事件
   void handleChooise(item) {
-    registerController.state.code = '+${item['area_code']}';
+    registerController.state.code = '${item['area_code']}';
     debugPrint(registerController.state.code);
     Get.back();
   }
