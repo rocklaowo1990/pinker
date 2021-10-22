@@ -24,13 +24,16 @@ Future getDateBox({
     ),
   );
 
+  DateTime dateTime = DateTime.now();
+
   /// 日期选择器
   var dateBox = CupertinoDatePicker(
     mode: CupertinoDatePickerMode.date,
     onDateTimeChanged: onDateTimeChanged,
     initialDateTime: initialDateTime ?? DateTime(1990, 1, 1),
-    maximumYear: DateTime.now().year,
+    maximumYear: DateTime.now().year - 18,
     minimumYear: DateTime.now().year - 100,
+    maximumDate: DateTime(dateTime.year - 18, dateTime.month, dateTime.day - 1),
     dateOrder: DatePickerDateOrder.ymd,
   );
 

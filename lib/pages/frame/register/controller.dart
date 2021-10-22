@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/frame/index.dart';
 import 'package:pinker/pages/frame/register/index.dart';
@@ -30,7 +31,7 @@ class RegisterController extends GetxController {
     if (userRegisterController.text.isEmpty) {
       state.isDissable = true;
     } else if (state.isPhone &&
-        state.code == '+86' &&
+        state.code == '86' &&
         !isChinaPhoneLegal(userRegisterController.text)) {
       state.isDissable = true;
     } else if (!state.isPhone && !userRegisterController.text.isEmail) {
@@ -55,6 +56,18 @@ class RegisterController extends GetxController {
       state.timeChangeRx,
       (date) {
         state.showTime = state.timeChange;
+        if (state.showTime.year > DateTime.now().year - 18) {
+          state.isDissable = true;
+        } else if (state.showTime.year == DateTime.now().year - 18 &&
+            state.showTime.month > DateTime.now().month) {
+          state.isDissable = true;
+        } else if (state.showTime.year == DateTime.now().year - 18 &&
+            state.showTime.month == DateTime.now().month &&
+            state.showTime.day > DateTime.now().day) {
+          state.isDissable = true;
+        } else {
+          state.isDissable = false;
+        }
       },
       time: const Duration(milliseconds: 200),
     );
@@ -63,6 +76,9 @@ class RegisterController extends GetxController {
   /// 下一步按钮，点击事件
   void handleNext() async {
     _unfocus(); // 失去焦点
+
+    String number = state.isPhone ? '43' : '12@163';
+
     getDialog(
       child: dialogChild(
         onPressedLeft: _edit,
@@ -70,14 +86,27 @@ class RegisterController extends GetxController {
         child: Column(
           children: [
             state.isPhone
-                ? getSpan('验证手机', size: 9.sp)
-                : getSpan('验证邮箱', size: 9.sp),
+                ? getSpan(Lang.registerVerifyPhone.tr, size: 9.sp)
+                : getSpan(Lang.registerVerifyEmail.tr, size: 9.sp),
             SizedBox(height: 8.h),
-            state.isPhone
-                ? getSpan('我们会以短信的形式将验证码发送到您尾号12的手机',
-                    size: 8.sp, color: AppColors.secondText)
-                : getSpan('我们会以短信的形式将验证码发送到您尾号12的邮箱',
-                    size: 8.sp, color: AppColors.secondText),
+            Expanded(
+              child: SingleChildScrollView(
+                child: state.isPhone
+                    ? getSpan(
+                        Lang.registerDialogPhone_1.tr +
+                            number +
+                            Lang.registerDialogPhone_2.tr,
+                        size: 8.sp,
+                        color: AppColors.secondText)
+                    : getSpan(
+                        Lang.registerDialogEmail_1.tr +
+                            number +
+                            Lang.registerDialogEmail_2.tr,
+                        size: 8.sp,
+                        color: AppColors.secondText),
+              ),
+              flex: 1,
+            ),
           ],
         ),
       ),

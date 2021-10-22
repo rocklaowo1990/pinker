@@ -32,6 +32,12 @@ abstract class Lang {
   static const registerAgreen_2 = 'registerAgreen_2';
   static const registerService = 'registerService';
   static const registerPrivacy = 'registerPrivacy';
+  static const registerVerifyPhone = 'registerVerifyPhone';
+  static const registerVerifyEmail = 'registerVerifyEmail';
+  static const registerDialogPhone_1 = 'registerDialogPhone_1';
+  static const registerDialogPhone_2 = 'registerDialogPhone_2';
+  static const registerDialogEmail_1 = 'registerDialogEmail_1';
+  static const registerDialogEmail_2 = 'registerDialogEmail_2';
 
   /// 设置页面
   static const setTitle = 'setTitle';

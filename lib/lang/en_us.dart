@@ -32,6 +32,14 @@ const Map<String, String> en = {
   Lang.registerAgreen_2: 'And',
   Lang.registerService: ' Terms of Service ',
   Lang.registerPrivacy: ' Privacy Policy ',
+  Lang.registerVerifyPhone: 'Verify phone',
+  Lang.registerVerifyEmail: 'Verify email',
+  Lang.registerDialogPhone_1:
+      'We will send the verification code to your mobile phone ending in ',
+  Lang.registerDialogPhone_2: ' in the form of email',
+  Lang.registerDialogEmail_1:
+      'We will send the verification code to your email address ending in ',
+  Lang.registerDialogEmail_2: ' in the form of email',
 
   /// 设置页面
   Lang.setTitle: 'Setting',

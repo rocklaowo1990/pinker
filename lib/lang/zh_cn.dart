@@ -32,6 +32,12 @@ const Map<String, String> zh = {
   Lang.registerAgreen_2: '和',
   Lang.registerService: ' 服务条款 ',
   Lang.registerPrivacy: ' 隐私政策 ',
+  Lang.registerVerifyPhone: '验证手机',
+  Lang.registerVerifyEmail: '验证邮箱',
+  Lang.registerDialogPhone_1: '我们会以短信的形式将验证码发送到您尾号 ',
+  Lang.registerDialogPhone_2: ' 的手机 ',
+  Lang.registerDialogEmail_1: '我们会以短信的形式将验证码发送到您尾号 ',
+  Lang.registerDialogEmail_2: ' 的邮箱',
 
   /// 设置页面
   Lang.setTitle: '设置',
