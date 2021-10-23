@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
-import 'package:pinker/pages/setting/index.dart';
+import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class LanguageController extends GetxController {

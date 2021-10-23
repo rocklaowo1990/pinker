@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pinker/pages/frame/index.dart';
+import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 
 class IndexController extends GetxController {

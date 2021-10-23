@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:pinker/pages/frame/verify/index.dart';
+import 'package:pinker/pages/frame/verify/library.dart';
 import 'package:pinker/values/colors.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -19,6 +19,7 @@ class VerifyView extends GetView<VerifyController> {
     Widget secndTitle = getSpan(
       '请在下方输入验证码',
       color: AppColors.secondText,
+      size: 9.sp,
     );
 
     /// 验证码输入框
@@ -88,6 +89,12 @@ class VerifyView extends GetView<VerifyController> {
       ),
     );
 
+    Widget reSendButton = getButton(
+      child: getSpan('重新发送验证码 ( 60 )', color: AppColors.mainColor),
+      padding: EdgeInsets.only(left: 10.w, right: 10.w),
+      background: Colors.transparent,
+    );
+
     /// body 布局
     Widget body = Padding(
       padding: EdgeInsets.all(20.w),
@@ -99,8 +106,10 @@ class VerifyView extends GetView<VerifyController> {
                 title,
                 SizedBox(height: 8.h),
                 secndTitle,
-                SizedBox(height: 16.h),
+                SizedBox(height: 32.h),
                 codeShow,
+                SizedBox(height: 16.h),
+                reSendButton,
               ],
             ),
           ),

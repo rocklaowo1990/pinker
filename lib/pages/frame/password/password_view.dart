@@ -3,51 +3,35 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
-import 'package:pinker/pages/frame/login/library.dart';
+import 'package:pinker/pages/frame/password/library.dart';
 
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
-class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+class PasswordView extends GetView<PasswordController> {
+  const PasswordView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     /// 标题
     Widget title = getSpan(Lang.loginTitle.tr, size: 16.sp);
 
-    /// 账号输入框
-    Widget userCount = getInput(
-      type: Lang.inputCount.tr,
-      controller: controller.userCountController,
-      autofocus: true,
-      focusNode: controller.userCountFocusNode,
-      textInputAction: TextInputAction.next,
-    );
-
     /// 密码输入框
     Widget userPassword = getInput(
       type: Lang.inputPassword.tr,
-      controller: controller.userPasswordController,
-      focusNode: controller.userPasswordFocusNode,
+      controller: controller.passwordController,
+      focusNode: controller.passwordFocusNode,
     );
 
     /// 底部
     Widget bottom = getBottomBox(
-      leftWidget: getButton(
-        child: getSpan(Lang.loginForget.tr, color: AppColors.mainColor),
-        onPressed: controller.handleGoForgetPasswordPage,
-        height: 18.h,
-        background: Colors.transparent,
-      ),
       rightWidget: Obx(
         () => getButton(
           width: 40.w,
           height: 18.h,
           child: getSpan(Lang.loginButton.tr),
-          onPressed:
-              controller.state.isDissable ? null : controller.handleSignIn,
+          onPressed: controller.state.isDissable ? null : () {},
           background: controller.state.isDissable
               ? AppColors.buttonDisable
               : AppColors.mainColor,
@@ -69,7 +53,6 @@ class LoginView extends GetView<LoginController> {
             children: [
               title,
               SizedBox(height: 30.h),
-              userCount,
               Padding(
                 padding: EdgeInsets.only(top: 6.h),
                 child: userPassword,
@@ -84,7 +67,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => controller.frameController.state.pageIndex != 1
+        () => controller.frameController.state.pageIndex != 3
             ? Stack(
                 // 遮罩层
                 children: [

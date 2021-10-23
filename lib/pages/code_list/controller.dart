@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/pages/code_list/index.dart';
-import 'package:pinker/pages/frame/register/index.dart';
+import 'package:pinker/pages/code_list/library.dart';
+import 'package:pinker/pages/frame/register/library.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/pages/frame/password/library.dart';
 import 'package:pinker/pages/frame/state.dart';
-import 'package:pinker/pages/frame/verify/index.dart';
+import 'package:pinker/pages/frame/verify/library.dart';
 import 'package:pinker/routes/app_pages.dart';
-import 'index/index.dart';
-import 'login/index.dart';
-import 'register/index.dart';
+import 'index/library.dart';
+import 'login/library.dart';
+import 'register/library.dart';
 
 class FrameController extends GetxController {
   final state = FrameState();
@@ -64,6 +65,12 @@ class FrameController extends GetxController {
         page: const VerifyView(),
         settings: settings,
         binding: VerifyBinding(),
+      );
+    } else if (settings.name == AppRoutes.password) {
+      return _getPageRoute(
+        page: const PasswordView(),
+        settings: settings,
+        binding: PasswordBinding(),
       );
     }
     return null;

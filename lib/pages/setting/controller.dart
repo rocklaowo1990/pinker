@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pinker/pages/setting/index.dart';
+import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 
 class SettingController extends GetxController {

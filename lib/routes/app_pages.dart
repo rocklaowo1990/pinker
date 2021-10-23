@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import 'package:pinker/pages/application/index.dart';
-import 'package:pinker/pages/code_list/index.dart';
-import 'package:pinker/pages/fogot/index.dart';
-import 'package:pinker/pages/frame/index.dart';
-import 'package:pinker/pages/setting/index.dart';
-import 'package:pinker/pages/setting/language/index.dart';
-import 'package:pinker/pages/unknown/index.dart';
+import 'package:pinker/pages/application/library.dart';
+import 'package:pinker/pages/code_list/library.dart';
+import 'package:pinker/pages/fogot/library.dart';
+import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/setting/library.dart';
+import 'package:pinker/pages/setting/language/library.dart';
+import 'package:pinker/pages/unknown/library.dart';
 
 part 'app_routes.dart';
 

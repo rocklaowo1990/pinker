@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/fogot/index.dart';
+import 'package:pinker/pages/fogot/library.dart';
 
 class ForgotView extends GetView<ForgotController> {
   const ForgotView({Key? key}) : super(key: key);

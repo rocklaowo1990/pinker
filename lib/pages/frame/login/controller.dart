@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/global.dart';
-import 'package:pinker/pages/frame/index.dart';
-import 'package:pinker/pages/frame/login/index.dart';
+import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/frame/login/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 
@@ -81,7 +81,7 @@ class LoginController extends GetxController {
     };
 
     /// 请求服务器...
-    ResponseEntity userProfile = await AccountApi.login(data: data);
+    ResponseEntity userProfile = await AccountApi.login(data);
 
     /// 返回数据处理
     if (userProfile.code == 200) {

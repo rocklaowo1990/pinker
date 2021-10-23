@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/api/account.dart';
+import 'package:pinker/entities/response.dart';
 import 'package:pinker/lang/translation_service.dart';
 
-import 'package:pinker/pages/frame/index.dart';
-import 'package:pinker/pages/frame/register/index.dart';
+import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/frame/register/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
@@ -123,24 +125,46 @@ class RegisterController extends GetxController {
     Get.back(); //这里是隐藏 dialog 窗口
     await Future.delayed(const Duration(milliseconds: 200));
 
-    /// 准备请求数据
+    /// 准备检测账号是否重复
     Map<String, String> data = {
-      'mobile': userRegisterController.text,
-      'areaCode': state.code,
-      'entryType': state.isPhone ? '1' : '2',
-      'birthday':
-          '${state.showTime.year}${state.showTime.month}${state.showTime.day}',
+      'account': userRegisterController.text,
+      'accountType': state.isPhone ? '1' : '2',
     };
 
-    debugPrint(data.toString());
+    // var data2 = json.encoder(data);
 
-    frameController.state.pageIndex++;
-    Get.toNamed(
-      AppRoutes.verify,
-      id: 1,
-      arguments: data,
-      // parameters: {'id': 'dd'},
-    );
+    getDialog();
+
+    ResponseEntity responseEntity = await AccountApi.checkAccount(data);
+
+    if (responseEntity.code == 200) {
+      if (responseEntity.data!['status'] == 0) {
+        Get.back();
+
+        /// 把注册数据传到下一页
+        Map<String, String> arguments = {
+          'mobile': userRegisterController.text,
+          'areaCode': state.code,
+          'entryType': state.isPhone ? '1' : '2',
+          'birthday':
+              '${state.showTime.year}${state.showTime.month}${state.showTime.day}',
+        };
+
+        frameController.state.pageIndex++;
+        Get.toNamed(
+          AppRoutes.verify,
+          id: 1,
+          arguments: arguments,
+          // parameters: {'id': 'dd'},
+        );
+      } else {
+        Get.back();
+        getSnackTop(msg: '账号已被注册');
+      }
+    } else {
+      Get.back();
+      getSnackTop(msg: responseEntity.msg);
+    }
   }
 
   /// 区号选择
