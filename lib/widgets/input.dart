@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +18,7 @@ Widget getInput({
   required FocusNode focusNode,
 
   /// 是否自动获取焦点
-  bool? autofocus,
+  bool autofocus = false,
 
   /// 键盘右下角的按钮类型
   TextInputAction? textInputAction,
@@ -77,7 +78,7 @@ Widget getInput({
   Widget textField = Obx(() {
     return TextField(
       textInputAction: textInputAction,
-      autofocus: autofocus ?? false,
+      autofocus: autofocus,
       focusNode: focusNode,
       controller: controller,
       keyboardType: keyboardType,

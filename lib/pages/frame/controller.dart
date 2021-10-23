@@ -40,6 +40,7 @@ class FrameController extends GetxController {
 
   /// 嵌套路由设置
   Route? onGenerateRoute(RouteSettings settings) {
+    Get.routing.args = settings.arguments;
     if (settings.name == AppRoutes.index) {
       return _getPageRoute(
         page: const IndexView(),
@@ -59,7 +60,6 @@ class FrameController extends GetxController {
         binding: RegisterBinding(),
       );
     } else if (settings.name == AppRoutes.verify) {
-      Get.routing.args = settings.arguments;
       return _getPageRoute(
         page: const VerifyView(),
         settings: settings,

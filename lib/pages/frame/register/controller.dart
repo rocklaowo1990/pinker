@@ -124,10 +124,12 @@ class RegisterController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 200));
 
     /// 准备请求数据
-    Map<String, dynamic> data = {
+    Map<String, String> data = {
       'mobile': userRegisterController.text,
       'areaCode': state.code,
       'entryType': state.isPhone ? '1' : '2',
+      'birthday':
+          '${state.showTime.year}${state.showTime.month}${state.showTime.day}',
     };
 
     debugPrint(data.toString());
