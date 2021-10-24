@@ -40,6 +40,13 @@ const Map<String, String> en = {
   Lang.registerDialogEmail_1:
       'We will send the verification code to your email address ending in ',
   Lang.registerDialogEmail_2: ' in the form of email',
+  Lang.registerAllready: 'Account has been registered',
+
+  /// 验证码页
+  Lang.codeTile: 'We have sent you a verification code',
+  Lang.codeSendTile: 'Please enter the verification code below',
+  Lang.codeResend: 'Resend Verification Code',
+  Lang.codeMsg: 'Verification code error',
 
   /// 设置页面
   Lang.setTitle: 'Setting',

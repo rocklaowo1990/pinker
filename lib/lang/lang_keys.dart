@@ -38,6 +38,13 @@ abstract class Lang {
   static const registerDialogPhone_2 = 'registerDialogPhone_2';
   static const registerDialogEmail_1 = 'registerDialogEmail_1';
   static const registerDialogEmail_2 = 'registerDialogEmail_2';
+  static const registerAllready = 'registerAllready';
+
+  /// 验证码
+  static const codeTile = 'codeTile';
+  static const codeSendTile = 'codeSendTile';
+  static const codeResend = 'codeResend';
+  static const codeMsg = 'codeMsg';
 
   /// 设置页面
   static const setTitle = 'setTitle';

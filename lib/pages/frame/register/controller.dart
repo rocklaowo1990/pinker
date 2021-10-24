@@ -159,7 +159,8 @@ class RegisterController extends GetxController {
         );
       } else {
         Get.back();
-        getSnackTop(msg: '账号已被注册');
+        getSnackTop(msg: Lang.registerAllready.tr);
+        userRegisterFocusNode.requestFocus();
       }
     } else {
       Get.back();

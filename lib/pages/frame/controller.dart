@@ -13,8 +13,8 @@ class FrameController extends GetxController {
 
   /// 返回上一页
   void handleBack() async {
-    FocusScope.of(Get.context!).requestFocus(FocusNode());
-    await Future.delayed(const Duration(milliseconds: 200));
+    // FocusScope.of(Get.context!).requestFocus(FocusNode());
+    // await Future.delayed(const Duration(milliseconds: 200));
     state.pageIndex--;
     Get.back(id: 1);
   }
@@ -74,5 +74,13 @@ class FrameController extends GetxController {
       );
     }
     return null;
+  }
+
+  @override
+  void onInit() {
+    interval(state.sendTimeRx, (value) {
+      if (state.sendTime > 0) state.sendTime--;
+    });
+    super.onInit();
   }
 }

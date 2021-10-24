@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/frame/verify/library.dart';
 import 'package:pinker/values/colors.dart';
@@ -13,11 +14,15 @@ class VerifyView extends GetView<VerifyController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan('我们已向您发送了验证码', size: 16.sp);
+    Widget title = getSpan(
+      Lang.codeTile.tr,
+      size: 16.sp,
+      textAlign: TextAlign.center,
+    );
 
     /// 副标题
     Widget secndTitle = getSpan(
-      '请在下方输入验证码',
+      Lang.codeSendTile.tr,
       color: AppColors.secondText,
       size: 9.sp,
     );
@@ -89,10 +94,19 @@ class VerifyView extends GetView<VerifyController> {
       ),
     );
 
-    Widget reSendButton = getButton(
-      child: getSpan('重新发送验证码 ( 60 )', color: AppColors.mainColor),
-      padding: EdgeInsets.only(left: 10.w, right: 10.w),
-      background: Colors.transparent,
+    /// 重新发送验证码
+    Widget resendButton = Obx(
+      () => getButton(
+        child: controller.frameController.state.sendTime <= 0
+            ? getSpan(Lang.codeResend.tr, color: AppColors.mainColor)
+            : getSpan(
+                '${Lang.codeResend.tr} ( ${controller.frameController.state.sendTime} )'),
+        padding: EdgeInsets.only(left: 10.w, right: 10.w),
+        background: Colors.transparent,
+        onPressed: controller.frameController.state.sendTime <= 0
+            ? controller.handleResendCode
+            : null,
+      ),
     );
 
     /// body 布局
@@ -101,16 +115,18 @@ class VerifyView extends GetView<VerifyController> {
       child: Column(
         children: [
           Expanded(
-            child: Column(
-              children: [
-                title,
-                SizedBox(height: 8.h),
-                secndTitle,
-                SizedBox(height: 32.h),
-                codeShow,
-                SizedBox(height: 16.h),
-                reSendButton,
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  title,
+                  SizedBox(height: 8.h),
+                  secndTitle,
+                  SizedBox(height: 32.h),
+                  codeShow,
+                  SizedBox(height: 16.h),
+                  resendButton,
+                ],
+              ),
             ),
           ),
           codeInput,

@@ -16,6 +16,10 @@ Future getDateBox({
 }) {
   /// 顶部的工具栏
   var title = getBottomBox(
+    leftWidget: getSpan(
+      '未年满18周岁禁止注册和使用本产品',
+      color: AppColors.secondText,
+    ),
     rightWidget: getButton(
       child: getSpan(Lang.sure.tr),
       onPressed: onPressed,

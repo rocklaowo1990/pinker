@@ -38,6 +38,13 @@ const Map<String, String> zh = {
   Lang.registerDialogPhone_2: ' 的手机 ',
   Lang.registerDialogEmail_1: '我们会以短信的形式将验证码发送到您尾号 ',
   Lang.registerDialogEmail_2: ' 的邮箱',
+  Lang.registerAllready: '账号已被注册',
+
+  /// 验证码页
+  Lang.codeTile: '我们已向您发送了验证码',
+  Lang.codeSendTile: '请在下方输入验证码',
+  Lang.codeResend: '重新发送验证码',
+  Lang.codeMsg: '验证码错误',
 
   /// 设置页面
   Lang.setTitle: '设置',
