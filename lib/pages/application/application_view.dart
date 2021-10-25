@@ -16,22 +16,10 @@ class ApplicationView extends GetView<ApplicationController> {
         title: const Text('ApplicationView'),
       ),
       body: Center(
-        child: Column(
-          children: [
-            getButton(
-              onPressed: goLoginPage,
-              child: const Text('data'),
-              width: 100.w,
-            ),
-            getButton(
-              onPressed: () {
-                var locale = const Locale('en', 'US');
-                Get.updateLocale(locale);
-              },
-              child: const Text('data'),
-              width: 100.w,
-            ),
-          ],
+        child: getButton(
+          onPressed: goLoginPage,
+          child: getSpan('退出登陆'),
+          width: 100.w,
         ),
       ),
     );

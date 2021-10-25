@@ -5,6 +5,7 @@ abstract class Lang {
   static const sure = "sure";
   static const edit = "edit";
   static const cancel = "cancel";
+  static const next = 'next';
 
   /// 默认页面
   static const indexTitle = "indexTitle";
@@ -25,7 +26,6 @@ abstract class Lang {
 
   /// 注册页面
   static const registerTitle = 'registerTitle';
-  static const registerNext = 'registerNext';
   static const registerPhone = 'registerPhone';
   static const registerEmail = 'registerEmail';
   static const registerAgreen_1 = 'registerAgreen_1';
@@ -57,6 +57,11 @@ abstract class Lang {
   static const langCN = 'langCN';
   static const langEN = 'langEN';
   static const langMsg = 'langMsg';
+
+  /// 设置密码
+  static const passwordTitle = 'paddwordTitle';
+  static const passwordSecondTitle = 'paddwordSecondTitle';
+  static const passwordThirdTitle = 'passwordThirdTitle';
 
   /// 区号选择
   static const codeTitle = 'codeTitle';

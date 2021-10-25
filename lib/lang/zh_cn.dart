@@ -5,6 +5,7 @@ const Map<String, String> zh = {
   Lang.sure: '确认',
   Lang.edit: '编辑',
   Lang.cancel: '取消',
+  Lang.next: '下一步',
 
   /// 默认页面
   Lang.indexGoLogin: ' 去登陆',
@@ -27,7 +28,6 @@ const Map<String, String> zh = {
   Lang.registerEmail: '改用手机',
   Lang.registerPhone: '改用电子邮箱',
   Lang.registerTitle: '创建您的账号',
-  Lang.registerNext: '下一步',
   Lang.registerAgreen_1: '我已仔细阅读并同意',
   Lang.registerAgreen_2: '和',
   Lang.registerService: ' 服务条款 ',
@@ -45,6 +45,11 @@ const Map<String, String> zh = {
   Lang.codeSendTile: '请在下方输入验证码',
   Lang.codeResend: '重新发送验证码',
   Lang.codeMsg: '验证码错误',
+
+  /// 密码设置页面
+  Lang.passwordTitle: '您需要一个密码',
+  Lang.passwordSecondTitle: '请确保密码至少有8个字符，且包含英文和数字',
+  Lang.passwordThirdTitle: '密码允许包含符号',
 
   /// 设置页面
   Lang.setTitle: '设置',

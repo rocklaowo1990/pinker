@@ -23,7 +23,7 @@ class CodeListController extends GetxController {
         StorageUtil().setJSON(storageCodeListOpenKey, responseEntity.data);
         codeListJson = StorageUtil().getJSON(storageCodeListOpenKey);
       } else {
-        getSnackTop(msg: responseEntity.msg);
+        getSnackTop(responseEntity.msg);
       }
     }
     state.codeList = codeListJson['list'];

@@ -61,6 +61,7 @@ dependencies:
 
   # 读取APP相关信息
   package_info: ^2.0.2
+  image_picker: ^0.8.4+3
   
 
 dev_dependencies:

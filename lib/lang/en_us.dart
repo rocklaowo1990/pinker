@@ -5,6 +5,7 @@ const Map<String, String> en = {
   Lang.sure: 'Sure',
   Lang.edit: 'Edit',
   Lang.cancel: 'Cancel',
+  Lang.next: 'Next',
 
   /// 默认页面
   Lang.indexGoLogin: ' Sign In',
@@ -27,7 +28,6 @@ const Map<String, String> en = {
   Lang.registerEmail: 'Use phone',
   Lang.registerPhone: 'Use Email',
   Lang.registerTitle: 'Sign Up',
-  Lang.registerNext: 'Next',
   Lang.registerAgreen_1: 'I have read carefully and agree',
   Lang.registerAgreen_2: 'And',
   Lang.registerService: ' Terms of Service ',
@@ -47,6 +47,12 @@ const Map<String, String> en = {
   Lang.codeSendTile: 'Please enter the verification code below',
   Lang.codeResend: 'Resend Verification Code',
   Lang.codeMsg: 'Verification code error',
+
+  /// 密码设置页面
+  Lang.passwordTitle: 'You need a password',
+  Lang.passwordSecondTitle:
+      'Please make sure that the password has at least 8 characters and contains English and numbers',
+  Lang.passwordThirdTitle: 'Passwords are allowed to contain symbols',
 
   /// 设置页面
   Lang.setTitle: 'Setting',

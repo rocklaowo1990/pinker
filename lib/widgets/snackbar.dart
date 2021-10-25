@@ -5,8 +5,8 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 顶部弹窗封装
-void getSnackTop({
-  String? msg,
+void getSnackTop(
+  String? msg, {
   IconData? iconData,
   Color? iconColor,
 }) {

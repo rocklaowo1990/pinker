@@ -99,7 +99,7 @@ class LoginController extends GetxController {
       /// 返回错误信息
       await Future.delayed(const Duration(milliseconds: 200), () {
         userCountFocusNode.requestFocus();
-        getSnackTop(msg: userProfile.msg);
+        getSnackTop(userProfile.msg);
       });
     }
   }

@@ -78,7 +78,7 @@ Widget dialogChild({
                   child: getButton(
                       child: Text(leftText ?? Lang.edit.tr),
                       width: double.infinity,
-                      height: 30.h,
+                      height: 25.h,
                       background: Colors.transparent,
                       radius: BorderRadius.only(
                         bottomLeft: Radius.circular(8.w),
@@ -87,13 +87,13 @@ Widget dialogChild({
                 ),
                 Container(
                   width: 0.5.w,
-                  height: 30.h,
+                  height: 25.h,
                   color: AppColors.line,
                 ),
                 Expanded(
                   child: getButton(
                     child: Text(rightText ?? Lang.sure.tr),
-                    height: 30.h,
+                    height: 25.h,
                     width: double.infinity,
                     background: Colors.transparent,
                     radius: BorderRadius.only(

@@ -34,3 +34,9 @@ bool isIdCard(String value) {
 bool isChinese(String value) {
   return RegExp(r"[\u4e00-\u9fa5]").hasMatch(value);
 }
+
+/// 验证码密码：8-16位，至少包含一个字母一个数字，其他不限制
+/// r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$"
+bool isPassword(String value) {
+  return RegExp(r"^(?=.*[a-z])(?=.*\d)[^]{8,16}$").hasMatch(value);
+}

@@ -15,13 +15,20 @@ class PasswordView extends GetView<PasswordController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan('您需要一个密码', size: 16.sp);
+    Widget title = getSpan(Lang.passwordTitle.tr, size: 16.sp);
 
-    /// 副标题
+    /// 副标题1
     Widget secndTitle = getSpan(
-      Lang.codeSendTile.tr,
+      Lang.passwordSecondTitle.tr,
       color: AppColors.secondText,
-      size: 9.sp,
+      textAlign: TextAlign.center,
+    );
+
+    /// 副标题2
+    Widget thirdTitle = getSpan(
+      Lang.passwordThirdTitle.tr,
+      color: AppColors.secondText,
+      textAlign: TextAlign.center,
     );
 
     /// 密码输入框
@@ -37,8 +44,8 @@ class PasswordView extends GetView<PasswordController> {
         () => getButton(
           width: 40.w,
           height: 18.h,
-          child: getSpan(Lang.loginButton.tr),
-          onPressed: controller.state.isDissable ? null : () {},
+          child: getSpan(Lang.next.tr),
+          onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
               ? AppColors.buttonDisable
               : AppColors.mainColor,
@@ -61,6 +68,8 @@ class PasswordView extends GetView<PasswordController> {
               title,
               SizedBox(height: 8.h),
               secndTitle,
+              SizedBox(height: 1.h),
+              thirdTitle,
               SizedBox(height: 30.h),
               userPassword,
             ],
@@ -73,7 +82,7 @@ class PasswordView extends GetView<PasswordController> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => controller.frameController.state.pageIndex != 0
+        () => controller.frameController.state.pageIndex != -1
             ? Stack(
                 // 遮罩层
                 children: [

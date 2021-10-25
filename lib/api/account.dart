@@ -23,4 +23,16 @@ class AccountApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 注册账号
+  static Future<ResponseEntity> registerAccount(data) async {
+    var response = await HttpUtil().post(
+      '/api/account/register',
+      data: data,
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

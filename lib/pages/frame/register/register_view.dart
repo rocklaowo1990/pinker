@@ -130,7 +130,7 @@ class RegisterView extends GetView<RegisterController> {
         () => getButton(
           width: 40.w,
           height: 18.h,
-          child: getSpan(Lang.registerNext.tr),
+          child: getSpan(Lang.next.tr),
           onPressed: !controller.state.isDissable && controller.state.isChooise
               ? controller.handleNext
               : null,

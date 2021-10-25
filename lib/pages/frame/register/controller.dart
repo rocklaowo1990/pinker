@@ -79,7 +79,16 @@ class RegisterController extends GetxController {
   void handleNext() async {
     _unfocus(); // 失去焦点
 
-    String number = state.isPhone ? '43' : '12@163';
+    String number = '';
+    if (state.isPhone) {
+      String text = userRegisterController.text;
+      number = text.substring(text.length - 2);
+    } else {
+      String text = userRegisterController.text;
+      List<String> part_1 = text.split('@');
+      List<String> part_2 = part_1[1].split('.');
+      number = part_1[0].substring(part_1[0].length - 2) + '@' + part_2[0];
+    }
 
     getDialog(
       child: dialogChild(
@@ -99,13 +108,15 @@ class RegisterController extends GetxController {
                             number +
                             Lang.registerDialogPhone_2.tr,
                         size: 8.sp,
-                        color: AppColors.secondText)
+                        color: AppColors.secondText,
+                        textAlign: TextAlign.center)
                     : getSpan(
                         Lang.registerDialogEmail_1.tr +
                             number +
                             Lang.registerDialogEmail_2.tr,
                         size: 8.sp,
-                        color: AppColors.secondText),
+                        color: AppColors.secondText,
+                        textAlign: TextAlign.center),
               ),
               flex: 1,
             ),
@@ -142,12 +153,21 @@ class RegisterController extends GetxController {
         Get.back();
 
         /// 把注册数据传到下一页
+        String bornYear = state.showTime.year.toString();
+
+        String bornMonth = state.showTime.month.toString();
+        if (bornMonth.length == 1) bornMonth = '0$bornMonth';
+
+        String bornDay = state.showTime.day.toString();
+        if (bornDay.length == 1) bornDay = '0$bornDay';
+
+        String birthday = bornYear + bornMonth + bornDay;
+
         Map<String, String> arguments = {
           'mobile': userRegisterController.text,
           'areaCode': state.code,
           'entryType': state.isPhone ? '1' : '2',
-          'birthday':
-              '${state.showTime.year}${state.showTime.month}${state.showTime.day}',
+          'birthday': birthday,
         };
 
         frameController.state.pageIndex++;
@@ -159,12 +179,12 @@ class RegisterController extends GetxController {
         );
       } else {
         Get.back();
-        getSnackTop(msg: Lang.registerAllready.tr);
+        getSnackTop(Lang.registerAllready.tr);
         userRegisterFocusNode.requestFocus();
       }
     } else {
       Get.back();
-      getSnackTop(msg: responseEntity.msg);
+      getSnackTop(responseEntity.msg);
     }
   }
 

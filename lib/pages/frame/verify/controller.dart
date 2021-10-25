@@ -37,7 +37,7 @@ class VerifyController extends GetxController {
     /// 返回数据处理
     if (codeNumber.code == 200) {
       getSnackTop(
-        msg: '验证码发送成功',
+        '验证码发送成功',
         iconData: Icons.check_circle,
         iconColor: Colors.green,
       );
@@ -45,7 +45,7 @@ class VerifyController extends GetxController {
     } else {
       /// 返回错误信息
       await Future.delayed(const Duration(milliseconds: 200), () {
-        getSnackTop(msg: codeNumber.msg);
+        getSnackTop(codeNumber.msg);
       });
     }
   }
@@ -86,15 +86,16 @@ class VerifyController extends GetxController {
           'accountType': arguments['entryType']!,
           'birthday': arguments['birthday']!,
           'code': '123456',
+          'areaCode': arguments['areaCode']!,
         };
 
-        frameController.state.pageIndex = 0; // 下一页不需要返回
+        frameController.state.pageIndex = -1; // 下一页不需要返回
         Get.toNamed(AppRoutes.password, id: 1, arguments: data); // 去密码设置页
 
         /// 输入了错误的验证码
       } else if (text.length == 6 && text != '123456') {
         Get.back(); // 隐藏弹窗
-        getSnackTop(msg: Lang.codeMsg.tr); //顶部弹出错误信息
+        getSnackTop(Lang.codeMsg.tr); //顶部弹出错误信息
         state.codeList = []; // 清空框框里的数字
         inputController.text = ''; // 清空验证码输入框
 

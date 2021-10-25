@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/pages/frame/avatar/library.dart';
 import 'package:pinker/pages/frame/password/library.dart';
 import 'package:pinker/pages/frame/state.dart';
 import 'package:pinker/pages/frame/verify/library.dart';
@@ -71,6 +72,12 @@ class FrameController extends GetxController {
         page: const PasswordView(),
         settings: settings,
         binding: PasswordBinding(),
+      );
+    } else if (settings.name == AppRoutes.avatar) {
+      return _getPageRoute(
+        page: const AvatarView(),
+        settings: settings,
+        binding: AvatarBinding(),
       );
     }
     return null;

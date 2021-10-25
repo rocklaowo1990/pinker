@@ -18,7 +18,7 @@ class LanguageController extends GetxController {
     Get.updateLocale(zhCN);
     settingController.state.language = zhCN;
     getSnackTop(
-      msg: Lang.langMsg.tr,
+      Lang.langMsg.tr,
       iconData: Icons.check_circle,
       iconColor: Colors.green,
     );
@@ -32,7 +32,7 @@ class LanguageController extends GetxController {
     Get.updateLocale(enUS);
     settingController.state.language = enUS;
     getSnackTop(
-      msg: Lang.langMsg.tr,
+      Lang.langMsg.tr,
       iconData: Icons.check_circle,
       iconColor: Colors.green,
     );
