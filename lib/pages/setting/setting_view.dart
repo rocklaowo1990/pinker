@@ -26,8 +26,8 @@ class SettingView extends GetView<SettingController> {
 
     /// appBar
     AppBar appBar = getAppBar(
+      getSpan(Lang.setTitle.tr, size: 10.sp),
       leading: buttonBox,
-      title: getSpan(Lang.setTitle.tr, size: 10.sp),
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );

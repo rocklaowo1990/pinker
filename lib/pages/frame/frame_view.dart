@@ -50,7 +50,7 @@ class FrameView extends GetView<FrameController> {
 
     /// appBar
     AppBar appBar = getAppBar(
-      title: logo,
+      logo,
       leading: Obx(() => controller.state.pageIndex > 0 ? buttonBox : emptyBox),
       actions: [settingBox],
     );

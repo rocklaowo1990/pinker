@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/values/values.dart';
 
 /// appBar
-AppBar getAppBar({
-  Widget? title,
+AppBar getAppBar(
+  Widget? title, {
   Widget? leading,
   List<Widget>? actions,
   Color? backgroundColor,

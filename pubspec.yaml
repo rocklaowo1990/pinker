@@ -61,7 +61,12 @@ dependencies:
 
   # 读取APP相关信息
   package_info: ^2.0.2
+
+  # 获取相机或者拍照
   image_picker: ^0.8.4+3
+
+  # 图像裁剪
+  image_crop: ^0.4.0
   
 
 dev_dependencies:

@@ -91,7 +91,7 @@ class RegisterController extends GetxController {
     }
 
     getDialog(
-      child: dialogChild(
+      child: dialogAlert(
         onPressedLeft: _edit,
         onPressedRight: _goCodePage,
         child: Column(

@@ -1,16 +1,22 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_crop/image_crop.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
+/// 中间弹出窗：默认是loading
 Future getDialog({
   Widget? child,
   bool? autoBack,
   double? width,
   double? height,
+  Color? barrierColor,
 }) {
   /// loading
   Widget loading = Center(
@@ -37,10 +43,12 @@ Future getDialog({
   return Get.dialog(
     child ?? loading,
     barrierDismissible: autoBack ?? false,
+    barrierColor: barrierColor,
   );
 }
 
-Widget dialogChild({
+/// 中间弹出消息
+Widget dialogAlert({
   double? width,
   double? height,
   Widget? child,
@@ -85,28 +93,81 @@ Widget dialogChild({
                       ),
                       onPressed: onPressedLeft),
                 ),
-                Container(
-                  width: 0.5.w,
-                  height: 25.h,
-                  color: AppColors.line,
-                ),
-                Expanded(
-                  child: getButton(
-                    child: Text(rightText ?? Lang.sure.tr),
+                if (onPressedRight != null)
+                  Container(
+                    width: 0.5.w,
                     height: 25.h,
-                    width: double.infinity,
-                    background: Colors.transparent,
-                    radius: BorderRadius.only(
-                      bottomRight: Radius.circular(8.w),
-                    ),
-                    onPressed: onPressedRight,
+                    color: AppColors.line,
                   ),
-                ),
+                if (onPressedRight != null)
+                  Expanded(
+                    child: getButton(
+                      child: Text(rightText ?? Lang.sure.tr),
+                      height: 25.h,
+                      width: double.infinity,
+                      background: Colors.transparent,
+                      radius: BorderRadius.only(
+                        bottomRight: Radius.circular(8.w),
+                      ),
+                      onPressed: onPressedRight,
+                    ),
+                  ),
               ],
             ),
           ),
         ],
       ),
+    ),
+  );
+}
+
+Widget dialogImage(XFile image) {
+  Widget _buildCropImage() {
+    return Container(
+      color: Colors.black,
+      padding: EdgeInsets.only(bottom: 20.h),
+      child: Crop(
+        image: FileImage(File(image.path)),
+        aspectRatio: 4.0 / 4.0,
+      ),
+    );
+  }
+
+  return Center(
+    child: Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        SizedBox(
+          width: 187.5.w,
+          height: 406.h,
+          child: _buildCropImage(),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 20.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              getButton(
+                  width: 40.w,
+                  height: 18.h,
+                  child: getSpan(Lang.cancel.tr),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  background: AppColors.secondBacground),
+              SizedBox(width: 10.w),
+              getButton(
+                width: 40.w,
+                height: 18.h,
+                child: getSpan(Lang.sure.tr),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
     ),
   );
 }

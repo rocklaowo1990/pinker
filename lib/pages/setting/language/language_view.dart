@@ -26,8 +26,8 @@ class LanguageView extends GetView<LanguageController> {
 
     /// appBar
     AppBar appBar = getAppBar(
+      getSpan(Lang.langTitle.tr, size: 10.sp),
       leading: buttonBox,
-      title: getSpan(Lang.langTitle.tr, size: 10.sp),
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );

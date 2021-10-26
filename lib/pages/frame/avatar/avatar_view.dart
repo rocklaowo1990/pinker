@@ -58,8 +58,8 @@ class AvatarView extends GetView<AvatarController> {
             ),
             child: Center(
               child: Icon(
-                Icons.add_circle,
-                size: 16.w,
+                Icons.photo_camera,
+                size: 12.w,
                 color: AppColors.mainColor,
               ),
             ),
@@ -71,7 +71,7 @@ class AvatarView extends GetView<AvatarController> {
     Widget bottom = Column(
       children: [
         getButton(
-          child: getSpan(Lang.next),
+          child: getSpan(Lang.next.tr),
           width: double.infinity,
         ),
         SizedBox(height: 4.h),
@@ -85,12 +85,7 @@ class AvatarView extends GetView<AvatarController> {
 
     /// body布局
     Widget body = Padding(
-      padding: EdgeInsets.only(
-        top: 24.h,
-        right: 20.w,
-        bottom: 30.h,
-        left: 20.w,
-      ),
+      padding: EdgeInsets.all(20.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

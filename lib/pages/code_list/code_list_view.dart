@@ -24,8 +24,8 @@ class CodeListView extends GetView<CodeListController> {
 
     /// appBar
     AppBar appBar = getAppBar(
+      getSpan(Lang.codeTitle.tr, size: 10.sp),
       leading: buttonBox,
-      title: getSpan(Lang.codeTitle.tr, size: 10.sp),
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );
