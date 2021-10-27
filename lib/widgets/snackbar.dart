@@ -5,12 +5,12 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 顶部弹窗封装
-void getSnackTop(
+Future getSnackTop(
   String? msg, {
   IconData? iconData,
   Color? iconColor,
-}) {
-  return Get.snackbar(
+}) async {
+  Get.snackbar(
     msg ?? '',
     '',
     colorText: AppColors.mainText,

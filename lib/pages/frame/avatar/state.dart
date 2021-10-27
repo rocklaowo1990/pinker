@@ -5,4 +5,9 @@ class AvatarState {
   final RxBool _isDissable = true.obs;
   set isDissable(value) => _isDissable.value = value;
   bool get isDissable => _isDissable.value;
+
+  /// 头像
+  final RxInt _image = 0.obs;
+  set image(value) => _image.value = value;
+  int get image => _image.value;
 }

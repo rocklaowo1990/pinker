@@ -82,6 +82,7 @@ class LoginController extends GetxController {
 
     /// 请求服务器...
     ResponseEntity userProfile = await AccountApi.login(data);
+    Get.back();
 
     /// 返回数据处理
     if (userProfile.code == 200) {
@@ -94,8 +95,6 @@ class LoginController extends GetxController {
       /// 去往首页
       Get.offAllNamed(AppRoutes.application);
     } else {
-      Get.back();
-
       /// 返回错误信息
       await Future.delayed(const Duration(milliseconds: 200), () {
         userCountFocusNode.requestFocus();

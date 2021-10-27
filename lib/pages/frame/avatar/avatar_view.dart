@@ -37,10 +37,17 @@ class AvatarView extends GetView<AvatarController> {
             color: AppColors.secondBacground,
           ),
           child: Center(
-            child: Icon(
-              Icons.account_circle,
-              size: 80.w,
-              color: AppColors.mainBacground,
+            child: Obx(
+              () => controller.state.image == 0
+                  ? Icon(
+                      Icons.account_circle,
+                      size: 80.w,
+                      color: AppColors.mainBacground,
+                    )
+                  : CircleAvatar(
+                      radius: 80.w,
+                      backgroundImage: FileImage(controller.imageHeader),
+                    ),
             ),
           ),
         ),
@@ -70,29 +77,42 @@ class AvatarView extends GetView<AvatarController> {
 
     Widget bottom = Column(
       children: [
-        getButton(
-          child: getSpan(Lang.next.tr),
-          width: double.infinity,
+        Obx(
+          () => getButton(
+            child: getSpan(Lang.next.tr),
+            width: double.infinity,
+            background: controller.state.image <= 0
+                ? AppColors.buttonDisable
+                : AppColors.mainColor,
+            onPressed:
+                controller.state.image <= 0 ? null : controller.handleNext,
+          ),
         ),
         SizedBox(height: 4.h),
         getButton(
           child: getSpan('暂时跳过', color: AppColors.mainColor),
           width: double.infinity,
           background: Colors.transparent,
+          onPressed: controller.handleNotNow,
         ),
       ],
     );
 
     /// body布局
-    Widget body = Padding(
-      padding: EdgeInsets.all(20.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          top,
-          middle,
-          bottom,
-        ],
+    Widget body = SingleChildScrollView(
+      child: SizedBox(
+        height: 406.h - 40.h,
+        child: Padding(
+          padding: EdgeInsets.all(20.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              top,
+              middle,
+              bottom,
+            ],
+          ),
+        ),
       ),
     );
 
@@ -111,6 +131,7 @@ class AvatarView extends GetView<AvatarController> {
               )
             : body,
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

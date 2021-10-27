@@ -17,7 +17,8 @@ Future getDialog({
   double? width,
   double? height,
   Color? barrierColor,
-}) {
+  Object? arguments,
+}) async {
   /// loading
   Widget loading = Center(
     child: Container(
@@ -40,10 +41,11 @@ Future getDialog({
       ),
     ),
   );
-  return Get.dialog(
+  Get.dialog(
     child ?? loading,
     barrierDismissible: autoBack ?? false,
     barrierColor: barrierColor,
+    arguments: arguments,
   );
 }
 
@@ -121,12 +123,14 @@ Widget dialogAlert({
   );
 }
 
-Widget dialogImage(XFile image) {
+Widget dialogImage(XFile image, GlobalKey<CropState> key,
+    {VoidCallback? onPressed}) {
   Widget _buildCropImage() {
     return Container(
       color: Colors.black,
       padding: EdgeInsets.only(bottom: 20.h),
       child: Crop(
+        key: key,
         image: FileImage(File(image.path)),
         aspectRatio: 4.0 / 4.0,
       ),
@@ -160,9 +164,10 @@ Widget dialogImage(XFile image) {
                 width: 40.w,
                 height: 18.h,
                 child: getSpan(Lang.sure.tr),
-                onPressed: () {
-                  Get.back();
-                },
+                onPressed: onPressed ??
+                    () {
+                      Get.back();
+                    },
               ),
             ],
           ),

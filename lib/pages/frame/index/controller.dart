@@ -7,13 +7,13 @@ class IndexController extends GetxController {
 
   /// 去登陆页面按钮
   void handleGoSignInPage() {
-    frameController.state.pageIndex++;
+    frameController.state.pageIndex = 1;
     Get.toNamed(AppRoutes.login, id: 1);
   }
 
   /// 去注册页面按钮
   void handleGoSignUpPage() {
-    frameController.state.pageIndex++;
+    frameController.state.pageIndex = 1;
     Get.toNamed(AppRoutes.register, id: 1);
   }
 

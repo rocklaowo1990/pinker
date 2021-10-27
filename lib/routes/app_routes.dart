@@ -13,6 +13,7 @@ class AppRoutes {
   static const verify = '/verify';
   static const password = '/password';
   static const avatar = '/avatar';
+  static const subscription = '/subscription';
 
   static const forgot = '/forgot';
 

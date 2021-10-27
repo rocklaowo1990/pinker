@@ -13,7 +13,7 @@ Future getDateBox({
   DateTime? initialDateTime,
   required VoidCallback onPressed,
   required void Function(DateTime) onDateTimeChanged,
-}) {
+}) async {
   /// 顶部的工具栏
   var title = getBottomBox(
     leftWidget: getSpan(
@@ -53,7 +53,7 @@ Future getDateBox({
   );
 
   /// 返回
-  return Get.bottomSheet(
+  Get.bottomSheet(
     body,
     backgroundColor: AppColors.dateBox,
     // isDismissible: false, 用户点击空白区域是否可以返回

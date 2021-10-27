@@ -33,17 +33,17 @@ class PasswordController extends GetxController {
     ResponseEntity registerAccount = await AccountApi.registerAccount(data);
     await Future.delayed(const Duration(milliseconds: 200));
 
+    Get.back();
+
     if (registerAccount.code == 200) {
       /// 注册成功
       /// 储存用户数据
       await Global.saveProfile(registerAccount);
 
-      /// 关闭loading弹窗
-      Get.back();
-
       /// 去头像设置页面
-      frameController.state.pageIndex--;
-      Get.toNamed(AppRoutes.avatar, id: 1);
+      frameController.state.pageIndex = -2;
+
+      Get.offAllNamed(AppRoutes.avatar, id: 1);
 
       /// 提示注册成功
       getSnackTop(
@@ -54,7 +54,6 @@ class PasswordController extends GetxController {
 
       /// 注册失败
     } else {
-      Get.back();
       getSnackTop(registerAccount.msg);
     }
   }

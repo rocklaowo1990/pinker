@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/library.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -17,7 +18,9 @@ class ApplicationView extends GetView<ApplicationController> {
       ),
       body: Center(
         child: getButton(
-          onPressed: goLoginPage,
+          onPressed: () {
+            goLoginPage();
+          },
           child: getSpan('退出登陆'),
           width: 100.w,
         ),

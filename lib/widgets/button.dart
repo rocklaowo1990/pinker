@@ -40,9 +40,9 @@ Widget getButton(
     width: width,
 
     /// 高度默认是24
-    height: height ?? 8.h + 10.h + 10.h,
+    height: height ?? 25.h,
     child: TextButton(
-      onPressed: onPressed ?? () {},
+      onPressed: onPressed,
       style: ButtonStyle(
         /// 对其方式，默认居中对齐
         alignment: alignment ?? Alignment.center,

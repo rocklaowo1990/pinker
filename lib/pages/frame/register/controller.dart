@@ -148,10 +148,10 @@ class RegisterController extends GetxController {
 
     ResponseEntity responseEntity = await AccountApi.checkAccount(data);
 
+    Get.back();
+
     if (responseEntity.code == 200) {
       if (responseEntity.data!['status'] == 0) {
-        Get.back();
-
         /// 把注册数据传到下一页
         String bornYear = state.showTime.year.toString();
 
@@ -178,12 +178,10 @@ class RegisterController extends GetxController {
           // parameters: {'id': 'dd'},
         );
       } else {
-        Get.back();
         getSnackTop(Lang.registerAllready.tr);
         userRegisterFocusNode.requestFocus();
       }
     } else {
-      Get.back();
       getSnackTop(responseEntity.msg);
     }
   }
