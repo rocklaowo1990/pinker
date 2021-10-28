@@ -33,7 +33,7 @@ class LanguageView extends GetView<LanguageController> {
     );
 
     /// 中文列表
-    Widget cnList = getList(
+    Widget cnList = getButtonList(
       onPressed: controller.handleToLanguageCN,
       title: Lang.setLangValueCN.tr,
       iconRight: Obx(() => Icon(
@@ -47,7 +47,7 @@ class LanguageView extends GetView<LanguageController> {
     );
 
     /// 英文列表
-    Widget enList = getList(
+    Widget enList = getButtonList(
       onPressed: controller.handleToLanguageUS,
       title: Lang.setLangValueEN.tr,
       iconRight: Obx(() => Icon(

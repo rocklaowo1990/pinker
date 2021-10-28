@@ -88,7 +88,6 @@ class VerifyController extends GetxController {
           'code': '123456',
           'areaCode': arguments['areaCode']!,
         };
-
         frameController.state.pageIndex = -1; // 下一页不需要返回
         Get.offAllNamed(AppRoutes.password, id: 1, arguments: data); // 去密码设置页
 

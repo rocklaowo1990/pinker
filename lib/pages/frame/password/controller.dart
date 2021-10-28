@@ -41,16 +41,8 @@ class PasswordController extends GetxController {
       await Global.saveProfile(registerAccount);
 
       /// 去头像设置页面
-      frameController.state.pageIndex = -2;
-
+      frameController.state.pageIndex--;
       Get.offAllNamed(AppRoutes.avatar, id: 1);
-
-      /// 提示注册成功
-      getSnackTop(
-        '注册成功',
-        iconData: Icons.check_circle,
-        iconColor: Colors.green,
-      );
 
       /// 注册失败
     } else {

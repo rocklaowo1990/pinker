@@ -33,26 +33,24 @@ class CodeListView extends GetView<CodeListController> {
     /// body
     Widget body = Scrollbar(
       child: Obx(
-        () => Scrollbar(
-          child: ListView(
-            children: controller.state.codeList
-                .map((item) => getList(
-                    onPressed: () {
-                      controller.handleChooise(item);
-                    },
-                    title: Get.locale == const Locale('zh', 'CN')
-                        ? '+${item['area_code']}      ${item['op_name']}'
-                        : '+${item['area_code']}      ${item['country']}',
-                    iconRight: Icon(
-                      Icons.check_circle,
-                      size: 9.w,
-                      color: controller.registerController.state.code ==
-                              '+${item['area_code']}'
-                          ? AppColors.mainColor
-                          : AppColors.thirdIcon,
-                    )))
-                .toList(),
-          ),
+        () => ListView(
+          children: controller.state.codeList
+              .map((item) => getButtonList(
+                  onPressed: () {
+                    controller.handleChooise(item);
+                  },
+                  title: Get.locale == const Locale('zh', 'CN')
+                      ? '+${item['area_code']}      ${item['op_name']}'
+                      : '+${item['area_code']}      ${item['country']}',
+                  iconRight: Icon(
+                    Icons.check_circle,
+                    size: 9.w,
+                    color: controller.registerController.state.code ==
+                            '+${item['area_code']}'
+                        ? AppColors.mainColor
+                        : AppColors.thirdIcon,
+                  )))
+              .toList(),
         ),
       ),
     );

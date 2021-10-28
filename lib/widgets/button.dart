@@ -3,38 +3,37 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/values/values.dart';
 
 /// 按钮封装
-Widget getButton(
-    {
+Widget getButton({
+  /// 按钮的背景色
+  Color? background,
 
-    /// 按钮的背景色
-    Color? background,
+  /// 按钮的背景色
+  Color? overlayColor,
 
-    /// 按钮的背景色
-    Color? overlayColor,
+  /// 按钮的点击事件
+  VoidCallback? onPressed,
 
-    /// 按钮的点击事件
-    VoidCallback? onPressed,
+  /// 子组件
+  required Widget child,
 
-    /// 子组件
-    required Widget child,
+  /// 按钮高度
+  double? height,
 
-    /// 按钮高度
-    double? height,
+  /// 按钮宽度
+  double? width,
 
-    /// 按钮宽度
-    double? width,
+  /// 按钮宽度
+  BorderRadiusGeometry? radius,
 
-    /// 按钮宽度
-    BorderRadiusGeometry? radius,
+  /// 子组件对齐方式
+  AlignmentGeometry? alignment,
 
-    /// 子组件对齐方式
-    AlignmentGeometry? alignment,
+  /// padding
+  EdgeInsetsGeometry? padding,
 
-    /// padding
-    EdgeInsetsGeometry? padding,
-
-    /// 边框
-    MaterialStateProperty<BorderSide?>? side}) {
+  /// 边框
+  BorderSide? side,
+}) {
   return SizedBox(
     /// 宽度不填的话，默认是无无限宽
     width: width,
@@ -60,6 +59,8 @@ Widget getButton(
             borderRadius: radius ?? BorderRadius.circular(186.5.w),
           ),
         ),
+
+        side: side == null ? null : MaterialStateProperty.all(side),
 
         /// 清空按钮的padding
         padding: MaterialStateProperty.all(padding ?? EdgeInsets.zero),

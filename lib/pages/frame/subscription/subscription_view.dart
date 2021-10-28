@@ -6,6 +6,7 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/subscription/library.dart';
 
 import 'package:pinker/values/colors.dart';
+import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class SubscriptionView extends GetView<SubscriptionController> {
@@ -26,11 +27,16 @@ class SubscriptionView extends GetView<SubscriptionController> {
       ],
     );
 
-    Widget middle = Container(
-      color: AppColors.mainColor,
-      width: double.infinity,
-      height: 2000.h,
-    );
+    Widget middle = Obx(() => Column(
+          children: controller.state.userList
+              .map((item) => getUserList(
+                    avatar: item[serverApiUrl + 'avatar'],
+                    userName: item['userName'],
+                    nickName: item['nickName'],
+                    onPressed: controller.handleSubscribe,
+                  ))
+              .toList(),
+        ));
 
     /// 底部
     Widget bottom = getBottomBox(
@@ -46,14 +52,16 @@ class SubscriptionView extends GetView<SubscriptionController> {
     Widget body = Column(
       children: [
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 8.h),
-                top,
-                SizedBox(height: 16.h),
-                middle,
-              ],
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 8.h),
+                  top,
+                  SizedBox(height: 16.h),
+                  middle,
+                ],
+              ),
             ),
           ),
         ),

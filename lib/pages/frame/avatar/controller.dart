@@ -26,13 +26,12 @@ class AvatarController extends GetxController {
   }
 
   void handleNotNow() {
-    frameController.state.pageIndex = -3;
-
+    frameController.state.pageIndex--; // 下一页不需要返回
     Get.offAllNamed(AppRoutes.subscription, id: 1);
   }
 
   void handleNext() {
-    frameController.state.pageIndex = -3;
+    frameController.state.pageIndex--; // 下一页不需要返回
     Get.offAllNamed(AppRoutes.subscription, id: 1);
   }
 
@@ -76,6 +75,20 @@ class AvatarController extends GetxController {
     }
 
     Get.back();
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+
+    Future.delayed(const Duration(milliseconds: 200), () {
+      /// 提示注册成功
+      getSnackTop(
+        '注册成功',
+        iconData: Icons.check_circle,
+        iconColor: Colors.green,
+      );
+    });
   }
 
   @override

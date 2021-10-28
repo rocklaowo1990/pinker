@@ -131,7 +131,6 @@ class AvatarView extends GetView<AvatarController> {
               )
             : body,
       ),
-      resizeToAvoidBottomInset: false,
     );
   }
 }

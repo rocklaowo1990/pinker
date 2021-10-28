@@ -33,7 +33,7 @@ class SettingView extends GetView<SettingController> {
     );
 
     /// 语言
-    Widget langList = getList(
+    Widget langList = getButtonList(
       title: Lang.setLang.tr,
       secondTitle: Obx(
         () => getSpan(
