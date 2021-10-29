@@ -45,6 +45,7 @@ abstract class Lang {
   static const codeSendTile = 'codeSendTile';
   static const codeResend = 'codeResend';
   static const codeMsg = 'codeMsg';
+  static const codeSussful = 'codeSussful';
 
   /// 设置页面
   static const setTitle = 'setTitle';

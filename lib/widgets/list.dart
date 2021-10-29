@@ -94,14 +94,14 @@ Widget getUserList({
     height: 32.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
-      color: AppColors.secondBacground,
+      color: AppColors.thirdIcon,
     ),
     child: Center(
       child: avatar == null || avatar == ''
           ? Icon(
-              Icons.account_circle,
-              size: 32.w,
-              color: AppColors.mainBacground,
+              Icons.person,
+              size: 28.w,
+              color: AppColors.secondBacground,
             )
           : CircleAvatar(
               radius: 32.w,

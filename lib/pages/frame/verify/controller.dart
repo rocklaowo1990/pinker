@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/lang/translation_service.dart';
+
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/verify/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -25,19 +26,30 @@ class VerifyController extends GetxController {
   /// 请求验证码
   void _sendCode() async {
     /// 准备请求数据
-    Map<String, String> data = {
-      'mobile': arguments['mobile']!,
-      'areaCode': arguments['areaCode']!,
-      'entryType': arguments['entryType']!,
-    };
+    Map<String, String> data = {};
+
+    if (arguments['accountType']! == '1') {
+      data = {
+        'mobile': arguments['account']!,
+        'areaCode': arguments['areaCode']!,
+        'entryType': arguments['entryType']!,
+      };
+    } else {
+      data = {
+        'email': arguments['account']!,
+        'entryType': arguments['entryType']!,
+      };
+    }
 
     /// 请求服务器...
-    ResponseEntity codeNumber = await CommonApi.sendSms(data: data);
+    ResponseEntity codeNumber = arguments['accountType']! == '1'
+        ? await CommonApi.sendSms(data)
+        : await CommonApi.sendEmail(data);
 
     /// 返回数据处理
     if (codeNumber.code == 200) {
       getSnackTop(
-        '验证码发送成功',
+        Lang.codeSussful.tr,
         iconData: Icons.check_circle,
         iconColor: Colors.green,
       );
@@ -74,15 +86,21 @@ class VerifyController extends GetxController {
     if (text.length >= 6) {
       focusNode.unfocus(); // 隐藏键盘
       getDialog(); // 弹出加载窗
-      await Future.delayed(const Duration(milliseconds: 1000)); // 弹窗停留时间
+      Map<String, dynamic> data = {
+        'account': arguments['account'],
+        'accountType': '1',
+        'code': text,
+        'entryType': '1',
+      };
+      ResponseEntity checkCode = await CommonApi.checkCode(data); // 弹窗停留时间
 
       Get.back(); // 隐藏弹窗
 
       /// 输入了正确的验证码
-      if (text == '123456') {
+      if (checkCode.code == 200) {
         /// 传参数到下一页
         Map<String, String> data = {
-          'account': arguments['mobile']!,
+          'account': arguments['account']!,
           'accountType': arguments['entryType']!,
           'birthday': arguments['birthday']!,
           'code': '123456',
@@ -92,8 +110,8 @@ class VerifyController extends GetxController {
         Get.offAllNamed(AppRoutes.password, id: 1, arguments: data); // 去密码设置页
 
         /// 输入了错误的验证码
-      } else if (text.length == 6 && text != '123456') {
-        getSnackTop(Lang.codeMsg.tr); //顶部弹出错误信息
+      } else {
+        getSnackTop(checkCode.msg); //顶部弹出错误信息
         state.codeList = []; // 清空框框里的数字
         inputController.text = ''; // 清空验证码输入框
 
@@ -111,14 +129,6 @@ class VerifyController extends GetxController {
     }
   }
 
-  /// 输入框控制器监听器
-  // void _addListener() async {
-  //   state.codeList = inputController.text.split('');
-  //   state.opacity = 1;
-  //   await Future.delayed(const Duration(milliseconds: 500));
-  //   state.opacity = state.opacity == 0 ? 1.0 : 0.0;
-  // }
-
   @override
   void onInit() async {
     super.onInit();
@@ -128,8 +138,15 @@ class VerifyController extends GetxController {
       focusNode.requestFocus();
     });
 
-    /// 判断一下倒计时，如果倒计时是0就请求验证码
-    if (frameController.state.sendTime <= 0) _sendCode();
+    /// 发送验证码请求
+    if (frameController.state.account != arguments['account']) {
+      _sendCode();
+      frameController.state.account = arguments['account']!;
+    } else {
+      if (frameController.state.sendTime <= 0) {
+        _sendCode();
+      }
+    }
 
     /// 初始化焦点动画
     await Future.delayed(const Duration(milliseconds: 200), () {

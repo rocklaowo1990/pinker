@@ -45,6 +45,7 @@ const Map<String, String> zh = {
   Lang.codeSendTile: '请在下方输入验证码',
   Lang.codeResend: '重新发送验证码',
   Lang.codeMsg: '验证码错误',
+  Lang.codeSussful: '验证码发送成功',
 
   /// 密码设置页面
   Lang.passwordTitle: '您需要一个密码',

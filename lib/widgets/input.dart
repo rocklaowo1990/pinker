@@ -64,14 +64,18 @@ Widget getInput({
     textObs.value = value;
   }
 
+  onPressed = clearText;
+
   /// 根据不同的类型 初始化
   if (type == Lang.inputPassword.tr) {
     onPressed = passwordText;
     isPassword.value = true;
     keyboardType = TextInputType.visiblePassword;
     suffixIcon.value = Icons.visibility_off;
-  } else {
-    onPressed = clearText;
+  } else if (type == Lang.inputPhone.tr) {
+    keyboardType = TextInputType.number;
+  } else if (type == Lang.inputEmail.tr) {
+    keyboardType = TextInputType.emailAddress;
   }
 
   /// 组件

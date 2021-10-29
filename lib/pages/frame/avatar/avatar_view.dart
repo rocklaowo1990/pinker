@@ -40,8 +40,8 @@ class AvatarView extends GetView<AvatarController> {
             child: Obx(
               () => controller.state.image == 0
                   ? Icon(
-                      Icons.account_circle,
-                      size: 80.w,
+                      Icons.person,
+                      size: 70.w,
                       color: AppColors.mainBacground,
                     )
                   : CircleAvatar(

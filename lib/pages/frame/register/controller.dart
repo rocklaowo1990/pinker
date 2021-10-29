@@ -23,30 +23,6 @@ class RegisterController extends GetxController {
   /// 状态管理
   final state = RegisterState();
 
-  /// 关闭键盘
-  void _unfocus() {
-    userRegisterFocusNode.unfocus();
-  }
-
-  /// 输入框文本监听
-  void _textListener() {
-    if (userRegisterController.text.isEmpty) {
-      state.isDissable = true;
-    } else if (state.isPhone &&
-        state.code == '86' &&
-        !isChinaPhoneLegal(userRegisterController.text)) {
-      state.isDissable = true;
-    } else if (!state.isPhone && !userRegisterController.text.isEmail) {
-      state.isDissable = true;
-    } else if (userRegisterController.text.length < 7) {
-      state.isDissable = true;
-    } else if (state.isPhone && !userRegisterController.text.isNum) {
-      state.isDissable = true;
-    } else {
-      state.isDissable = false;
-    }
-  }
-
   /// 初始化
   @override
   void onInit() {
@@ -80,6 +56,7 @@ class RegisterController extends GetxController {
     _unfocus(); // 失去焦点
 
     String number = '';
+
     if (state.isPhone) {
       String text = userRegisterController.text;
       number = text.substring(text.length - 2);
@@ -89,8 +66,77 @@ class RegisterController extends GetxController {
       List<String> part_2 = part_1[1].split('.');
       number = part_1[0].substring(part_1[0].length - 2) + '@' + part_2[0];
     }
+    _dialogChile(number);
+  }
 
-    getDialog(
+  /// 区号选择
+  void handleGoCodeList() async {
+    if (userRegisterFocusNode.hasFocus) {
+      _unfocus();
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
+
+    Get.toNamed(AppRoutes.codeList);
+  }
+
+  /// 同意服务条款和隐私政策
+  void handleAgreen() {
+    state.isChooise = !state.isChooise;
+  }
+
+  /// 去服务条款页面
+  void handleGoService() {}
+
+  /// 去隐私政策页面
+  void handleGoPrivacy() {}
+
+  /// 时间确认按钮
+  void _back() {
+    Get.back();
+  }
+
+  /// 时间选择时的事件
+  void _timeChanged(DateTime dateTime) {
+    state.timeChange = DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+    );
+  }
+
+  /// 点击生日输入框，调出日期选择器
+  void birthChoice() {
+    userRegisterFocusNode.unfocus();
+    getDateBox(
+      onPressed: _back,
+      onDateTimeChanged: _timeChanged,
+      initialDateTime: state.showTime,
+    );
+  }
+
+  /// 切换注册方式
+  void handleChangeRegister() async {
+    _unfocus();
+    userRegisterController.text = '';
+    state.isPhone = !state.isPhone;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      userRegisterFocusNode.requestFocus();
+    });
+  }
+
+  /// 页面销毁
+  @override
+  void dispose() {
+    frameController.dispose();
+    userRegisterController.dispose();
+    userRegisterFocusNode.dispose();
+
+    super.dispose();
+  }
+
+  /// 发送验证码的确认弹窗
+  Future _dialogChile(number) {
+    return getDialog(
       child: dialogAlert(
         onPressedLeft: _edit,
         onPressedRight: _goCodePage,
@@ -164,19 +210,15 @@ class RegisterController extends GetxController {
         String birthday = bornYear + bornMonth + bornDay;
 
         Map<String, String> arguments = {
-          'mobile': userRegisterController.text,
+          'account': userRegisterController.text,
           'areaCode': state.code,
-          'entryType': state.isPhone ? '1' : '2',
+          'entryType': '1',
           'birthday': birthday,
+          'accountType': state.isPhone ? '1' : '2',
         };
 
         frameController.state.pageIndex++;
-        Get.toNamed(
-          AppRoutes.verify,
-          id: 1,
-          arguments: arguments,
-          // parameters: {'id': 'dd'},
-        );
+        Get.toNamed(AppRoutes.verify, id: 1, arguments: arguments);
       } else {
         getSnackTop(Lang.registerAllready.tr);
         userRegisterFocusNode.requestFocus();
@@ -186,66 +228,27 @@ class RegisterController extends GetxController {
     }
   }
 
-  /// 区号选择
-  void handleGoCodeList() async {
-    if (userRegisterFocusNode.hasFocus) {
-      _unfocus();
-      await Future.delayed(const Duration(milliseconds: 200));
+  /// 输入框文本监听
+  void _textListener() {
+    if (userRegisterController.text.isEmpty) {
+      state.isDissable = true;
+    } else if (state.isPhone &&
+        state.code == '86' &&
+        !isChinaPhoneLegal(userRegisterController.text)) {
+      state.isDissable = true;
+    } else if (!state.isPhone && !userRegisterController.text.isEmail) {
+      state.isDissable = true;
+    } else if (userRegisterController.text.length < 7) {
+      state.isDissable = true;
+    } else if (state.isPhone && !userRegisterController.text.isNum) {
+      state.isDissable = true;
+    } else {
+      state.isDissable = false;
     }
-
-    Get.toNamed(AppRoutes.codeList);
   }
 
-  /// 时间确认按钮
-  void _back() {
-    Get.back();
-  }
-
-  /// 同意服务条款和隐私政策
-  void handleAgreen() {
-    state.isChooise = !state.isChooise;
-  }
-
-  /// 去服务条款页面
-  void handleGoService() {}
-
-  /// 去隐私政策页面
-  void handleGoPrivacy() {}
-
-  /// 时间选择时的事件
-  void _timeChanged(DateTime dateTime) {
-    state.timeChange = DateTime(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
-    );
-  }
-
-  /// 点击生日输入框，调出日期选择器
-  void birthChoice() {
+  /// 关闭键盘
+  void _unfocus() {
     userRegisterFocusNode.unfocus();
-    getDateBox(
-      onPressed: _back,
-      onDateTimeChanged: _timeChanged,
-      initialDateTime: state.showTime,
-    );
-  }
-
-  /// 切换注册方式
-  void handleChangeRegister() {
-    userRegisterController.text = '';
-    state.isPhone = !state.isPhone;
-    userRegisterFocusNode.requestFocus();
-  }
-
-  /// 页面销毁
-  @override
-  void dispose() {
-    frameController.dispose();
-
-    userRegisterController.dispose();
-    userRegisterFocusNode.dispose();
-
-    super.dispose();
   }
 }

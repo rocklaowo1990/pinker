@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/global.dart';
 
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/subscription/state.dart';
@@ -15,13 +16,26 @@ class SubscriptionController extends GetxController {
   /// 状态管理
   final SubscriptionState state = SubscriptionState();
 
+  /// token
+  final String token = Global.token ?? '';
+
   /// 下一步
   void handleNext() {
     Get.offAllNamed(AppRoutes.application);
   }
 
   /// 订阅
-  void handleSubscribe() {}
+  void handleSubscribe(item) async {
+    Map<String, dynamic> data = {
+      'userId': item['userId'],
+    };
+    ResponseEntity getSubscriben = await UserApi.oneSubscribeInfo(data);
+
+    if (getSubscriben.code == 200) {
+    } else {
+      getSnackTop(getSubscriben.msg);
+    }
+  }
 
   @override
   void onInit() async {
@@ -29,9 +43,9 @@ class SubscriptionController extends GetxController {
     Map<String, String> data = {
       'pageNo': '1',
       'pageSize': '20',
-      'type': '1',
     };
-    ResponseEntity getUserList = await UserApi.recommendUserList(data);
+    ResponseEntity getUserList =
+        await UserApi.recommendUserListForRegister(data);
 
     if (getUserList.code == 200) {
       state.userList = getUserList.data!['list'];

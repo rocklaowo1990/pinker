@@ -47,6 +47,7 @@ const Map<String, String> en = {
   Lang.codeSendTile: 'Please enter the verification code below',
   Lang.codeResend: 'Resend Verification Code',
   Lang.codeMsg: 'Verification code error',
+  Lang.codeSussful: 'Verification code sent successfully',
 
   /// 密码设置页面
   Lang.passwordTitle: 'You need a password',

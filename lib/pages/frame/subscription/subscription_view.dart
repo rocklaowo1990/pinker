@@ -33,7 +33,9 @@ class SubscriptionView extends GetView<SubscriptionController> {
                     avatar: item[serverApiUrl + 'avatar'],
                     userName: item['userName'],
                     nickName: item['nickName'],
-                    onPressed: controller.handleSubscribe,
+                    onPressed: () {
+                      controller.handleSubscribe(item);
+                    },
                   ))
               .toList(),
         ));
