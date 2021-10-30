@@ -25,9 +25,6 @@ class AppPages {
       name: AppRoutes.application,
       page: () => const ApplicationView(),
       binding: ApplicationBinding(),
-      // middlewares: [
-      //   RouteAuthMiddleware(), //第一次登陆和没有token的处理
-      // ],
     ),
 
     /// 初始页面框架，包含登陆，注册，初始
