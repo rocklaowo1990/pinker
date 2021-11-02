@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:get/state_manager.dart';
 import 'package:pinker/pages/application/library.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ApplicationController extends GetxController {
+  /// 响应式成员
   final ApplicationState state = ApplicationState();
+
+  /// 页面控制器
   final PageController pageController = PageController();
 
   @override

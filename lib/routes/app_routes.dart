@@ -15,6 +15,8 @@ class AppRoutes {
   static const avatar = '/avatar';
   static const subscription = '/subscription';
 
+  static const home = '/home';
+
   static const forgot = '/forgot';
 
   static const codeList = '/codeList';

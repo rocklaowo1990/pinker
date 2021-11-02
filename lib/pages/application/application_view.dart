@@ -17,9 +17,14 @@ class ApplicationView extends GetView<ApplicationController> {
     /// 底部导航
     Widget bottomNavigationBar = Container(
       width: double.infinity,
-      color: AppColors.secondBacground,
       height: 32.h,
       padding: EdgeInsets.only(left: 7.w, right: 7.w),
+      decoration: BoxDecoration(
+        color: AppColors.secondBacground,
+        border: Border(
+          top: BorderSide(width: 0.5.w, color: AppColors.line),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

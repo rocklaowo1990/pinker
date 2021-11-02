@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 /// appBar
 AppBar getAppBar(
@@ -31,24 +35,45 @@ AppBar getAppBar(
 }
 
 /// appBar
-AppBar getMainBar() {
+AppBar getMainBar({required Widget left, required Widget right}) {
+  return AppBar(
+    title: left,
+    actions: [
+      right,
+      const SizedBox(),
+    ],
+    backgroundColor: AppColors.mainBacground,
+    elevation: 0.5.w,
+    shadowColor: AppColors.thirdIcon,
+    systemOverlayStyle: const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ),
+  );
+}
+
+/// appBar
+AppBar getSearchBar({
+  required TextEditingController controller,
+  required FocusNode focusNode,
+}) {
   return AppBar(
     title: SizedBox(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(
-            Icons.add,
-            size: 13.w,
-            color: AppColors.mainIcon,
+      height: 24.h,
+      child: getInput(
+        type: Lang.inputEmail.tr,
+        controller: controller,
+        focusNode: focusNode,
+        prefixIcon: SizedBox(
+          width: 10.h,
+          height: 10.h,
+          child: Center(
+            child: SvgPicture.asset(
+              'assets/svg/ic_sousuo.svg',
+            ),
           ),
-          Icon(
-            Icons.add,
-            size: 13.w,
-            color: AppColors.mainIcon,
-          ),
-        ],
+        ),
       ),
     ),
     backgroundColor: AppColors.mainBacground,

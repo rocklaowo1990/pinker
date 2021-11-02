@@ -32,6 +32,9 @@ class MyApp extends StatelessWidget {
         enableLog: true,
         logWriterCallback: Logger.write,
 
+        /// 右滑返回上一页：关闭
+        popGesture: false,
+
         /// 默认页面切换动画
         defaultTransition: Transition.rightToLeftWithFade,
         transitionDuration: const Duration(milliseconds: 300),

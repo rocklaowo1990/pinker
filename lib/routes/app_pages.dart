@@ -20,7 +20,7 @@ class AppPages {
   );
 
   static final List<GetPage> getPages = [
-    /// APP首页
+    /// APP首页框架
     GetPage(
       name: AppRoutes.application,
       page: () => const ApplicationView(),
