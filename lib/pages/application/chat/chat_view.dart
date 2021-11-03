@@ -26,7 +26,7 @@ class ChatView extends StatelessWidget {
         children: [
           SizedBox(height: 40.h),
           SvgPicture.asset(
-            'assets/svg/tp_zwxx.svg',
+            'assets/svg/error_1.svg',
             width: 55.w,
           ),
           SizedBox(height: 6.h),

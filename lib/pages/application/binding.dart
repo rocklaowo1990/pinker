@@ -6,7 +6,7 @@ import 'package:pinker/pages/application/my/library.dart';
 class ApplicationBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ApplicationController>(() => ApplicationController());
     Get.lazyPut<MyController>(() => MyController());
+    Get.lazyPut<ApplicationController>(() => ApplicationController());
   }
 }

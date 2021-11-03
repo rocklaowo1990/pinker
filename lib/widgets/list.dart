@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -27,8 +28,9 @@ Widget getButtonList({
     children: [
       secondTitle ?? const SizedBox(),
       SizedBox(width: 4.w),
-      const Icon(
-        Icons.navigate_next,
+      SvgPicture.asset(
+        'assets/svg/icon_right.svg',
+        height: 7.h,
         color: AppColors.secondIcon,
       ),
     ],
@@ -41,10 +43,7 @@ Widget getButtonList({
 
   /// 右边没有传入文字的时候
   if (secondTitle == null) {
-    right = const Icon(
-      Icons.navigate_next,
-      color: AppColors.secondIcon,
-    );
+    right = SvgPicture.asset('assets/svg/icon_right.svg', height: 10.h);
   }
 
   /// 右侧图标如果有传入新的 widge
@@ -98,10 +97,9 @@ Widget getUserList({
     ),
     child: Center(
       child: avatar == null || avatar == ''
-          ? Icon(
-              Icons.person,
-              size: 28.w,
-              color: AppColors.secondBacground,
+          ? SvgPicture.asset(
+              'assets/svg/avatar_default.svg',
+              width: 32.w,
             )
           : CircleAvatar(
               radius: 32.w,

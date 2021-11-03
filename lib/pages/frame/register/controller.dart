@@ -14,7 +14,7 @@ import 'package:pinker/widgets/widgets.dart';
 
 class RegisterController extends GetxController {
   /// 遮罩控制器
-  final frameController = Get.put(FrameController());
+  final FrameController frameController = Get.find();
 
   /// 输入框的控制器和焦点
   final TextEditingController userRegisterController = TextEditingController();

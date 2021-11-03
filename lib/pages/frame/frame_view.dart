@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/library.dart';
@@ -26,26 +27,20 @@ class FrameView extends GetView<FrameController> {
 
     /// appBar 左侧的返回按钮
     Widget buttonBox = getButton(
-      child: Icon(
-        Icons.arrow_back_ios_new,
-        size: 9.w,
-        color: AppColors.mainIcon,
-      ),
+      child: SvgPicture.asset('assets/svg/icon_back.svg', height: 10.h),
       onPressed: controller.handleBack,
       background: Colors.transparent,
+      width: 30.w,
+      height: 30.w,
     );
 
     /// appBar 右侧的设置按钮
     Widget settingBox = getButton(
-      child: Icon(
-        Icons.settings,
-        size: 10.w,
-        color: AppColors.mainIcon,
-      ),
+      child: SvgPicture.asset('assets/svg/icon_setting.svg', height: 12.h),
       onPressed: controller.handleGoSettingView,
       background: Colors.transparent,
       width: 30.w,
-      height: 40.w,
+      height: 30.w,
     );
 
     /// appBar

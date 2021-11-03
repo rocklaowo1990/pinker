@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/global.dart';
 import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/setting/library.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -13,21 +16,9 @@ class SettingView extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
-    /// appBar 左侧的返回按钮
-    Widget buttonBox = getButton(
-      child: Icon(
-        Icons.arrow_back_ios_new,
-        size: 9.w,
-        color: AppColors.mainIcon,
-      ),
-      onPressed: controller.handleGoSignBeforePage,
-      background: Colors.transparent,
-    );
-
     /// appBar
     AppBar appBar = getAppBar(
       getSpan(Lang.setTitle.tr, size: 10.sp),
-      leading: buttonBox,
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );
@@ -45,11 +36,31 @@ class SettingView extends GetView<SettingController> {
       onPressed: controller.handleGoLanguage,
     );
 
-    /// body
-    Widget body = ListView(
+    /// 未登录设置页面
+    Widget bodyNoToken = ListView(
       children: [
         SizedBox(height: 4.h),
         langList,
+      ],
+    );
+
+    Widget signOut = getButton(
+      child: getSpan('退出登陆', color: AppColors.errro),
+      onPressed: controller.handleSignOut,
+      radius: const BorderRadius.all(Radius.zero),
+      background: AppColors.secondBacground,
+      height: 30.h,
+      padding: EdgeInsets.only(
+        left: 10.w,
+        right: 8.w,
+      ),
+    );
+
+    /// 登陆后的设置页面
+    Widget bodyToken = ListView(
+      children: [
+        SizedBox(height: 4.h),
+        signOut,
       ],
     );
 
@@ -57,7 +68,7 @@ class SettingView extends GetView<SettingController> {
     return Scaffold(
       backgroundColor: AppColors.mainBacground,
       appBar: appBar,
-      body: body,
+      body: Global.token == null ? bodyNoToken : bodyToken,
     );
   }
 }

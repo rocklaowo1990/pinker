@@ -13,21 +13,9 @@ class LanguageView extends GetView<LanguageController> {
 
   @override
   Widget build(BuildContext context) {
-    /// appBar 左侧的返回按钮
-    Widget buttonBox = getButton(
-      child: Icon(
-        Icons.arrow_back_ios_new,
-        size: 9.w,
-        color: AppColors.mainIcon,
-      ),
-      onPressed: controller.handleGoSignBeforePage,
-      background: Colors.transparent,
-    );
-
     /// appBar
     AppBar appBar = getAppBar(
       getSpan(Lang.langTitle.tr, size: 10.sp),
-      leading: buttonBox,
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );

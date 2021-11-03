@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/avatar/library.dart';
@@ -39,10 +40,9 @@ class AvatarView extends GetView<AvatarController> {
           child: Center(
             child: Obx(
               () => controller.state.image == 0
-                  ? Icon(
-                      Icons.person,
-                      size: 70.w,
-                      color: AppColors.mainBacground,
+                  ? SvgPicture.asset(
+                      'assets/svg/avatar_default.svg',
+                      width: 80.w,
                     )
                   : CircleAvatar(
                       radius: 80.w,
@@ -79,6 +79,7 @@ class AvatarView extends GetView<AvatarController> {
       children: [
         Obx(
           () => getButton(
+            height: 25.h,
             child: getSpan(Lang.next.tr),
             width: double.infinity,
             background: controller.state.image <= 0

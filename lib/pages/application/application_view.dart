@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/application/chat/library.dart';
-import 'package:pinker/pages/application/community/library.dart';
-import 'package:pinker/pages/application/home/library.dart';
 
 import 'package:pinker/pages/application/library.dart';
-import 'package:pinker/pages/application/my/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/values/values.dart';
 
 class ApplicationView extends GetView<ApplicationController> {
@@ -37,15 +34,10 @@ class ApplicationView extends GetView<ApplicationController> {
     );
 
     /// body
-    Widget body = PageView(
-      controller: controller.pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        HomeView(),
-        CommunityView(),
-        ChatView(),
-        MyView(),
-      ],
+    Widget body = Navigator(
+      key: Get.nestedKey(2),
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: controller.onGenerateRoute,
     );
 
     /// 页面

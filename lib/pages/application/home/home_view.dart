@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
 
     Widget right = getButton(
       child: SvgPicture.asset(
-        'assets/svg/icon_xinxi_2.svg',
+        'assets/svg/icon_mail_3.svg',
       ),
       background: Colors.transparent,
       width: 33.h,
@@ -54,7 +54,7 @@ class HomeView extends StatelessWidget {
         children: [
           SizedBox(height: 40.h),
           SvgPicture.asset(
-            'assets/svg/tp_qsy_3.svg',
+            'assets/svg/error_4.svg',
             width: 55.w,
           ),
           SizedBox(height: 6.h),

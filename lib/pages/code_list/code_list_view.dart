@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/code_list/library.dart';
@@ -13,11 +14,7 @@ class CodeListView extends GetView<CodeListController> {
   Widget build(BuildContext context) {
     /// appBar 左侧的返回按钮
     Widget buttonBox = getButton(
-      child: Icon(
-        Icons.arrow_back_ios_new,
-        size: 9.w,
-        color: AppColors.mainIcon,
-      ),
+      child: SvgPicture.asset('assets/svg/icon_back.svg'),
       onPressed: controller.handleBack,
       background: Colors.transparent,
     );
@@ -46,7 +43,7 @@ class CodeListView extends GetView<CodeListController> {
                     Icons.check_circle,
                     size: 9.w,
                     color: controller.registerController.state.code ==
-                            '+${item['area_code']}'
+                            '${item['area_code']}'
                         ? AppColors.mainColor
                         : AppColors.thirdIcon,
                   )))

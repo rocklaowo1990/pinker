@@ -13,7 +13,7 @@ import 'package:pinker/widgets/sheet.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class AvatarController extends GetxController {
-  final FrameController frameController = Get.put(FrameController());
+  final FrameController frameController = Get.find();
   final AvatarState state = AvatarState();
 
   final GlobalKey<CropState> cropKey = GlobalKey<CropState>();

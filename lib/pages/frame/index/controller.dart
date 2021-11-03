@@ -3,7 +3,7 @@ import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 
 class IndexController extends GetxController {
-  final frameController = Get.put(FrameController());
+  final FrameController frameController = Get.find();
 
   /// 去登陆页面按钮
   void handleGoSignInPage() {

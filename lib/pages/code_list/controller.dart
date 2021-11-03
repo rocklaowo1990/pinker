@@ -10,7 +10,7 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class CodeListController extends GetxController {
-  final registerController = Get.put(RegisterController());
+  final RegisterController registerController = Get.find();
   final state = CodeListState();
 
   @override

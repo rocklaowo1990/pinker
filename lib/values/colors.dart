@@ -40,6 +40,9 @@ class AppColors {
   /// 按钮禁用状态背景
   static const Color buttonDisable = Color(0x50919aab);
 
+  /// 错误颜色
+  static const Color errro = Color(0xfff92770);
+
   /// 文字渐变色
   // static Shader linearGradientText = const LinearGradient(
   //   colors: <Color>[

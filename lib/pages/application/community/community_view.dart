@@ -58,7 +58,7 @@ class CommunityView extends StatelessWidget {
 
     Widget right = getButton(
       child: SvgPicture.asset(
-        'assets/svg/ic_ss.svg',
+        'assets/svg/icon_search_1.svg',
       ),
       background: Colors.transparent,
       width: 33.h,

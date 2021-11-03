@@ -17,7 +17,7 @@ class NewView extends GetView<CommunityController> {
         children: [
           SizedBox(height: 40.h),
           SvgPicture.asset(
-            'assets/svg/tp_myssjg.svg',
+            'assets/svg/error_4.svg',
             width: 55.w,
           ),
           SizedBox(height: 6.h),

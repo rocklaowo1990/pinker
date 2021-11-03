@@ -10,7 +10,7 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class PasswordController extends GetxController {
-  final FrameController frameController = Get.put(FrameController());
+  final FrameController frameController = Get.find();
 
   final TextEditingController passwordController = TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
@@ -30,15 +30,16 @@ class PasswordController extends GetxController {
     getDialog();
 
     /// 开始请求
-    ResponseEntity registerAccount = await AccountApi.registerAccount(data);
+    ResponseEntity userProfile = await AccountApi.registerAccount(data);
     await Future.delayed(const Duration(milliseconds: 200));
 
     Get.back();
 
-    if (registerAccount.code == 200) {
+    if (userProfile.code == 200) {
       /// 注册成功
       /// 储存用户数据
-      await Global.saveProfile(registerAccount);
+      await Global.saveProfile(userProfile);
+      Global.token = userProfile.data!['token'];
 
       /// 去头像设置页面
       frameController.state.pageIndex--;
@@ -46,7 +47,7 @@ class PasswordController extends GetxController {
 
       /// 注册失败
     } else {
-      getSnackTop(registerAccount.msg);
+      getSnackTop(userProfile.msg);
     }
   }
 

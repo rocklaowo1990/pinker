@@ -12,7 +12,7 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class LoginController extends GetxController {
-  final frameController = Get.put(FrameController());
+  final FrameController frameController = Get.find();
 
   final TextEditingController userCountController = TextEditingController();
   final TextEditingController userPasswordController = TextEditingController();
@@ -88,9 +88,7 @@ class LoginController extends GetxController {
     if (userProfile.code == 200) {
       /// 储存用户数据
       await Global.saveProfile(userProfile);
-
-      /// 储存第一次登陆信息
-      // Global.saveAlreadyOpen();
+      Global.token = userProfile.data!['token'];
 
       /// 去往首页
       Get.offAllNamed(AppRoutes.application);

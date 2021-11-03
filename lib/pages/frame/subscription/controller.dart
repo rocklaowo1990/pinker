@@ -11,7 +11,7 @@ import 'package:pinker/widgets/snackbar.dart';
 
 class SubscriptionController extends GetxController {
   /// 遮罩控制器
-  final FrameController frameController = Get.put(FrameController());
+  final FrameController frameController = Get.find();
 
   /// 状态管理
   final SubscriptionState state = SubscriptionState();
