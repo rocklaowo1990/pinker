@@ -16,7 +16,7 @@ class AvatarView extends GetView<AvatarController> {
     /// 标题部分组合
     Widget top = Column(
       children: [
-        getSpan('挑选一个个人的资料图片', size: 16.sp),
+        getSpan('挑选一个个人的资料图片', fontSize: 26),
         SizedBox(height: 8.h),
         getSpan(
           '有最爱的自拍？赶紧上传吧',
@@ -46,7 +46,7 @@ class AvatarView extends GetView<AvatarController> {
                     )
                   : CircleAvatar(
                       radius: 80.w,
-                      backgroundImage: FileImage(controller.imageHeader),
+                      backgroundImage: FileImage(controller.avatarFile),
                     ),
             ),
           ),
@@ -56,8 +56,8 @@ class AvatarView extends GetView<AvatarController> {
           background: Colors.transparent,
           overlayColor: Colors.transparent,
           child: Container(
-            width: 30.w,
-            height: 30.w,
+            width: 24.w,
+            height: 24.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(width: 1.w, color: AppColors.mainColor),
@@ -79,7 +79,7 @@ class AvatarView extends GetView<AvatarController> {
       children: [
         Obx(
           () => getButton(
-            height: 25.h,
+            height: 24.h,
             child: getSpan(Lang.next.tr),
             width: double.infinity,
             background: controller.state.image <= 0

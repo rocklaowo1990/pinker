@@ -16,9 +16,7 @@ Widget getButtonList({
   Widget left = Row(
     children: [
       Icon(icon),
-      SizedBox(
-        width: 8.w,
-      ),
+      SizedBox(width: 8.w),
       getSpan(title),
     ],
   );
@@ -71,7 +69,7 @@ Widget getButtonList({
     child: textButtonChild,
     radius: BorderRadius.zero,
     background: AppColors.secondBacground,
-    height: 30.h,
+    height: 28.h,
     padding: EdgeInsets.only(
       left: 10.w,
       right: 8.w,
@@ -113,7 +111,7 @@ Widget getUserList({
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      getSpan(nickName, color: AppColors.mainText, size: 9.sp),
+      getSpan(nickName, color: AppColors.mainText),
       SizedBox(
         width: 60.w,
         child: getSpan(

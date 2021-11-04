@@ -28,7 +28,7 @@ const Map<String, String> zh = {
   Lang.registerEmail: '改用手机',
   Lang.registerPhone: '改用电子邮箱',
   Lang.registerTitle: '创建您的账号',
-  Lang.registerAgreen_1: '我已仔细阅读并同意',
+  Lang.registerAgreen_1: '我已阅读并同意',
   Lang.registerAgreen_2: '和',
   Lang.registerService: ' 服务条款 ',
   Lang.registerPrivacy: ' 隐私政策 ',
@@ -49,7 +49,7 @@ const Map<String, String> zh = {
 
   /// 密码设置页面
   Lang.passwordTitle: '您需要一个密码',
-  Lang.passwordSecondTitle: '请确保密码至少有8个字符，且包含英文和数字',
+  Lang.passwordSecondTitle: '请确保密码至少有8位，且包含英文和数字',
   Lang.passwordThirdTitle: '密码允许包含符号',
 
   /// 设置页面

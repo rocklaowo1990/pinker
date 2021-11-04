@@ -27,7 +27,7 @@ class CommunityView extends StatelessWidget {
           child: Container(
             child: getSpan(
               title,
-              size: 9.5.sp,
+              fontSize: 9.5.sp,
               color: controller.state.pageIndex == index
                   ? AppColors.mainColor
                   : AppColors.secondIcon,

@@ -39,7 +39,6 @@ class PasswordController extends GetxController {
       /// 注册成功
       /// 储存用户数据
       await Global.saveProfile(userProfile);
-      Global.token = userProfile.data!['token'];
 
       /// 去头像设置页面
       frameController.state.pageIndex--;

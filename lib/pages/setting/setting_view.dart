@@ -18,9 +18,8 @@ class SettingView extends GetView<SettingController> {
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan(Lang.setTitle.tr, size: 10.sp),
+      getSpan(Lang.setTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      elevation: 0.5.h,
     );
 
     /// 语言

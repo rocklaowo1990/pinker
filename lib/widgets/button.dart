@@ -35,10 +35,7 @@ Widget getButton({
   BorderSide? side,
 }) {
   return SizedBox(
-    /// 宽度不填的话，默认是无无限宽
     width: width,
-
-    /// 高度默认是24
     height: height,
     child: TextButton(
       onPressed: onPressed,

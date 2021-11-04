@@ -18,7 +18,7 @@ class FrameView extends GetView<FrameController> {
     /// logo
     Widget logo = Icon(
       IconFont.logo,
-      size: 18.w,
+      size: 20.w,
       color: AppColors.mainColor,
     );
 
@@ -27,7 +27,7 @@ class FrameView extends GetView<FrameController> {
 
     /// appBar 左侧的返回按钮
     Widget buttonBox = getButton(
-      child: SvgPicture.asset('assets/svg/icon_back.svg', height: 10.h),
+      child: SvgPicture.asset('assets/svg/icon_back.svg'),
       onPressed: controller.handleBack,
       background: Colors.transparent,
       width: 30.w,
@@ -36,7 +36,7 @@ class FrameView extends GetView<FrameController> {
 
     /// appBar 右侧的设置按钮
     Widget settingBox = getButton(
-      child: SvgPicture.asset('assets/svg/icon_setting.svg', height: 12.h),
+      child: SvgPicture.asset('assets/svg/icon_setting.svg'),
       onPressed: controller.handleGoSettingView,
       background: Colors.transparent,
       width: 30.w,

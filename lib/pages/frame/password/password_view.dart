@@ -15,7 +15,7 @@ class PasswordView extends GetView<PasswordController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(Lang.passwordTitle.tr, size: 16.sp);
+    Widget title = getSpan(Lang.passwordTitle.tr, fontSize: 26);
 
     /// 副标题1
     Widget secndTitle = getSpan(
@@ -42,8 +42,7 @@ class PasswordView extends GetView<PasswordController> {
     Widget bottom = getBottomBox(
       rightWidget: Obx(
         () => getButton(
-          width: 40.w,
-          height: 18.h,
+          padding: EdgeInsets.only(left: 12.w, right: 12.w),
           child: getSpan(Lang.next.tr),
           onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable

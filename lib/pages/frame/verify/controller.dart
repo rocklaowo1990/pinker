@@ -88,9 +88,9 @@ class VerifyController extends GetxController {
       getDialog(); // 弹出加载窗
       Map<String, dynamic> data = {
         'account': arguments['account'],
-        'accountType': '1',
+        'accountType': arguments['accountType'],
         'code': text,
-        'entryType': '1',
+        'entryType': arguments['entryType'],
       };
       ResponseEntity checkCode = await CommonApi.checkCode(data); // 弹窗停留时间
 
@@ -101,9 +101,9 @@ class VerifyController extends GetxController {
         /// 传参数到下一页
         Map<String, String> data = {
           'account': arguments['account']!,
-          'accountType': arguments['entryType']!,
+          'accountType': arguments['accountType']!,
           'birthday': arguments['birthday']!,
-          'code': '123456',
+          'code': text,
           'areaCode': arguments['areaCode']!,
         };
         frameController.state.pageIndex = -1; // 下一页不需要返回

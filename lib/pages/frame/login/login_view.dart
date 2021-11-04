@@ -15,7 +15,7 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(Lang.loginTitle.tr, size: 16.sp);
+    Widget title = getSpan(Lang.loginTitle.tr, fontSize: 26);
 
     /// 账号输入框
     Widget userCount = getInput(
@@ -43,8 +43,7 @@ class LoginView extends GetView<LoginController> {
       ),
       rightWidget: Obx(
         () => getButton(
-          width: 40.w,
-          height: 18.h,
+          padding: EdgeInsets.only(left: 12.w, right: 12.w),
           child: getSpan(Lang.loginButton.tr),
           onPressed:
               controller.state.isDissable ? null : controller.handleSignIn,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/code_list/library.dart';
@@ -12,17 +12,9 @@ class CodeListView extends GetView<CodeListController> {
 
   @override
   Widget build(BuildContext context) {
-    /// appBar 左侧的返回按钮
-    Widget buttonBox = getButton(
-      child: SvgPicture.asset('assets/svg/icon_back.svg'),
-      onPressed: controller.handleBack,
-      background: Colors.transparent,
-    );
-
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan(Lang.codeTitle.tr, size: 10.sp),
-      leading: buttonBox,
+      getSpan(Lang.codeTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );

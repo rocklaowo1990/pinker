@@ -137,14 +137,14 @@ class RegisterController extends GetxController {
   /// 发送验证码的确认弹窗
   Future _dialogChile(number) {
     return getDialog(
-      child: dialogAlert(
+      child: DialogChild.alert(
         onPressedLeft: _edit,
         onPressedRight: _goCodePage,
         child: Column(
           children: [
             state.isPhone
-                ? getSpan(Lang.registerVerifyPhone.tr, size: 9.sp)
-                : getSpan(Lang.registerVerifyEmail.tr, size: 9.sp),
+                ? getSpan(Lang.registerVerifyPhone.tr, fontSize: 17)
+                : getSpan(Lang.registerVerifyEmail.tr, fontSize: 17),
             SizedBox(height: 8.h),
             Expanded(
               child: SingleChildScrollView(
@@ -153,14 +153,14 @@ class RegisterController extends GetxController {
                         Lang.registerDialogPhone_1.tr +
                             number +
                             Lang.registerDialogPhone_2.tr,
-                        size: 8.sp,
+                        fontSize: 15,
                         color: AppColors.secondText,
                         textAlign: TextAlign.center)
                     : getSpan(
                         Lang.registerDialogEmail_1.tr +
                             number +
                             Lang.registerDialogEmail_2.tr,
-                        size: 8.sp,
+                        fontSize: 15,
                         color: AppColors.secondText,
                         textAlign: TextAlign.center),
               ),

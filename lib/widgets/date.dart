@@ -23,8 +23,7 @@ Future getDateBox({
     rightWidget: getButton(
       child: getSpan(Lang.sure.tr),
       onPressed: onPressed,
-      width: 40.w,
-      height: 18.h,
+      padding: EdgeInsets.only(left: 15.w, right: 15.w),
     ),
   );
 

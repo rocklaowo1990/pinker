@@ -15,7 +15,7 @@ class LanguageView extends GetView<LanguageController> {
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan(Lang.langTitle.tr, size: 10.sp),
+      getSpan(Lang.langTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
       elevation: 0.5.h,
     );

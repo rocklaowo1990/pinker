@@ -27,6 +27,7 @@ Widget _button(int index, VoidCallback onPressed) {
   return getButton(
     child: getSpan(index == 1 ? '拍照' : '从相册里选取'),
     width: double.infinity,
+    height: 24.h,
     background: index == 1 ? AppColors.mainColor : AppColors.secondBacground,
     onPressed: onPressed,
   );

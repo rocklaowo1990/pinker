@@ -20,7 +20,7 @@ class HomeView extends StatelessWidget {
     Widget left = Container(
       child: getSpan(
         '订阅',
-        size: 9.5.sp,
+        fontSize: 9.5.sp,
         color: AppColors.mainColor,
         fontWeight: FontWeight.w600,
       ),

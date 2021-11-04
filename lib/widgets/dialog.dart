@@ -49,130 +49,134 @@ Future getDialog({
   );
 }
 
-/// 中间弹出消息
-Widget dialogAlert({
-  double? width,
-  double? height,
-  Widget? child,
-  VoidCallback? onPressedLeft,
-  VoidCallback? onPressedRight,
-  String? leftText,
-  String? rightText,
-}) {
-  return Center(
-    child: Container(
-      width: width ?? 120.w,
-      height: height ?? 90.w,
-      decoration: BoxDecoration(
-        color: AppColors.secondBacground,
-        borderRadius: BorderRadius.circular(8.w),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(10.w),
-              child: child,
-            ),
-            flex: 1,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 0.5.h, color: AppColors.line),
+/// 弹窗专用子组件
+class DialogChild {
+  /// 中间弹出消息
+  static Widget alert({
+    double? width,
+    double? height,
+    Widget? child,
+    VoidCallback? onPressedLeft,
+    VoidCallback? onPressedRight,
+    String? leftText,
+    String? rightText,
+  }) {
+    return Center(
+      child: Container(
+        width: width ?? 120.w,
+        height: height ?? 90.w,
+        decoration: BoxDecoration(
+          color: AppColors.secondBacground,
+          borderRadius: BorderRadius.circular(8.w),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10.w),
+                child: child,
               ),
+              flex: 1,
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: getButton(
-                      child: Text(leftText ?? Lang.edit.tr),
-                      width: double.infinity,
-                      height: 25.h,
-                      background: Colors.transparent,
-                      radius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8.w),
-                      ),
-                      onPressed: onPressedLeft),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 0.5.h, color: AppColors.line),
                 ),
-                if (onPressedRight != null)
-                  Container(
-                    width: 0.5.w,
-                    height: 25.h,
-                    color: AppColors.line,
-                  ),
-                if (onPressedRight != null)
+              ),
+              child: Row(
+                children: [
                   Expanded(
                     child: getButton(
-                      child: Text(rightText ?? Lang.sure.tr),
-                      height: 25.h,
-                      width: double.infinity,
-                      background: Colors.transparent,
-                      radius: BorderRadius.only(
-                        bottomRight: Radius.circular(8.w),
-                      ),
-                      onPressed: onPressedRight,
-                    ),
+                        child: Text(leftText ?? Lang.edit.tr),
+                        width: double.infinity,
+                        height: 25.h,
+                        background: Colors.transparent,
+                        radius: BorderRadius.only(
+                          bottomLeft: Radius.circular(8.w),
+                        ),
+                        onPressed: onPressedLeft),
                   ),
+                  if (onPressedRight != null)
+                    Container(
+                      width: 0.5.w,
+                      height: 25.h,
+                      color: AppColors.line,
+                    ),
+                  if (onPressedRight != null)
+                    Expanded(
+                      child: getButton(
+                        child: Text(rightText ?? Lang.sure.tr),
+                        height: 25.h,
+                        width: double.infinity,
+                        background: Colors.transparent,
+                        radius: BorderRadius.only(
+                          bottomRight: Radius.circular(8.w),
+                        ),
+                        onPressed: onPressedRight,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 照片裁切
+  static Widget imageCrop(XFile image, GlobalKey<CropState> key,
+      {VoidCallback? onPressed}) {
+    Widget _buildCropImage() {
+      return Container(
+        color: Colors.black,
+        padding: EdgeInsets.only(bottom: 20.h),
+        child: Crop(
+          key: key,
+          image: FileImage(File(image.path)),
+          aspectRatio: 4.0 / 4.0,
+        ),
+      );
+    }
+
+    return Center(
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          SizedBox(
+            width: 187.5.w,
+            height: 406.h,
+            child: _buildCropImage(),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 20.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                getButton(
+                    width: 40.w,
+                    height: 18.h,
+                    child: getSpan(Lang.cancel.tr),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    background: AppColors.secondBacground),
+                SizedBox(width: 10.w),
+                getButton(
+                  width: 40.w,
+                  height: 18.h,
+                  child: getSpan(Lang.sure.tr),
+                  onPressed: onPressed ??
+                      () {
+                        Get.back();
+                      },
+                ),
               ],
             ),
           ),
         ],
       ),
-    ),
-  );
-}
-
-Widget dialogImage(XFile image, GlobalKey<CropState> key,
-    {VoidCallback? onPressed}) {
-  Widget _buildCropImage() {
-    return Container(
-      color: Colors.black,
-      padding: EdgeInsets.only(bottom: 20.h),
-      child: Crop(
-        key: key,
-        image: FileImage(File(image.path)),
-        aspectRatio: 4.0 / 4.0,
-      ),
     );
   }
-
-  return Center(
-    child: Stack(
-      alignment: AlignmentDirectional.bottomCenter,
-      children: [
-        SizedBox(
-          width: 187.5.w,
-          height: 406.h,
-          child: _buildCropImage(),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 20.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              getButton(
-                  width: 40.w,
-                  height: 18.h,
-                  child: getSpan(Lang.cancel.tr),
-                  onPressed: () {
-                    Get.back();
-                  },
-                  background: AppColors.secondBacground),
-              SizedBox(width: 10.w),
-              getButton(
-                width: 40.w,
-                height: 18.h,
-                child: getSpan(Lang.sure.tr),
-                onPressed: onPressed ??
-                    () {
-                      Get.back();
-                    },
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
 }

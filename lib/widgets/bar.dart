@@ -25,8 +25,9 @@ AppBar getAppBar(
     },
     background: Colors.transparent,
   );
+
   return AppBar(
-    title: title ?? SizedBox(width: 4.w, height: 4.w),
+    title: title,
     backgroundColor: backgroundColor ?? Colors.transparent,
     foregroundColor: AppColors.mainText,
     elevation: elevation ?? 0,

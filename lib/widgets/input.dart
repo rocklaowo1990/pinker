@@ -39,7 +39,7 @@ Widget getInput({
   RxString textObs = controller.text.obs;
 
   /// 右侧按钮图标
-  Rx<IconData> suffixIcon = IconFont.delete.obs;
+  Rx<IconData> suffixIcon = Icons.cancel.obs;
 
   /// 右侧按钮点击事件
   void Function()? onPressed;
@@ -90,16 +90,18 @@ Widget getInput({
           prefixIcon: prefixIcon,
           suffixIcon: textObs.value.isEmpty
               ? null
-              : IconButton(
-                  onPressed: onPressed,
-                  icon: Icon(
+              : getButton(
+                  child: Icon(
                     suffixIcon.value,
                     color: AppColors.inputHint,
-                    size: 8.sp,
+                    size: 9.sp,
                   ),
+                  onPressed: onPressed,
+                  background: AppColors.inputFiled,
+                  width: 26.w,
                 ),
           contentPadding:
-              contentPadding ?? EdgeInsets.fromLTRB(10.w, 6.h, 10.w, 6.h),
+              contentPadding ?? const EdgeInsets.fromLTRB(20, 15, 20, 15),
           filled: true,
           fillColor: AppColors.inputFiled,
           border: OutlineInputBorder(
@@ -109,11 +111,11 @@ Widget getInput({
             borderSide: BorderSide.none,
           ),
           hintText: type,
-          hintStyle: TextStyle(
-            fontSize: 8.sp,
+          hintStyle: const TextStyle(
             color: AppColors.secondText,
+            fontSize: 15,
           )),
-      style: TextStyle(fontSize: 8.sp, color: AppColors.mainText),
+      style: const TextStyle(color: AppColors.mainText, fontSize: 15),
       obscureText: isPassword.value,
       onChanged: onChanged,
     );

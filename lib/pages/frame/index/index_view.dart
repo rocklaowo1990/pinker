@@ -17,13 +17,13 @@ class IndexView extends GetView<IndexController> {
     /// 标题
     Widget text = getSpan(
       Lang.indexTitle.tr,
-      size: 16.sp,
+      fontSize: 16.sp,
       fontWeight: FontWeight.w600,
     );
 
     /// 去注册页面的按钮
     Widget signUpButton = getButton(
-      height: 25.h,
+      height: 24.h,
       onPressed: controller.handleGoSignUpPage,
       child: getSpan(Lang.indexGoRegister.tr),
       width: double.infinity,
@@ -35,11 +35,11 @@ class IndexView extends GetView<IndexController> {
       child: RichText(
         text: TextSpan(
           text: Lang.indexHint.tr,
-          style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+          style: const TextStyle(color: AppColors.secondText, fontSize: 15),
           children: [
             TextSpan(
               text: Lang.indexGoLogin.tr,
-              style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+              style: const TextStyle(color: AppColors.mainColor, fontSize: 15),
               recognizer: TapGestureRecognizer()
                 ..onTap = controller.handleGoSignInPage,
             ),

@@ -14,7 +14,7 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(Lang.registerTitle.tr, size: 16.sp);
+    Widget title = getSpan(Lang.registerTitle.tr, fontSize: 26);
 
     /// 账号输入框
     Widget userRegister = Obx(
@@ -26,10 +26,13 @@ class RegisterView extends GetView<RegisterController> {
         focusNode: controller.userRegisterFocusNode,
         prefixIcon: controller.state.isPhone
             ? getButton(
-                child: Text('+${controller.state.code}'),
+                child: getSpan(
+                  '+${controller.state.code}',
+                  color: AppColors.mainColor,
+                ),
                 background: Colors.transparent,
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 10.w, right: 6.w),
+                padding: EdgeInsets.only(left: 10.w, right: 5.w),
                 onPressed: controller.handleGoCodeList,
               )
             : null,
@@ -43,7 +46,7 @@ class RegisterView extends GetView<RegisterController> {
         child: getSpan(
             '${controller.state.showTime.year}-${controller.state.showTime.month}-${controller.state.showTime.day}'),
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.only(left: 10.w),
+        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         background: AppColors.inputFiled,
         width: double.infinity,
       ),
@@ -73,21 +76,21 @@ class RegisterView extends GetView<RegisterController> {
     Widget richText = RichText(
       text: TextSpan(
         text: Lang.registerAgreen_1.tr,
-        style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+        style: const TextStyle(color: AppColors.secondText, fontSize: 15),
         children: [
           TextSpan(
             text: Lang.registerService.tr,
-            style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+            style: const TextStyle(color: AppColors.mainColor, fontSize: 15),
             recognizer: TapGestureRecognizer()
               ..onTap = controller.handleGoService,
           ),
           TextSpan(
             text: Lang.registerAgreen_2.tr,
-            style: TextStyle(fontSize: 8.sp, color: AppColors.secondText),
+            style: const TextStyle(color: AppColors.secondText, fontSize: 15),
           ),
           TextSpan(
             text: Lang.registerPrivacy.tr,
-            style: TextStyle(fontSize: 8.sp, color: AppColors.mainColor),
+            style: const TextStyle(color: AppColors.mainColor, fontSize: 15),
             recognizer: TapGestureRecognizer()
               ..onTap = controller.handleGoPrivacy,
           ),
@@ -105,7 +108,7 @@ class RegisterView extends GetView<RegisterController> {
       child: Row(
         children: [
           Obx(() => controller.state.isChooise ? dialogDefault : dialogChooise),
-          SizedBox(width: 3.w),
+          SizedBox(width: 4.w),
           Expanded(child: richText, flex: 1),
         ],
       ),
@@ -122,14 +125,12 @@ class RegisterView extends GetView<RegisterController> {
             color: AppColors.mainColor,
           ),
         ),
-        height: 18.h,
         onPressed: controller.handleChangeRegister,
         background: Colors.transparent,
       ),
       rightWidget: Obx(
         () => getButton(
-          width: 40.w,
-          height: 18.h,
+          padding: EdgeInsets.only(left: 12.w, right: 12.w),
           child: getSpan(Lang.next.tr),
           onPressed: !controller.state.isDissable && controller.state.isChooise
               ? controller.handleNext

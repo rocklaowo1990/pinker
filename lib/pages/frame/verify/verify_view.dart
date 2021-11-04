@@ -16,7 +16,7 @@ class VerifyView extends GetView<VerifyController> {
     /// 标题
     Widget title = getSpan(
       Lang.codeTile.tr,
-      size: 16.sp,
+      fontSize: 26,
       textAlign: TextAlign.center,
     );
 
@@ -24,7 +24,6 @@ class VerifyView extends GetView<VerifyController> {
     Widget secndTitle = getSpan(
       Lang.codeSendTile.tr,
       color: AppColors.secondText,
-      size: 9.sp,
     );
 
     /// 验证码输入框
@@ -69,7 +68,7 @@ class VerifyView extends GetView<VerifyController> {
                   ? null
                   : getSpan(
                       controller.state.codeList[index],
-                      size: 13.sp,
+                      fontSize: 26,
                       color: AppColors.mainColor,
                     ),
         ),
@@ -100,7 +99,9 @@ class VerifyView extends GetView<VerifyController> {
         child: controller.frameController.state.sendTime <= 0
             ? getSpan(Lang.codeResend.tr, color: AppColors.mainColor)
             : getSpan(
-                '${Lang.codeResend.tr} ( ${controller.frameController.state.sendTime} )'),
+                '${Lang.codeResend.tr} ( ${controller.frameController.state.sendTime} )',
+                color: AppColors.secondText,
+              ),
         padding: EdgeInsets.only(left: 10.w, right: 10.w),
         background: Colors.transparent,
         onPressed: controller.frameController.state.sendTime <= 0

@@ -22,13 +22,12 @@ Widget getBottomBox({
       Lang.sure.tr,
       color: AppColors.mainText,
     ),
-    width: 40.w,
-    height: 18.h,
+    padding: EdgeInsets.only(left: 12.w, right: 12.w),
   );
 
   /// 底部 bottom 布局
   return Container(
-    padding: EdgeInsets.only(left: 5.w, right: 5.w),
+    padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 2.5.w, bottom: 2.5.w),
     width: double.infinity,
     height: 25.h,
     color: AppColors.secondBacground,

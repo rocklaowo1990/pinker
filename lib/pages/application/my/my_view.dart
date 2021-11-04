@@ -91,7 +91,7 @@ class MyView extends GetView<MyController> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                getSpan('用户09812', size: 10.sp),
+                getSpan('用户09812', fontSize: 10.sp),
                 getSpan('@Useroo1023'),
               ],
             ),
@@ -132,7 +132,7 @@ class MyView extends GetView<MyController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getSpan(number, size: 26.sp, fontWeight: FontWeight.w300),
+                getSpan(number, fontSize: 26.sp, fontWeight: FontWeight.w300),
                 getButton(
                   child: getSpan(buttonText),
                   onPressed: onPressed,
@@ -197,7 +197,7 @@ class MyView extends GetView<MyController> {
               ],
             ),
             SizedBox(height: 10.h),
-            getSpan(number, size: 20.sp),
+            getSpan(number, fontSize: 20.sp),
           ],
         ),
         background: AppColors.secondBacground,
@@ -221,12 +221,73 @@ class MyView extends GetView<MyController> {
       SizedBox(width: 5.h),
       Expanded(
           child: _subscription(
-        title: '正在订阅的用户',
-        svg: 'assets/svg/icon_person_add.svg',
+        title: '正在订阅的群聊',
+        svg: 'assets/svg/icon_person_team.svg',
         number: '0',
         onPressed: () {},
       )),
     ]);
+
+    Widget _getButton({
+      required String title,
+      required String svg,
+      required VoidCallback onPressed,
+    }) {
+      return getButton(
+        onPressed: onPressed,
+        overlayColor: Colors.transparent,
+        background: Colors.transparent,
+        child: Column(
+          children: [
+            SvgPicture.asset(svg),
+            SizedBox(height: 5.h),
+            getSpan(title),
+          ],
+        ),
+      );
+    }
+
+    /// 底部功能模块
+    Widget buttons = Container(
+      width: double.infinity,
+      padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
+      decoration: BoxDecoration(
+        color: AppColors.secondBacground,
+        borderRadius: BorderRadius.all(Radius.circular(8.w)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: _getButton(
+              title: '帐变记录',
+              svg: 'assets/svg/my_account_record.svg',
+              onPressed: () {},
+            ),
+          ),
+          Expanded(
+            child: _getButton(
+              title: '消费记录',
+              svg: 'assets/svg/my_expenses_record.svg',
+              onPressed: () {},
+            ),
+          ),
+          Expanded(
+            child: _getButton(
+              title: '银行卡',
+              svg: 'assets/svg/my_bank_card.svg',
+              onPressed: () {},
+            ),
+          ),
+          Expanded(
+            child: _getButton(
+              title: '数字钱包',
+              svg: 'assets/svg/my_digital_currency.svg',
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
+    );
 
     /// body
     Widget bodyChild = SingleChildScrollView(
@@ -250,30 +311,15 @@ class MyView extends GetView<MyController> {
               wallet,
               SizedBox(height: 5.h),
               subscription,
-              SizedBox(height: 16.h),
-              Container(
-                width: double.infinity,
-                height: 100.h,
-                decoration: BoxDecoration(
-                  color: AppColors.secondBacground,
-                  borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                ),
-              ),
-              SizedBox(height: 16.h),
-              Container(
-                width: double.infinity,
-                height: 100.h,
-                decoration: BoxDecoration(
-                  color: AppColors.secondBacground,
-                  borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                ),
-              ),
+              SizedBox(height: 5.h),
+              buttons,
             ],
           ),
         ),
       ),
     );
 
+    /// 页面背景
     Widget background = Column(
       children: [
         Expanded(
@@ -287,6 +333,7 @@ class MyView extends GetView<MyController> {
       ],
     );
 
+    /// 页面组成
     Widget body = Stack(
       children: [
         background,

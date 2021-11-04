@@ -36,11 +36,11 @@ class SettingController extends GetxController {
   void handleSignOut() {
     getDialog(
       autoBack: true,
-      child: dialogAlert(
+      child: DialogChild.alert(
         height: 100.h,
         child: Column(
           children: [
-            getSpan('退出登陆', size: 9.sp),
+            getSpan('退出登陆', fontSize: 9.sp),
             SizedBox(height: 10.h),
             getSpan('是否确认退出登陆', color: AppColors.secondText),
           ],

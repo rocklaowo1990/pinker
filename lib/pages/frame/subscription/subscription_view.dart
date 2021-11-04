@@ -17,7 +17,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
     /// 标题部分组合
     Widget top = Column(
       children: [
-        getSpan('推荐订阅', size: 16.sp),
+        getSpan('推荐订阅', fontSize: 16.sp),
         SizedBox(height: 8.h),
         getSpan(
           '当你关注某人后，你会在自己的主页看到他们的推文',

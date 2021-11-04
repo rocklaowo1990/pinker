@@ -64,4 +64,31 @@ class CommonApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 上传文件资源验证
+  static Future verifyResource(data, {required String token}) async {
+    var response = await HttpUtil().post(
+      '/api/common/verifyResource',
+      data: data,
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 上传文件
+  static Future uploadFile(data, {required String token}) async {
+    var response = await HttpUtil().post(
+      '/api/common/uploadFile',
+      data: data,
+      options: Options(headers: {
+        'Content-Type': 'multipart/form-data',
+        'token': token,
+      }),
+      queryParameters: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }
