@@ -69,19 +69,17 @@ AppBar getSearchBar({
   required FocusNode focusNode,
 }) {
   return AppBar(
-    title: SizedBox(
+    title: getInput(
       height: 24.h,
-      child: getInput(
-        type: Lang.inputEmail.tr,
-        controller: controller,
-        focusNode: focusNode,
-        prefixIcon: SizedBox(
-          width: 10.h,
-          height: 10.h,
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/svg/icon_search_2.svg',
-            ),
+      type: Lang.inputEmail.tr,
+      controller: controller,
+      focusNode: focusNode,
+      prefixIcon: SizedBox(
+        width: 10.h,
+        height: 10.h,
+        child: Center(
+          child: SvgPicture.asset(
+            'assets/svg/icon_search_2.svg',
           ),
         ),
       ),

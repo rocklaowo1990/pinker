@@ -7,28 +7,35 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget getInput({
-  /// 键盘的类型
-  required String type,
+Widget getInput(
+    {
 
-  /// 控制器
-  required TextEditingController controller,
+    /// 键盘的类型
+    required String type,
 
-  /// 焦点
-  required FocusNode focusNode,
+    /// 控制器
+    required TextEditingController controller,
 
-  /// 是否自动获取焦点
-  bool autofocus = false,
+    /// 焦点
+    required FocusNode focusNode,
 
-  /// 键盘右下角的按钮类型
-  TextInputAction? textInputAction,
+    /// 是否自动获取焦点
+    bool autofocus = false,
 
-  /// padding
-  EdgeInsetsGeometry? contentPadding,
+    /// 键盘右下角的按钮类型
+    TextInputAction? textInputAction,
 
-  /// 左侧按钮
-  Widget? prefixIcon,
-}) {
+    /// 左侧按钮
+    Widget? prefixIcon,
+
+    /// 输入框宽度
+    double? width,
+
+    /// 输入框高度
+    double? height,
+
+    /// padding
+    EdgeInsetsGeometry? contentPadding}) {
   /// 判断是否显示密码
   RxBool isPassword = false.obs;
 
@@ -100,8 +107,7 @@ Widget getInput({
                   background: AppColors.inputFiled,
                   width: 26.w,
                 ),
-          contentPadding:
-              contentPadding ?? const EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: contentPadding ?? EdgeInsets.only(left: 10.w),
           filled: true,
           fillColor: AppColors.inputFiled,
           border: OutlineInputBorder(
@@ -121,5 +127,9 @@ Widget getInput({
     );
   });
 
-  return textField;
+  return SizedBox(
+    child: textField,
+    width: width,
+    height: height ?? 32.h,
+  );
 }

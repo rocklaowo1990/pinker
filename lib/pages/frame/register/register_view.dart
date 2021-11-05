@@ -42,11 +42,12 @@ class RegisterView extends GetView<RegisterController> {
     /// 生日输入框
     Widget userBirth = Obx(
       () => getButton(
+        height: 32.h,
+        padding: EdgeInsets.only(left: 10.w),
         onPressed: controller.birthChoice,
         child: getSpan(
             '${controller.state.showTime.year}-${controller.state.showTime.month}-${controller.state.showTime.day}'),
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         background: AppColors.inputFiled,
         width: double.infinity,
       ),

@@ -62,18 +62,21 @@ class MyView extends GetView<MyController> {
                   onPressed: () {},
                   width: 18.w,
                   height: 18.w,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.secondBacground,
-                      image: DecorationImage(
-                        image: NetworkImage(controller.userInfo['avatar']),
+                  child: Obx(
+                    () => Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.secondBacground,
+                        image: controller.state.avatar.isNotEmpty
+                            ? DecorationImage(
+                                image: NetworkImage(controller.state.avatar))
+                            : null,
                       ),
+                      child: controller.state.avatar.isEmpty
+                          ? SvgPicture.asset('assets/svg/avatar_default.svg',
+                              width: 30.w)
+                          : null,
                     ),
-                    child: controller.userInfo['avatar'] == null
-                        ? SvgPicture.asset('assets/svg/avatar_default.svg',
-                            width: 30.w)
-                        : null,
                   ),
                 ),
               ),
@@ -103,27 +106,28 @@ class MyView extends GetView<MyController> {
       children: [
         Row(
           children: [
-            Container(
-              width: 30.w,
-              height: 30.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.secondBacground,
-                image: DecorationImage(
-                  image: NetworkImage(controller.userInfo['avatar']),
-                ),
-              ),
-              child: controller.userInfo['avatar'] == null
-                  ? SvgPicture.asset('assets/svg/avatar_default.svg',
-                      width: 30.w)
-                  : null,
-            ),
+            Obx(() => Container(
+                  width: 30.w,
+                  height: 30.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.secondBacground,
+                    image: controller.state.avatar.isNotEmpty
+                        ? DecorationImage(
+                            image: NetworkImage(controller.state.avatar))
+                        : null,
+                  ),
+                  child: controller.state.avatar.isEmpty
+                      ? SvgPicture.asset('assets/svg/avatar_default.svg',
+                          width: 30.w)
+                      : null,
+                )),
             SizedBox(width: 6.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                getSpan('${controller.userInfo['nickName']}', fontSize: 17),
-                getSpan('@${controller.userInfo['userName']}'),
+                Obx(() => getSpan(controller.state.nickName, fontSize: 17)),
+                Obx(() => getSpan('@${controller.state.userName}')),
               ],
             ),
           ],
@@ -185,25 +189,25 @@ class MyView extends GetView<MyController> {
       ),
       child: Column(
         children: [
-          _walletChild(
-            title: '钻石账户',
-            svg: 'assets/svg/icon_diamond.svg',
-            number: '${controller.userInfo['diamondBalance']}',
-            buttonText: '购买钻石',
-            onPressed: () {},
-          ),
+          Obx(() => _walletChild(
+                title: '钻石账户',
+                svg: 'assets/svg/icon_diamond.svg',
+                number: '${controller.state.diamondBalance}',
+                buttonText: '购买钻石',
+                onPressed: () {},
+              )),
           Container(
             width: double.infinity,
             height: 0.5.h,
             color: AppColors.line,
           ),
-          _walletChild(
-            title: 'P币账户',
-            svg: 'assets/svg/icon_diamond.svg',
-            number: '${controller.userInfo['pCoinBalance']}',
-            buttonText: '立即提现',
-            onPressed: () {},
-          ),
+          Obx(() => _walletChild(
+                title: 'P币账户',
+                svg: 'assets/svg/icon_diamond.svg',
+                number: '${controller.state.pCoinBalance}',
+                buttonText: '立即提现',
+                onPressed: () {},
+              )),
         ],
       ),
     );
@@ -242,20 +246,22 @@ class MyView extends GetView<MyController> {
     /// 正在订阅模块组装
     Widget subscription = Row(children: [
       Expanded(
-          child: _subscription(
-        title: '订阅的用户',
-        svg: 'assets/svg/icon_person_add.svg',
-        number: '${controller.userInfo['followCount']}',
-        onPressed: () {},
-      )),
+        child: Obx(() => _subscription(
+              title: '订阅的用户',
+              svg: 'assets/svg/icon_person_add.svg',
+              number: '${controller.state.followCount}',
+              onPressed: () {},
+            )),
+      ),
       SizedBox(width: 5.h),
       Expanded(
-          child: _subscription(
-        title: '订阅的群聊',
-        svg: 'assets/svg/icon_person_team.svg',
-        number: '${controller.userInfo['subChatCount']}',
-        onPressed: () {},
-      )),
+        child: Obx(() => _subscription(
+              title: '订阅的群聊',
+              svg: 'assets/svg/icon_person_team.svg',
+              number: '${controller.state.subChatCount}',
+              onPressed: () {},
+            )),
+      ),
     ]);
 
     Widget _getButton({

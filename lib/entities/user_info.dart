@@ -2,54 +2,99 @@ import 'dart:convert';
 
 class UserInfo {
   UserInfo({
-    required this.avatar,
-    required this.banks,
-    required this.bannerPic,
-    required this.birthday,
-    required this.blockCount,
-    required this.createDate,
-    required this.diamondBalance,
-    required this.digitalCurrency,
-    required this.email,
-    required this.fansCount,
-    required this.followCount,
-    required this.groupName,
-    required this.hiddenCount,
-    required this.intro,
-    required this.isSubscribe,
-    required this.nickName,
-    required this.pCoinBalance,
-    required this.phone,
-    required this.subChatCount,
-    required this.userId,
-    required this.userName,
-    required this.watermarkSwitch,
-    required this.watermarkText,
+    /// 头像
+    this.avatar,
+
+    /// 银行卡
+    this.banks,
+
+    /// 个人主页背景
+    this.bannerPic,
+
+    /// 生日
+    this.birthday,
+
+    /// 屏蔽列表
+    this.blockCount,
+
+    /// 注册日期
+    this.createDate,
+
+    /// 钻石账户
+    this.diamondBalance,
+
+    /// 数字货币
+    this.digitalCurrency,
+
+    /// 邮箱
+    this.email,
+
+    /// 订阅者
+    this.fansCount,
+
+    /// 订阅的用户
+    this.followCount,
+
+    /// 订阅组
+    this.groupName,
+
+    /// 隐藏列表
+    this.hiddenCount,
+
+    /// 个人简介
+    this.intro,
+
+    /// 是否订阅
+    this.isSubscribe,
+
+    /// 昵称
+    this.nickName,
+
+    /// P币账户
+    this.pCoinBalance,
+
+    /// 手机
+    this.phone,
+
+    /// 订阅的群聊
+    this.subChatCount,
+
+    /// 用户ID
+    this.userId,
+
+    /// 用户名
+    this.userName,
+
+    /// 水印开关
+    this.watermarkSwitch,
+
+    /// 水印文字
+    this.watermarkText,
   });
 
-  String avatar;
-  List<Bank> banks;
-  String bannerPic;
-  int birthday;
-  int blockCount;
-  String createDate;
-  String diamondBalance;
-  DigitalCurrency digitalCurrency;
-  String email;
-  int fansCount;
-  int followCount;
-  String groupName;
-  int hiddenCount;
-  String intro;
-  int isSubscribe;
-  String nickName;
-  String pCoinBalance;
-  String phone;
-  int subChatCount;
-  int userId;
-  String userName;
-  int watermarkSwitch;
-  String watermarkText;
+  String? avatar;
+  List<Bank>? banks;
+  String? bannerPic;
+  int? birthday;
+  int? blockCount;
+  int? createDate;
+  int? diamondBalance;
+  DigitalCurrency? digitalCurrency;
+  String? email;
+  int? fansCount;
+  int? followCount;
+  String? groupName;
+  int? hiddenCount;
+  String? intro;
+  int? isSubscribe;
+  String? nickName;
+  int? pCoinBalance;
+  String? phone;
+  int? subChatCount;
+  int? userId;
+  String? userName;
+  int? watermarkSwitch;
+  String? watermarkText;
 
   factory UserInfo.fromRawJson(String str) =>
       UserInfo.fromJson(json.decode(str));
@@ -84,13 +129,16 @@ class UserInfo {
 
   Map<String, dynamic> toJson() => {
         "avatar": avatar,
-        "banks": List<dynamic>.from(banks.map((x) => x.toJson())),
+        "banks": banks == null || banks == []
+            ? null
+            : List<dynamic>.from(banks!.map((x) => x.toJson())),
         "bannerPic": bannerPic,
         "birthday": birthday,
         "blockCount": blockCount,
         "createDate": createDate,
         "diamondBalance": diamondBalance,
-        "digitalCurrency": digitalCurrency.toJson(),
+        "digitalCurrency":
+            digitalCurrency == null ? null : digitalCurrency!.toJson(),
         "email": email,
         "fansCount": fansCount,
         "followCount": followCount,
@@ -111,18 +159,18 @@ class UserInfo {
 
 class Bank {
   Bank({
-    required this.id,
-    required this.name,
-    required this.cardNumber,
-    required this.bankCode,
-    required this.bankName,
+    this.id,
+    this.name,
+    this.cardNumber,
+    this.bankCode,
+    this.bankName,
   });
 
-  int id;
-  String name;
-  String cardNumber;
-  String bankCode;
-  String bankName;
+  int? id;
+  String? name;
+  String? cardNumber;
+  String? bankCode;
+  String? bankName;
 
   factory Bank.fromRawJson(String str) => Bank.fromJson(json.decode(str));
 
@@ -147,14 +195,14 @@ class Bank {
 
 class DigitalCurrency {
   DigitalCurrency({
-    required this.btcBalance,
-    required this.ethBalance,
-    required this.usdtBalance,
+    this.btcBalance,
+    this.ethBalance,
+    this.usdtBalance,
   });
 
-  String btcBalance;
-  String ethBalance;
-  String usdtBalance;
+  int? btcBalance;
+  int? ethBalance;
+  int? usdtBalance;
 
   factory DigitalCurrency.fromRawJson(String str) =>
       DigitalCurrency.fromJson(json.decode(str));
