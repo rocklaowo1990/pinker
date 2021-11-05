@@ -6,13 +6,15 @@ import 'package:pinker/values/values.dart';
 
 /// 检查是否有 token
 Future<bool> isAuthenticated() async {
-  var profileJSON = StorageUtil().getJSON(storageUserProfileKey);
+  var profileJSON = StorageUtil().getJSON(storageUserTokenKey);
   return profileJSON != null ? true : false;
 }
 
 /// 删除缓存 token
 Future deleteAuthentication() async {
-  await StorageUtil().remove(storageUserProfileKey);
+  await StorageUtil().remove(storageUserTokenKey);
+  await StorageUtil().remove(storageUserInfoKey);
+
   Global.token = null;
   Global.isOfflineLogin = false;
 }

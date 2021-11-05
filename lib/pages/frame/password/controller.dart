@@ -30,15 +30,15 @@ class PasswordController extends GetxController {
     getDialog();
 
     /// 开始请求
-    ResponseEntity userProfile = await AccountApi.registerAccount(data);
+    ResponseEntity registerAccount = await AccountApi.registerAccount(data);
     await Future.delayed(const Duration(milliseconds: 200));
 
     Get.back();
 
-    if (userProfile.code == 200) {
+    if (registerAccount.code == 200) {
       /// 注册成功
       /// 储存用户数据
-      await Global.saveProfile(userProfile);
+      await Global.saveToken(registerAccount.data!['token']);
 
       /// 去头像设置页面
       frameController.state.pageIndex--;
@@ -46,7 +46,7 @@ class PasswordController extends GetxController {
 
       /// 注册失败
     } else {
-      getSnackTop(userProfile.msg);
+      getSnackTop(registerAccount.msg);
     }
   }
 

@@ -81,14 +81,16 @@ class LoginController extends GetxController {
     };
 
     /// 请求服务器...
-    ResponseEntity userProfile = await AccountApi.login(data);
+    ResponseEntity login = await AccountApi.login(data);
     Get.back();
 
     /// 返回数据处理
-    if (userProfile.code == 200) {
-      /// 储存用户数据
-      await Global.saveProfile(userProfile);
-      Global.token = userProfile.data!['token'];
+    if (login.code == 200) {
+      /// 储存Token
+      await Global.saveToken(login.data!['token']);
+
+      /// 全局token赋值
+      Global.token = login.data!['token'];
 
       /// 去往首页
       Get.offAllNamed(AppRoutes.application);
@@ -96,7 +98,7 @@ class LoginController extends GetxController {
       /// 返回错误信息
       await Future.delayed(const Duration(milliseconds: 200), () {
         userCountFocusNode.requestFocus();
-        getSnackTop(userProfile.msg);
+        getSnackTop(login.msg);
       });
     }
   }

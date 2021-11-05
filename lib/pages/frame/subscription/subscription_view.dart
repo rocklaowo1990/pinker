@@ -17,7 +17,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
     /// 标题部分组合
     Widget top = Column(
       children: [
-        getSpan('推荐订阅', fontSize: 16.sp),
+        getSpan('推荐订阅', fontSize: 26),
         SizedBox(height: 8.h),
         getSpan(
           '当你关注某人后，你会在自己的主页看到他们的推文',
@@ -30,13 +30,12 @@ class SubscriptionView extends GetView<SubscriptionController> {
     Widget middle = Obx(() => Column(
           children: controller.state.userList
               .map((item) => getUserList(
-                    avatar: item[serverApiUrl + 'avatar'],
-                    userName: item['userName'],
-                    nickName: item['nickName'],
-                    onPressed: () {
-                      controller.handleSubscribe(item);
-                    },
-                  ))
+                  avatar: item[serverApiUrl + 'avatar'],
+                  userName: item['userName'],
+                  nickName: item['nickName'],
+                  onPressed: () {
+                    controller.handleSubscribe(item);
+                  }))
               .toList(),
         ));
 

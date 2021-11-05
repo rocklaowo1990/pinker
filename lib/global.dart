@@ -2,8 +2,6 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
-
-import 'package:pinker/entities/response.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
@@ -73,9 +71,9 @@ class Global {
     // isFirstOpen ??= true;
 
     // 读取离线用户信息
-    var _profileJSON = StorageUtil().getJSON(storageUserProfileKey);
-    if (_profileJSON != null) {
-      token = _profileJSON['data']['token'];
+    String? _token = StorageUtil().getJSON(storageUserTokenKey);
+    if (_token != null) {
+      token = _token;
       isOfflineLogin = true;
     }
   }
@@ -86,8 +84,8 @@ class Global {
   // }
 
   /// 持久化 用户信息
-  static Future<bool> saveProfile(ResponseEntity profile) {
-    profile = profile;
-    return StorageUtil().setJSON(storageUserProfileKey, profile);
+  static Future<bool> saveToken(String token) {
+    token = token;
+    return StorageUtil().setJSON(storageUserTokenKey, token);
   }
 }

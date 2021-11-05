@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:pinker/pages/application/chat/library.dart';
 import 'package:pinker/pages/application/community/library.dart';
 import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/routes/app_pages.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ApplicationController extends GetxController {
   /// 响应式成员
   final ApplicationState state = ApplicationState();
-
-  @override
-  void onInit() {
-    super.onInit();
-    interval(
-      state.rxInt,
-      (int value) {
-        state.pageIndex = value;
-        if (state.pageIndex == 0) Get.offAllNamed(AppRoutes.home, id: 2);
-        if (state.pageIndex == 1) Get.offAllNamed(AppRoutes.community, id: 2);
-        if (state.pageIndex == 2) Get.offAllNamed(AppRoutes.chat, id: 2);
-        if (state.pageIndex == 3) Get.offAllNamed(AppRoutes.my, id: 2);
-      },
-      time: const Duration(milliseconds: 200),
-    );
-  }
 
   /// 底部导航子组件
   Widget bottomChild(int index) {
@@ -118,6 +104,24 @@ class ApplicationController extends GetxController {
       );
     }
     return null;
+  }
+
+  /// 页面加载时
+  @override
+  void onInit() {
+    super.onInit();
+
+    interval(
+      state.rxInt,
+      (int value) {
+        state.pageIndex = value;
+        if (state.pageIndex == 0) Get.offAllNamed(AppRoutes.home, id: 2);
+        if (state.pageIndex == 1) Get.offAllNamed(AppRoutes.community, id: 2);
+        if (state.pageIndex == 2) Get.offAllNamed(AppRoutes.chat, id: 2);
+        if (state.pageIndex == 3) Get.offAllNamed(AppRoutes.my, id: 2);
+      },
+      time: const Duration(milliseconds: 200),
+    );
   }
 
   /// 页面销毁

@@ -7,7 +7,7 @@ class CommonApi {
   /// 注册获取验证码：手机
   static Future sendSms(data) async {
     DateTime timestamp = DateTime.now();
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().postForm(
       '/api/common/sendSms',
       data: data,
       options: Options(headers: {
@@ -26,7 +26,7 @@ class CommonApi {
   /// 注册获取验证码：邮箱
   static Future sendEmail(data) async {
     DateTime timestamp = DateTime.now();
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().postForm(
       '/api/common/sendEmail',
       data: data,
       options: Options(headers: {
@@ -44,7 +44,7 @@ class CommonApi {
 
   /// 验证验证码：注册
   static Future checkCode(data) async {
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().postForm(
       '/api/common/checkCode',
       data: data,
       options: Options(headers: {
@@ -67,7 +67,7 @@ class CommonApi {
 
   /// 上传文件资源验证
   static Future verifyResource(data, {required String token}) async {
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().postForm(
       '/api/common/verifyResource',
       data: data,
       options: Options(headers: {
@@ -79,15 +79,28 @@ class CommonApi {
   }
 
   /// 上传文件
-  static Future uploadFile(data, {required String token}) async {
-    var response = await HttpUtil().post(
+  static Future uploadFile({
+    required String token,
+    required String filePath,
+    required String fileName,
+    required String type,
+    void Function(int, int)? onSendProgress,
+  }) async {
+    Map<String, dynamic> data = {
+      'type': type,
+      'file': await MultipartFile.fromFile(
+        filePath,
+        filename: fileName,
+      ),
+    };
+    var response = await HttpUtil().postForm(
       '/api/common/uploadFile',
       data: data,
       options: Options(headers: {
         'Content-Type': 'multipart/form-data',
         'token': token,
       }),
-      queryParameters: data,
+      onSendProgress: onSendProgress,
     );
     return ResponseEntity.fromJson(response);
   }

@@ -7,6 +7,8 @@ import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/subscription/state.dart';
 
 import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/utils/utils.dart';
+import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/snackbar.dart';
 
 class SubscriptionController extends GetxController {
@@ -21,6 +23,8 @@ class SubscriptionController extends GetxController {
 
   /// 下一步
   void handleNext() {
+    /// 读取token
+    Global.token = StorageUtil().getJSON(storageUserTokenKey);
     Get.offAllNamed(AppRoutes.application);
   }
 
@@ -28,17 +32,20 @@ class SubscriptionController extends GetxController {
   void handleSubscribe(item) async {
     Map<String, dynamic> data = {
       'userId': item['userId'],
+      'groupId': item['groupId'],
     };
-    ResponseEntity getSubscriben = await UserApi.oneSubscribeInfo(data);
+    ResponseEntity subscribeGroup = await UserApi.subscribeGroup(data);
 
-    if (getSubscriben.code == 200) {
+    if (subscribeGroup.code == 200) {
     } else {
-      getSnackTop(getSubscriben.msg);
+      getSnackTop(subscribeGroup.msg);
     }
   }
 
   @override
   void onInit() async {
+    super.onInit();
+
     /// 开始请求
     Map<String, String> data = {
       'pageNo': '1',
@@ -52,7 +59,6 @@ class SubscriptionController extends GetxController {
     } else {
       getSnackTop(getUserList.msg);
     }
-    super.onInit();
   }
 
   @override

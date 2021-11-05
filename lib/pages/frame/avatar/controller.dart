@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pinker/api/common.dart';
+import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/pages/frame/avatar/library.dart';
 import 'package:pinker/pages/frame/library.dart';
@@ -35,6 +36,7 @@ class AvatarController extends GetxController {
     Get.offAllNamed(AppRoutes.subscription, id: 1);
   }
 
+  /// 下一步：本页重点
   void handleNext() async {
     /// Loading弹窗
     getDialog(autoBack: true);
@@ -43,14 +45,16 @@ class AvatarController extends GetxController {
     Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
 
     /// 获取token
-    var _profileJSON = StorageUtil().getJSON(storageUserProfileKey);
-    String token = _profileJSON['data']['token'];
+    String token = StorageUtil().getJSON(storageUserTokenKey);
 
     /// 准备验证资源
     Map<String, dynamic> verifyResourceData = {
       'fileName': '$flieMD5.jpg',
       'code': flieMD5,
     };
+
+    /// 头像地址
+    String avatarUrl = '';
 
     /// 开始验证资源
     ResponseEntity verifyResource = await CommonApi.verifyResource(
@@ -61,35 +65,52 @@ class AvatarController extends GetxController {
     /// 资源验证结果
     /// 成功
     if (verifyResource.code == 200) {
-      /// 准备上传头像
-      Map<String, dynamic> uploadData = {
-        'file': MultipartFile(
-          avatarFile, //这是一个显示在界面上的图片文件
-          filename: '$flieMD5.jpg',
-        ),
-        'type': '1',
-      };
+      /// 验证的时候，如果返回的url是空，代表这个图片是新的，可以上传
+      if (verifyResource.data!['url'] == '') {
+        /// 开始上传
+        ResponseEntity uploadFile = await CommonApi.uploadFile(
+          fileName: '$flieMD5.jpg',
+          filePath: avatarFile.path,
+          type: '1',
+          token: token,
+        );
 
-      /// 开始上传
-      ResponseEntity uploadFile = await CommonApi.uploadFile(
-        uploadData,
-        token: token,
-      );
-
-      /// 上传结果
-      if (uploadFile.code == 200) {
-        print(uploadFile.data.toString());
+        /// 上传结果
+        if (uploadFile.code == 200) {
+          avatarUrl = serverApiUrl + serverPort + uploadFile.data!['url'];
+        } else {
+          getSnackTop(uploadFile.msg);
+        }
       } else {
-        getSnackTop(uploadFile.msg);
+        avatarUrl = serverApiUrl + serverPort + verifyResource.data!['url'];
       }
 
-      /// 验证失败
+      /// 准备修改头像
+      Map<String, dynamic> updateUserInfoData = {
+        'avatar': avatarUrl,
+      };
+
+      /// 开始修改
+      ResponseEntity updateUserInfo = await UserApi.updateUserInfo(
+        updateUserInfoData,
+      );
+
+      /// 修改结果
+      if (updateUserInfo.code == 200) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          Get.back();
+          frameController.state.pageIndex--; // 下一页不需要返回
+          Get.offAllNamed(AppRoutes.subscription, id: 1);
+        });
+      } else {
+        getSnackTop(updateUserInfo.msg);
+      }
+
+      /// 资源验证结果
+      /// 失败
     } else {
       getSnackTop(verifyResource.msg);
     }
-
-    // frameController.state.pageIndex--; // 下一页不需要返回
-    // Get.offAllNamed(AppRoutes.subscription, id: 1);
   }
 
   /// 相机获取照片并裁切

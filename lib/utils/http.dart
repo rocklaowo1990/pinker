@@ -308,9 +308,10 @@ class HttpUtil {
   /// restful post form 表单提交操作
   Future postForm(
     String path, {
-    dynamic data,
+    Map<String, dynamic> data = const {},
     Map<String, dynamic>? queryParameters,
     Options? options,
+    void Function(int, int)? onSendProgress,
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
@@ -324,6 +325,7 @@ class HttpUtil {
       queryParameters: queryParameters,
       options: requestOptions,
       cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
     );
     return response.data;
   }

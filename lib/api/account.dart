@@ -5,7 +5,7 @@ import 'package:pinker/utils/utils.dart';
 class AccountApi {
   /// 登陆API
   static Future<ResponseEntity> login(data) async {
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().postForm(
       '/api/account/login',
       data: data,
       options: Options(headers: {
@@ -26,7 +26,7 @@ class AccountApi {
 
   /// 注册账号
   static Future<ResponseEntity> registerAccount(data) async {
-    var response = await HttpUtil().post(
+    var response = await HttpUtil().postForm(
       '/api/account/register',
       data: data,
       options: Options(headers: {

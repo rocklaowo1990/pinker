@@ -14,13 +14,13 @@ class MyView extends GetView<MyController> {
   @override
   Widget build(BuildContext context) {
     /// 内部封装顶部右侧三个图标的方法
-    Widget _action(String asset) {
+    Widget _action(String asset, {VoidCallback? onPressed}) {
       return getButton(
         child: SvgPicture.asset(asset),
         background: Colors.transparent,
         width: 33.h,
         height: 33.h,
-        onPressed: controller.handleMail,
+        onPressed: onPressed,
       );
     }
 
@@ -28,7 +28,10 @@ class MyView extends GetView<MyController> {
     List<Widget> actions = [
       _action('assets/svg/customer_service.svg'),
       _action('assets/svg/icon_mail_1.svg'),
-      _action('assets/svg/icon_setting.svg'),
+      _action(
+        'assets/svg/icon_setting.svg',
+        onPressed: controller.handleSetting,
+      ),
     ];
 
     /// appbar 背景
@@ -55,9 +58,23 @@ class MyView extends GetView<MyController> {
             child: Obx(
               () => Opacity(
                 opacity: controller.state.opacity,
-                child: SvgPicture.asset(
-                  'assets/svg/avatar_default.svg',
-                  width: 16.w,
+                child: getButton(
+                  onPressed: () {},
+                  width: 18.w,
+                  height: 18.w,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.secondBacground,
+                      image: DecorationImage(
+                        image: NetworkImage(controller.userInfo['avatar']),
+                      ),
+                    ),
+                    child: controller.userInfo['avatar'] == null
+                        ? SvgPicture.asset('assets/svg/avatar_default.svg',
+                            width: 30.w)
+                        : null,
+                  ),
                 ),
               ),
             ),
@@ -86,13 +103,27 @@ class MyView extends GetView<MyController> {
       children: [
         Row(
           children: [
-            SvgPicture.asset('assets/svg/avatar_default.svg', width: 30.w),
+            Container(
+              width: 30.w,
+              height: 30.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.secondBacground,
+                image: DecorationImage(
+                  image: NetworkImage(controller.userInfo['avatar']),
+                ),
+              ),
+              child: controller.userInfo['avatar'] == null
+                  ? SvgPicture.asset('assets/svg/avatar_default.svg',
+                      width: 30.w)
+                  : null,
+            ),
             SizedBox(width: 6.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                getSpan('用户09812', fontSize: 10.sp),
-                getSpan('@Useroo1023'),
+                getSpan('${controller.userInfo['nickName']}', fontSize: 17),
+                getSpan('@${controller.userInfo['userName']}'),
               ],
             ),
           ],
@@ -102,7 +133,6 @@ class MyView extends GetView<MyController> {
             getSpan('个人主页'),
             SvgPicture.asset(
               'assets/svg/icon_right.svg',
-              width: 8.h,
             )
           ],
         ),
@@ -132,12 +162,12 @@ class MyView extends GetView<MyController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getSpan(number, fontSize: 26.sp, fontWeight: FontWeight.w300),
+                getSpan(number, fontSize: 40, fontWeight: FontWeight.w300),
                 getButton(
                   child: getSpan(buttonText),
                   onPressed: onPressed,
                   width: 55.w,
-                  height: 22.h,
+                  height: 20.h,
                 ),
               ],
             ),
@@ -158,7 +188,7 @@ class MyView extends GetView<MyController> {
           _walletChild(
             title: '钻石账户',
             svg: 'assets/svg/icon_diamond.svg',
-            number: '0',
+            number: '${controller.userInfo['diamondBalance']}',
             buttonText: '购买钻石',
             onPressed: () {},
           ),
@@ -169,8 +199,8 @@ class MyView extends GetView<MyController> {
           ),
           _walletChild(
             title: 'P币账户',
-            svg: 'assets/svg/icon_money.svg',
-            number: '0',
+            svg: 'assets/svg/icon_diamond.svg',
+            number: '${controller.userInfo['pCoinBalance']}',
             buttonText: '立即提现',
             onPressed: () {},
           ),
@@ -197,7 +227,7 @@ class MyView extends GetView<MyController> {
               ],
             ),
             SizedBox(height: 10.h),
-            getSpan(number, fontSize: 20.sp),
+            getSpan(number, fontSize: 32),
           ],
         ),
         background: AppColors.secondBacground,
@@ -213,17 +243,17 @@ class MyView extends GetView<MyController> {
     Widget subscription = Row(children: [
       Expanded(
           child: _subscription(
-        title: '正在订阅的用户',
+        title: '订阅的用户',
         svg: 'assets/svg/icon_person_add.svg',
-        number: '0',
+        number: '${controller.userInfo['followCount']}',
         onPressed: () {},
       )),
       SizedBox(width: 5.h),
       Expanded(
           child: _subscription(
-        title: '正在订阅的群聊',
+        title: '订阅的群聊',
         svg: 'assets/svg/icon_person_team.svg',
-        number: '0',
+        number: '${controller.userInfo['subChatCount']}',
         onPressed: () {},
       )),
     ]);
@@ -297,7 +327,9 @@ class MyView extends GetView<MyController> {
         decoration: const BoxDecoration(
           color: AppColors.mainBacground,
           image: DecorationImage(
-            image: AssetImage('assets/images/tp_1@3x.png'),
+            image: AssetImage(
+              'assets/images/tp_1@3x.png',
+            ),
             alignment: Alignment.topCenter,
           ),
         ),
@@ -305,9 +337,9 @@ class MyView extends GetView<MyController> {
           padding: EdgeInsets.all(8.w),
           child: Column(
             children: [
-              SizedBox(height: 50.h),
+              SizedBox(height: 44.w),
               userInfo,
-              SizedBox(height: 15.h),
+              SizedBox(height: 12.w),
               wallet,
               SizedBox(height: 5.h),
               subscription,
