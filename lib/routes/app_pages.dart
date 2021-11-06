@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
-import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/pages/setting/language/library.dart';
@@ -34,40 +33,12 @@ class AppPages {
       binding: FrameBinding(),
     ),
 
-    /// 忘记密码
-    GetPage(
-      name: AppRoutes.forgot,
-      page: () => const ForgotView(),
-      binding: ForgotBinding(),
-    ),
-
     /// 区号选择
     GetPage(
       name: AppRoutes.codeList,
       page: () => const CodeListView(),
       binding: CodeListBinding(),
     ),
-
-    // /// 初始页面
-    // GetPage(
-    //   name: AppRoutes.index,
-    //   page: () => const IndexView(),
-    //   binding: IndexBinding(),
-    // ),
-
-    // /// 注册
-    // GetPage(
-    //   name: AppRoutes.register,
-    //   page: () => const RegisterView(),
-    //   binding: RegisterBinding(),
-    // ),
-
-    // /// 登陆
-    // GetPage(
-    //   name: AppRoutes.login,
-    //   page: () => const LoginView(),
-    //   binding: LoginBinding(),
-    // ),
 
     /// 设置页面
     GetPage(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/global.dart';
+import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/login/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -48,14 +49,17 @@ class LoginController extends GetxController {
     });
   }
 
-  /// 去找回密码页面
+  /// 找回密码
   void handleGoForgetPasswordPage() async {
     if (userCountFocusNode.hasFocus || userPasswordFocusNode.hasFocus) {
       _unfocus();
       await Future.delayed(const Duration(milliseconds: 200));
     }
-
-    Get.toNamed(AppRoutes.forgot);
+    // 打开找回密码页面
+    Get.bottomSheet(
+      ForgotView(),
+      isScrollControlled: true,
+    );
   }
 
   /// 用户登陆

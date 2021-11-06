@@ -7,10 +7,9 @@ class AppRoutes {
   static const frame = '/frame'; // 初始页面框架
   static const set = '/set';
   static const language = '/language';
-  static const forgot = '/forgot';
   static const codeList = '/codeList';
 
-  /// 静态路由：注册
+  /// 注册
   static const index = '/index';
   static const login = '/login';
   static const register = '/register';
@@ -19,7 +18,7 @@ class AppRoutes {
   static const avatar = '/avatar';
   static const subscription = '/subscription';
 
-  /// 静态路由：首页
+  /// 首页
   static const home = '/home';
   static const community = '/community';
   static const chat = '/chat';
