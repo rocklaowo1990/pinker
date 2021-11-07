@@ -16,6 +16,7 @@ class ForgotView extends StatelessWidget {
 
   @override
   StatelessElement createElement() {
+    controller.init();
     return StatelessElement(this);
   }
 

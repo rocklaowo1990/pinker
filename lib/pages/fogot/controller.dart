@@ -18,4 +18,14 @@ class ForgotController {
   void handleBack() {
     Get.back();
   }
+
+  void init() {
+    textController.addListener(() {
+      if (textController.text.length < 7) {
+        state.isDissable = true;
+      } else {
+        state.isDissable = false;
+      }
+    });
+  }
 }
