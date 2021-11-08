@@ -10,5 +10,5 @@ class ForgotState {
   /// pageview
   final _pageCount = <Widget>[].obs;
   set pageCount(List<Widget> value) => _pageCount.value = value;
-  List<Widget> get pageCount => _pageCount.value;
+  List<Widget> get pageCount => _pageCount;
 }

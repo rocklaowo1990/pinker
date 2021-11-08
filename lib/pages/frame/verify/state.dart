@@ -9,6 +9,5 @@ class VerifyState {
   /// 验证码数组
   final RxList _codeList = [].obs;
   set codeList(List value) => _codeList.value = value;
-  // ignore: invalid_use_of_protected_member
-  List get codeList => _codeList.value;
+  List get codeList => _codeList;
 }
