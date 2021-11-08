@@ -4,7 +4,7 @@ import 'package:pinker/pages/fogot/index/library.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
 
-class ForgotController {
+class ForgotController extends GetxController {
   /// 状态控制器
   final ForgotState state = ForgotState();
 
@@ -12,14 +12,23 @@ class ForgotController {
   final PageController pageController = PageController();
 
   void handleNext() {
-    print(state.isDissable);
+    state.pageCount.add(ForgotIndexView());
+    print(state.pageCount);
   }
 
   void handleBack() {
     Get.back();
   }
 
-  void init() {
+  @override
+  void onInit() async {
+    super.onInit();
     state.pageCount.add(ForgotIndexView());
+  }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
   }
 }

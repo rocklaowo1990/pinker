@@ -10,66 +10,63 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ForgotView extends StatelessWidget {
-  ForgotView({Key? key}) : super(key: key);
-  final ForgotController controller = ForgotController();
+  const ForgotView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /// 底部
-    Widget bottom = getBottomBox(
-      rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
-          child: getSpan(Lang.next.tr),
-          onPressed: controller.handleNext,
-          background: controller.state.isDissable
-              ? AppColors.buttonDisable
-              : AppColors.mainColor,
-        ),
-      ),
-    );
-
-    /// appbar
-    Widget appBar = getAppBar(
-      getSpan('找回密码', fontSize: 17),
-      backgroundColor: AppColors.mainBacground,
-      elevation: 0,
-      leading: getButton(
-        child: const Icon(Icons.close, color: AppColors.mainIcon),
-        background: AppColors.mainBacground,
-        onPressed: controller.handleBack,
-      ),
-    );
-
-    /// body布局
-    Widget body = Column(
-      children: [
-        SizedBox(height: 25.h),
-        appBar,
-        Container(height: 1.h, color: AppColors.secondBacground),
-        Expanded(
-          child: Container(
-            color: AppColors.mainBacground,
-            padding: EdgeInsets.only(
-              top: 20.h,
-              right: 20.w,
-              left: 20.w,
+    return GetBuilder<ForgotController>(
+        init: ForgotController(),
+        builder: (controller) {
+          /// 底部
+          Widget bottom = getBottomBox(
+            rightWidget: Obx(
+              () => getButton(
+                padding: EdgeInsets.only(left: 12.w, right: 12.w),
+                child: getSpan(Lang.next.tr),
+                onPressed: controller.handleNext,
+                background: controller.state.isDissable
+                    ? AppColors.buttonDisable
+                    : AppColors.mainColor,
+              ),
             ),
-            child: PageView(
-              controller: controller.pageController,
-              children: controller.state.pageCount,
-            ),
-          ),
-        ),
-        bottom,
-      ],
-    );
-    return body;
-  }
+          );
 
-  @override
-  StatelessElement createElement() {
-    controller.init();
-    return super.createElement();
+          /// appbar
+          Widget appBar = getAppBar(
+            getSpan('找回密码', fontSize: 17),
+            backgroundColor: AppColors.mainBacground,
+            elevation: 0,
+            leading: getButton(
+              child: const Icon(Icons.close, color: AppColors.mainIcon),
+              background: AppColors.mainBacground,
+              onPressed: controller.handleBack,
+            ),
+          );
+
+          /// body布局
+          Widget body = Column(
+            children: [
+              SizedBox(height: 25.h),
+              appBar,
+              Container(height: 1.h, color: AppColors.secondBacground),
+              Expanded(
+                child: Container(
+                  color: AppColors.mainBacground,
+                  padding: EdgeInsets.only(
+                    top: 20.h,
+                    right: 20.w,
+                    left: 20.w,
+                  ),
+                  child: PageView(
+                    controller: controller.pageController,
+                    children: controller.state.pageCount,
+                  ),
+                ),
+              ),
+              bottom,
+            ],
+          );
+          return body;
+        });
   }
 }

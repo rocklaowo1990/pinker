@@ -57,7 +57,7 @@ class LoginController extends GetxController {
     }
     // 打开找回密码页面
     Get.bottomSheet(
-      ForgotView(),
+      const ForgotView(),
       isScrollControlled: true,
     );
   }

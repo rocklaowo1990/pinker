@@ -6,37 +6,35 @@ import 'package:pinker/pages/fogot/index/library.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ForgotIndexView extends StatelessWidget {
-  ForgotIndexView({Key? key}) : super(key: key);
-  final ForgotIndexController controller = ForgotIndexController();
+  const ForgotIndexView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /// 标题
-    Widget title = getSpan(Lang.loginTitle.tr, fontSize: 26);
+    return GetBuilder<ForgotIndexController>(
+      init: ForgotIndexController(),
+      builder: (controller) {
+        /// 标题
+        Widget title = getSpan(Lang.loginTitle.tr, fontSize: 26);
 
-    /// 账号输入框
-    Widget userCount = getInput(
-      type: Lang.inputCount.tr,
-      controller: controller.textController,
-      autofocus: true,
-      focusNode: controller.focusNode,
-      textInputAction: TextInputAction.next,
+        /// 账号输入框
+        Widget userCount = getInput(
+          type: Lang.inputCount.tr,
+          controller: controller.textController,
+          autofocus: true,
+          focusNode: controller.focusNode,
+          textInputAction: TextInputAction.next,
+        );
+
+        /// body布局
+        Widget body = Column(
+          children: [
+            title,
+            SizedBox(height: 30.h),
+            userCount,
+          ],
+        );
+        return body;
+      },
     );
-
-    /// body布局
-    Widget body = Column(
-      children: [
-        title,
-        SizedBox(height: 30.h),
-        userCount,
-      ],
-    );
-    return body;
-  }
-
-  @override
-  StatelessElement createElement() {
-    controller.init();
-    return super.createElement();
   }
 }

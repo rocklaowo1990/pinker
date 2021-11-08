@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:pinker/pages/fogot/index/library.dart';
 import 'package:pinker/pages/fogot/library.dart';
 
-class ForgotIndexController {
+class ForgotIndexController extends GetxController {
   /// 文本控制器
   final TextEditingController textController = TextEditingController();
 
@@ -14,9 +15,11 @@ class ForgotIndexController {
   final ForgotIndexState state = ForgotIndexState();
 
   /// 主页面焦点
-  final ForgotController forgotController = ForgotController();
+  final ForgotController forgotController = Get.find();
 
-  void init() {
+  @override
+  void onInit() {
+    super.onInit();
     textController.addListener(() {
       if (textController.text.length < 7) {
         forgotController.state.isDissable = true;
@@ -24,5 +27,13 @@ class ForgotIndexController {
         forgotController.state.isDissable = false;
       }
     });
+  }
+
+  @override
+  void onClose() {
+    textController.dispose();
+    focusNode.dispose();
+    // forgotController.dispose();
+    super.onClose();
   }
 }
