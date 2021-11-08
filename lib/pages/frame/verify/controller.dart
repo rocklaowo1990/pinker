@@ -130,9 +130,7 @@ class VerifyController extends GetxController {
   }
 
   @override
-  void onInit() async {
-    super.onInit();
-
+  void onReady() async {
     /// 自动获取焦点
     await Future.delayed(const Duration(milliseconds: 200), () {
       focusNode.requestFocus();
@@ -153,6 +151,7 @@ class VerifyController extends GetxController {
       state.opacity = state.opacity == 0 ? 1.0 : 0.0;
     });
     // inputController.addListener(_addListener);
+    super.onReady();
   }
 
   @override

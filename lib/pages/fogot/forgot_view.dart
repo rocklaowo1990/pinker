@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
-import 'package:pinker/pages/fogot/widgets/library.dart';
 
 import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';
@@ -15,12 +14,6 @@ class ForgotView extends StatelessWidget {
   final ForgotController controller = ForgotController();
 
   @override
-  StatelessElement createElement() {
-    controller.init();
-    return StatelessElement(this);
-  }
-
-  @override
   Widget build(BuildContext context) {
     /// 底部
     Widget bottom = getBottomBox(
@@ -28,7 +21,7 @@ class ForgotView extends StatelessWidget {
         () => getButton(
           padding: EdgeInsets.only(left: 12.w, right: 12.w),
           child: getSpan(Lang.next.tr),
-          onPressed: controller.state.isDissable ? null : controller.handleNext,
+          onPressed: controller.handleNext,
           background: controller.state.isDissable
               ? AppColors.buttonDisable
               : AppColors.mainColor,
@@ -62,13 +55,21 @@ class ForgotView extends StatelessWidget {
               right: 20.w,
               left: 20.w,
             ),
-            child: forgotOne(controller),
+            child: PageView(
+              controller: controller.pageController,
+              children: controller.state.pageCount,
+            ),
           ),
         ),
         bottom,
       ],
     );
-
     return body;
+  }
+
+  @override
+  StatelessElement createElement() {
+    controller.init();
+    return super.createElement();
   }
 }
