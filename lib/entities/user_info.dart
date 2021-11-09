@@ -103,13 +103,18 @@ class UserInfo {
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
         avatar: json["avatar"],
-        banks: List<Bank>.from(json["banks"].map((x) => Bank.fromJson(x))),
+        banks: json["banks"] == null || json["banks"] == []
+            ? null
+            : List<Bank>.from(json["banks"].map((x) => Bank.fromJson(x))),
         bannerPic: json["bannerPic"],
         birthday: json["birthday"],
         blockCount: json["blockCount"],
         createDate: json["createDate"],
         diamondBalance: json["diamondBalance"],
-        digitalCurrency: DigitalCurrency.fromJson(json["digitalCurrency"]),
+        digitalCurrency:
+            json["digitalCurrency"] == null || json["digitalCurrency"] == {}
+                ? null
+                : DigitalCurrency.fromJson(json["digitalCurrency"]),
         email: json["email"],
         fansCount: json["fansCount"],
         followCount: json["followCount"],

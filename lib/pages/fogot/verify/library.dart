@@ -1,4 +1,4 @@
-library forgot_index;
+library forgot_verify;
 
 export 'view.dart';
 export 'controller.dart';

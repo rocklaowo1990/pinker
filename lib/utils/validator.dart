@@ -40,3 +40,17 @@ bool isChinese(String value) {
 bool isPassword(String value) {
   return RegExp(r"^(?=.*[a-z])(?=.*\d)[^]{8,16}$").hasMatch(value);
 }
+
+/// 取字符串后两位
+String getLastTwo(String value) {
+  if (value.isEmpty) return '';
+  return value.substring(value.length - 2);
+}
+
+/// 隐藏邮箱地址
+String getEmailHide(String value) {
+  if (value.isEmpty) return '';
+  List<String> part_1 = value.split('@');
+  List<String> part_2 = part_1[1].split('.');
+  return part_1[0].substring(part_1[0].length - 2) + '@' + part_2[0];
+}

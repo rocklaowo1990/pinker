@@ -58,7 +58,10 @@ class LoginController extends GetxController {
     // 打开找回密码页面
     Get.bottomSheet(
       const ForgotView(),
-      isScrollControlled: true,
+      isScrollControlled: true, //全屏高度
+      enableDrag: false, //下滑手势：关闭
+      enterBottomSheetDuration: const Duration(milliseconds: 300),
+      exitBottomSheetDuration: const Duration(milliseconds: 300),
     );
   }
 

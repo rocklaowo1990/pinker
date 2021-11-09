@@ -58,13 +58,9 @@ class RegisterController extends GetxController {
     String number = '';
 
     if (state.isPhone) {
-      String text = userRegisterController.text;
-      number = text.substring(text.length - 2);
+      number = getLastTwo(userRegisterController.text);
     } else {
-      String text = userRegisterController.text;
-      List<String> part_1 = text.split('@');
-      List<String> part_2 = part_1[1].split('.');
-      number = part_1[0].substring(part_1[0].length - 2) + '@' + part_2[0];
+      number = getEmailHide(userRegisterController.text);
     }
     _dialogChile(number);
   }

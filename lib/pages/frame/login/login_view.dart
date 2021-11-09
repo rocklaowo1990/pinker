@@ -82,19 +82,17 @@ class LoginView extends GetView<LoginController> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Obx(
-        () => controller.frameController.state.pageIndex != 1
-            ? Stack(
-                // 遮罩层
-                children: [
-                  body,
-                  Container(
-                    color: Colors.black12,
-                  )
-                ],
-              )
-            : body,
-      ),
+      body: Obx(() => controller.frameController.state.pageIndex != 1
+          ? Stack(
+              // 遮罩层
+              children: [
+                body,
+                Container(
+                  color: Colors.black12,
+                )
+              ],
+            )
+          : body),
     );
   }
 }

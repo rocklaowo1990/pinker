@@ -6,7 +6,7 @@ import 'package:pinker/widgets/widgets.dart';
 
 /// 功能按钮列表
 Widget getButtonList({
-  IconData? icon,
+  Widget? icon,
   String? title,
   Widget? secondTitle,
   Widget? iconRight,
@@ -15,7 +15,7 @@ Widget getButtonList({
   /// 左边初始化
   Widget left = Row(
     children: [
-      Icon(icon),
+      icon ?? const SizedBox(),
       SizedBox(width: 8.w),
       getSpan(title),
     ],

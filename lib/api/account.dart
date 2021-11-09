@@ -35,4 +35,13 @@ class AccountApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 验证账号是否存在（忘记密码使用）
+  static Future<ResponseEntity> verificateAccount(data) async {
+    var response = await HttpUtil().get(
+      '/api/account/verificateAccount',
+      queryParameters: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }
