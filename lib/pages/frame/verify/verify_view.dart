@@ -13,10 +13,10 @@ class VerifyView extends GetView<VerifyController> {
   Widget build(BuildContext context) {
     /// body 布局
     Widget body = getVerifyView(
-      isVerify: isVerify,
-      result: result,
-      resendCode: resendCode,
-      time: time,
+      isVerify: controller.isVerify,
+      result: controller.handleNext,
+      resendCode: controller.sendCode,
+      time: controller.frameController.state.sendTimeRx,
     );
     return Scaffold(
       backgroundColor: Colors.transparent,

@@ -23,17 +23,9 @@ class VerifyController extends GetxController {
   final TextEditingController inputController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  Map<String, dynamic> dataNext = {
-    'account': arguments['account']!,
-    'accountType': arguments['accountType']!,
-    'birthday': arguments['birthday']!,
-    'code': text,
-    'areaCode': arguments['areaCode']!,
-  };
-
-  void handleNext(String code) {
+  void handleNext() {
     frameController.state.pageIndex = -1; // 下一页不需要返回
-    Get.offAllNamed(AppRoutes.password, id: 1, arguments: dataNext);
+    Get.offAllNamed(AppRoutes.password, id: 1, arguments: arguments);
   }
 
   /// 请求验证码
@@ -88,6 +80,7 @@ class VerifyController extends GetxController {
     ResponseEntity checkCode = await CommonApi.checkCode(data); // 弹窗停留时间
 
     if (checkCode.code == 200) {
+      arguments['code'] = code;
       return true;
     } else {
       Get.back();
