@@ -17,7 +17,7 @@ class ForgotController extends GetxController {
     Get.back();
   }
 
-  /// 初始化数据
+  /// 初始化用户数据
   UserInfo userInfo = UserInfo.fromJson({
     'userId': 0,
     'userName': '',
@@ -26,6 +26,9 @@ class ForgotController extends GetxController {
     'phone': '',
     'email': '',
   });
+
+  /// 初始化验证码请求数据
+  Map<String, dynamic> sendCodeData = {};
 
   /// 页面改变时
   void handlePageChanged(int index) {
@@ -36,6 +39,9 @@ class ForgotController extends GetxController {
   void onInit() async {
     super.onInit();
     state.pageCount.add(const ForgotIndexView());
+    interval(state.sendTimeRx, (value) {
+      if (state.sendTime > 0) state.sendTime--;
+    });
   }
 
   @override

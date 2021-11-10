@@ -1,8 +1,1 @@
-import 'package:get/get.dart';
-
-class ForgotTypeState {
-  /// 验证方式
-  final RxInt _verifyType = 1.obs;
-  set verifyType(int value) => _verifyType.value = value;
-  int get verifyType => _verifyType.value;
-}
+class ForgotTypeState {}

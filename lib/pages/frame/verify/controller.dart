@@ -17,14 +17,27 @@ class VerifyController extends GetxController {
   final VerifyState state = VerifyState();
 
   /// 上一页传参
-  final Map<String, String> arguments = Get.arguments;
+  final Map<String, dynamic> arguments = Get.arguments;
 
   /// 输入框控制器
   final TextEditingController inputController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
+  Map<String, dynamic> dataNext = {
+    'account': arguments['account']!,
+    'accountType': arguments['accountType']!,
+    'birthday': arguments['birthday']!,
+    'code': text,
+    'areaCode': arguments['areaCode']!,
+  };
+
+  void handleNext(String code) {
+    frameController.state.pageIndex = -1; // 下一页不需要返回
+    Get.offAllNamed(AppRoutes.password, id: 1, arguments: dataNext);
+  }
+
   /// 请求验证码
-  void _sendCode() async {
+  Future<bool> sendCode() async {
     /// 准备请求数据
     Map<String, String> data = {};
 
@@ -54,11 +67,32 @@ class VerifyController extends GetxController {
         iconColor: Colors.green,
       );
       frameController.state.sendTime = 60;
+      return true;
     } else {
       /// 返回错误信息
       await Future.delayed(const Duration(milliseconds: 200), () {
         getSnackTop(codeNumber.msg);
       });
+      return false;
+    }
+  }
+
+  /// 验证验证码
+  Future<bool> isVerify(String code) async {
+    Map<String, dynamic> data = {
+      'account': arguments['account'],
+      'accountType': arguments['accountType'],
+      'code': code,
+      'entryType': arguments['entryType'],
+    };
+    ResponseEntity checkCode = await CommonApi.checkCode(data); // 弹窗停留时间
+
+    if (checkCode.code == 200) {
+      return true;
+    } else {
+      Get.back();
+      getSnackTop(checkCode.msg);
+      return false;
     }
   }
 
@@ -74,7 +108,7 @@ class VerifyController extends GetxController {
 
   /// 重新发送验证码
   void handleResendCode() {
-    _sendCode();
+    sendCode();
   }
 
   /// 验证码输入框文本改变时
@@ -131,27 +165,15 @@ class VerifyController extends GetxController {
 
   @override
   void onReady() async {
-    /// 自动获取焦点
-    await Future.delayed(const Duration(milliseconds: 200), () {
-      focusNode.requestFocus();
-    });
-
     /// 发送验证码请求
     if (frameController.state.account != arguments['account']) {
-      _sendCode();
+      sendCode();
       frameController.state.account = arguments['account']!;
     } else {
       if (frameController.state.sendTime <= 0) {
-        _sendCode();
+        sendCode();
       }
     }
-
-    /// 初始化焦点动画
-    await Future.delayed(const Duration(milliseconds: 200), () {
-      state.opacity = state.opacity == 0 ? 1.0 : 0.0;
-    });
-    // inputController.addListener(_addListener);
-    super.onReady();
   }
 
   @override

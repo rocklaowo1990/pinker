@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/fogot/type/library.dart';
+import 'package:pinker/pages/fogot/verify/library.dart';
 
 class ForgotTypeController extends GetxController {
   /// 状态控制器
@@ -11,15 +13,22 @@ class ForgotTypeController extends GetxController {
   final ForgotController forgotController = Get.find();
 
   /// 下一步
-  void handleNext() async {}
+  void handleNext() async {
+    forgotController.state.pageCount.add(const ForgotVerifyView());
+    forgotController.state.pageIndex++;
+
+    forgotController.pageController.animateToPage(
+      forgotController.state.pageCount.length - 1,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
+  }
 
   void handlePhoneType() {
-    state.verifyType = 1;
-    print(state.verifyType);
+    forgotController.state.verifyType = 1;
   }
 
   void handleEmailType() {
-    state.verifyType = 2;
-    print(state.verifyType);
+    forgotController.state.verifyType = 2;
   }
 }

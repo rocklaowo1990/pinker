@@ -15,8 +15,13 @@ class ForgotVerifyView extends StatelessWidget {
       init: ForgotVerifyController(),
       builder: (controller) {
         /// body
-        Widget body = getVerifyView();
-        return Obx(() => controller.forgotController.state.pageIndex != 2
+        Widget body = getVerifyView(
+          result: controller.handleNext,
+          isVerify: controller.isVerify,
+          resendCode: controller.sendCode,
+          time: controller.forgotController.state.sendTimeRx,
+        );
+        return Obx(() => controller.forgotController.state.pageIndex != 3
             ? Stack(
                 // 遮罩层
                 children: [body, Container(color: Colors.black12)],

@@ -20,11 +20,6 @@ class VerifyWidgetController extends GetxController {
   set codeList(List value) => _codeList.value = value;
   List get codeList => _codeList;
 
-  /// 发送时间
-  final RxInt _sendTime = 0.obs;
-  set sendTime(int value) => _sendTime.value = value;
-  int get sendTime => _sendTime.value;
-
   /// 动画结束后继续动画
   void handleOnEnd() {
     opacity = opacity == 0 ? 1.0 : 0.0;
@@ -35,12 +30,65 @@ class VerifyWidgetController extends GetxController {
     focusNode.requestFocus();
   }
 
-  void onChanged(text) {}
+  void onChanged(
+    text,
+    Future<bool> Function(String text) isVerify,
+    VoidCallback result,
+  ) async {
+    codeList = text.split(''); // 验证码转成数组
+    opacity = 1; // 焦点绝对显示
 
-  void resendCode() {}
+    /// 验证码输完了以后才开始执行操作
+    if (text.length >= 6) {
+      focusNode.unfocus(); // 隐藏键盘
+      getDialog(autoBack: true); // 弹出加载窗
+
+      bool _isVerify = await isVerify(text);
+
+      if (_isVerify) {
+        Get.back();
+        result();
+      } else {
+        inputController.text = '';
+        codeList = []; // 清空框框里的数字
+        inputController.text = ''; // 清空验证码输入框
+
+        /// 重置动画并获取焦点
+        await Future.delayed(const Duration(milliseconds: 200));
+        opacity = opacity == 0 ? 1.0 : 0.0;
+        focusNode.requestFocus();
+      }
+
+      /// 验证码没输完
+    } else {
+      /// 重置动画
+      await Future.delayed(const Duration(milliseconds: 500));
+      opacity = opacity == 0 ? 1.0 : 0.0;
+    }
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+
+    /// 自动获取焦点
+    await Future.delayed(const Duration(milliseconds: 200), () {
+      focusNode.requestFocus();
+    });
+
+    /// 初始化焦点动画
+    await Future.delayed(const Duration(milliseconds: 200), () {
+      opacity = opacity == 0 ? 1.0 : 0.0;
+    });
+  }
 }
 
-Widget getVerifyView() {
+Widget getVerifyView({
+  required Future<bool> Function(String text) isVerify,
+  required VoidCallback result,
+  required VoidCallback resendCode,
+  required RxInt time,
+}) {
   return GetBuilder<VerifyWidgetController>(
     init: VerifyWidgetController(),
     builder: (controller) {
@@ -61,7 +109,9 @@ Widget getVerifyView() {
       Widget codeInput = Offstage(
         offstage: true,
         child: TextField(
-          onChanged: controller.onChanged,
+          onChanged: (text) {
+            controller.onChanged(text, isVerify, result);
+          },
           keyboardType: TextInputType.number,
           controller: controller.inputController,
           focusNode: controller.focusNode, // 焦点
@@ -125,19 +175,17 @@ Widget getVerifyView() {
       );
 
       /// 重新发送验证码
-      Widget resendButton = Obx(
-        () => getButton(
-          child: controller.sendTime <= 0
-              ? getSpan(Lang.codeResend.tr, color: AppColors.mainColor)
-              : getSpan(
-                  '${Lang.codeResend.tr} ( ${controller.sendTime} )',
-                  color: AppColors.secondText,
-                ),
-          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-          background: Colors.transparent,
-          onPressed: controller.sendTime <= 0 ? controller.resendCode : null,
-        ),
-      );
+      Widget resendButton = Obx(() => getButton(
+            child: time.value <= 0
+                ? getSpan(Lang.codeResend.tr, color: AppColors.mainColor)
+                : getSpan(
+                    '${Lang.codeResend.tr} ( ${time.value} )',
+                    color: AppColors.secondText,
+                  ),
+            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            background: Colors.transparent,
+            onPressed: time.value <= 0 ? resendCode : null,
+          ));
 
       /// body 布局
       Widget body = Padding(

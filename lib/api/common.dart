@@ -42,6 +42,37 @@ class CommonApi {
     return ResponseEntity.fromJson(response);
   }
 
+  /// 发送验证码(userid)
+  static Future sendSmsByType(data) async {
+    DateTime timestamp = DateTime.now();
+    var response = await HttpUtil().postForm(
+      '/api/common/sendSmsByType',
+      data: data,
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'platform': Global.platform,
+        'osversion': Global.osversion,
+        'version': Global.packageInfo?.version,
+        'model': Global.model,
+        'timestamp': '$timestamp',
+        'token': Global.token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 发送验证码(userid)
+  static Future checkCodeByType(data) async {
+    var response = await HttpUtil().postForm(
+      '/api/common/checkCodeByType',
+      data: data,
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
   /// 验证验证码：注册
   static Future checkCode(data) async {
     var response = await HttpUtil().postForm(

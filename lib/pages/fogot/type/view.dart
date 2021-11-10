@@ -34,7 +34,7 @@ class ForgotTypeView extends StatelessWidget {
             icon: Obx(() => Icon(
                   Icons.check_circle,
                   size: 12.sp,
-                  color: controller.state.verifyType == 1
+                  color: controller.forgotController.state.verifyType == 1
                       ? AppColors.mainColor
                       : AppColors.thirdIcon,
                 )),
@@ -48,7 +48,7 @@ class ForgotTypeView extends StatelessWidget {
             icon: Obx(() => Icon(
                   Icons.check_circle,
                   size: 12.sp,
-                  color: controller.state.verifyType == 2
+                  color: controller.forgotController.state.verifyType == 2
                       ? AppColors.mainColor
                       : AppColors.thirdIcon,
                 )),
@@ -78,9 +78,8 @@ class ForgotTypeView extends StatelessWidget {
                   child: Column(
                     children: [
                       title,
-                      SizedBox(height: 4.w),
+                      SizedBox(height: 8.h),
                       titleSecond,
-                      SizedBox(height: 16.w),
                     ],
                   ),
                 ),
