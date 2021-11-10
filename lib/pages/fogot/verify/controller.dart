@@ -15,9 +15,7 @@ class ForgotVerifyController extends GetxController {
   /// 主页面焦点
   final ForgotController forgotController = Get.find();
 
-  void handleNext() {
-    print('验证成功');
-  }
+  void handleNext() {}
 
   /// 请求验证码
   Future<bool> sendCode() async {

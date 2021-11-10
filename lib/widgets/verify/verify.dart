@@ -5,92 +5,14 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class VerifyWidgetController extends GetxController {
-  /// 输入框控制器
-  final TextEditingController inputController = TextEditingController();
-  final FocusNode focusNode = FocusNode();
-
-  /// 焦点透明度
-  final RxDouble _opacity = 1.0.obs;
-  set opacity(double value) => _opacity.value = value;
-  double get opacity => _opacity.value;
-
-  /// 验证码数组
-  final RxList _codeList = [].obs;
-  set codeList(List value) => _codeList.value = value;
-  List get codeList => _codeList;
-
-  /// 动画结束后继续动画
-  void handleOnEnd() {
-    opacity = opacity == 0 ? 1.0 : 0.0;
-  }
-
-  /// 点击六个格子的时候，弹出键盘
-  void handleOnPressed() {
-    focusNode.requestFocus();
-  }
-
-  void onChanged(
-    text,
-    Future<bool> Function(String text) isVerify,
-    VoidCallback result,
-  ) async {
-    codeList = text.split(''); // 验证码转成数组
-    opacity = 1; // 焦点绝对显示
-
-    /// 验证码输完了以后才开始执行操作
-    if (text.length >= 6) {
-      focusNode.unfocus(); // 隐藏键盘
-      getDialog(autoBack: true); // 弹出加载窗
-
-      bool _isVerify = await isVerify(text);
-
-      if (_isVerify) {
-        Get.back();
-        result();
-      } else {
-        inputController.text = '';
-        codeList = []; // 清空框框里的数字
-        inputController.text = ''; // 清空验证码输入框
-
-        /// 重置动画并获取焦点
-        await Future.delayed(const Duration(milliseconds: 200));
-        opacity = opacity == 0 ? 1.0 : 0.0;
-        focusNode.requestFocus();
-      }
-
-      /// 验证码没输完
-    } else {
-      /// 重置动画
-      await Future.delayed(const Duration(milliseconds: 500));
-      opacity = opacity == 0 ? 1.0 : 0.0;
-    }
-  }
-
-  @override
-  void onReady() async {
-    super.onReady();
-
-    /// 自动获取焦点
-    await Future.delayed(const Duration(milliseconds: 200), () {
-      focusNode.requestFocus();
-    });
-
-    /// 初始化焦点动画
-    await Future.delayed(const Duration(milliseconds: 200), () {
-      opacity = opacity == 0 ? 1.0 : 0.0;
-    });
-  }
-}
-
 Widget getVerifyView({
   required Future<bool> Function(String text) isVerify,
   required VoidCallback result,
   required VoidCallback resendCode,
   required RxInt time,
 }) {
-  return GetBuilder<VerifyWidgetController>(
-    init: VerifyWidgetController(),
+  return GetBuilder<WidgetsVerifyController>(
+    init: WidgetsVerifyController(),
     builder: (controller) {
       /// 标题
       Widget title = getSpan(
@@ -129,26 +51,26 @@ Widget getVerifyView({
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(2.w)),
             border: Border.all(
-              color: controller.codeList.length >= index
+              color: controller.state.codeList.length >= index
                   ? AppColors.mainColor
                   : AppColors.thirdIcon,
               width: 0.8.w,
             ),
           ),
           child: Center(
-            child: controller.codeList.length == index
+            child: controller.state.codeList.length == index
                 ? AnimatedOpacity(
-                    opacity: controller.opacity,
+                    opacity: controller.state.opacity,
                     duration: const Duration(milliseconds: 500),
                     alwaysIncludeSemantics: true,
                     onEnd: controller.handleOnEnd,
                     child: Container(
                         width: 1.w, height: 10.w, color: AppColors.mainColor),
                   )
-                : controller.codeList.length < index
+                : controller.state.codeList.length < index
                     ? null
                     : getSpan(
-                        controller.codeList[index],
+                        controller.state.codeList[index],
                         fontSize: 26,
                         color: AppColors.mainColor,
                       ),

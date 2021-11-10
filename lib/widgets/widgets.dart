@@ -10,3 +10,4 @@ export 'bottom_box.dart';
 export 'list.dart';
 export 'bar.dart';
 export 'dialog.dart';
+export 'verify/library.dart';

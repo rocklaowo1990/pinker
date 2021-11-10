@@ -29,7 +29,9 @@ class ForgotIndexController extends GetxController {
     textController.text = '';
 
     getDialog();
+
     ResponseEntity _userInfo = await AccountApi.verificateAccount(data);
+
     if (_userInfo.code == 200) {
       forgotController.state.pageCount.add(const ForgotInfoView());
       forgotController.state.pageIndex++;
@@ -43,6 +45,8 @@ class ForgotIndexController extends GetxController {
       forgotController.userInfo.email = userInfo.email;
 
       Get.back();
+
+      await Future.delayed(const Duration(milliseconds: 300));
 
       forgotController.pageController.animateToPage(
         forgotController.state.pageCount.length - 1,

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:pinker/pages/frame/verify/library.dart';
-
-import 'package:pinker/widgets/verify.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 class VerifyView extends GetView<VerifyController> {
   const VerifyView({Key? key}) : super(key: key);
