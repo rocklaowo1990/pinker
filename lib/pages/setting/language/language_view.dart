@@ -13,12 +13,31 @@ class LanguageView extends GetView<LanguageController> {
 
   @override
   Widget build(BuildContext context) {
+    /// appBar 右侧的设置按钮
+    Widget sureBox = Obx(() => getButton(
+          child: controller.state.language == null ||
+                  controller.state.language ==
+                      controller.settingController.state.language
+              ? const SizedBox()
+              : const Icon(
+                  Icons.done,
+                  color: AppColors.mainColor,
+                ),
+          onPressed: controller.state.language == null ||
+                  controller.state.language ==
+                      controller.settingController.state.language
+              ? null
+              : controller.handleSure,
+          background: Colors.transparent,
+          width: 30.w,
+          height: 30.w,
+        ));
+
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan(Lang.langTitle.tr, fontSize: 17),
-      backgroundColor: AppColors.secondBacground,
-      elevation: 0.5.h,
-    );
+    AppBar appBar = getAppBar(getSpan(Lang.langTitle.tr, fontSize: 17),
+        backgroundColor: AppColors.secondBacground,
+        elevation: 0.5.h,
+        actions: [sureBox]);
 
     /// 中文列表
     Widget cnList = getButtonList(
@@ -27,8 +46,7 @@ class LanguageView extends GetView<LanguageController> {
       iconRight: Obx(() => Icon(
             Icons.check_circle,
             size: 9.w,
-            color: controller.settingController.state.language ==
-                    const Locale('zh', 'CN')
+            color: controller.state.language == const Locale('zh', 'CN')
                 ? AppColors.mainColor
                 : AppColors.thirdIcon,
           )),
@@ -41,8 +59,7 @@ class LanguageView extends GetView<LanguageController> {
       iconRight: Obx(() => Icon(
             Icons.check_circle,
             size: 9.w,
-            color: controller.settingController.state.language ==
-                    const Locale('en', 'US')
+            color: controller.state.language == const Locale('en', 'US')
                 ? AppColors.mainColor
                 : AppColors.thirdIcon,
           )),

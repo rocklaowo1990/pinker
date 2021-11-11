@@ -33,19 +33,21 @@ class PasswordController extends GetxController {
     ResponseEntity registerAccount = await AccountApi.registerAccount(data);
     await Future.delayed(const Duration(milliseconds: 200));
 
-    Get.back();
-
     if (registerAccount.code == 200) {
       /// 注册成功
       /// 储存用户数据
       await Global.saveToken(registerAccount.data!['token']);
 
       /// 去头像设置页面
+      await futureMill(500);
+      Get.back();
       frameController.state.pageIndex--;
       Get.offAllNamed(AppRoutes.avatar, id: 1);
 
       /// 注册失败
     } else {
+      await futureMill(500);
+      Get.back();
       getSnackTop(registerAccount.msg);
     }
   }

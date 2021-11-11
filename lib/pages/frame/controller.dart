@@ -14,9 +14,7 @@ class FrameController extends GetxController {
   final state = FrameState();
 
   /// 返回上一页
-  void handleBack() async {
-    // FocusScope.of(Get.context!).requestFocus(FocusNode());
-    // await Future.delayed(const Duration(milliseconds: 200));
+  void handleBack() {
     state.pageIndex--;
     Get.back(id: 1);
   }

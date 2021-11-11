@@ -51,11 +51,7 @@ class LoginController extends GetxController {
 
   /// 找回密码
   void handleGoForgetPasswordPage() async {
-    if (userCountFocusNode.hasFocus || userPasswordFocusNode.hasFocus) {
-      _unfocus();
-      await Future.delayed(const Duration(milliseconds: 200));
-    }
-    // 打开找回密码页面
+    /// 打开找回密码页面
     Get.bottomSheet(
       const ForgotView(),
       isScrollControlled: true, //全屏高度
@@ -69,8 +65,6 @@ class LoginController extends GetxController {
   void handleSignIn() async {
     /// 关闭键盘
     _unfocus();
-
-    await Future.delayed(const Duration(milliseconds: 200));
     getDialog();
 
     /// 判断账号类型
@@ -89,7 +83,6 @@ class LoginController extends GetxController {
 
     /// 请求服务器...
     ResponseEntity login = await AccountApi.login(data);
-    Get.back();
 
     /// 返回数据处理
     if (login.code == 200) {
@@ -100,13 +93,17 @@ class LoginController extends GetxController {
       Global.token = login.data!['token'];
 
       /// 去往首页
+      await futureMill(500);
+
+      Get.back();
       Get.offAllNamed(AppRoutes.application);
     } else {
       /// 返回错误信息
-      await Future.delayed(const Duration(milliseconds: 200), () {
-        userCountFocusNode.requestFocus();
-        getSnackTop(login.msg);
-      });
+      await futureMill(500);
+
+      Get.back();
+      userCountFocusNode.requestFocus();
+      getSnackTop(login.msg);
     }
   }
 

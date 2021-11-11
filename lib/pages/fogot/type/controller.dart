@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/fogot/type/library.dart';
 import 'package:pinker/pages/fogot/verify/library.dart';
+import 'package:pinker/utils/utils.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 class ForgotTypeController extends GetxController {
   /// 状态控制器
@@ -14,8 +16,12 @@ class ForgotTypeController extends GetxController {
 
   /// 下一步
   void handleNext() async {
+    getDialog();
     forgotController.state.pageCount.add(const ForgotVerifyView());
     forgotController.state.pageIndex++;
+
+    await futureMill(500);
+    Get.back();
 
     forgotController.pageController.animateToPage(
       forgotController.state.pageCount.length - 1,

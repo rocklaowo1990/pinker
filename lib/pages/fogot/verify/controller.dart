@@ -5,7 +5,9 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
+import 'package:pinker/pages/fogot/password/view.dart';
 import 'package:pinker/pages/fogot/verify/library.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ForgotVerifyController extends GetxController {
@@ -15,7 +17,13 @@ class ForgotVerifyController extends GetxController {
   /// 主页面焦点
   final ForgotController forgotController = Get.find();
 
-  void handleNext() {}
+  void handleNext() {
+    forgotController.pageController.animateToPage(
+      forgotController.state.pageCount.length - 1,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
+  }
 
   /// 请求验证码
   Future<bool> sendCode() async {
@@ -57,8 +65,15 @@ class ForgotVerifyController extends GetxController {
     ResponseEntity checkCode = await CommonApi.checkCodeByType(data); // 弹窗停留时间
 
     if (checkCode.code == 200) {
+      forgotController.publicData['code'] = code;
+      forgotController.state.pageCount.add(const ForgotPasswordView());
+      forgotController.state.pageIndex++;
+      await futureMill(500);
+
       return true;
     } else {
+      await futureMill(500);
+
       Get.back();
       getSnackTop(checkCode.msg);
       return false;
@@ -66,8 +81,8 @@ class ForgotVerifyController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    sendCode();
+    await sendCode();
   }
 }

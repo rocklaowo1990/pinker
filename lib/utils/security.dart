@@ -10,3 +10,8 @@ String duMD5(String string) {
 
   return digest.toString();
 }
+
+///
+Future<dynamic> futureMill(int milliseconds) async {
+  await Future.delayed(Duration(milliseconds: milliseconds));
+}

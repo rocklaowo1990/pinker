@@ -6,16 +6,14 @@ import 'package:pinker/values/values.dart';
 
 class UserApi {
   /// 推荐用户列表（注册）
-  ///
-  ///
-  static Future<ResponseEntity> recommendUserListForRegister(
+  static Future<ResponseEntity> list(
     Map<String, dynamic> data,
   ) async {
     // 读取token
     String token = StorageUtil().getJSON(storageUserTokenKey);
     // 请求
     var response = await HttpUtil().get(
-      '/api/user/recommendUserListForRegister',
+      '/api/user/list',
       queryParameters: data,
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -27,11 +25,8 @@ class UserApi {
   }
 
   /// 订阅用户组
-  ///
-  ///
   static Future<ResponseEntity> subscribeGroup(
-    Map<String, dynamic> data,
-  ) async {
+      Map<String, dynamic> data) async {
     // 读取token
     String token = StorageUtil().getJSON(storageUserTokenKey);
     // 请求
@@ -48,8 +43,6 @@ class UserApi {
   }
 
   /// 更新用户信息
-  ///
-  ///
   static Future<ResponseEntity> updateUserInfo(
     Map<String, dynamic> data,
   ) async {
@@ -69,8 +62,6 @@ class UserApi {
   }
 
   /// 获取用户信息（我的）
-  ///
-  ///
   static Future<ResponseEntity> info() async {
     // 读取token
     String token = StorageUtil().getJSON(storageUserTokenKey);
@@ -80,6 +71,22 @@ class UserApi {
       options: Options(headers: {
         'token': token,
       }),
+    );
+
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 获取用户信息（我的）
+  static Future<ResponseEntity> resetPassword(
+    Map<String, dynamic> data,
+  ) async {
+    // 请求
+    var response = await HttpUtil().postForm(
+      '/api/user/resetPassword',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      data: data,
     );
 
     return ResponseEntity.fromJson(response);

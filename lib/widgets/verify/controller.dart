@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/verify/library.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -44,8 +45,6 @@ class WidgetsVerifyController extends GetxController {
         state.codeList = []; // 清空框框里的数字
         inputController.text = ''; // 清空验证码输入框
 
-        /// 重置动画并获取焦点
-        await Future.delayed(const Duration(milliseconds: 200));
         state.opacity = state.opacity == 0 ? 1.0 : 0.0;
         focusNode.requestFocus();
       }
@@ -53,7 +52,7 @@ class WidgetsVerifyController extends GetxController {
       /// 验证码没输完
     } else {
       /// 重置动画
-      await Future.delayed(const Duration(milliseconds: 500));
+      await futureMill(500);
       state.opacity = state.opacity == 0 ? 1.0 : 0.0;
     }
   }

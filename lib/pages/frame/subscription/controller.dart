@@ -10,6 +10,7 @@ import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/snackbar.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 class SubscriptionController extends GetxController {
   /// 遮罩控制器
@@ -30,15 +31,38 @@ class SubscriptionController extends GetxController {
 
   /// 订阅
   void handleSubscribe(item) async {
+    getDialog();
     Map<String, dynamic> data = {
       'userId': item['userId'],
-      'groupId': item['groupId'],
+      'groupId': item['freeGroupId'],
     };
     ResponseEntity subscribeGroup = await UserApi.subscribeGroup(data);
 
     if (subscribeGroup.code == 200) {
+      await futureMill(500);
+      await _getList();
+      Get.back();
     } else {
+      await futureMill(500);
+      Get.back();
       getSnackTop(subscribeGroup.msg);
+    }
+  }
+
+  /// 请求数据
+  Future<dynamic> _getList() async {
+    /// 开始请求
+    Map<String, String> data = {
+      'pageNo': '1',
+      'pageSize': '20',
+      'type': '1',
+    };
+    ResponseEntity getUserList = await UserApi.list(data);
+
+    if (getUserList.code == 200) {
+      state.userList = getUserList.data!['list'];
+    } else {
+      getSnackTop(getUserList.msg);
     }
   }
 
@@ -46,19 +70,7 @@ class SubscriptionController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    /// 开始请求
-    Map<String, String> data = {
-      'pageNo': '1',
-      'pageSize': '20',
-    };
-    ResponseEntity getUserList =
-        await UserApi.recommendUserListForRegister(data);
-
-    if (getUserList.code == 200) {
-      state.userList = getUserList.data!['list'];
-    } else {
-      getSnackTop(getUserList.msg);
-    }
+    await _getList();
   }
 
   @override

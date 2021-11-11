@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/utils/utils.dart';
+import 'package:pinker/values/values.dart';
 
 class AccountApi {
   /// 登陆API
@@ -41,6 +42,20 @@ class AccountApi {
     var response = await HttpUtil().get(
       '/api/account/verificateAccount',
       queryParameters: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 退出登陆
+  static Future<ResponseEntity> logout() async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+    var response = await HttpUtil().postForm(
+      '/api/account/logout',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
     );
     return ResponseEntity.fromJson(response);
   }

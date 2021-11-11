@@ -7,7 +7,9 @@ import 'package:pinker/entities/user_info.dart';
 import 'package:pinker/pages/fogot/index/library.dart';
 import 'package:pinker/pages/fogot/info/library.dart';
 import 'package:pinker/pages/fogot/library.dart';
-import 'package:pinker/widgets/dialog.dart';
+import 'package:pinker/pages/fogot/verify/library.dart';
+import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class ForgotIndexController extends GetxController {
@@ -25,16 +27,24 @@ class ForgotIndexController extends GetxController {
 
   /// 下一步
   void handleNext() async {
-    Map<String, dynamic> data = {'account': textController.text};
-    textController.text = '';
-
     getDialog();
+    Map<String, dynamic> data = {'account': textController.text};
 
     ResponseEntity _userInfo = await AccountApi.verificateAccount(data);
 
     if (_userInfo.code == 200) {
-      forgotController.state.pageCount.add(const ForgotInfoView());
-      forgotController.state.pageIndex++;
+      if (textController.text.isNum) {
+        forgotController.state.pageIndex = 3;
+        forgotController.state.verifyType = 1;
+        forgotController.state.pageCount.add(const ForgotVerifyView());
+      } else if (textController.text.isEmail) {
+        forgotController.state.verifyType = 2;
+        forgotController.state.pageIndex = 3;
+        forgotController.state.pageCount.add(const ForgotVerifyView());
+      } else {
+        forgotController.state.pageIndex++;
+        forgotController.state.pageCount.add(const ForgotInfoView());
+      }
 
       UserInfo userInfo = UserInfo.fromJson(_userInfo.data!);
       forgotController.userInfo.userId = userInfo.userId;
@@ -44,9 +54,8 @@ class ForgotIndexController extends GetxController {
       forgotController.userInfo.phone = userInfo.phone;
       forgotController.userInfo.email = userInfo.email;
 
+      await futureMill(500);
       Get.back();
-
-      await Future.delayed(const Duration(milliseconds: 300));
 
       forgotController.pageController.animateToPage(
         forgotController.state.pageCount.length - 1,
@@ -54,7 +63,10 @@ class ForgotIndexController extends GetxController {
         curve: Curves.ease,
       );
     } else {
+      await futureMill(500);
+
       Get.back();
+      textController.clear();
       getSnackTop(_userInfo.msg);
     }
   }
@@ -63,11 +75,8 @@ class ForgotIndexController extends GetxController {
   void onInit() {
     super.onInit();
     textController.addListener(() {
-      if (textController.text.length < 7) {
-        state.isDissable = true;
-      } else {
-        state.isDissable = false;
-      }
+      String text = textController.text;
+      state.isDissable = duCheckStringLength(text, 7) ? false : true;
     });
   }
 }

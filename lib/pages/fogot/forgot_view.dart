@@ -40,7 +40,6 @@ class ForgotView extends StatelessWidget {
                   child: PageView(
                     controller: controller.pageController,
                     children: controller.state.pageCount,
-                    onPageChanged: controller.handlePageChanged,
                     physics: const NeverScrollableScrollPhysics(),
                   ),
                 ),

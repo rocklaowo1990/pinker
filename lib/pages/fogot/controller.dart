@@ -28,12 +28,7 @@ class ForgotController extends GetxController {
   });
 
   /// 初始化验证码请求数据
-  Map<String, dynamic> sendCodeData = {};
-
-  /// 页面改变时
-  void handlePageChanged(int index) {
-    state.pageIndex = index;
-  }
+  Map<String, dynamic> publicData = {};
 
   @override
   void onInit() async {

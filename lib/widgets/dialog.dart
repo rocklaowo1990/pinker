@@ -11,7 +11,7 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 中间弹出窗：默认是loading
-Future getDialog({
+Future<dynamic> getDialog({
   Widget? child,
   bool? autoBack,
   double? width,
@@ -19,30 +19,8 @@ Future getDialog({
   Color? barrierColor,
   Object? arguments,
 }) async {
-  /// loading
-  Widget loading = Center(
-    child: Container(
-      width: width ?? 40.w,
-      height: height ?? 40.w,
-      decoration: BoxDecoration(
-        color: AppColors.secondBacground,
-        borderRadius: BorderRadius.circular(8.w),
-      ),
-      child: Center(
-        child: SizedBox(
-          width: 9.w,
-          height: 9.w,
-          child: CircularProgressIndicator(
-            backgroundColor: AppColors.mainIcon,
-            color: AppColors.mainColor,
-            strokeWidth: 1.w,
-          ),
-        ),
-      ),
-    ),
-  );
   Get.dialog(
-    child ?? loading,
+    child ?? DialogChild.loading(),
     barrierDismissible: autoBack ?? false,
     barrierColor: barrierColor,
     arguments: arguments,
@@ -51,6 +29,34 @@ Future getDialog({
 
 /// 弹窗专用子组件
 class DialogChild {
+  /// loading
+  static Widget loading({
+    double? width,
+    double? height,
+  }) {
+    return Center(
+      child: Container(
+        width: width ?? 40.w,
+        height: height ?? 40.w,
+        decoration: BoxDecoration(
+          color: AppColors.secondBacground,
+          borderRadius: BorderRadius.circular(8.w),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 9.w,
+            height: 9.w,
+            child: CircularProgressIndicator(
+              backgroundColor: AppColors.mainIcon,
+              color: AppColors.mainColor,
+              strokeWidth: 1.w,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   /// 中间弹出消息
   static Widget alert({
     double? width,

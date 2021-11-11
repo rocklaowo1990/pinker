@@ -7,6 +7,7 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/verify/library.dart';
 import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class VerifyController extends GetxController {
@@ -62,9 +63,7 @@ class VerifyController extends GetxController {
       return true;
     } else {
       /// 返回错误信息
-      await Future.delayed(const Duration(milliseconds: 200), () {
-        getSnackTop(codeNumber.msg);
-      });
+      getSnackTop(codeNumber.msg);
       return false;
     }
   }
@@ -81,8 +80,10 @@ class VerifyController extends GetxController {
 
     if (checkCode.code == 200) {
       arguments['code'] = code;
+      await futureMill(500);
       return true;
     } else {
+      await futureMill(500);
       Get.back();
       getSnackTop(checkCode.msg);
       return false;

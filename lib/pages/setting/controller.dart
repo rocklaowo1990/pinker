@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/api/account.dart';
+import 'package:pinker/entities/response.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -27,9 +29,17 @@ class SettingController extends GetxController {
 
   void _signOut() async {
     Get.back();
-    Future.delayed(const Duration(milliseconds: 200), () {
+    getDialog();
+    ResponseEntity _logOut = await AccountApi.logout();
+    if (_logOut.code == 200) {
+      await futureMill(500);
+      Get.back();
       goLoginPage();
-    });
+    } else {
+      await futureMill(500);
+      Get.back();
+      getSnackTop(_logOut.msg);
+    }
   }
 
   /// 退出登陆

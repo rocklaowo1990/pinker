@@ -87,8 +87,8 @@ Widget getUserList({
 }) {
   /// 头像
   Widget avatarBox = Container(
-    width: 32.w,
-    height: 32.w,
+    width: 30.w,
+    height: 30.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,

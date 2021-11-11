@@ -17,8 +17,8 @@ class RegisterController extends GetxController {
   final FrameController frameController = Get.find();
 
   /// 输入框的控制器和焦点
-  final TextEditingController userRegisterController = TextEditingController();
-  final FocusNode userRegisterFocusNode = FocusNode();
+  final TextEditingController textController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
 
   /// 状态管理
   final state = RegisterState();
@@ -27,7 +27,7 @@ class RegisterController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userRegisterController.addListener(_textListener);
+    textController.addListener(_textListener);
 
     /// 节流
     debounce(
@@ -53,86 +53,15 @@ class RegisterController extends GetxController {
 
   /// 下一步按钮，点击事件
   void handleNext() async {
-    _unfocus(); // 失去焦点
-
     String number = '';
 
     if (state.isPhone) {
-      number = getLastTwo(userRegisterController.text);
+      number = getLastTwo(textController.text);
     } else {
-      number = getEmailHide(userRegisterController.text);
-    }
-    _dialogChile(number);
-  }
-
-  /// 区号选择
-  void handleGoCodeList() async {
-    if (userRegisterFocusNode.hasFocus) {
-      _unfocus();
-      await Future.delayed(const Duration(milliseconds: 200));
+      number = getEmailHide(textController.text);
     }
 
-    Get.toNamed(AppRoutes.codeList);
-  }
-
-  /// 同意服务条款和隐私政策
-  void handleAgreen() {
-    state.isChooise = !state.isChooise;
-  }
-
-  /// 去服务条款页面
-  void handleGoService() {}
-
-  /// 去隐私政策页面
-  void handleGoPrivacy() {}
-
-  /// 时间确认按钮
-  void _back() {
-    Get.back();
-  }
-
-  /// 时间选择时的事件
-  void _timeChanged(DateTime dateTime) {
-    state.timeChange = DateTime(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
-    );
-  }
-
-  /// 点击生日输入框，调出日期选择器
-  void birthChoice() {
-    userRegisterFocusNode.unfocus();
-    getDateBox(
-      onPressed: _back,
-      onDateTimeChanged: _timeChanged,
-      initialDateTime: state.showTime,
-    );
-  }
-
-  /// 切换注册方式
-  void handleChangeRegister() async {
-    _unfocus();
-    userRegisterController.text = '';
-    state.isPhone = !state.isPhone;
-    Future.delayed(const Duration(milliseconds: 100), () {
-      userRegisterFocusNode.requestFocus();
-    });
-  }
-
-  /// 页面销毁
-  @override
-  void dispose() {
-    frameController.dispose();
-    userRegisterController.dispose();
-    userRegisterFocusNode.dispose();
-
-    super.dispose();
-  }
-
-  /// 发送验证码的确认弹窗
-  Future _dialogChile(number) {
-    return getDialog(
+    getDialog(
       child: DialogChild.alert(
         onPressedLeft: _edit,
         onPressedRight: _goCodePage,
@@ -169,28 +98,82 @@ class RegisterController extends GetxController {
     );
   }
 
+  /// 区号选择
+  void handleGoCodeList() async {
+    Get.toNamed(AppRoutes.codeList);
+  }
+
+  /// 同意服务条款和隐私政策
+  void handleAgreen() {
+    state.isChooise = !state.isChooise;
+  }
+
+  /// 去服务条款页面
+  void handleGoService() {}
+
+  /// 去隐私政策页面
+  void handleGoPrivacy() {}
+
+  /// 时间确认按钮
+  void _back() {
+    Get.back();
+  }
+
+  /// 时间选择时的事件
+  void _timeChanged(DateTime dateTime) {
+    state.timeChange = DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+    );
+  }
+
+  /// 点击生日输入框，调出日期选择器
+  void birthChoice() {
+    _unfocus();
+    getDateBox(
+      onPressed: _back,
+      onDateTimeChanged: _timeChanged,
+      initialDateTime: state.showTime,
+    );
+  }
+
+  /// 切换注册方式
+  void handleChangeRegister() async {
+    _unfocus();
+    textController.text = '';
+    state.isPhone = !state.isPhone;
+    await futureMill(100);
+
+    focusNode.requestFocus();
+  }
+
+  /// 页面销毁
+  @override
+  void dispose() {
+    frameController.dispose();
+    textController.dispose();
+    focusNode.dispose();
+
+    super.dispose();
+  }
+
   void _edit() {
     Get.back();
-    userRegisterFocusNode.requestFocus();
+    focusNode.requestFocus();
   }
 
   void _goCodePage() async {
-    Get.back(); //这里是隐藏 dialog 窗口
-    await Future.delayed(const Duration(milliseconds: 200));
+    Get.back();
+    getDialog();
 
     /// 准备检测账号是否重复
     Map<String, String> data = {
-      'account': userRegisterController.text,
+      'account': textController.text,
       'accountType': state.isPhone ? '1' : '2',
     };
 
-    // var data2 = json.encoder(data);
-
-    getDialog();
-
     ResponseEntity responseEntity = await AccountApi.checkAccount(data);
-
-    Get.back();
 
     if (responseEntity.code == 200) {
       if (responseEntity.data!['status'] == 0) {
@@ -206,7 +189,7 @@ class RegisterController extends GetxController {
         String birthday = bornYear + bornMonth + bornDay;
 
         Map<String, String> arguments = {
-          'account': userRegisterController.text,
+          'account': textController.text,
           'areaCode': state.code,
           'entryType': '1',
           'birthday': birthday,
@@ -214,10 +197,15 @@ class RegisterController extends GetxController {
         };
 
         frameController.state.pageIndex++;
+        await futureMill(500);
+
+        Get.back();
         Get.toNamed(AppRoutes.verify, id: 1, arguments: arguments);
       } else {
+        await futureMill(500);
+
+        Get.back();
         getSnackTop(Lang.registerAllready.tr);
-        userRegisterFocusNode.requestFocus();
       }
     } else {
       getSnackTop(responseEntity.msg);
@@ -226,17 +214,17 @@ class RegisterController extends GetxController {
 
   /// 输入框文本监听
   void _textListener() {
-    if (userRegisterController.text.isEmpty) {
+    if (textController.text.isEmpty) {
       state.isDissable = true;
     } else if (state.isPhone &&
         state.code == '86' &&
-        !isChinaPhoneLegal(userRegisterController.text)) {
+        !isChinaPhoneLegal(textController.text)) {
       state.isDissable = true;
-    } else if (!state.isPhone && !userRegisterController.text.isEmail) {
+    } else if (!state.isPhone && !textController.text.isEmail) {
       state.isDissable = true;
-    } else if (userRegisterController.text.length < 7) {
+    } else if (textController.text.length < 7) {
       state.isDissable = true;
-    } else if (state.isPhone && !userRegisterController.text.isNum) {
+    } else if (state.isPhone && !textController.text.isNum) {
       state.isDissable = true;
     } else {
       state.isDissable = false;
@@ -245,6 +233,6 @@ class RegisterController extends GetxController {
 
   /// 关闭键盘
   void _unfocus() {
-    userRegisterFocusNode.unfocus();
+    focusNode.unfocus();
   }
 }

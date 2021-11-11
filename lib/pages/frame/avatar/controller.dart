@@ -97,12 +97,12 @@ class AvatarController extends GetxController {
 
       /// 修改结果
       if (updateUserInfo.code == 200) {
-        Future.delayed(const Duration(milliseconds: 200), () {
-          Get.back();
-          frameController.state.pageIndex--; // 下一页不需要返回
-          Get.offAllNamed(AppRoutes.subscription, id: 1);
-        });
+        await futureMill(500);
+        Get.back();
+        frameController.state.pageIndex--; // 下一页不需要返回
+        Get.offAllNamed(AppRoutes.subscription, id: 1);
       } else {
+        await futureMill(500);
         getSnackTop(updateUserInfo.msg);
       }
 
