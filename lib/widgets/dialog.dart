@@ -142,6 +142,7 @@ class DialogChild {
           key: key,
           image: FileImage(File(image.path)),
           aspectRatio: 4.0 / 4.0,
+          maximumScale: 4.0, //最大缩放比例
         ),
       );
     }

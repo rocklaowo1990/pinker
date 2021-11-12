@@ -53,7 +53,7 @@ Widget getInput(
 
   /// 清除文本
   void clearText() {
-    controller.text = '';
+    controller.clear();
     textObs.value = controller.text;
     focusNode.requestFocus();
   }

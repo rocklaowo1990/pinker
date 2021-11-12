@@ -39,11 +39,12 @@ class SubscriptionController extends GetxController {
     ResponseEntity subscribeGroup = await UserApi.subscribeGroup(data);
 
     if (subscribeGroup.code == 200) {
-      await futureMill(500);
-      await _getList();
+      await futureMill(200);
       Get.back();
+      state.userList.remove(item);
+      getSnackTop('订阅成功');
     } else {
-      await futureMill(500);
+      await futureMill(200);
       Get.back();
       getSnackTop(subscribeGroup.msg);
     }

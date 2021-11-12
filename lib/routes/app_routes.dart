@@ -18,6 +18,13 @@ class AppRoutes {
   static const avatar = '/avatar';
   static const subscription = '/subscription';
 
+  /// 找回密码
+  static const forgotIndex = '/forgotIndex';
+  static const forgotInfo = '/forgotInfo';
+  static const forgotType = '/forgotType';
+  static const forgotVerify = '/forgotVerify';
+  static const forgotPassword = '/forgotPassword';
+
   /// 首页
   static const home = '/home';
   static const community = '/community';

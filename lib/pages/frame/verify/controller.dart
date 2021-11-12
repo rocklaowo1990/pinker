@@ -141,7 +141,7 @@ class VerifyController extends GetxController {
       } else {
         getSnackTop(checkCode.msg); //顶部弹出错误信息
         state.codeList = []; // 清空框框里的数字
-        inputController.text = ''; // 清空验证码输入框
+        inputController.clear(); // 清空验证码输入框
 
         /// 重置动画并获取焦点
         await Future.delayed(const Duration(milliseconds: 200));

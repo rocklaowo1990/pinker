@@ -7,6 +7,7 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/fogot/password/view.dart';
 import 'package:pinker/pages/fogot/verify/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -18,11 +19,7 @@ class ForgotVerifyController extends GetxController {
   final ForgotController forgotController = Get.find();
 
   void handleNext() {
-    forgotController.pageController.animateToPage(
-      forgotController.state.pageCount.length - 1,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.ease,
-    );
+    Get.offNamed(AppRoutes.forgotPassword, id: 3);
   }
 
   /// 请求验证码

@@ -5,9 +5,10 @@ import 'package:pinker/entities/response.dart';
 import 'package:pinker/entities/user_info.dart';
 
 import 'package:pinker/pages/fogot/index/library.dart';
-import 'package:pinker/pages/fogot/info/library.dart';
+
 import 'package:pinker/pages/fogot/library.dart';
-import 'package:pinker/pages/fogot/verify/library.dart';
+
+import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/widgets/widgets.dart';
@@ -33,19 +34,6 @@ class ForgotIndexController extends GetxController {
     ResponseEntity _userInfo = await AccountApi.verificateAccount(data);
 
     if (_userInfo.code == 200) {
-      if (textController.text.isNum) {
-        forgotController.state.pageIndex = 3;
-        forgotController.state.verifyType = 1;
-        forgotController.state.pageCount.add(const ForgotVerifyView());
-      } else if (textController.text.isEmail) {
-        forgotController.state.verifyType = 2;
-        forgotController.state.pageIndex = 3;
-        forgotController.state.pageCount.add(const ForgotVerifyView());
-      } else {
-        forgotController.state.pageIndex++;
-        forgotController.state.pageCount.add(const ForgotInfoView());
-      }
-
       UserInfo userInfo = UserInfo.fromJson(_userInfo.data!);
       forgotController.userInfo.userId = userInfo.userId;
       forgotController.userInfo.userName = userInfo.userName;
@@ -53,15 +41,21 @@ class ForgotIndexController extends GetxController {
       forgotController.userInfo.avatar = userInfo.avatar;
       forgotController.userInfo.phone = userInfo.phone;
       forgotController.userInfo.email = userInfo.email;
-
       await futureMill(500);
       Get.back();
 
-      forgotController.pageController.animateToPage(
-        forgotController.state.pageCount.length - 1,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
+      if (textController.text.isNum) {
+        forgotController.state.pageIndex = 3;
+        forgotController.state.verifyType = 1;
+        Get.offNamed(AppRoutes.forgotVerify, id: 3);
+      } else if (textController.text.isEmail) {
+        forgotController.state.pageIndex = 3;
+        forgotController.state.verifyType = 2;
+        Get.offNamed(AppRoutes.forgotVerify, id: 3);
+      } else {
+        forgotController.state.pageIndex++;
+        Get.offNamed(AppRoutes.forgotInfo, id: 3);
+      }
     } else {
       await futureMill(500);
 

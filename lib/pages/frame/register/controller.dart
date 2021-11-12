@@ -32,20 +32,9 @@ class RegisterController extends GetxController {
     /// 节流
     debounce(
       state.timeChangeRx,
-      (date) {
+      (DateTime date) {
         state.showTime = state.timeChange;
-        if (state.showTime.year > DateTime.now().year - 18) {
-          state.isDissable = true;
-        } else if (state.showTime.year == DateTime.now().year - 18 &&
-            state.showTime.month > DateTime.now().month) {
-          state.isDissable = true;
-        } else if (state.showTime.year == DateTime.now().year - 18 &&
-            state.showTime.month == DateTime.now().month &&
-            state.showTime.day > DateTime.now().day) {
-          state.isDissable = true;
-        } else {
-          state.isDissable = false;
-        }
+        _textListener();
       },
       time: const Duration(milliseconds: 200),
     );
@@ -141,7 +130,7 @@ class RegisterController extends GetxController {
   /// 切换注册方式
   void handleChangeRegister() async {
     _unfocus();
-    textController.text = '';
+    textController.clear();
     state.isPhone = !state.isPhone;
     await futureMill(100);
 
@@ -214,20 +203,31 @@ class RegisterController extends GetxController {
 
   /// 输入框文本监听
   void _textListener() {
+    /// 输入框为空时
     if (textController.text.isEmpty) {
-      state.isDissable = true;
+      state.isAccountPass = true;
+
+      /// 手机注册 且 区号是86时，判断是否为中国手机号码
     } else if (state.isPhone &&
         state.code == '86' &&
-        !isChinaPhoneLegal(textController.text)) {
-      state.isDissable = true;
+        !isChinaPhone(textController.text)) {
+      state.isAccountPass = true;
+
+      /// 邮箱注册 且 输入的不是邮箱格式
     } else if (!state.isPhone && !textController.text.isEmail) {
-      state.isDissable = true;
+      state.isAccountPass = true;
+
+      /// 输入框长度小于 7
     } else if (textController.text.length < 7) {
-      state.isDissable = true;
+      state.isAccountPass = true;
+
+      /// 手机注册 且 输入的不是纯数字
     } else if (state.isPhone && !textController.text.isNum) {
-      state.isDissable = true;
+      state.isAccountPass = true;
+
+      /// 其他
     } else {
-      state.isDissable = false;
+      state.isAccountPass = false;
     }
   }
 

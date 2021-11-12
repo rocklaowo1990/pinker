@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';
@@ -37,10 +38,10 @@ class ForgotView extends StatelessWidget {
               Expanded(
                 child: Container(
                   color: AppColors.mainBacground,
-                  child: PageView(
-                    controller: controller.pageController,
-                    children: controller.state.pageCount,
-                    physics: const NeverScrollableScrollPhysics(),
+                  child: Navigator(
+                    key: Get.nestedKey(3),
+                    initialRoute: AppRoutes.forgotIndex,
+                    onGenerateRoute: controller.onGenerateRoute,
                   ),
                 ),
               ),

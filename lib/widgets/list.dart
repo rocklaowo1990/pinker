@@ -94,7 +94,7 @@ Widget getUserList({
       color: AppColors.thirdIcon,
     ),
     child: Center(
-      child: avatar == null || avatar == ''
+      child: avatar == null || avatar.isEmpty
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
               width: 32.w,

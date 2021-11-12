@@ -41,9 +41,9 @@ class WidgetsVerifyController extends GetxController {
         Get.back();
         result();
       } else {
-        inputController.text = '';
+        inputController.clear();
         state.codeList = []; // 清空框框里的数字
-        inputController.text = ''; // 清空验证码输入框
+        inputController.clear(); // 清空验证码输入框
 
         state.opacity = state.opacity == 0 ? 1.0 : 0.0;
         focusNode.requestFocus();

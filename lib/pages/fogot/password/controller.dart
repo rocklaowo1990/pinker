@@ -52,7 +52,7 @@ class ForgotPasswordController extends GetxController {
     } else {
       await futureMill(500);
       Get.back();
-      textController.text = '';
+      textController.clear();
       getSnackTop(_resetPassword.msg);
     }
   }

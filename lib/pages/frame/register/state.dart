@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 class RegisterState {
   /// 按钮是否禁用
-  final RxBool _isDissable = true.obs;
-  set isDissable(value) => _isDissable.value = value;
-  bool get isDissable => _isDissable.value;
+  final RxBool _isAccountPass = true.obs;
+  set isAccountPass(value) => _isAccountPass.value = value;
+  bool get isAccountPass => _isAccountPass.value;
 
   /// 是否手机注册，否则就是邮箱
   final RxBool _isPhone = true.obs;

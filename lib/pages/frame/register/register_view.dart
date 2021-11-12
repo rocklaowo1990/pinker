@@ -133,12 +133,14 @@ class RegisterView extends GetView<RegisterController> {
         () => getButton(
           padding: EdgeInsets.only(left: 12.w, right: 12.w),
           child: getSpan(Lang.next.tr),
-          onPressed: !controller.state.isDissable && controller.state.isChooise
-              ? controller.handleNext
-              : null,
-          background: !controller.state.isDissable && controller.state.isChooise
-              ? AppColors.mainColor
-              : AppColors.buttonDisable,
+          onPressed:
+              !controller.state.isAccountPass && controller.state.isChooise
+                  ? controller.handleNext
+                  : null,
+          background:
+              !controller.state.isAccountPass && controller.state.isChooise
+                  ? AppColors.mainColor
+                  : AppColors.buttonDisable,
         ),
       ),
     );
