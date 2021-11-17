@@ -23,7 +23,12 @@ class MyController extends GetxController {
   }
 
   void handleSetting() {
-    Get.toNamed(AppRoutes.set);
+    if (_userInfo != null) {
+      Get.toNamed(AppRoutes.set, arguments: _userInfo);
+    } else {
+      var userInfo = StorageUtil().getJSON(storageUserInfoKey);
+      Get.toNamed(AppRoutes.set, arguments: userInfo);
+    }
   }
 
   void _getUserInfo(Map<String, dynamic> info) {
@@ -39,6 +44,8 @@ class MyController extends GetxController {
 
   @override
   void onInit() async {
+    super.onInit();
+
     /// 本地没有用户数据，请求用户的数据，然后保存至本地
     if (_userInfo == null) {
       ResponseEntity _info = await UserApi.info();
@@ -53,8 +60,6 @@ class MyController extends GetxController {
     } else {
       _getUserInfo(_userInfo);
     }
-
-    super.onInit();
   }
 
   @override

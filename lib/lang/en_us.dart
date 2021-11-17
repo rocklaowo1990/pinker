@@ -18,6 +18,7 @@ const Map<String, String> en = {
   Lang.inputPassword: 'Password',
   Lang.inputPhone: 'Phone',
   Lang.inputEmail: 'Email',
+  Lang.inputSearch: 'Search',
 
   /// 登陆页面
   Lang.loginButton: 'Sign In',

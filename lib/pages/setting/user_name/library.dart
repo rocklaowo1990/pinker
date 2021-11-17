@@ -1,6 +1,6 @@
-library set_language;
+library set_user_name;
 
-export 'language_view.dart';
+export 'view.dart';
 export 'binding.dart';
 export 'controller.dart';
 export 'state.dart';

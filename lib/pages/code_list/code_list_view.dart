@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -19,27 +20,49 @@ class CodeListView extends GetView<CodeListController> {
       elevation: 0.5.h,
     );
 
+    /// 搜索框
+    Widget searchBox = getInput(
+      type: Lang.inputSearch.tr,
+      borderRadius: BorderRadius.zero,
+      controller: controller.textController,
+      focusNode: controller.focusNode,
+      prefixIcon: SizedBox(
+        width: 10.h,
+        height: 10.h,
+        child: Center(
+          child: SvgPicture.asset(
+            'assets/svg/icon_search_2.svg',
+          ),
+        ),
+      ),
+    );
+
     /// body
     Widget body = Scrollbar(
-      child: Obx(
-        () => ListView(
-          children: controller.state.codeList
-              .map((item) => getButtonList(
-                  onPressed: () {
-                    controller.handleChooise(item);
-                  },
-                  title: Get.locale == const Locale('zh', 'CN')
-                      ? '+${item['area_code']}      ${item['op_name']}'
-                      : '+${item['area_code']}      ${item['country']}',
-                  iconRight: Icon(
-                    Icons.check_circle,
-                    size: 9.w,
-                    color: controller.registerController.state.code ==
-                            '${item['area_code']}'
-                        ? AppColors.mainColor
-                        : AppColors.thirdIcon,
-                  )))
-              .toList(),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            searchBox,
+            Obx(() => Column(
+                  children: controller.state.showList
+                      .map((item) => getButtonList(
+                          onPressed: () {
+                            controller.handleChooise(item);
+                          },
+                          title: Get.locale == const Locale('zh', 'CN')
+                              ? '+${item['area_code']}      ${item['op_name']}'
+                              : '+${item['area_code']}      ${item['country']}',
+                          iconRight: Icon(
+                            Icons.check_circle,
+                            size: 9.w,
+                            color: controller.registerController.state.code ==
+                                    '${item['area_code']}'
+                                ? AppColors.mainColor
+                                : AppColors.thirdIcon,
+                          )))
+                      .toList(),
+                )),
+          ],
         ),
       ),
     );

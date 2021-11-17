@@ -70,8 +70,9 @@ AppBar getSearchBar({
 }) {
   return AppBar(
     title: getInput(
-      height: 24.h,
-      type: Lang.inputEmail.tr,
+      height: 40,
+      contentPadding: EdgeInsets.only(left: 8.w),
+      type: Lang.inputSearch.tr,
       controller: controller,
       focusNode: focusNode,
       prefixIcon: SizedBox(

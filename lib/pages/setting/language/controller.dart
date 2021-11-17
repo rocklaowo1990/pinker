@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/setting/library.dart';
 
 class LanguageController extends GetxController {
-  final settingController = Get.put(SettingController());
+  final SettingController settingController = Get.find();
   final state = LanguageState();
 
   /// 返回

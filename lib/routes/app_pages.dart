@@ -5,6 +5,7 @@ import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/pages/setting/language/library.dart';
+import 'package:pinker/pages/setting/user_name/library.dart';
 import 'package:pinker/pages/unknown/library.dart';
 
 part 'app_routes.dart';
@@ -50,6 +51,11 @@ class AppPages {
           name: AppRoutes.language,
           page: () => const LanguageView(),
           binding: LanguageBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.setUserName,
+          page: () => const SetUserNameView(),
+          binding: SetUserNameBinding(),
         ),
       ],
     ),

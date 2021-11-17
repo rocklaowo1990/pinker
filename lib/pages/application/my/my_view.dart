@@ -57,29 +57,28 @@ class MyView extends GetView<MyController> {
             padding: EdgeInsets.only(left: 10.w),
             child: Obx(
               () => Opacity(
-                opacity: controller.state.opacity,
-                child: getButton(
-                  onPressed: () {},
-                  width: 18.w,
-                  height: 18.w,
-                  child: Obx(
-                    () => Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.secondBacground,
-                        image: controller.state.avatar.isNotEmpty
-                            ? DecorationImage(
-                                image: NetworkImage(controller.state.avatar))
+                  opacity: controller.state.opacity,
+                  child: getButton(
+                    onPressed: () {},
+                    width: 18.w,
+                    height: 18.w,
+                    child: Obx(
+                      () => Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.secondBacground,
+                          image: controller.state.avatar.isNotEmpty
+                              ? DecorationImage(
+                                  image: NetworkImage(controller.state.avatar))
+                              : null,
+                        ),
+                        child: controller.state.avatar.isEmpty
+                            ? SvgPicture.asset('assets/svg/avatar_default.svg',
+                                width: 30.w)
                             : null,
                       ),
-                      child: controller.state.avatar.isEmpty
-                          ? SvgPicture.asset('assets/svg/avatar_default.svg',
-                              width: 30.w)
-                          : null,
                     ),
-                  ),
-                ),
-              ),
+                  )),
             ),
           ),
           Row(children: actions),
@@ -152,7 +151,7 @@ class MyView extends GetView<MyController> {
       required VoidCallback onPressed,
     }) {
       return Padding(
-        padding: EdgeInsets.all(10.w),
+        padding: EdgeInsets.all(8.w),
         child: Column(
           children: [
             Row(
@@ -162,7 +161,7 @@ class MyView extends GetView<MyController> {
                 getSpan(title),
               ],
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: 4.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -171,7 +170,7 @@ class MyView extends GetView<MyController> {
                   child: getSpan(buttonText),
                   onPressed: onPressed,
                   width: 55.w,
-                  height: 20.h,
+                  height: 18.h,
                 ),
               ],
             ),
@@ -230,8 +229,8 @@ class MyView extends GetView<MyController> {
                 getSpan(title),
               ],
             ),
-            SizedBox(height: 10.h),
-            getSpan(number, fontSize: 32),
+            SizedBox(height: 4.h),
+            getSpan(number, fontSize: 32, fontWeight: FontWeight.w300),
           ],
         ),
         background: AppColors.secondBacground,
@@ -286,7 +285,7 @@ class MyView extends GetView<MyController> {
     /// 底部功能模块
     Widget buttons = Container(
       width: double.infinity,
-      padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
+      padding: EdgeInsets.only(top: 12.w, bottom: 12.w),
       decoration: BoxDecoration(
         color: AppColors.secondBacground,
         borderRadius: BorderRadius.all(Radius.circular(8.w)),

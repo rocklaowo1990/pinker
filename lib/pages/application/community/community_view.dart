@@ -27,14 +27,14 @@ class CommunityView extends StatelessWidget {
           child: Container(
             child: getSpan(
               title,
-              fontSize: 9.5.sp,
+              fontSize: 17,
               color: controller.state.pageIndex == index
                   ? AppColors.mainColor
                   : AppColors.secondIcon,
               fontWeight:
                   controller.state.pageIndex == index ? FontWeight.w600 : null,
             ),
-            padding: EdgeInsets.only(bottom: 10.h, top: 10.h),
+            padding: const EdgeInsets.only(bottom: 14, top: 14),
             decoration: BoxDecoration(
               border: controller.state.pageIndex == index
                   ? Border(

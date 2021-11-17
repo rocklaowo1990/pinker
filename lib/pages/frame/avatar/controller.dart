@@ -164,11 +164,7 @@ class AvatarController extends GetxController {
 
     Future.delayed(const Duration(milliseconds: 200), () {
       /// 提示注册成功
-      getSnackTop(
-        '注册成功',
-        iconData: Icons.check_circle,
-        iconColor: Colors.green,
-      );
+      getSnackTop('注册成功', isError: false);
     });
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
@@ -37,8 +36,7 @@ class ForgotVerifyController extends GetxController {
     if (codeNumber.code == 200) {
       getSnackTop(
         Lang.codeSussful.tr,
-        iconData: Icons.check_circle,
-        iconColor: Colors.green,
+        isError: false,
       );
 
       forgotController.state.sendTime = 60;

@@ -23,7 +23,7 @@ class IndexView extends GetView<IndexController> {
 
     /// 去注册页面的按钮
     Widget signUpButton = getButton(
-      height: 24.h,
+      padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
       onPressed: controller.handleGoSignUpPage,
       child: getSpan(Lang.indexGoRegister.tr),
       width: double.infinity,

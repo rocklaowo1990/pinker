@@ -24,10 +24,11 @@ Future<dynamic> getDialog({
     barrierDismissible: autoBack ?? false,
     barrierColor: barrierColor,
     arguments: arguments,
+    useSafeArea: false,
   );
 }
 
-/// 弹窗专用子组件
+/// 弹窗专用子组件 ////////////////////////////////////////////////////////
 class DialogChild {
   /// loading
   static Widget loading({
@@ -57,81 +58,116 @@ class DialogChild {
     );
   }
 
-  /// 中间弹出消息
+  /// 中间弹出消息 ////////////////////////////////////////////////////////
   static Widget alert({
-    double? width,
-    double? height,
-    Widget? child,
+    String? title,
+    String? content,
     VoidCallback? onPressedLeft,
     VoidCallback? onPressedRight,
     String? leftText,
     String? rightText,
   }) {
-    return Center(
-      child: Container(
-        width: width ?? 120.w,
-        height: height ?? 90.w,
-        decoration: BoxDecoration(
-          color: AppColors.secondBacground,
-          borderRadius: BorderRadius.circular(8.w),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(10.w),
-                child: child,
-              ),
-              flex: 1,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(width: 0.5.h, color: AppColors.line),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: getButton(
-                        child: Text(leftText ?? Lang.edit.tr),
-                        width: double.infinity,
-                        height: 25.h,
-                        background: Colors.transparent,
-                        radius: BorderRadius.only(
-                          bottomLeft: Radius.circular(8.w),
-                        ),
-                        onPressed: onPressedLeft),
+    /// 底部的按钮
+    Widget buttonBox = Row(
+      children: [
+        Expanded(
+          child: getButton(
+            height: 22.w,
+            child: Text(leftText ?? Lang.edit.tr),
+            width: double.infinity,
+            background: Colors.transparent,
+            radius: onPressedRight != null
+                ? BorderRadius.only(
+                    bottomLeft: Radius.circular(8.w),
+                  )
+                : BorderRadius.only(
+                    bottomLeft: Radius.circular(8.w),
+                    bottomRight: Radius.circular(8.w),
                   ),
-                  if (onPressedRight != null)
-                    Container(
-                      width: 0.5.w,
-                      height: 25.h,
-                      color: AppColors.line,
-                    ),
-                  if (onPressedRight != null)
-                    Expanded(
-                      child: getButton(
-                        child: Text(rightText ?? Lang.sure.tr),
-                        height: 25.h,
-                        width: double.infinity,
-                        background: Colors.transparent,
-                        radius: BorderRadius.only(
-                          bottomRight: Radius.circular(8.w),
-                        ),
-                        onPressed: onPressedRight,
-                      ),
-                    ),
-                ],
+            onPressed: onPressedLeft,
+          ),
+          flex: 1,
+        ),
+        if (onPressedRight != null)
+          Container(
+            width: 0.5.w,
+            height: 22.w,
+            color: AppColors.line,
+          ),
+        if (onPressedRight != null)
+          Expanded(
+            child: getButton(
+              height: 22.w,
+              child: Text(rightText ?? Lang.sure.tr),
+              width: double.infinity,
+              background: Colors.transparent,
+              radius: BorderRadius.only(
+                bottomRight: Radius.circular(8.w),
+              ),
+              onPressed: onPressedRight,
+            ),
+            flex: 1,
+          ),
+      ],
+    );
+
+    /// 内容区
+    Widget contentBox = Column(
+      children: [
+        getSpan(title, fontSize: 9.sp),
+        SizedBox(height: 8.h),
+        getSpan(
+          content,
+          color: AppColors.secondText,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+
+    /// 整体组装
+    Widget body = Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.w),
+        ),
+        color: AppColors.secondBacground,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              left: 10.w,
+              right: 10.w,
+              top: 15.w,
+              bottom: 15.w,
+            ),
+            child: contentBox,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(width: 0.5.h, color: AppColors.line),
               ),
             ),
-          ],
-        ),
+            child: buttonBox,
+          ),
+        ],
       ),
     );
+
+    return Padding(
+        padding: EdgeInsets.all(32.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(),
+            body,
+            const SizedBox(),
+          ],
+        ));
   }
 
-  /// 照片裁切
+  /// 照片裁切 ////////////////////////////////////////////////////////
   static Widget imageCrop(XFile image, GlobalKey<CropState> key,
       {VoidCallback? onPressed}) {
     Widget _buildCropImage() {

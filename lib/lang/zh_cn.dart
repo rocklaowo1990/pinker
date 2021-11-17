@@ -18,6 +18,7 @@ const Map<String, String> zh = {
   Lang.inputPassword: '密码',
   Lang.inputPhone: '手机',
   Lang.inputEmail: '邮箱',
+  Lang.inputSearch: '搜索',
 
   /// 登陆页面
   Lang.loginButton: '登陆',

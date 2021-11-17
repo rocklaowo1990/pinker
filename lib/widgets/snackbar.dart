@@ -5,21 +5,18 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 顶部弹窗封装
-Future getSnackTop(
-  String? msg, {
-  IconData? iconData,
-  Color? iconColor,
-}) async {
+Future getSnackTop(String? msg, {bool? isError}) async {
+  isError ??= true;
   Get.snackbar(
     msg ?? '',
     '',
     colorText: AppColors.mainText,
-    titleText: getSpan(msg ?? ''),
+    titleText: getSpan(msg),
     messageText: const SizedBox(height: 0),
     icon: Icon(
-      iconData ?? Icons.error,
+      isError ? Icons.error : Icons.check_circle,
       size: 12.w,
-      color: iconColor ?? Colors.red,
+      color: isError ? Colors.red : Colors.green,
     ),
     padding: EdgeInsets.only(
       left: 10.w,

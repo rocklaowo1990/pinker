@@ -8,23 +8,20 @@ import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /// 控制器
-    final HomeController controller = Get.put(HomeController());
-
     /// 顶部左侧
     Widget left = Container(
       child: getSpan(
         '订阅',
-        fontSize: 9.5.sp,
+        fontSize: 17,
         color: AppColors.mainColor,
         fontWeight: FontWeight.w600,
       ),
-      padding: EdgeInsets.only(bottom: 10.h, top: 10.h),
+      padding: const EdgeInsets.only(top: 14, bottom: 14),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(width: 1.6.w, color: AppColors.mainColor),

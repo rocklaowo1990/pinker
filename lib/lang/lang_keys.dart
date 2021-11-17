@@ -18,6 +18,7 @@ abstract class Lang {
   static const inputPhone = 'inputPhone';
   static const inputEmail = 'inputEmail';
   static const inputCount = 'inputCount';
+  static const inputSearch = 'inputSearch';
 
   /// 登陆页面
   static const loginTitle = "loginTitle";

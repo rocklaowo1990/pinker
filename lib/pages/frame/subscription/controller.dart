@@ -42,7 +42,10 @@ class SubscriptionController extends GetxController {
       await futureMill(200);
       Get.back();
       state.userList.remove(item);
-      getSnackTop('订阅成功');
+      getSnackTop(
+        '订阅成功',
+        isError: false,
+      );
     } else {
       await futureMill(200);
       Get.back();

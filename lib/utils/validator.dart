@@ -25,6 +25,11 @@ bool isUrl(String value) {
   return RegExp(r"^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+").hasMatch(value);
 }
 
+/// 字符串检索
+bool isInclude(String value, String match) {
+  return RegExp(r"(" + match + ")").hasMatch(value);
+}
+
 /// 验证身份证
 bool isIdCard(String value) {
   return RegExp(r"\d{17}[\d|x]|\d{15}").hasMatch(value);
@@ -36,12 +41,17 @@ bool isChinese(String value) {
 }
 
 /// 验证码密码：8-16位，至少包含一个字母一个数字，其他不限制
-/// r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$"
+/// r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$"
 bool isPassword(String value) {
   return RegExp(r"^(?=.*[a-z])(?=.*\d)[^]{8,16}$").hasMatch(value);
 }
 
-/// 取字符串后两位
+/// 验证用户名 6-16位的字母和数字组合
+bool isUserName(String value) {
+  return RegExp(r"^[a-zA-Z][a-zA-Z0-9]{5,15}$").hasMatch(value);
+}
+
+/// 取字符串后两位:隐藏手机号码
 String getLastTwo(String value) {
   if (value.isEmpty) return '';
   return value.substring(value.length - 2);

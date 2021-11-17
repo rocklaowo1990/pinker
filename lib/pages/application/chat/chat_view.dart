@@ -7,13 +7,11 @@ import 'package:pinker/pages/application/chat/library.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class ChatView extends StatelessWidget {
+class ChatView extends GetView<ChatController> {
   const ChatView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ChatController controller = Get.put(ChatController());
-
     /// AppBar
     AppBar appBar = getSearchBar(
       controller: controller.textController,

@@ -11,6 +11,7 @@ Widget getButtonList({
   Widget? secondTitle,
   Widget? iconRight,
   VoidCallback? onPressed,
+  double? height,
 }) {
   /// 左边初始化
   Widget left = Row(
@@ -69,11 +70,8 @@ Widget getButtonList({
     child: textButtonChild,
     radius: BorderRadius.zero,
     background: AppColors.secondBacground,
-    height: 28.h,
-    padding: EdgeInsets.only(
-      left: 10.w,
-      right: 8.w,
-    ),
+    height: height,
+    padding: EdgeInsets.all(9.w),
     onPressed: onPressed,
   );
 }
@@ -143,7 +141,7 @@ Widget getUserList({
     background: Colors.transparent,
   );
 
-  /// 左边初始化
+  ///
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(8.w),

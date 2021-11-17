@@ -56,8 +56,7 @@ class VerifyController extends GetxController {
     if (codeNumber.code == 200) {
       getSnackTop(
         Lang.codeSussful.tr,
-        iconData: Icons.check_circle,
-        iconColor: Colors.green,
+        isError: false,
       );
       frameController.state.sendTime = 60;
       return true;

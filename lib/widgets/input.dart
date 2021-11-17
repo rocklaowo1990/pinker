@@ -7,35 +7,37 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget getInput(
-    {
+Widget getInput({
+  /// 键盘的类型
+  required String type,
 
-    /// 键盘的类型
-    required String type,
+  /// 控制器
+  required TextEditingController controller,
 
-    /// 控制器
-    required TextEditingController controller,
+  /// 焦点
+  required FocusNode focusNode,
 
-    /// 焦点
-    required FocusNode focusNode,
+  /// 是否自动获取焦点
+  bool autofocus = false,
 
-    /// 是否自动获取焦点
-    bool autofocus = false,
+  /// 键盘右下角的按钮类型
+  TextInputAction? textInputAction,
 
-    /// 键盘右下角的按钮类型
-    TextInputAction? textInputAction,
+  /// 左侧按钮
+  Widget? prefixIcon,
 
-    /// 左侧按钮
-    Widget? prefixIcon,
+  /// 输入框宽度
+  double? width,
 
-    /// 输入框宽度
-    double? width,
+  /// 输入框高度
+  double? height,
 
-    /// 输入框高度
-    double? height,
+  /// padding
+  EdgeInsetsGeometry? contentPadding,
 
-    /// padding
-    EdgeInsetsGeometry? contentPadding}) {
+  /// radius
+  BorderRadius? borderRadius,
+}) {
   /// 判断是否显示密码
   RxBool isPassword = false.obs;
 
@@ -107,13 +109,19 @@ Widget getInput(
                   background: AppColors.inputFiled,
                   width: 26.w,
                 ),
-          contentPadding: contentPadding ?? EdgeInsets.only(left: 10.w),
+          contentPadding: contentPadding ??
+              EdgeInsets.only(
+                left: 10.w,
+                top: 8.h,
+                bottom: 8.h,
+              ),
           filled: true,
           fillColor: AppColors.inputFiled,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(187.5.w),
-            ),
+            borderRadius: borderRadius ??
+                BorderRadius.all(
+                  Radius.circular(187.5.w),
+                ),
             borderSide: BorderSide.none,
           ),
           hintText: type,
@@ -128,8 +136,10 @@ Widget getInput(
   });
 
   return SizedBox(
-    child: textField,
+    child: Center(
+      child: textField,
+    ),
     width: width,
-    height: height ?? 32.h,
+    height: height,
   );
 }

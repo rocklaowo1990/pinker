@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 import 'package:pinker/entities/response.dart';
@@ -9,7 +9,7 @@ import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/register/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class RegisterController extends GetxController {
@@ -54,34 +54,16 @@ class RegisterController extends GetxController {
       child: DialogChild.alert(
         onPressedLeft: _edit,
         onPressedRight: _goCodePage,
-        child: Column(
-          children: [
-            state.isPhone
-                ? getSpan(Lang.registerVerifyPhone.tr, fontSize: 17)
-                : getSpan(Lang.registerVerifyEmail.tr, fontSize: 17),
-            SizedBox(height: 8.h),
-            Expanded(
-              child: SingleChildScrollView(
-                child: state.isPhone
-                    ? getSpan(
-                        Lang.registerDialogPhone_1.tr +
-                            number +
-                            Lang.registerDialogPhone_2.tr,
-                        fontSize: 15,
-                        color: AppColors.secondText,
-                        textAlign: TextAlign.center)
-                    : getSpan(
-                        Lang.registerDialogEmail_1.tr +
-                            number +
-                            Lang.registerDialogEmail_2.tr,
-                        fontSize: 15,
-                        color: AppColors.secondText,
-                        textAlign: TextAlign.center),
-              ),
-              flex: 1,
-            ),
-          ],
-        ),
+        title: state.isPhone
+            ? Lang.registerVerifyPhone.tr
+            : Lang.registerVerifyEmail.tr,
+        content: state.isPhone
+            ? Lang.registerDialogPhone_1.tr +
+                number +
+                Lang.registerDialogPhone_2.tr
+            : Lang.registerDialogEmail_1.tr +
+                number +
+                Lang.registerDialogEmail_2.tr,
       ),
       autoBack: true,
     );

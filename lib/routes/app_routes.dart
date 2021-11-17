@@ -7,6 +7,7 @@ class AppRoutes {
   static const frame = '/frame'; // 初始页面框架
   static const set = '/set';
   static const language = '/language';
+  static const setUserName = '/setUserName';
   static const codeList = '/codeList';
 
   /// 注册

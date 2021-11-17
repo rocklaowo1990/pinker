@@ -17,33 +17,31 @@ class RegisterView extends GetView<RegisterController> {
     Widget title = getSpan(Lang.registerTitle.tr, fontSize: 26);
 
     /// 账号输入框
-    Widget userRegister = Obx(
-      () => getInput(
-        type:
-            controller.state.isPhone ? Lang.inputPhone.tr : Lang.inputEmail.tr,
-        controller: controller.textController,
-        autofocus: true,
-        focusNode: controller.focusNode,
-        prefixIcon: controller.state.isPhone
-            ? getButton(
-                child: getSpan(
-                  '+${controller.state.code}',
-                  color: AppColors.mainColor,
-                ),
-                background: Colors.transparent,
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 10.w, right: 5.w),
-                onPressed: controller.handleGoCodeList,
-              )
-            : null,
-      ),
-    );
+    Widget userRegister = Obx(() => getInput(
+          type: controller.state.isPhone
+              ? Lang.inputPhone.tr
+              : Lang.inputEmail.tr,
+          controller: controller.textController,
+          autofocus: true,
+          focusNode: controller.focusNode,
+          prefixIcon: controller.state.isPhone
+              ? getButton(
+                  child: getSpan(
+                    '+${controller.state.code}',
+                    color: AppColors.mainColor,
+                  ),
+                  background: Colors.transparent,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10.w, right: 5.w),
+                  onPressed: controller.handleGoCodeList,
+                )
+              : null,
+        ));
 
     /// 生日输入框
     Widget userBirth = Obx(
       () => getButton(
-        height: 32.h,
-        padding: EdgeInsets.only(left: 10.w),
+        padding: EdgeInsets.only(left: 10.w, top: 8.h, bottom: 8.h),
         onPressed: controller.birthChoice,
         child: getSpan(
             '${controller.state.showTime.year}-${controller.state.showTime.month}-${controller.state.showTime.day}'),
@@ -162,9 +160,9 @@ class RegisterView extends GetView<RegisterController> {
                   title,
                   SizedBox(height: 30.h),
                   userRegister,
-                  SizedBox(height: 6.h),
+                  SizedBox(height: 4.h),
                   userBirth,
-                  SizedBox(height: 6.h),
+                  SizedBox(height: 4.h),
                   agreen,
                   SizedBox(height: 16.h),
                 ],
