@@ -48,7 +48,7 @@ bool isPassword(String value) {
 
 /// 验证用户名 6-16位的字母和数字组合
 bool isUserName(String value) {
-  return RegExp(r"^[a-zA-Z][a-zA-Z0-9]{5,15}$").hasMatch(value);
+  return RegExp(r"^[a-zA-Z][\w]{5,15}$").hasMatch(value);
 }
 
 /// 取字符串后两位:隐藏手机号码

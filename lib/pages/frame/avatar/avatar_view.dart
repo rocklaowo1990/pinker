@@ -79,7 +79,7 @@ class AvatarView extends GetView<AvatarController> {
       children: [
         Obx(
           () => getButton(
-            height: 24.h,
+            padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
             child: getSpan(Lang.next.tr),
             width: double.infinity,
             background: controller.state.image <= 0
@@ -91,6 +91,7 @@ class AvatarView extends GetView<AvatarController> {
         ),
         SizedBox(height: 4.h),
         getButton(
+          padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
           child: getSpan('暂时跳过', color: AppColors.mainColor),
           width: double.infinity,
           background: Colors.transparent,
