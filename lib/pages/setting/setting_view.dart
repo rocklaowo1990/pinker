@@ -63,7 +63,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_user_name.svg'),
       title: '用户名',
       secondTitle: Obx(() => getSpan(
-            controller.state.userName,
+            controller.myController.state.userName,
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleSetUserName,
@@ -74,10 +74,12 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_phone.svg'),
       title: '手机',
       secondTitle: Obx(() => getSpan(
-            controller.state.phone.isEmpty ? '点击添加' : controller.state.phone,
+            controller.myController.state.phone.isEmpty
+                ? '点击添加'
+                : controller.myController.state.phone,
             color: AppColors.secondIcon,
           )),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleSetPhone,
     );
 
     /// 电子邮件
@@ -85,10 +87,12 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_email.svg'),
       title: '电子邮箱',
       secondTitle: Obx(() => getSpan(
-            controller.state.email.isEmpty ? '点击添加' : controller.state.email,
+            controller.myController.state.email.isEmpty
+                ? '点击添加'
+                : controller.myController.state.email,
             color: AppColors.secondIcon,
           )),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleSetEmail,
     );
 
     /// 修改密码
@@ -96,7 +100,9 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_password.svg'),
       title: '密码',
       secondTitle: Obx(() => getSpan(
-            controller.state.email.isEmpty ? '点击修改' : controller.state.email,
+            controller.myController.state.email.isEmpty
+                ? '点击修改'
+                : controller.myController.state.email,
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleGoLanguage,
@@ -107,7 +113,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_shield_list.svg'),
       title: '已屏蔽列表',
       secondTitle: Obx(() => getSpan(
-            '${controller.state.blockCount}',
+            '${controller.myController.state.blockCount}',
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleGoLanguage,
@@ -118,7 +124,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_hide_list.svg'),
       title: '已隐藏列表',
       secondTitle: Obx(() => getSpan(
-            '${controller.state.hiddenCount}',
+            '${controller.myController.state.hiddenCount}',
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleGoLanguage,

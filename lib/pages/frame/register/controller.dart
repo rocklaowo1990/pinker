@@ -71,7 +71,12 @@ class RegisterController extends GetxController {
 
   /// 区号选择
   void handleGoCodeList() async {
-    Get.toNamed(AppRoutes.codeList);
+    var result = await Get.toNamed(
+      AppRoutes.codeList,
+      arguments: state.code,
+    );
+
+    if (result != null) state.code = result;
   }
 
   /// 同意服务条款和隐私政策

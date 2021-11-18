@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/entities/response.dart';
+import 'package:pinker/pages/application/my/library.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -12,7 +13,7 @@ import 'package:pinker/widgets/widgets.dart';
 class SettingController extends GetxController {
   final state = LanguageState();
 
-  final arguments = Get.arguments;
+  final MyController myController = Get.find();
 
   /// 返回
   void handleGoSignBeforePage() {
@@ -26,9 +27,22 @@ class SettingController extends GetxController {
 
   /// 设置用户名
   void handleSetUserName() {
+    Get.toNamed(AppRoutes.set + AppRoutes.setUserName);
+  }
+
+  /// 更换手机号码
+  void handleSetPhone() {
     Get.toNamed(
-      AppRoutes.set + AppRoutes.setUserName,
-      arguments: state.userName,
+      AppRoutes.set + AppRoutes.checkPassword,
+      arguments: AppRoutes.setPhone,
+    );
+  }
+
+  /// 更换邮箱
+  void handleSetEmail() {
+    Get.toNamed(
+      AppRoutes.set + AppRoutes.checkPassword,
+      arguments: AppRoutes.setEmail,
     );
   }
 
@@ -44,15 +58,6 @@ class SettingController extends GetxController {
         onPressedLeft: _back,
       ),
     );
-  }
-
-  void _getUserInfo(Map<String, dynamic> info) {
-    UserInfo userInfo = UserInfo.fromJson(info);
-    state.userName = userInfo.userName ?? '点击修改用户名';
-    state.phone = userInfo.phone ?? '点击添加';
-    state.email = userInfo.email ?? '点击添加';
-    state.blockCount = userInfo.blockCount ?? 0;
-    state.hiddenCount = userInfo.hiddenCount ?? 0;
   }
 
   void _back() {
@@ -71,13 +76,5 @@ class SettingController extends GetxController {
       Get.back();
     }
     goLoginPage();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    if (arguments != null) {
-      _getUserInfo(arguments);
-    }
   }
 }

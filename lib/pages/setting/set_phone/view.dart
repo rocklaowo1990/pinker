@@ -4,19 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 
-import 'package:pinker/pages/setting/user_name/library.dart';
+import 'package:pinker/pages/setting/set_phone/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class SetUserNameView extends GetView<SetUserNameController> {
-  const SetUserNameView({Key? key}) : super(key: key);
+class SetPhoneView extends GetView<SetPhoneController> {
+  const SetPhoneView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan('更改用户名', fontSize: 17),
+      getSpan('更改手机号码', fontSize: 17),
       backgroundColor: AppColors.mainBacground,
       elevation: 0.5.h,
     );
@@ -26,14 +26,32 @@ class SetUserNameView extends GetView<SetUserNameController> {
       rightWidget: Obx(
         () => getButton(
           padding: EdgeInsets.only(left: 12.w, right: 12.w),
-          child: getSpan(Lang.sure.tr),
-          onPressed: controller.state.isDissable ? null : controller.handleSure,
+          child: getSpan(Lang.next.tr),
+          onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
               ? AppColors.buttonDisable
               : AppColors.mainColor,
         ),
       ),
     );
+
+    /// 手机输入框
+    Widget userRegister = Obx(() => getInput(
+          type: Lang.inputPhone.tr,
+          controller: controller.textController,
+          autofocus: true,
+          focusNode: controller.focusNode,
+          prefixIcon: getButton(
+            child: getSpan(
+              '+${controller.state.code}',
+              color: AppColors.mainColor,
+            ),
+            background: Colors.transparent,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 10.w, right: 5.w),
+            onPressed: controller.handleGoCodeList,
+          ),
+        ));
 
     Widget body = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,18 +60,12 @@ class SetUserNameView extends GetView<SetUserNameController> {
           padding: EdgeInsets.all(16.w),
           child: Column(
             children: [
-              getSpan('当前用户名', color: AppColors.secondText),
+              getSpan('更改手机号码', fontSize: 26),
               SizedBox(height: 8.h),
-              getSpan('User7788', fontSize: 17),
+              getSpan('输入您想要更改的与账号关联的手机号码', color: AppColors.secondText),
+              getSpan('您将通过此号码接收验证码', color: AppColors.secondText),
               SizedBox(height: 20.h),
-              getInput(
-                type: '输入新的用户名',
-                controller: controller.textController,
-                focusNode: controller.focusNode,
-                autofocus: true,
-              ),
-              SizedBox(height: 8.h),
-              getSpan('*用户名只能修改一次，请认真填写', color: AppColors.secondText),
+              userRegister,
             ],
           ),
         ),

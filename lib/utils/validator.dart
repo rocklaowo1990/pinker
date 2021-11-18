@@ -43,12 +43,18 @@ bool isChinese(String value) {
 /// 验证码密码：8-16位，至少包含一个字母一个数字，其他不限制
 /// r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$"
 bool isPassword(String value) {
-  return RegExp(r"^(?=.*[a-z])(?=.*\d)[^]{8,16}$").hasMatch(value);
+  return RegExp(r"^(?=.*[a-zA-Z])(?=.*\d)[^]{8,16}$").hasMatch(value);
 }
 
 /// 验证用户名 6-16位的字母和数字组合
 bool isUserName(String value) {
-  return RegExp(r"^[a-zA-Z][\w]{5,15}$").hasMatch(value);
+  return RegExp(r"^[a-zA-Z](?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{5,15}$")
+      .hasMatch(value);
+}
+
+/// 验证用户名 6-16位 字母开头，可以包含数字和下划线
+bool isUserNameSenond(String value) {
+  return RegExp(r"^[a-zA-Z]\w{5,15}$").hasMatch(value);
 }
 
 /// 取字符串后两位:隐藏手机号码

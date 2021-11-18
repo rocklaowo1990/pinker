@@ -18,28 +18,29 @@ class MyController extends GetxController {
   /// 读取用户信息
   final _userInfo = StorageUtil().getJSON(storageUserInfoKey);
 
+  Map<String, dynamic> userInfo = {};
+
   void handleMail() {
     Get.toNamed(AppRoutes.set);
   }
 
   void handleSetting() {
-    if (_userInfo != null) {
-      Get.toNamed(AppRoutes.set, arguments: _userInfo);
-    } else {
-      var userInfo = StorageUtil().getJSON(storageUserInfoKey);
-      Get.toNamed(AppRoutes.set, arguments: userInfo);
-    }
+    Get.toNamed(AppRoutes.set);
   }
 
   void _getUserInfo(Map<String, dynamic> info) {
-    UserInfo userInfo = UserInfo.fromJson(info);
-    state.avatar = userInfo.avatar ?? '';
-    state.nickName = userInfo.nickName ?? '';
-    state.userName = userInfo.userName ?? '';
-    state.diamondBalance = userInfo.diamondBalance ?? 0;
-    state.pCoinBalance = userInfo.pCoinBalance ?? 0;
-    state.followCount = userInfo.followCount ?? 0;
-    state.subChatCount = userInfo.subChatCount ?? 0;
+    UserInfo _userInfo = UserInfo.fromJson(info);
+    state.avatar = _userInfo.avatar ?? '';
+    state.nickName = _userInfo.nickName ?? '';
+    state.userName = _userInfo.userName ?? '';
+    state.diamondBalance = _userInfo.diamondBalance ?? 0;
+    state.pCoinBalance = _userInfo.pCoinBalance ?? 0;
+    state.followCount = _userInfo.followCount ?? 0;
+    state.subChatCount = _userInfo.subChatCount ?? 0;
+    state.blockCount = _userInfo.blockCount ?? 0;
+    state.phone = _userInfo.phone ?? '';
+    state.email = _userInfo.email ?? '';
+    state.hiddenCount = _userInfo.hiddenCount ?? 0;
   }
 
   @override
@@ -52,6 +53,7 @@ class MyController extends GetxController {
       if (_info.code == 200) {
         await StorageUtil().setJSON(storageUserInfoKey, _info.data!);
         _getUserInfo(_info.data!);
+        userInfo = _info.data!;
       } else {
         getSnackTop(_info.msg);
       }

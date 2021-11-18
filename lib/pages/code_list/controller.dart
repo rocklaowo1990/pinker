@@ -4,7 +4,7 @@ import 'package:pinker/api/api.dart';
 
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/code_list/library.dart';
-import 'package:pinker/pages/frame/register/library.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -13,8 +13,9 @@ class CodeListController extends GetxController {
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  final RegisterController registerController = Get.find();
   final state = CodeListState();
+
+  final String arguments = Get.arguments;
 
   @override
   void onInit() async {
@@ -73,14 +74,11 @@ class CodeListController extends GetxController {
 
   /// 列表选择事件
   void handleChooise(item) {
-    registerController.state.code = '${item['area_code']}';
-    debugPrint(registerController.state.code);
-    Get.back();
+    Get.back(result: item['area_code']);
   }
 
   @override
   void dispose() {
-    registerController.dispose();
     textController.dispose();
     focusNode.dispose();
     super.dispose();

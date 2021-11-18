@@ -76,7 +76,7 @@ class UserApi {
     return ResponseEntity.fromJson(response);
   }
 
-  /// 获取用户信息（我的）
+  /// 重置密码
   static Future<ResponseEntity> resetPassword(
     Map<String, dynamic> data,
   ) async {
@@ -85,6 +85,25 @@ class UserApi {
       '/api/user/resetPassword',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      data: data,
+    );
+
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 设置用户名
+  static Future<ResponseEntity> setUserName(
+    Map<String, dynamic> data,
+  ) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+    // 请求
+    var response = await HttpUtil().postForm(
+      '/api/user/setUserName',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
       }),
       data: data,
     );

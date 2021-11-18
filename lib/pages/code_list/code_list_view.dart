@@ -52,14 +52,12 @@ class CodeListView extends GetView<CodeListController> {
                           title: Get.locale == const Locale('zh', 'CN')
                               ? '+${item['area_code']}      ${item['op_name']}'
                               : '+${item['area_code']}      ${item['country']}',
-                          iconRight: Icon(
-                            Icons.check_circle,
-                            size: 9.w,
-                            color: controller.registerController.state.code ==
-                                    '${item['area_code']}'
-                                ? AppColors.mainColor
-                                : AppColors.thirdIcon,
-                          )))
+                          iconRight: Icon(Icons.check_circle,
+                              size: 9.w,
+                              color:
+                                  '${item['area_code']}' == controller.arguments
+                                      ? AppColors.mainColor
+                                      : AppColors.thirdIcon)))
                       .toList(),
                 )),
           ],

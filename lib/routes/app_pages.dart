@@ -3,9 +3,13 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/setting/check_password/library.dart';
 import 'package:pinker/pages/setting/library.dart';
-import 'package:pinker/pages/setting/language/library.dart';
-import 'package:pinker/pages/setting/user_name/library.dart';
+import 'package:pinker/pages/setting/set_language/library.dart';
+import 'package:pinker/pages/setting/set_phone/binding.dart';
+import 'package:pinker/pages/setting/set_phone/library.dart';
+import 'package:pinker/pages/setting/set_user_name/library.dart';
+
 import 'package:pinker/pages/unknown/library.dart';
 
 part 'app_routes.dart';
@@ -56,6 +60,18 @@ class AppPages {
           name: AppRoutes.setUserName,
           page: () => const SetUserNameView(),
           binding: SetUserNameBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.checkPassword,
+          page: () => const CheckPasswordView(),
+          binding: CheckPasswordBinding(),
+          children: [
+            GetPage(
+              name: AppRoutes.setPhone,
+              page: () => const SetPhoneView(),
+              binding: SetPhoneBinding(),
+            ),
+          ],
         ),
       ],
     ),
