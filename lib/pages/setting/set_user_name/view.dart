@@ -37,25 +37,29 @@ class SetUserNameView extends GetView<SetUserNameController> {
     Widget body = Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            children: [
-              getSpan('当前用户名', color: AppColors.secondText),
-              SizedBox(height: 8.h),
-              getSpan(controller.myController.state.userName, fontSize: 17),
-              SizedBox(height: 20.h),
-              getInput(
-                type: '输入新的用户名',
-                controller: controller.textController,
-                focusNode: controller.focusNode,
-                autofocus: true,
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                children: [
+                  getSpan('当前用户名', color: AppColors.secondText),
+                  SizedBox(height: 8.h),
+                  getSpan(controller.myController.state.userName, fontSize: 17),
+                  SizedBox(height: 20.h),
+                  getInput(
+                    type: '输入新的用户名',
+                    controller: controller.textController,
+                    focusNode: controller.focusNode,
+                    autofocus: true,
+                  ),
+                  SizedBox(height: 8.h),
+                  getSpan('6-16位字母开头，允许包含数字和下划线', color: AppColors.secondText),
+                  SizedBox(height: 4.h),
+                  getSpan('*用户名只能修改一次，请认真填写', color: AppColors.errro),
+                ],
               ),
-              SizedBox(height: 8.h),
-              getSpan('6-16位字母开头，允许包含数字和下划线', color: AppColors.secondText),
-              SizedBox(height: 4.h),
-              getSpan('*用户名只能修改一次，请认真填写', color: AppColors.errro),
-            ],
+            ),
           ),
         ),
         bottom,

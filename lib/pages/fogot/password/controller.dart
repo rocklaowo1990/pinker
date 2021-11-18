@@ -41,9 +41,6 @@ class ForgotPasswordController extends GetxController {
       /// 储存Token
       await Global.saveToken(_resetPassword.data!['token']);
 
-      /// 全局token赋值
-      Global.token = _resetPassword.data!['token'];
-
       /// 去往首页
       await futureMill(500);
 

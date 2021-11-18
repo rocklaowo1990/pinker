@@ -8,7 +8,7 @@ import 'package:pinker/pages/frame/subscription/state.dart';
 
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/snackbar.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -24,8 +24,6 @@ class SubscriptionController extends GetxController {
 
   /// 下一步
   void handleNext() {
-    /// 读取token
-    Global.token = StorageUtil().getJSON(storageUserTokenKey);
     Get.offAllNamed(AppRoutes.application);
   }
 

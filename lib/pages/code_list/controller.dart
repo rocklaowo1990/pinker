@@ -45,7 +45,7 @@ class CodeListController extends GetxController {
           }
         }
       },
-      time: const Duration(milliseconds: 1000),
+      time: const Duration(milliseconds: 300),
     );
   }
 

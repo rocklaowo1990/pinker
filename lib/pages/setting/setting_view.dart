@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:pinker/global.dart';
+
 import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/setting/library.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -63,7 +64,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_user_name.svg'),
       title: '用户名',
       secondTitle: Obx(() => getSpan(
-            controller.myController.state.userName,
+            controller.state.userName,
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleSetUserName,
@@ -74,9 +75,9 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_phone.svg'),
       title: '手机',
       secondTitle: Obx(() => getSpan(
-            controller.myController.state.phone.isEmpty
+            controller.state.phone.isEmpty
                 ? '点击添加'
-                : controller.myController.state.phone,
+                : '****' + getLastTwo(controller.state.phone),
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleSetPhone,
@@ -87,9 +88,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_email.svg'),
       title: '电子邮箱',
       secondTitle: Obx(() => getSpan(
-            controller.myController.state.email.isEmpty
-                ? '点击添加'
-                : controller.myController.state.email,
+            controller.state.email.isEmpty ? '点击添加' : controller.state.email,
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleSetEmail,
@@ -100,9 +99,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_password.svg'),
       title: '密码',
       secondTitle: Obx(() => getSpan(
-            controller.myController.state.email.isEmpty
-                ? '点击修改'
-                : controller.myController.state.email,
+            controller.state.email.isEmpty ? '点击修改' : controller.state.email,
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleGoLanguage,
@@ -113,7 +110,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_shield_list.svg'),
       title: '已屏蔽列表',
       secondTitle: Obx(() => getSpan(
-            '${controller.myController.state.blockCount}',
+            '${controller.state.blockCount}',
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleGoLanguage,
@@ -124,7 +121,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_hide_list.svg'),
       title: '已隐藏列表',
       secondTitle: Obx(() => getSpan(
-            '${controller.myController.state.hiddenCount}',
+            '${controller.state.hiddenCount}',
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleGoLanguage,
@@ -209,7 +206,7 @@ class SettingView extends GetView<SettingController> {
     return Scaffold(
       backgroundColor: AppColors.mainBacground,
       appBar: appBar,
-      body: Global.token == null ? bodyNoToken : bodyToken,
+      body: controller.arguments == null ? bodyNoToken : bodyToken,
     );
   }
 }

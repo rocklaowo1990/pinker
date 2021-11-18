@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/pages/application/my/library.dart';
+import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/pages/setting/set_user_name/library.dart';
 
 import 'package:pinker/utils/utils.dart';
@@ -16,6 +17,7 @@ class SetUserNameController extends GetxController {
   final FocusNode focusNode = FocusNode();
 
   final MyController myController = Get.find();
+  final SettingController settingController = Get.find();
 
   @override
   void onReady() {
@@ -44,6 +46,8 @@ class SetUserNameController extends GetxController {
 
     if (responseEntity.code == 200) {
       myController.state.userName = textController.text;
+      settingController.state.userName = textController.text;
+
       Map<String, dynamic> _userInfo = myController.userInfo;
       _userInfo['userName'] = textController.text;
       await StorageUtil().setJSON(storageUserInfoKey, _userInfo);

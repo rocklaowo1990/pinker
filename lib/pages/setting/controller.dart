@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/entities/response.dart';
-import 'package:pinker/pages/application/my/library.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -12,8 +11,7 @@ import 'package:pinker/widgets/widgets.dart';
 
 class SettingController extends GetxController {
   final state = LanguageState();
-
-  final MyController myController = Get.find();
+  final UserInfo? arguments = Get.arguments;
 
   /// 返回
   void handleGoSignBeforePage() {
@@ -76,5 +74,17 @@ class SettingController extends GetxController {
       Get.back();
     }
     goLoginPage();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    if (arguments != null) {
+      state.userName = arguments!.userName ?? '';
+      state.phone = arguments!.phone ?? '点击添加';
+      state.email = arguments!.email ?? '点击添加';
+      state.blockCount = arguments!.blockCount ?? 0;
+      state.hiddenCount = arguments!.hiddenCount ?? 0;
+    }
   }
 }

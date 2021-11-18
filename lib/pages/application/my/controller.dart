@@ -18,14 +18,15 @@ class MyController extends GetxController {
   /// 读取用户信息
   final _userInfo = StorageUtil().getJSON(storageUserInfoKey);
 
-  Map<String, dynamic> userInfo = {};
+  late Map<String, dynamic> userInfo;
 
   void handleMail() {
     Get.toNamed(AppRoutes.set);
   }
 
   void handleSetting() {
-    Get.toNamed(AppRoutes.set);
+    UserInfo _userInfo = UserInfo.fromJson(userInfo);
+    Get.toNamed(AppRoutes.set, arguments: _userInfo);
   }
 
   void _getUserInfo(Map<String, dynamic> info) {
@@ -37,10 +38,6 @@ class MyController extends GetxController {
     state.pCoinBalance = _userInfo.pCoinBalance ?? 0;
     state.followCount = _userInfo.followCount ?? 0;
     state.subChatCount = _userInfo.subChatCount ?? 0;
-    state.blockCount = _userInfo.blockCount ?? 0;
-    state.phone = _userInfo.phone ?? '';
-    state.email = _userInfo.email ?? '';
-    state.hiddenCount = _userInfo.hiddenCount ?? 0;
   }
 
   @override
@@ -61,6 +58,7 @@ class MyController extends GetxController {
       /// 本地有用户的数据，直接拿来用
     } else {
       _getUserInfo(_userInfo);
+      userInfo = _userInfo;
     }
   }
 
