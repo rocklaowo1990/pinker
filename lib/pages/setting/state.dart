@@ -33,4 +33,9 @@ class LanguageState {
   final RxString _userName = ''.obs;
   set userName(String value) => _userName.value = value;
   String get userName => _userName.value;
+
+  /// 发送验证码的时间
+  final RxInt sendTimeRx = 0.obs;
+  set sendTime(int value) => sendTimeRx.value = value;
+  int get sendTime => sendTimeRx.value;
 }

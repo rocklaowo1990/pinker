@@ -13,6 +13,8 @@ class AppRoutes {
   static const setUserName = '/setUserName';
   static const setPhone = '/setPhone';
   static const setEmail = '/setEmail';
+  static const setVerify = '/setVerify';
+  static const setPassword = '/setPassword';
 
   /// 注册
   static const index = '/index';

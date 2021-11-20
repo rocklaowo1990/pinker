@@ -44,6 +44,11 @@ class SettingController extends GetxController {
     );
   }
 
+  /// 更换密码
+  void handleSetPassword() {
+    Get.toNamed(AppRoutes.set + AppRoutes.setPassword);
+  }
+
   /// 退出登陆
   void handleSignOut() {
     getDialog(
@@ -74,6 +79,14 @@ class SettingController extends GetxController {
       Get.back();
     }
     goLoginPage();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    interval(state.sendTimeRx, (value) {
+      if (state.sendTime > 0) state.sendTime--;
+    });
   }
 
   @override

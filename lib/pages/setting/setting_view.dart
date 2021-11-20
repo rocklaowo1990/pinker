@@ -77,7 +77,7 @@ class SettingView extends GetView<SettingController> {
       secondTitle: Obx(() => getSpan(
             controller.state.phone.isEmpty
                 ? '点击添加'
-                : '****' + getLastTwo(controller.state.phone),
+                : '尾号' + getLastTwo(controller.state.phone),
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleSetPhone,
@@ -88,7 +88,9 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_email.svg'),
       title: '电子邮箱',
       secondTitle: Obx(() => getSpan(
-            controller.state.email.isEmpty ? '点击添加' : controller.state.email,
+            controller.state.email.isEmpty
+                ? '点击添加'
+                : '尾号' + getEmailHide(controller.state.email),
             color: AppColors.secondIcon,
           )),
       onPressed: controller.handleSetEmail,
@@ -98,11 +100,11 @@ class SettingView extends GetView<SettingController> {
     Widget setPassword = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_password.svg'),
       title: '密码',
-      secondTitle: Obx(() => getSpan(
-            controller.state.email.isEmpty ? '点击修改' : controller.state.email,
-            color: AppColors.secondIcon,
-          )),
-      onPressed: controller.handleGoLanguage,
+      secondTitle: getSpan(
+        '点击修改',
+        color: AppColors.secondIcon,
+      ),
+      onPressed: controller.handleSetPassword,
     );
 
     /// 已屏蔽列表

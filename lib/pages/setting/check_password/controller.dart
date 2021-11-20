@@ -42,16 +42,13 @@ class CheckPasswordController extends GetxController {
     };
     ResponseEntity responseEntity = await AccountApi.checkPassword(data);
     if (responseEntity.code == 200) {
+      String data = duMD5(textController.text);
       await futureMill(500);
       Get.back();
-      switch (arguments) {
-        case AppRoutes.setPhone:
-          Get.toNamed(AppRoutes.set + AppRoutes.checkPassword + arguments);
-          break;
-        case AppRoutes.setEmail:
-          break;
-        default:
-      }
+      Get.toNamed(
+        AppRoutes.set + AppRoutes.checkPassword + arguments,
+        arguments: data,
+      );
     } else {
       await futureMill(500);
       Get.back();

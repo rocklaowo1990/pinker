@@ -67,6 +67,5 @@ String getLastTwo(String value) {
 String getEmailHide(String value) {
   if (value.isEmpty) return '';
   List<String> part_1 = value.split('@');
-  List<String> part_2 = part_1[1].split('.');
-  return part_1[0].substring(part_1[0].length - 2) + '@' + part_2[0];
+  return getLastTwo(part_1[0]) + '@' + part_1[1];
 }

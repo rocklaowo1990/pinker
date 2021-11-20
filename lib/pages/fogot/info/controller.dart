@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:pinker/pages/fogot/info/library.dart';
 import 'package:pinker/pages/fogot/library.dart';
-import 'package:pinker/pages/fogot/type/library.dart';
+
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -26,12 +26,10 @@ class ForgotInfoController extends GetxController {
     if (textController.text == forgotController.userInfo.phone ||
         textController.text == forgotController.userInfo.email) {
       textController.clear();
-      forgotController.state.pageCount.add(const ForgotTypeView());
-      forgotController.state.pageIndex++;
 
       await futureMill(500);
       Get.back();
-
+      forgotController.state.pageIndex++;
       Get.offNamed(AppRoutes.forgotType, id: 3);
     } else {
       await futureMill(500);

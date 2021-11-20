@@ -11,8 +11,12 @@ import 'package:pinker/pages/fogot/verify/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 
 class ForgotController extends GetxController {
+  ForgotController(this.arguments);
+
   /// 状态控制器
   final ForgotState state = ForgotState();
+
+  final Map<String, dynamic>? arguments;
 
   /// 关闭页面
   void handleBack() {
@@ -87,7 +91,18 @@ class ForgotController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    state.pageCount.add(const ForgotIndexView());
+    if (arguments != null) {
+      UserInfo _userInfo = UserInfo.fromJson(arguments!);
+      userInfo.userId = _userInfo.userId;
+      userInfo.phone = _userInfo.phone;
+      if (userInfo.phone == '') {
+        userInfo.email = _userInfo.email;
+        state.verifyType = 2;
+      }
+      userInfo.avatar = _userInfo.avatar;
+      userInfo.userName = _userInfo.userName;
+      state.pageIndex = 2;
+    }
     interval(state.sendTimeRx, (value) {
       if (state.sendTime > 0) state.sendTime--;
     });

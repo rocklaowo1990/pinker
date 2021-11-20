@@ -76,7 +76,7 @@ Widget getInput({
   onPressed = clearText;
 
   /// 根据不同的类型 初始化
-  if (type == Lang.inputPassword.tr) {
+  if (RegExp(r"密码").hasMatch(type)) {
     onPressed = passwordText;
     isPassword.value = true;
     keyboardType = TextInputType.visiblePassword;

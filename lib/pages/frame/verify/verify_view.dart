@@ -11,7 +11,7 @@ class VerifyView extends GetView<VerifyController> {
     /// body 布局
     Widget body = getVerifyView(
       isVerify: controller.isVerify,
-      result: controller.handleNext,
+      result: controller.next,
       resendCode: controller.sendCode,
       time: controller.frameController.state.sendTimeRx,
     );

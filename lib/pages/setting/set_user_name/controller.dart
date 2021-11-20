@@ -52,9 +52,12 @@ class SetUserNameController extends GetxController {
       _userInfo['userName'] = textController.text;
       await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
 
+      myController.userInfo = StorageUtil().getJSON(storageUserInfoKey);
+
       await futureMill(500);
       Get.back();
       Get.back();
+      getSnackTop('用户名修改成功', isError: false);
     } else {
       await futureMill(500);
       Get.back();

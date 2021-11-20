@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class SetPhoneState {
+class SetEmailState {
   /// 按钮是否禁用
   final RxBool _isDissable = true.obs;
   set isDissable(bool value) => _isDissable.value = value;

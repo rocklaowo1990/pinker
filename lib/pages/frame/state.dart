@@ -16,7 +16,7 @@ class FrameState {
   set pageRoute(String value) => _pageRoute.value = value;
   String get pageRoute => _pageRoute.value;
 
-  /// 页面路由状态，控制页面蒙版
+  /// 接收验证码的手机号码或者邮箱地址
   final RxString _account = ''.obs;
   set account(String value) => _account.value = value;
   String get account => _account.value;

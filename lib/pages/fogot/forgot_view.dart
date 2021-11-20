@@ -10,12 +10,13 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ForgotView extends StatelessWidget {
-  const ForgotView({Key? key}) : super(key: key);
+  const ForgotView({Key? key, this.arguments}) : super(key: key);
+  final Map<String, dynamic>? arguments;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ForgotController>(
-        init: ForgotController(),
+        init: ForgotController(arguments),
         builder: (controller) {
           /// appbar
           AppBar appBar = getAppBar(
@@ -40,7 +41,9 @@ class ForgotView extends StatelessWidget {
                   color: AppColors.mainBacground,
                   child: Navigator(
                     key: Get.nestedKey(3),
-                    initialRoute: AppRoutes.forgotIndex,
+                    initialRoute: arguments == null
+                        ? AppRoutes.forgotIndex
+                        : AppRoutes.forgotType,
                     onGenerateRoute: controller.onGenerateRoute,
                   ),
                 ),

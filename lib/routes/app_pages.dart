@@ -5,10 +5,14 @@ import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
 import 'package:pinker/pages/setting/library.dart';
+import 'package:pinker/pages/setting/set_email/library.dart';
 import 'package:pinker/pages/setting/set_language/library.dart';
+import 'package:pinker/pages/setting/set_password/binding.dart';
+import 'package:pinker/pages/setting/set_password/view.dart';
 import 'package:pinker/pages/setting/set_phone/binding.dart';
 import 'package:pinker/pages/setting/set_phone/library.dart';
 import 'package:pinker/pages/setting/set_user_name/library.dart';
+import 'package:pinker/pages/setting/verify/library.dart';
 
 import 'package:pinker/pages/unknown/library.dart';
 
@@ -62,6 +66,11 @@ class AppPages {
           binding: SetUserNameBinding(),
         ),
         GetPage(
+          name: AppRoutes.setPassword,
+          page: () => const SetPasswordView(),
+          binding: SetPasswordBinding(),
+        ),
+        GetPage(
           name: AppRoutes.checkPassword,
           page: () => const CheckPasswordView(),
           binding: CheckPasswordBinding(),
@@ -70,6 +79,16 @@ class AppPages {
               name: AppRoutes.setPhone,
               page: () => const SetPhoneView(),
               binding: SetPhoneBinding(),
+            ),
+            GetPage(
+              name: AppRoutes.setEmail,
+              page: () => const SetEmailView(),
+              binding: SetEmailBinding(),
+            ),
+            GetPage(
+              name: AppRoutes.setVerify,
+              page: () => const SetVerifyView(),
+              binding: SetVerifyBinding(),
             ),
           ],
         ),

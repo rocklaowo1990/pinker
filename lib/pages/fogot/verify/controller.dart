@@ -4,7 +4,7 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
-import 'package:pinker/pages/fogot/password/view.dart';
+
 import 'package:pinker/pages/fogot/verify/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
@@ -18,6 +18,7 @@ class ForgotVerifyController extends GetxController {
   final ForgotController forgotController = Get.find();
 
   void handleNext() {
+    forgotController.state.pageIndex++;
     Get.offNamed(AppRoutes.forgotPassword, id: 3);
   }
 
@@ -25,7 +26,7 @@ class ForgotVerifyController extends GetxController {
   Future<bool> sendCode() async {
     /// 准备请求数据
     Map<String, dynamic> data = {
-      'userId': forgotController.userInfo.userId!,
+      'userId': forgotController.userInfo.userId,
       'verifyType': forgotController.state.verifyType,
     };
 
@@ -42,10 +43,6 @@ class ForgotVerifyController extends GetxController {
       forgotController.state.sendTime = 60;
       return true;
     } else {
-      /// 返回错误信息
-      await Future.delayed(const Duration(milliseconds: 200), () {
-        getSnackTop(codeNumber.msg);
-      });
       return false;
     }
   }
@@ -55,14 +52,14 @@ class ForgotVerifyController extends GetxController {
     Map<String, dynamic> data = {
       'code': code,
       'verifyType': forgotController.state.verifyType,
-      'userId': forgotController.userInfo.userId!,
+      'userId': forgotController.userInfo.userId,
     };
+
     ResponseEntity checkCode = await CommonApi.checkCodeByType(data); // 弹窗停留时间
 
     if (checkCode.code == 200) {
       forgotController.publicData['code'] = code;
-      forgotController.state.pageCount.add(const ForgotPasswordView());
-      forgotController.state.pageIndex++;
+
       await futureMill(500);
 
       return true;
@@ -79,5 +76,15 @@ class ForgotVerifyController extends GetxController {
   void onReady() async {
     super.onReady();
     await sendCode();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    interval(forgotController.state.sendTimeRx, (value) {
+      if (forgotController.state.sendTime > 0) {
+        forgotController.state.sendTime--;
+      }
+    });
   }
 }

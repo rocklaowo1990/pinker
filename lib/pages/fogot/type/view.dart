@@ -30,7 +30,7 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
     Widget listPhone = getButtonList(
         icon: Obx(() => Icon(
               Icons.check_circle,
-              size: 12.sp,
+              size: 10.sp,
               color: controller.forgotController.state.verifyType == 1
                   ? AppColors.mainColor
                   : AppColors.thirdIcon,
@@ -44,7 +44,7 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
     Widget listEmail = getButtonList(
         icon: Obx(() => Icon(
               Icons.check_circle,
-              size: 12.sp,
+              size: 10.sp,
               color: controller.forgotController.state.verifyType == 2
                   ? AppColors.mainColor
                   : AppColors.thirdIcon,
@@ -52,7 +52,7 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
         iconRight: const SizedBox(),
         onPressed: controller.handleEmailType,
         title:
-            '向尾号 ${getLastTwo(controller.forgotController.userInfo.phone!)} 的电子邮箱发送验证码');
+            '向尾号 ${getEmailHide(controller.forgotController.userInfo.email!)} 的电子邮箱发送验证码');
 
     /// 底部
     Widget bottom = getBottomBox(
