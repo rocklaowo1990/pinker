@@ -22,7 +22,6 @@ class ForgotView extends StatelessWidget {
           AppBar appBar = getAppBar(
             getSpan('找回密码', fontSize: 17),
             backgroundColor: AppColors.mainBacground,
-            elevation: 0,
             leading: getButton(
               child: const Icon(Icons.close, color: AppColors.mainIcon),
               background: AppColors.mainBacground,
@@ -33,7 +32,7 @@ class ForgotView extends StatelessWidget {
           /// body布局
           Widget body = Column(
             children: [
-              Container(height: 11.h, color: AppColors.mainBacground),
+              Container(height: 15.h, color: AppColors.mainBacground),
               appBar,
               Container(height: 1.h, color: AppColors.secondBacground),
               Expanded(

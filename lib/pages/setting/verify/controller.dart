@@ -60,6 +60,7 @@ class SetVerifyController extends GetxController {
       Get.back(); // 返回验证密码
       Get.back(); // 返回设置页面
     } else {
+      Get.back(); // 返回更换手机号码
       getSnackTop(responseEntity.msg);
     }
   }

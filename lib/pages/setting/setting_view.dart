@@ -22,7 +22,7 @@ class SettingView extends GetView<SettingController> {
     AppBar appBar = getAppBar(
       getSpan(Lang.setTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      elevation: 0.5.h,
+      lineColor: AppColors.line,
     );
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
@@ -115,7 +115,7 @@ class SettingView extends GetView<SettingController> {
             '${controller.state.blockCount}',
             color: AppColors.secondIcon,
           )),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleBlockList,
     );
 
     /// 已隐藏列表
@@ -126,7 +126,7 @@ class SettingView extends GetView<SettingController> {
             '${controller.state.hiddenCount}',
             color: AppColors.secondIcon,
           )),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleHiddenList,
     );
 
     /// 水印设置

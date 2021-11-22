@@ -9,13 +9,15 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// appBar
+/// 普通的appBar
 AppBar getAppBar(
   Widget? title, {
   Widget? leading,
   List<Widget>? actions,
   Color? backgroundColor,
-  double? elevation,
-  PreferredSizeWidget? bottom,
+  Color? lineColor,
+  Widget? bottom,
+  double? bottomHeight,
 }) {
   /// appBar 左侧的返回按钮
   Widget leadingDefault = getButton(
@@ -30,9 +32,24 @@ AppBar getAppBar(
     title: title,
     backgroundColor: backgroundColor ?? Colors.transparent,
     foregroundColor: AppColors.mainText,
-    elevation: elevation ?? 0,
-    shadowColor: AppColors.thirdIcon,
-    bottom: bottom,
+    elevation: 0,
+    bottom: bottom == null && lineColor == null
+        ? null
+        : PreferredSize(
+            child: Column(
+              children: [
+                if (bottom != null) bottom,
+                if (lineColor != null) Container(height: 0.8, color: lineColor),
+              ],
+            ),
+            preferredSize: Size.fromHeight(bottom == null
+                ? 0.8
+                : lineColor == null
+                    ? bottomHeight ?? 40.h
+                    : bottomHeight == null
+                        ? 40.h + 0.8
+                        : bottomHeight + 0.8),
+          ),
     centerTitle: true,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -44,7 +61,8 @@ AppBar getAppBar(
   );
 }
 
-/// appBar
+/// 没有返回键的appbar
+/// 一般用在首页
 AppBar getMainBar({required Widget left, required Widget right}) {
   return AppBar(
     title: left,
@@ -64,6 +82,7 @@ AppBar getMainBar({required Widget left, required Widget right}) {
 }
 
 /// appBar
+/// 顶部带搜索的appbar
 AppBar getSearchBar({
   required TextEditingController controller,
   required FocusNode focusNode,

@@ -30,7 +30,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
     Widget middle = Obx(() => Column(
           children: controller.state.userList
               .map((item) => getUserList(
-                  avatar: item[serverApiUrl + 'avatar'],
+                  avatar: item['avatar'],
                   userName: item['userName'],
                   nickName: item['nickName'],
                   onPressed: () {
@@ -72,7 +72,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
 
     /// 布局
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.mainBacground,
       body: Obx(
         () => controller.frameController.state.pageIndex != -3
             ? Stack(

@@ -17,7 +17,6 @@ class CodeListView extends GetView<CodeListController> {
     AppBar appBar = getAppBar(
       getSpan(Lang.codeTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      elevation: 0.5.h,
     );
 
     /// 搜索框

@@ -165,4 +165,28 @@ class UserApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 已屏蔽的用户列表 ///////////////////////////////////////////////////////////
+  static Future<ResponseEntity> settingUserList(
+    int? type,
+    int? page,
+  ) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+
+    // 请求
+    var response = await HttpUtil().get(
+      type == 1 || type == null
+          ? '/api/user/blockUserList'
+          : '/api/user/hideUserList',
+      options: Options(headers: {
+        'token': token,
+      }),
+      queryParameters: {
+        'pageNo': page,
+        'pageSize': '20',
+      },
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

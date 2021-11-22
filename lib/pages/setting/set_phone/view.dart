@@ -17,8 +17,8 @@ class SetPhoneView extends GetView<SetPhoneController> {
     /// appBar
     AppBar appBar = getAppBar(
       getSpan('更改手机号码', fontSize: 17),
+      lineColor: AppColors.line,
       backgroundColor: AppColors.mainBacground,
-      elevation: 0.5.h,
     );
 
     /// 底部

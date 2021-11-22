@@ -17,7 +17,7 @@ class SetPasswordView extends GetView<SetPasswordController> {
     AppBar appBar = getAppBar(
       getSpan('更改密码', fontSize: 17),
       backgroundColor: AppColors.mainBacground,
-      elevation: 0.5.h,
+      lineColor: AppColors.line,
     );
 
     /// 底部

@@ -10,7 +10,7 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-/// 中间弹出窗：默认是loading
+/// 中间弹出窗：默认是loading ////////////////////////////////////////////////////
 Future<dynamic> getDialog({
   Widget? child,
   bool? autoBack,

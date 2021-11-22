@@ -82,6 +82,7 @@ Widget getUserList({
   String? userName,
   String? nickName,
   VoidCallback? onPressed,
+  String? buttonText,
 }) {
   /// 头像
   Widget avatarBox = Container(
@@ -92,14 +93,16 @@ Widget getUserList({
       color: AppColors.thirdIcon,
     ),
     child: Center(
-      child: avatar == null || avatar.isEmpty
+      child: avatar == null ||
+              avatar.isEmpty ||
+              avatar == 'static/api/user_default_head.png'
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
               width: 32.w,
             )
           : CircleAvatar(
               radius: 32.w,
-              backgroundImage: NetworkImage(avatar),
+              backgroundImage: NetworkImage(serverApiUrl + serverPort + avatar),
             ),
     ),
   );
@@ -133,7 +136,7 @@ Widget getUserList({
 
   /// 按钮
   Widget buttonBox = getButton(
-    child: getSpan('订阅'),
+    child: getSpan(buttonText ?? '订阅'),
     onPressed: onPressed,
     width: 40.w,
     height: 16.w,

@@ -35,10 +35,12 @@ class LanguageView extends GetView<LanguageController> {
         ));
 
     /// appBar
-    AppBar appBar = getAppBar(getSpan(Lang.langTitle.tr, fontSize: 17),
-        backgroundColor: AppColors.secondBacground,
-        elevation: 0.5.h,
-        actions: [sureBox]);
+    AppBar appBar = getAppBar(
+      getSpan(Lang.langTitle.tr, fontSize: 17),
+      lineColor: AppColors.line,
+      backgroundColor: AppColors.secondBacground,
+      actions: [sureBox],
+    );
 
     /// 中文列表
     Widget cnList = getButtonList(

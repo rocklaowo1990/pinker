@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
+
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/entities/response.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
+import 'package:pinker/widgets/user_list_page/library.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
@@ -35,6 +37,14 @@ class SettingController extends GetxController {
       arguments: AppRoutes.setPhone,
     );
   }
+
+  /// 屏蔽列表
+  void handleBlockList() {
+    Get.to(getUserListPage(title: '屏蔽列表', type: 1));
+  }
+
+  /// 隐藏列表
+  void handleHiddenList() {}
 
   /// 更换邮箱
   void handleSetEmail() {

@@ -16,8 +16,8 @@ class SetUserNameView extends GetView<SetUserNameController> {
     /// appBar
     AppBar appBar = getAppBar(
       getSpan('更改用户名', fontSize: 17),
+      lineColor: AppColors.line,
       backgroundColor: AppColors.mainBacground,
-      elevation: 0.5.h,
     );
 
     /// 底部

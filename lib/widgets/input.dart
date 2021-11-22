@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
@@ -141,5 +142,27 @@ Widget getInput({
     ),
     width: width,
     height: height,
+  );
+}
+
+Widget getSearchInput(
+  TextEditingController controller,
+  FocusNode focusNode,
+) {
+  return getInput(
+    height: 40,
+    contentPadding: EdgeInsets.only(left: 8.w),
+    type: Lang.inputSearch.tr,
+    controller: controller,
+    focusNode: focusNode,
+    prefixIcon: SizedBox(
+      width: 10.h,
+      height: 10.h,
+      child: Center(
+        child: SvgPicture.asset(
+          'assets/svg/icon_search_2.svg',
+        ),
+      ),
+    ),
   );
 }

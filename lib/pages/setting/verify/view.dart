@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/pages/setting/verify/library.dart';
 import 'package:pinker/values/values.dart';
@@ -13,8 +13,8 @@ class SetVerifyView extends GetView<SetVerifyController> {
     /// appBar
     AppBar appBar = getAppBar(
       getSpan('验证码', fontSize: 17),
+      lineColor: AppColors.line,
       backgroundColor: AppColors.mainBacground,
-      elevation: 0.5.h,
     );
 
     /// body 布局
