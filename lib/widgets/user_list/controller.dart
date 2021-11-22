@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/response.dart';
+import 'package:pinker/widgets/user_list/library.dart';
 
-import 'package:pinker/widgets/user_list_page/library.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class UserListPageController extends GetxController {
@@ -26,10 +26,10 @@ class UserListPageController extends GetxController {
     super.onReady();
     ResponseEntity responseEntity = await UserApi.settingUserList(type, page);
     if (responseEntity.code == 200) {
-      if (responseEntity.data != null) {
+      if (responseEntity.data != null || responseEntity.data!['list'] != []) {
         state.userList = responseEntity.data!['list'];
-        print(state.userList);
         page++;
+        state.isLoading = false;
       }
     } else {
       getSnackTop(responseEntity.msg);

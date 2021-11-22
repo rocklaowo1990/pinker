@@ -7,7 +7,7 @@ import 'package:pinker/entities/response.dart';
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/widgets/user_list_page/library.dart';
+import 'package:pinker/widgets/user_list/library.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
@@ -44,7 +44,9 @@ class SettingController extends GetxController {
   }
 
   /// 隐藏列表
-  void handleHiddenList() {}
+  void handleHiddenList() {
+    Get.to(getUserListPage(title: '隐藏列表', type: 2));
+  }
 
   /// 更换邮箱
   void handleSetEmail() {

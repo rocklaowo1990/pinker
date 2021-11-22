@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -95,14 +96,17 @@ Widget getUserList({
     child: Center(
       child: avatar == null ||
               avatar.isEmpty ||
-              avatar == 'static/api/user_default_head.png'
+              isInclude(avatar, 'user_default_head.png')
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
               width: 32.w,
             )
           : CircleAvatar(
               radius: 32.w,
-              backgroundImage: NetworkImage(serverApiUrl + serverPort + avatar),
+              backgroundImage: NetworkImage(
+                  isInclude(avatar, serverApiUrl + serverPort)
+                      ? avatar
+                      : serverApiUrl + serverPort + avatar),
             ),
     ),
   );
@@ -149,11 +153,8 @@ Widget getUserList({
     width: double.infinity,
     padding: EdgeInsets.all(8.w),
     decoration: BoxDecoration(
-        border: Border(
-            top: BorderSide(
-      width: 0.5.w,
-      color: AppColors.secondBacground,
-    ))),
+      border: Border(top: BorderSide(width: 0.5.w, color: AppColors.line)),
+    ),
     child: Row(
       children: [
         Expanded(child: leftBox),

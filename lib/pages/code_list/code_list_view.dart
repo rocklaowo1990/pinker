@@ -38,31 +38,27 @@ class CodeListView extends GetView<CodeListController> {
 
     /// body
     Widget body = Scrollbar(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            searchBox,
-            Obx(() => Column(
-                  children: controller.state.showList
-                      .map((item) => getButtonList(
-                          onPressed: () {
-                            controller.handleChooise(item);
-                          },
-                          title: Get.locale == const Locale('zh', 'CN')
-                              ? '+${item['area_code']}      ${item['op_name']}'
-                              : '+${item['area_code']}      ${item['country']}',
-                          iconRight: Icon(Icons.check_circle,
-                              size: 9.w,
-                              color:
-                                  '${item['area_code']}' == controller.arguments
-                                      ? AppColors.mainColor
-                                      : AppColors.thirdIcon)))
-                      .toList(),
-                )),
-          ],
-        ),
-      ),
-    );
+        child: Column(children: [
+      searchBox,
+      Expanded(
+          child: SingleChildScrollView(
+        child: Obx(() => Column(
+            children: controller.state.showList
+                .map((item) => getButtonList(
+                    onPressed: () {
+                      controller.handleChooise(item);
+                    },
+                    title: Get.locale == const Locale('zh', 'CN')
+                        ? '+${item['area_code']}      ${item['op_name']}'
+                        : '+${item['area_code']}      ${item['country']}',
+                    iconRight: Icon(Icons.check_circle,
+                        size: 9.w,
+                        color: '${item['area_code']}' == controller.arguments
+                            ? AppColors.mainColor
+                            : AppColors.thirdIcon)))
+                .toList())),
+      ))
+    ]));
 
     /// 页面
     return Scaffold(
