@@ -75,7 +75,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_phone.svg'),
       title: '手机',
       secondTitle: Obx(() => getSpan(
-            controller.state.phone.isEmpty
+            controller.state.phone == '点击添加' || controller.state.phone.isEmpty
                 ? '点击添加'
                 : '尾号' + getLastTwo(controller.state.phone),
             color: AppColors.secondIcon,
@@ -88,7 +88,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_email.svg'),
       title: '电子邮箱',
       secondTitle: Obx(() => getSpan(
-            controller.state.email.isEmpty
+            controller.state.email == '点击添加' || controller.state.email.isEmpty
                 ? '点击添加'
                 : '尾号' + getEmailHide(controller.state.email),
             color: AppColors.secondIcon,

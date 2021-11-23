@@ -184,6 +184,7 @@ class RegisterController extends GetxController {
         getSnackTop(Lang.registerAllready.tr);
       }
     } else {
+      Get.back();
       getSnackTop(responseEntity.msg);
     }
   }

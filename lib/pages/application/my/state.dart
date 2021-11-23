@@ -17,12 +17,12 @@ class MyState {
   int get diamondBalance => _diamondBalance.value;
 
   /// 用户名
-  final RxString _userName = ''.obs;
+  final RxString _userName = 'userName'.obs;
   set userName(String value) => _userName.value = value;
   String get userName => _userName.value;
 
   /// 昵称
-  final RxString _nickName = ''.obs;
+  final RxString _nickName = '您的昵称'.obs;
   set nickName(String value) => _nickName.value = value;
   String get nickName => _nickName.value;
 

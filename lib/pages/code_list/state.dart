@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class CodeListState {
-  /// 检索后，用来现实的列表
+  /// 检索后，用来显示的列表
   final RxList<dynamic> _showList = [].obs;
   set showList(List value) => _showList.value = value;
   List<dynamic> get showList => _showList;

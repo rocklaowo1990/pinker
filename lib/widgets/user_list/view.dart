@@ -17,14 +17,10 @@ Widget getUserListPage({
   return GetBuilder<UserListPageController>(
     init: UserListPageController(type),
     builder: (controller) {
-      AppBar appBar = getAppBar(
-        getSpan(title ?? '请输入页面标题', fontSize: 17),
-        backgroundColor: AppColors.secondBacground,
-        lineColor: AppColors.line,
-      );
-
       /// 搜索框
       Widget searchBox = getInput(
+        contentPadding: EdgeInsets.zero,
+        height: 50,
         type: Lang.inputSearch.tr,
         borderRadius: BorderRadius.zero,
         controller: controller.textController,
@@ -38,6 +34,12 @@ Widget getUserListPage({
             ),
           ),
         ),
+      );
+      AppBar appBar = getAppBar(
+        getSpan(title ?? '请输入页面标题', fontSize: 17),
+        backgroundColor: AppColors.secondBacground,
+        bottom: searchBox,
+        bottomHeight: 50,
       );
 
       /// body
@@ -65,7 +67,6 @@ Widget getUserListPage({
                       getSpan('暂无数据', color: AppColors.secondText),
                     ]))
                   : Column(children: [
-                      searchBox,
                       Expanded(
                           child: ListView(
                               children: controller.state.userList

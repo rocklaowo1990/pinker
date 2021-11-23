@@ -189,4 +189,38 @@ class UserApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 屏蔽用户/取消 //////////////////////////////////////////////////////////////
+  static Future<ResponseEntity> block(data) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+
+    // 请求
+    var response = await HttpUtil().postForm(
+      '/api/user/block',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+      data: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 隐藏用户/取消 //////////////////////////////////////////////////////////////
+  static Future<ResponseEntity> hide(data) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+
+    // 请求
+    var response = await HttpUtil().postForm(
+      '/api/user/hide',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+      data: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

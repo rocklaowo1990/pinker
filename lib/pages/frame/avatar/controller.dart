@@ -103,12 +103,14 @@ class AvatarController extends GetxController {
         Get.offAllNamed(AppRoutes.subscription, id: 1);
       } else {
         await futureMill(500);
+        Get.back();
         getSnackTop(updateUserInfo.msg);
       }
 
       /// 资源验证结果
       /// 失败
     } else {
+      Get.back();
       getSnackTop(verifyResource.msg);
     }
   }
