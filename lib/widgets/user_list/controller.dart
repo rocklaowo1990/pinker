@@ -22,7 +22,8 @@ class UserListPageController extends GetxController {
 
   final SettingController settingController = Get.find();
 
-  final int? type; // 1:屏蔽 其他的是隐藏
+  /// 1:屏蔽 其他的是隐藏
+  final int? type;
 
   late final List _userList;
 
