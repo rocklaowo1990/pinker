@@ -15,6 +15,7 @@ class AppRoutes {
   static const setEmail = '/setEmail';
   static const setVerify = '/setVerify';
   static const setPassword = '/setPassword';
+  static const setGroup = '/setGroup';
 
   /// 注册
   static const index = '/index';

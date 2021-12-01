@@ -13,7 +13,7 @@ class SetVerifyView extends GetView<SetVerifyController> {
     /// appBar
     AppBar appBar = getAppBar(
       getSpan('验证码', fontSize: 17),
-      lineColor: AppColors.line,
+      line: AppColors.line,
       backgroundColor: AppColors.mainBacground,
     );
 

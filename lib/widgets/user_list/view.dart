@@ -20,7 +20,6 @@ Widget getUserListPage({
       /// 搜索框
       Widget searchBox = getInput(
         contentPadding: EdgeInsets.zero,
-        height: 50,
         type: Lang.inputSearch.tr,
         borderRadius: BorderRadius.zero,
         controller: controller.textController,
@@ -39,11 +38,11 @@ Widget getUserListPage({
         getSpan(title ?? '请输入页面标题', fontSize: 17),
         backgroundColor: AppColors.secondBacground,
         bottom: searchBox,
-        bottomHeight: 50,
+        bottomHeight: 48,
       );
 
       /// body
-      Widget? body = Obx(() => Scrollbar(
+      Widget body = Obx(() => Scrollbar(
           child: controller.state.isLoading
               ? Center(
                   child: Column(children: [

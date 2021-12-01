@@ -40,12 +40,12 @@ class SettingController extends GetxController {
 
   /// 屏蔽列表
   void handleBlockList() {
-    Get.to(getUserListPage(title: '屏蔽列表', type: 1));
+    Get.to(() => getUserListPage(title: '屏蔽列表', type: 1));
   }
 
   /// 隐藏列表
   void handleHiddenList() {
-    Get.to(getUserListPage(title: '隐藏列表', type: 2));
+    Get.to(() => getUserListPage(title: '隐藏列表', type: 2));
   }
 
   /// 更换邮箱
@@ -59,6 +59,11 @@ class SettingController extends GetxController {
   /// 更换密码
   void handleSetPassword() {
     Get.toNamed(AppRoutes.set + AppRoutes.setPassword);
+  }
+
+  /// 设置订阅组
+  void handleSetGroup() {
+    Get.toNamed(AppRoutes.set + AppRoutes.setGroup);
   }
 
   /// 退出登陆

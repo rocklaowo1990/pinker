@@ -17,7 +17,7 @@ class CheckPasswordView extends GetView<CheckPasswordController> {
     AppBar appBar = getAppBar(
       getSpan('验证您的身份', fontSize: 17),
       backgroundColor: AppColors.mainBacground,
-      lineColor: AppColors.line,
+      line: AppColors.line,
     );
 
     /// 底部

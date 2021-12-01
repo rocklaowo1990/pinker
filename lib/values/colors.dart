@@ -43,6 +43,9 @@ class AppColors {
   /// 错误颜色
   static const Color errro = Color(0xfff92770);
 
+  /// 订阅分组头像背景色
+  static const Color groupAvatarBackground = Color(0xffFFD730);
+
   /// 文字渐变色
   // static Shader linearGradientText = const LinearGradient(
   //   colors: <Color>[
@@ -54,12 +57,12 @@ class AppColors {
   // ).createShader(Rect.fromLTWH(0.w, 147.h, 0.w, 40.h));
 
   /// 背景渐变色
-  // static const LinearGradient linearGradientContainer = LinearGradient(
-  //   colors: [
-  //     Color(0xff454a5a),
-  //     Color(0xff2e313c),
-  //   ],
-  //   begin: Alignment.topCenter,
-  //   end: Alignment.bottomCenter,
-  // );
+  static const LinearGradient groupBackground = LinearGradient(
+    colors: [
+      Color(0xff9677f8),
+      Color(0xff4a30c4),
+    ],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
 }

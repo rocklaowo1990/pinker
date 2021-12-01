@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:pinker/entities/response.dart';
 
 import 'package:pinker/global.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
 /// http 请求封装
@@ -64,6 +66,12 @@ class HttpUtil {
       },
       onResponse: (response, handler) {
         // Do something with response data
+        // 如果token过期将直接退出登陆
+        ResponseEntity responseEntity = ResponseEntity.fromJson(response.data);
+        if (responseEntity.code == 1) {
+          goLoginPage();
+        }
+
         return handler.next(response); // continue
         // 如果你想终止请求并触发一个错误,你可以 reject 一个`DioError`对象,如`handler.reject(error)`，
         // 这样请求将被中止并触发异常，上层catchError会被调用。
@@ -71,23 +79,33 @@ class HttpUtil {
       onError: (DioError e, handler) {
         // Do something with response error
         ErrorEntity eInfo = createErrorEntity(e);
-        switch (eInfo.code) {
-          case 401: // 没有权限 重新登录
-            break;
+        // switch (eInfo.code) {
+        //   case 401: // 没有权限 重新登录
+        //     break;
 
-          default:
-            return handler.resolve(Response(
-              data: {
-                'code': -1,
-                'msg': '网络连接失败',
-                'data': '',
-              },
-              requestOptions: RequestOptions(
-                path: '',
-              ),
-            ));
-        }
-        return handler.next(e); //continue
+        //   default:
+        //     return handler.resolve(Response(
+        //       data: {
+        //         'code': -1,
+        //         'msg': '网络连接失败',
+        //         'data': '',
+        //       },
+        //       requestOptions: RequestOptions(
+        //         path: '',
+        //       ),
+        //     ));
+        // }
+        return handler.resolve(Response(
+          data: {
+            'code': eInfo.code,
+            'msg': eInfo.message,
+            'data': '',
+          },
+          requestOptions: RequestOptions(
+            path: '',
+          ),
+        ));
+        // return handler.next(e); //continue
         // 如果你想完成请求并返回一些自定义数据，可以resolve 一个`Response`,如`handler.resolve(response)`。
         // 这样请求将会被终止，上层then会被调用，then中返回的数据将是你的自定义response.
       },

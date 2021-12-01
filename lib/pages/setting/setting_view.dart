@@ -22,7 +22,7 @@ class SettingView extends GetView<SettingController> {
     AppBar appBar = getAppBar(
       getSpan(Lang.setTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      lineColor: AppColors.line,
+      line: AppColors.line,
     );
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
       title: '订阅组设置',
       secondTitle: getSpan(''),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleSetGroup,
     );
 
     /// 水印设置
