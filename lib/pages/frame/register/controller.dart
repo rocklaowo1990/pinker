@@ -97,11 +97,7 @@ class RegisterController extends GetxController {
 
   /// 时间选择时的事件
   void _timeChanged(DateTime dateTime) {
-    state.timeChange = DateTime(
-      dateTime.year,
-      dateTime.month,
-      dateTime.day,
-    );
+    state.timeChange = dateTime;
   }
 
   /// 点击生日输入框，调出日期选择器
@@ -153,22 +149,22 @@ class RegisterController extends GetxController {
 
     if (responseEntity.code == 200) {
       if (responseEntity.data!['status'] == 0) {
-        /// 把注册数据传到下一页
-        String bornYear = state.showTime.year.toString();
+        // 把注册数据传到下一页
+        // String bornYear = state.showTime.year.toString();
 
-        String bornMonth = state.showTime.month.toString();
-        if (bornMonth.length == 1) bornMonth = '0$bornMonth';
+        // String bornMonth = state.showTime.month.toString();
+        // if (bornMonth.length == 1) bornMonth = '0$bornMonth';
 
-        String bornDay = state.showTime.day.toString();
-        if (bornDay.length == 1) bornDay = '0$bornDay';
+        // String bornDay = state.showTime.day.toString();
+        // if (bornDay.length == 1) bornDay = '0$bornDay';
 
-        String birthday = bornYear + bornMonth + bornDay;
+        // String birthday = bornYear + bornMonth + bornDay;
 
-        Map<String, String> arguments = {
+        Map<String, dynamic> arguments = {
           'account': textController.text,
           'areaCode': state.code,
           'entryType': '1',
-          'birthday': birthday,
+          'birthday': state.showTime.microsecondsSinceEpoch,
           'accountType': state.isPhone ? '1' : '2',
         };
 

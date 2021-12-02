@@ -6,6 +6,8 @@ import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/pages/setting/set_email/library.dart';
+import 'package:pinker/pages/setting/set_group/group_info/binding.dart';
+import 'package:pinker/pages/setting/set_group/group_info/view.dart';
 import 'package:pinker/pages/setting/set_group/library.dart';
 import 'package:pinker/pages/setting/set_language/library.dart';
 import 'package:pinker/pages/setting/set_password/binding.dart';
@@ -75,6 +77,13 @@ class AppPages {
           name: AppRoutes.setGroup,
           page: () => const SetGroupView(),
           binding: SetGroupBinding(),
+          children: [
+            GetPage(
+              name: AppRoutes.setGroupInfo,
+              page: () => const SetGroupInfoView(),
+              binding: SetGroupInfoBinding(),
+            ),
+          ],
         ),
         GetPage(
           name: AppRoutes.checkPassword,

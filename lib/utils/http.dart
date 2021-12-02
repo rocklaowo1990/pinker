@@ -64,11 +64,12 @@ class HttpUtil {
         // 如果你想终止请求并触发一个错误,你可以返回一个`DioError`对象,如`handler.reject(error)`，
         // 这样请求将被中止并触发异常，上层catchError会被调用。
       },
-      onResponse: (response, handler) {
+      onResponse: (response, handler) async {
         // Do something with response data
         // 如果token过期将直接退出登陆
         ResponseEntity responseEntity = ResponseEntity.fromJson(response.data);
         if (responseEntity.code == 1) {
+          await futureMill(500);
           goLoginPage();
         }
 

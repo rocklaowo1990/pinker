@@ -25,7 +25,7 @@ class SetGroupView extends GetView<SetGroupController> {
 
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan('设置订阅组', fontSize: 17),
+      getSpan('订阅组列表', fontSize: 17),
       backgroundColor: AppColors.secondBacground,
       line: AppColors.line,
       actions: [settingBox],
@@ -39,47 +39,20 @@ class SetGroupView extends GetView<SetGroupController> {
     }) {
       return Container(
         width: double.infinity,
-        height: 150,
+        height: 140,
+        padding: const EdgeInsets.only(left: 40, right: 40),
         decoration: const BoxDecoration(
           gradient: AppColors.groupBackground,
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 32, right: 26),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomCenter,
-                children: [
-                  SvgPicture.asset(
-                    'assets/svg/icon_group_avatar_bac.svg',
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 21),
-                    child: Container(
-                      width: 77,
-                      height: 77,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.secondBacground,
-                      ),
-                      child: Center(
-                        child: CircleAvatar(
-                          radius: 80,
-                          backgroundImage: NetworkImage(
-                              serverApiUrl + serverPort + groupPic),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     getSpan(groupName,
@@ -97,7 +70,7 @@ class SetGroupView extends GetView<SetGroupController> {
                     getSpan('价格：'),
                     SvgPicture.asset(
                       'assets/svg/icon_diamond.svg',
-                      height: 16,
+                      height: 13,
                     ),
                     const SizedBox(width: 8),
                     getSpan('$amount'),
@@ -109,6 +82,32 @@ class SetGroupView extends GetView<SetGroupController> {
                     getSpan('订阅时长：'),
                     getSpan('$timelen'),
                   ],
+                ),
+              ],
+            ),
+            Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    width: 77,
+                    height: 77,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.secondBacground,
+                    ),
+                    child: Center(
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundImage:
+                            NetworkImage(serverApiUrl + serverPort + groupPic),
+                      ),
+                    ),
+                  ),
+                ),
+                SvgPicture.asset(
+                  'assets/svg/icon_group_avatar_bac.svg',
                 ),
               ],
             ),
@@ -147,11 +146,16 @@ class SetGroupView extends GetView<SetGroupController> {
                             children: controller.state.groupList
                                 .map((item) => Padding(
                                     padding: EdgeInsets.all(10.w),
-                                    child: groupList(
-                                      groupName: item['groupName'],
-                                      groupPic: item['groupPic'],
-                                      timelen: item['timelen'],
-                                      amount: item['amount'],
+                                    child: getButton(
+                                      child: groupList(
+                                        groupName: item['groupName'],
+                                        groupPic: item['groupPic'],
+                                        timelen: item['timelen'],
+                                        amount: item['amount'],
+                                      ),
+                                      onPressed: () {
+                                        controller.handleEditGroup(item);
+                                      },
                                     )))
                                 .toList()))
                   ])));

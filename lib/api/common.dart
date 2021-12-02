@@ -6,7 +6,7 @@ import 'package:pinker/utils/utils.dart';
 class CommonApi {
   /// 注册获取验证码：手机
   static Future sendSms(data) async {
-    DateTime timestamp = DateTime.now();
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
     var response = await HttpUtil().postForm(
       '/api/common/sendSms',
       data: data,
@@ -16,7 +16,7 @@ class CommonApi {
         'osversion': Global.osversion,
         'version': Global.packageInfo?.version,
         'model': Global.model,
-        'timestamp': '$timestamp',
+        'timestamp': timestamp,
         'token': Global.token,
       }),
     );
@@ -25,7 +25,7 @@ class CommonApi {
 
   /// 注册获取验证码：邮箱
   static Future sendEmail(data) async {
-    DateTime timestamp = DateTime.now();
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
     var response = await HttpUtil().postForm(
       '/api/common/sendEmail',
       data: data,
@@ -35,7 +35,7 @@ class CommonApi {
         'osversion': Global.osversion,
         'version': Global.packageInfo?.version,
         'model': Global.model,
-        'timestamp': '$timestamp',
+        'timestamp': timestamp,
         'token': Global.token,
       }),
     );
@@ -44,7 +44,7 @@ class CommonApi {
 
   /// 发送验证码(userid)
   static Future sendSmsByType(data) async {
-    DateTime timestamp = DateTime.now();
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
     var response = await HttpUtil().postForm(
       '/api/common/sendSmsByType',
       data: data,
@@ -54,7 +54,7 @@ class CommonApi {
         'osversion': Global.osversion,
         'version': Global.packageInfo?.version,
         'model': Global.model,
-        'timestamp': '$timestamp',
+        'timestamp': timestamp,
         'token': Global.token,
       }),
     );
