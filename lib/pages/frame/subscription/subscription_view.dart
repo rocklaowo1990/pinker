@@ -30,7 +30,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
     Widget middle = Obx(() => Column(
           children: controller.state.userList
               .map((item) => getUserList(
-                  avatar: item['avatar'],
+                  avatar: serverApiUrl + serverPort + item['avatar'],
                   userName: item['userName'],
                   nickName: item['nickName'],
                   onPressed: () {

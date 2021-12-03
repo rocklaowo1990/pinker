@@ -7,7 +7,7 @@ class SetGroupInfoState {
   bool get isDissable => _isDissable.value;
 
   /// 头像
-  final RxInt _image = 0.obs;
-  set image(value) => _image.value = value;
-  int get image => _image.value;
+  final RxInt imageRx = 0.obs;
+  set image(value) => imageRx.value = value;
+  int get image => imageRx.value;
 }

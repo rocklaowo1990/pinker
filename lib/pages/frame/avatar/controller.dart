@@ -77,12 +77,12 @@ class AvatarController extends GetxController {
 
         /// 上传结果
         if (uploadFile.code == 200) {
-          avatarUrl = serverApiUrl + serverPort + uploadFile.data!['url'];
+          avatarUrl = uploadFile.data!['url'];
         } else {
           getSnackTop(uploadFile.msg);
         }
       } else {
-        avatarUrl = serverApiUrl + serverPort + verifyResource.data!['url'];
+        avatarUrl = verifyResource.data!['url'];
       }
 
       /// 准备修改头像

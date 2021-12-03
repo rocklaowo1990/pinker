@@ -82,7 +82,7 @@ Widget getInput({
     isPassword.value = true;
     keyboardType = TextInputType.visiblePassword;
     suffixIcon.value = Icons.visibility_off;
-  } else if (type == Lang.inputPhone.tr) {
+  } else if (type == Lang.inputPhone.tr || RegExp(r"数量").hasMatch(type)) {
     keyboardType = TextInputType.number;
   } else if (type == Lang.inputEmail.tr) {
     keyboardType = TextInputType.emailAddress;
@@ -91,6 +91,7 @@ Widget getInput({
   /// 组件
   Widget textField = Obx(() {
     return TextField(
+      cursorColor: AppColors.mainColor,
       textInputAction: textInputAction,
       autofocus: autofocus,
       focusNode: focusNode,

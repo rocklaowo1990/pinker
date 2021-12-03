@@ -83,7 +83,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       color: AppColors.mainColor,
     );
 
-    /// 同意服务条款
+    /// 订阅日期
     Widget day = getButton(
       overlayColor: Colors.transparent,
       width: double.infinity,
@@ -115,7 +115,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
             controller: controller.textEditingGroupName,
             focusNode: controller.focusGroupName,
             prefixIcon: Container(
-              child: getSpan('分组名称'),
+              child: getSpan('分组名称', color: AppColors.mainColor),
               width: 100,
               padding: const EdgeInsets.only(left: 20),
               alignment: Alignment.centerLeft,
@@ -129,7 +129,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
             prefixIcon: Container(
               child: Row(
                 children: [
-                  getSpan('订阅价格'),
+                  getSpan('订阅价格', color: AppColors.mainColor),
                   const SizedBox(width: 20),
                   SvgPicture.asset(
                     'assets/svg/icon_diamond.svg',
@@ -146,7 +146,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
           Row(
             children: [
               const SizedBox(width: 20),
-              getSpan('订阅时长'),
+              getSpan('订阅时长', color: AppColors.mainColor),
               const SizedBox(width: 20),
               Expanded(
                 child: day,

@@ -114,7 +114,7 @@ class DialogChild {
     /// 内容区
     Widget contentBox = Column(
       children: [
-        getSpan(title, fontSize: 9.sp),
+        getSpan(title, fontSize: 17),
         SizedBox(height: 8.h),
         getSpan(
           content,

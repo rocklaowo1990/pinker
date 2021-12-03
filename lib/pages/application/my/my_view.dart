@@ -69,7 +69,9 @@ class MyView extends GetView<MyController> {
                           color: AppColors.secondBacground,
                           image: controller.state.avatar.isNotEmpty
                               ? DecorationImage(
-                                  image: NetworkImage(controller.state.avatar))
+                                  image: NetworkImage(serverApiUrl +
+                                      serverPort +
+                                      controller.state.avatar))
                               : null,
                         ),
                         child: controller.state.avatar.isEmpty
@@ -113,7 +115,9 @@ class MyView extends GetView<MyController> {
                     color: AppColors.secondBacground,
                     image: controller.state.avatar.isNotEmpty
                         ? DecorationImage(
-                            image: NetworkImage(controller.state.avatar))
+                            image: NetworkImage(serverApiUrl +
+                                serverPort +
+                                controller.state.avatar))
                         : null,
                   ),
                   child: controller.state.avatar.isEmpty

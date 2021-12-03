@@ -33,8 +33,9 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
               )
             : CircleAvatar(
                 radius: 80.w,
-                backgroundImage:
-                    NetworkImage(controller.forgotController.userInfo.avatar!),
+                backgroundImage: NetworkImage(serverApiUrl +
+                    serverPort +
+                    controller.forgotController.userInfo.avatar!),
               ),
       ),
     );
