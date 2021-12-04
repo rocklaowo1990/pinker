@@ -22,7 +22,6 @@ class RegisterView extends GetView<RegisterController> {
               ? Lang.inputPhone.tr
               : Lang.inputEmail.tr,
           controller: controller.textController,
-          autofocus: true,
           focusNode: controller.focusNode,
           prefixIcon: controller.state.isPhone
               ? getButton(

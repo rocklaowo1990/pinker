@@ -34,6 +34,7 @@ class SetEmailController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    focusNode.requestFocus();
     _textListener();
   }
 
@@ -58,6 +59,7 @@ class SetEmailController extends GetxController {
 
   void _sure() async {
     Get.back();
+    focusNode.unfocus();
     Map<String, dynamic> data = {
       'account': textController.text,
       'areaCode': state.code,

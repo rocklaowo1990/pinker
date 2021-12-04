@@ -56,7 +56,6 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
     Widget userPassword = getInput(
       type: Lang.inputPassword.tr,
       controller: controller.textController,
-      autofocus: true,
       focusNode: controller.focusNode,
       textInputAction: TextInputAction.next,
     );

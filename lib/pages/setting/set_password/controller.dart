@@ -25,6 +25,9 @@ class SetPasswordController extends GetxController {
   final MyController myController = Get.find();
 
   void handleSure() async {
+    oldFocusNode.unfocus();
+    newOneFocusNode.unfocus();
+    newTwoFocusNode.unfocus();
     getDialog(
       child: DialogChild.alert(
         title: '更改密码',
@@ -95,6 +98,7 @@ class SetPasswordController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    oldFocusNode.requestFocus();
     oldController.addListener(() {
       _textListener();
     });

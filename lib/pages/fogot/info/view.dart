@@ -56,7 +56,6 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
     Widget userCount = getInput(
       type: '手机号码或邮箱地址',
       controller: controller.textController,
-      autofocus: true,
       focusNode: controller.focusNode,
       textInputAction: TextInputAction.next,
     );

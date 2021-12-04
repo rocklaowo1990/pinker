@@ -90,7 +90,6 @@ class ForgotController extends GetxController {
 
   @override
   void onInit() async {
-    super.onInit();
     if (arguments != null) {
       UserInfo _userInfo = UserInfo.fromJson(arguments!);
       userInfo.userId = _userInfo.userId;
@@ -103,6 +102,12 @@ class ForgotController extends GetxController {
       userInfo.userName = _userInfo.userName;
       state.pageIndex = 2;
     }
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
     interval(state.sendTimeRx, (value) {
       if (state.sendTime > 0) state.sendTime--;
     });

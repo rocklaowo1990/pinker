@@ -108,8 +108,8 @@ class ApplicationController extends GetxController {
 
   /// 页面加载时
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
 
     interval(
       state.rxInt,

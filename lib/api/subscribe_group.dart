@@ -19,11 +19,26 @@ class SubscribeGroupApi {
   }
 
   /// 修改分组信息 //////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> update({data}) async {
+  static Future<ResponseEntity> update(data) async {
     // 读取token
     String token = StorageUtil().getJSON(storageUserTokenKey);
     var response = await HttpUtil().postForm(
       '/api/subscribeGroup/update',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+      data: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 修改分组信息 //////////////////////////////////////////////////////////////
+  static Future<ResponseEntity> create(data) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+    var response = await HttpUtil().postForm(
+      '/api/subscribeGroup/create',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'token': token,

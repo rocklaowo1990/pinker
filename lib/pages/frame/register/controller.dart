@@ -25,8 +25,9 @@ class RegisterController extends GetxController {
 
   /// 初始化
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
+    focusNode.requestFocus();
     textController.addListener(_textListener);
 
     /// 节流
@@ -42,6 +43,7 @@ class RegisterController extends GetxController {
 
   /// 下一步按钮，点击事件
   void handleNext() async {
+    focusNode.unfocus();
     String number = '';
 
     if (state.isPhone) {
@@ -71,6 +73,8 @@ class RegisterController extends GetxController {
 
   /// 区号选择
   void handleGoCodeList() async {
+    // focusNode.unfocus();
+
     var result = await Get.toNamed(
       AppRoutes.codeList,
       arguments: state.code,
@@ -172,12 +176,14 @@ class RegisterController extends GetxController {
         await futureMill(500);
 
         Get.back();
+
         Get.toNamed(AppRoutes.verify, id: 1, arguments: arguments);
       } else {
         await futureMill(500);
 
         Get.back();
         getSnackTop(Lang.registerAllready.tr);
+        focusNode.requestFocus();
       }
     } else {
       Get.back();

@@ -32,86 +32,97 @@ class SetGroupInfoController extends GetxController {
 
   Future<void> handleSure() async {
     /// Loading弹窗
-    getDialog(autoBack: true);
-
-    /// 获取文件的MD5
-    Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
-
-    /// 获取token
-    String token = StorageUtil().getJSON(storageUserTokenKey);
-
-    /// 准备验证资源
-    Map<String, dynamic> verifyResourceData = {
-      'fileName': '$flieMD5.jpg',
-      'code': flieMD5,
-    };
+    getDialog();
+    focusGroupName.unfocus();
+    focusPrice.unfocus();
 
     /// 头像地址
     String avatarUrl = '';
 
-    /// 开始验证资源
-    ResponseEntity verifyResource = await CommonApi.verifyResource(
-      verifyResourceData,
-      token: token,
-    );
+    if (state.image > 0) {
+      /// 获取文件的MD5
+      Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
 
-    /// 资源验证结果
-    /// 成功
-    if (verifyResource.code == 200) {
-      /// 验证的时候，如果返回的url是空，代表这个图片是新的，可以上传
-      if (verifyResource.data!['url'] == '') {
-        /// 开始上传
-        ResponseEntity uploadFile = await CommonApi.uploadFile(
-          fileName: '$flieMD5.jpg',
-          filePath: avatarFile.path,
-          type: '1',
-          token: token,
-        );
+      /// 获取token
+      String token = StorageUtil().getJSON(storageUserTokenKey);
 
-        /// 上传结果
-        if (uploadFile.code == 200) {
-          avatarUrl = uploadFile.data!['url'];
-        } else {
-          getSnackTop(uploadFile.msg);
-        }
-      } else {
-        avatarUrl = verifyResource.data!['url'];
-      }
+      /// 准备验证资源
+      Map<String, dynamic> verifyResourceData = {
+        'fileName': '$flieMD5.jpg',
+        'code': flieMD5,
+      };
 
-      /// 准备修改分组信息
-      Map<String, dynamic> data = arguments != 1
-          ? {
-              'groupId': arguments['groupId'],
-              if (textEditingGroupName.text != arguments['groupName'])
-                'groupName': textEditingGroupName.text,
-              if (state.image > 0) 'groupPic': avatarUrl,
-              if (textEditingPrice.text != arguments['amount'])
-                'amount': textEditingPrice.text,
-              'timeLen': arguments['timeLen'],
-            }
-          : {};
-
-      /// 开始修改
-      ResponseEntity updateGroupInfo = arguments != 1
-          ? await SubscribeGroupApi.update(data: data)
-          : await SubscribeGroupApi.update(data: data);
-
-      /// 修改结果
-      if (updateGroupInfo.code == 200) {
-        await futureMill(500);
-        Get.back();
-        print(updateGroupInfo.data);
-      } else {
-        await futureMill(500);
-        Get.back();
-        getSnackTop(updateGroupInfo.msg);
-      }
+      /// 开始验证资源
+      ResponseEntity verifyResource = await CommonApi.verifyResource(
+        verifyResourceData,
+        token: token,
+      );
 
       /// 资源验证结果
-      /// 失败
-    } else {
+      /// 成功
+      if (verifyResource.code == 200) {
+        /// 验证的时候，如果返回的url是空，代表这个图片是新的，可以上传
+        if (verifyResource.data!['url'] == '') {
+          /// 开始上传
+          ResponseEntity uploadFile = await CommonApi.uploadFile(
+            fileName: '$flieMD5.jpg',
+            filePath: avatarFile.path,
+            type: '1',
+            token: token,
+          );
+
+          /// 上传结果
+          if (uploadFile.code == 200) {
+            avatarUrl = uploadFile.data!['url'];
+          } else {
+            getSnackTop(uploadFile.msg);
+          }
+        } else {
+          avatarUrl = verifyResource.data!['url'];
+        }
+
+        /// 资源验证结果
+        /// 失败
+      } else {
+        Get.back();
+        getSnackTop(verifyResource.msg);
+        return;
+      }
+    }
+
+    /// 准备修改分组信息
+    Map<String, dynamic> data = arguments != 1
+        ? {
+            'groupId': arguments['groupId'],
+            if (textEditingGroupName.text != arguments['groupName'])
+              'groupName': textEditingGroupName.text,
+            'groupPic': state.image > 0 ? avatarUrl : arguments['groupPic'],
+            if (textEditingPrice.text != arguments['amount'])
+              'amount': textEditingPrice.text,
+            'timeLen': arguments['timelen'],
+          }
+        : {
+            'groupName': textEditingGroupName.text,
+            'groupPic': avatarUrl,
+            'amount': textEditingPrice.text,
+            'timeLen': '30',
+          };
+
+    /// 开始修改
+    ResponseEntity updateGroupInfo = arguments != 1
+        ? await SubscribeGroupApi.update(data)
+        : await SubscribeGroupApi.create(data);
+
+    /// 修改结果
+    if (updateGroupInfo.code == 200) {
+      await futureMill(500);
       Get.back();
-      getSnackTop(verifyResource.msg);
+      Get.back(result: 1);
+      getSnackTop('操作成功', isError: false);
+    } else {
+      await futureMill(500);
+      Get.back();
+      getSnackTop(updateGroupInfo.msg);
     }
   }
 
@@ -204,6 +215,7 @@ class SetGroupInfoController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    focusGroupName.requestFocus();
     if (arguments != 1) {
       textEditingGroupName.addListener(() {
         _linstenerEdit();

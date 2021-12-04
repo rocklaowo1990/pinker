@@ -17,23 +17,34 @@ class CodeListController extends GetxController {
 
   final String arguments = Get.arguments;
 
+  List codeList = [];
+
   @override
-  void onInit() async {
-    super.onInit();
+  void onReady() async {
+    super.onReady();
+
+    /// 查找本地区号数据，如果不存在就发送请求
+    ResponseEntity responseEntity = await CommonApi.getAreaCodeList();
+    if (responseEntity.code == 200) {
+      await StorageUtil()
+          .setJSON(storageCodeListOpenKey, responseEntity.data!['list']);
+      codeList = responseEntity.data!['list'];
+      state.showList.addAll(codeList);
+      state.isLoading = false;
+    } else {
+      getSnackTop(responseEntity.msg);
+    }
 
     textController.addListener(() {
       state.searchValue = textController.text;
       if (state.searchValue.isEmpty) {
-        var codeListJson = StorageUtil().getJSON(storageCodeListOpenKey);
-        state.showList = codeListJson['list'];
+        state.showList.addAll(codeList);
       }
     });
 
     debounce(
       state.searchRx,
       (String value) {
-        var codeListJson = StorageUtil().getJSON(storageCodeListOpenKey);
-        List codeList = codeListJson['list'];
         if (value.isNotEmpty) {
           state.showList.clear();
           for (int i = 0; i < codeList.length; i++) {
@@ -45,26 +56,8 @@ class CodeListController extends GetxController {
           }
         }
       },
-      time: const Duration(milliseconds: 300),
+      time: const Duration(milliseconds: 200),
     );
-  }
-
-  @override
-  void onReady() async {
-    super.onReady();
-
-    /// 查找本地区号数据，如果不存在就发送请求
-    var codeListJson = StorageUtil().getJSON(storageCodeListOpenKey);
-    if (codeListJson == null) {
-      ResponseEntity responseEntity = await CommonApi.getAreaCodeList();
-      if (responseEntity.code == 200) {
-        StorageUtil().setJSON(storageCodeListOpenKey, responseEntity.data);
-        codeListJson = StorageUtil().getJSON(storageCodeListOpenKey);
-      } else {
-        getSnackTop(responseEntity.msg);
-      }
-    }
-    state.showList = codeListJson['list'];
   }
 
   /// 返回上一页

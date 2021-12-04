@@ -39,7 +39,6 @@ class SetPhoneView extends GetView<SetPhoneController> {
     Widget userRegister = Obx(() => getInput(
           type: Lang.inputPhone.tr,
           controller: controller.textController,
-          autofocus: true,
           focusNode: controller.focusNode,
           prefixIcon: getButton(
             child: getSpan(

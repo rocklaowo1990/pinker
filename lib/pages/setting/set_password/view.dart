@@ -44,7 +44,6 @@ class SetPasswordView extends GetView<SetPasswordController> {
       type: '旧密码',
       controller: controller.oldController,
       focusNode: controller.oldFocusNode,
-      autofocus: true,
     );
 
     /// 新密码——1

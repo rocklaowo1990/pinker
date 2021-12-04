@@ -161,9 +161,8 @@ class AvatarController extends GetxController {
   }
 
   @override
-  void onInit() async {
-    super.onInit();
-
+  void onReady() {
+    super.onReady();
     Future.delayed(const Duration(milliseconds: 200), () {
       /// 提示注册成功
       getSnackTop('注册成功', isError: false);

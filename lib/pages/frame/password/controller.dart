@@ -21,13 +21,15 @@ class PasswordController extends GetxController {
 
   /// 点击下一步按钮的执行
   void handleNext() async {
+    passwordFocusNode.unfocus();
+    getDialog();
+
     /// 准备注册请求数据
     var data = arguments;
     data['password'] = duMD5(passwordController.text);
 
     /// 交互：弹出loading窗口
     // passwordFocusNode.unfocus();
-    getDialog();
 
     /// 开始请求
     ResponseEntity registerAccount = await AccountApi.registerAccount(data);
@@ -53,12 +55,13 @@ class PasswordController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onReady() {
+    super.onReady();
+    passwordFocusNode.requestFocus();
     passwordController.addListener(() {
       String text = passwordController.text;
       state.isDissable = isPassword(text) ? false : true;
     });
-    super.onInit();
   }
 
   @override

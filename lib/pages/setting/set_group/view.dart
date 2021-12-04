@@ -145,7 +145,8 @@ class SetGroupView extends GetView<SetGroupController> {
                         child: ListView(
                             children: controller.state.groupList
                                 .map((item) => Padding(
-                                    padding: EdgeInsets.all(10.w),
+                                    padding: EdgeInsets.fromLTRB(
+                                        10.w, 10.w, 10.w, 0),
                                     child: getButton(
                                       child: groupList(
                                         groupName: item['groupName'],

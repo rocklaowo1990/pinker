@@ -18,7 +18,6 @@ class ForgotIndexView extends GetView<ForgotIndexController> {
     Widget userCount = getInput(
       type: Lang.inputCount.tr,
       controller: controller.textController,
-      autofocus: true,
       focusNode: controller.focusNode,
       textInputAction: TextInputAction.next,
     );

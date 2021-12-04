@@ -99,14 +99,6 @@ class SettingController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
-    interval(state.sendTimeRx, (value) {
-      if (state.sendTime > 0) state.sendTime--;
-    });
-  }
-
-  @override
   void onReady() {
     super.onReady();
     if (arguments != null) {
@@ -116,5 +108,9 @@ class SettingController extends GetxController {
       state.blockCount = arguments!.blockCount ?? 0;
       state.hiddenCount = arguments!.hiddenCount ?? 0;
     }
+
+    interval(state.sendTimeRx, (value) {
+      if (state.sendTime > 0) state.sendTime--;
+    });
   }
 }

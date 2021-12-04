@@ -76,11 +76,6 @@ class ForgotVerifyController extends GetxController {
   void onReady() async {
     super.onReady();
     await sendCode();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
     interval(forgotController.state.sendTimeRx, (value) {
       if (forgotController.state.sendTime > 0) {
         forgotController.state.sendTime--;

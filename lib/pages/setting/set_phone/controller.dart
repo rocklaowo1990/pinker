@@ -51,10 +51,13 @@ class SetPhoneController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    focusNode.requestFocus();
     _textListener();
   }
 
   void handleNext() async {
+    focusNode.unfocus();
+
     /// 下一步按钮，点击事件
     getDialog(
       child: DialogChild.alert(

@@ -49,7 +49,6 @@ class CheckPasswordView extends GetView<CheckPasswordController> {
                 type: Lang.inputPassword.tr,
                 controller: controller.textController,
                 focusNode: controller.focusNode,
-                autofocus: true,
               ),
             ],
           ),

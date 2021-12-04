@@ -51,7 +51,6 @@ class SetUserNameView extends GetView<SetUserNameController> {
                     type: '输入新的用户名',
                     controller: controller.textController,
                     focusNode: controller.focusNode,
-                    autofocus: true,
                   ),
                   SizedBox(height: 8.h),
                   getSpan('6-16位字母开头，允许包含数字和下划线', color: AppColors.secondText),

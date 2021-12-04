@@ -21,7 +21,6 @@ class LoginView extends GetView<LoginController> {
     Widget userCount = getInput(
       type: Lang.inputCount.tr,
       controller: controller.userCountController,
-      autofocus: true,
       focusNode: controller.userCountFocusNode,
       textInputAction: TextInputAction.next,
     );

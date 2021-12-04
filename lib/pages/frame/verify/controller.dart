@@ -85,7 +85,8 @@ class VerifyController extends GetxController {
   }
 
   @override
-  void onReady() async {
+  void onReady() {
+    super.onReady();
     sendCode();
   }
 

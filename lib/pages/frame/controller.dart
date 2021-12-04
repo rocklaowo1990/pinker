@@ -89,10 +89,10 @@ class FrameController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onReady() {
+    super.onReady();
     interval(state.sendTimeRx, (value) {
       if (state.sendTime > 0) state.sendTime--;
     });
-    super.onInit();
   }
 }

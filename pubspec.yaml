@@ -45,8 +45,8 @@ dependencies:
   # getx 框架
   get: ^4.3.8
 
-  # 缓存
-  shared_preferences: ^2.0.8
+  # 本地储存
+  shared_preferences: ^2.0.9
 
   # http 请求
   dio: ^4.0.1

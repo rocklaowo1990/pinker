@@ -41,8 +41,8 @@ class MyController extends GetxController {
   }
 
   @override
-  void onInit() async {
-    super.onInit();
+  void onReady() async {
+    super.onReady();
 
     /// 本地没有用户数据，请求用户的数据，然后保存至本地
     if (_userInfo == null) {
@@ -62,16 +62,11 @@ class MyController extends GetxController {
       _getUserInfo(_userInfo);
       userInfo = _userInfo;
     }
-  }
-
-  @override
-  void onReady() {
     scrollController.addListener(() {
       state.opacity = scrollController.offset / 100;
       if (state.opacity > 1) state.opacity = 1;
       if (state.opacity < 0) state.opacity = 0;
     });
-    super.onReady();
   }
 
   @override

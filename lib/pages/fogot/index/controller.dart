@@ -29,6 +29,7 @@ class ForgotIndexController extends GetxController {
   /// 下一步
   void handleNext() async {
     getDialog();
+    focusNode.unfocus();
     Map<String, dynamic> data = {'account': textController.text};
 
     ResponseEntity _userInfo = await AccountApi.verificateAccount(data);
@@ -66,8 +67,9 @@ class ForgotIndexController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
+    focusNode.requestFocus();
     textController.addListener(() {
       String text = textController.text;
       state.isDissable = duCheckStringLength(text, 7) ? false : true;

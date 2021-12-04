@@ -24,6 +24,7 @@ class CheckPasswordController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    focusNode.requestFocus();
     textController.addListener(() {
       String text = textController.text;
       if (text.isNotEmpty) {
@@ -36,6 +37,7 @@ class CheckPasswordController extends GetxController {
 
   void handleNext() async {
     getDialog();
+    focusNode.unfocus();
     Map<String, dynamic> data = {
       'password': duMD5(textController.text),
       'type': '1',

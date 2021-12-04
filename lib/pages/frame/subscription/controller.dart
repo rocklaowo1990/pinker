@@ -69,9 +69,8 @@ class SubscriptionController extends GetxController {
   }
 
   @override
-  void onInit() async {
-    super.onInit();
-
+  void onReady() async {
+    super.onReady();
     await _getList();
   }
 

@@ -38,27 +38,48 @@ class CodeListView extends GetView<CodeListController> {
 
     /// body
     Widget body = Scrollbar(
-        child: Column(children: [
-      searchBox,
-      Expanded(
-          child: SingleChildScrollView(
-        child: Obx(() => Column(
-            children: controller.state.showList
-                .map((item) => getButtonList(
-                    onPressed: () {
-                      controller.handleChooise(item);
-                    },
-                    title: Get.locale == const Locale('zh', 'CN')
-                        ? '+${item['area_code']}      ${item['op_name']}'
-                        : '+${item['area_code']}      ${item['country']}',
-                    iconRight: Icon(Icons.check_circle,
-                        size: 9.w,
-                        color: '${item['area_code']}' == controller.arguments
-                            ? AppColors.mainColor
-                            : AppColors.thirdIcon)))
-                .toList())),
-      ))
-    ]));
+      child: Column(
+        children: [
+          searchBox,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Obx(
+                () => controller.state.isLoading
+                    ? Center(
+                        child: Column(children: [
+                        SizedBox(height: 40.h),
+                        SizedBox(
+                            width: 9.w,
+                            height: 9.w,
+                            child: CircularProgressIndicator(
+                                backgroundColor: AppColors.mainIcon,
+                                color: AppColors.mainColor,
+                                strokeWidth: 1.w)),
+                        SizedBox(height: 6.h),
+                        getSpan('加载中...', color: AppColors.secondText),
+                      ]))
+                    : Column(
+                        children: controller.state.showList
+                            .map((item) => getButtonList(
+                                onPressed: () {
+                                  controller.handleChooise(item);
+                                },
+                                title: Get.locale == const Locale('zh', 'CN')
+                                    ? '+${item['area_code']}      ${item['op_name']}'
+                                    : '+${item['area_code']}      ${item['country']}',
+                                iconRight: Icon(Icons.check_circle,
+                                    size: 9.w,
+                                    color: '${item['area_code']}' ==
+                                            controller.arguments
+                                        ? AppColors.mainColor
+                                        : AppColors.thirdIcon)))
+                            .toList()),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
 
     /// 页面
     return Scaffold(

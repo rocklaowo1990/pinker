@@ -28,7 +28,7 @@ class ForgotPasswordController extends GetxController {
   /// 下一步
   void handleNext() async {
     getDialog();
-
+    focusNode.unfocus();
     Map<String, dynamic> data = forgotController.arguments == null
         ? {
             'userId': '${forgotController.userInfo.userId}',
@@ -73,9 +73,9 @@ class ForgotPasswordController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
-
+  void onReady() {
+    super.onReady();
+    focusNode.requestFocus();
     textController.addListener(() {
       String text = textController.text;
       state.isDissable = isPassword(text) ? false : true;

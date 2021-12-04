@@ -33,10 +33,10 @@ class PasswordView extends GetView<PasswordController> {
 
     /// 密码输入框
     Widget userPassword = getInput(
-        type: Lang.inputPassword.tr,
-        controller: controller.passwordController,
-        focusNode: controller.passwordFocusNode,
-        autofocus: true);
+      type: Lang.inputPassword.tr,
+      controller: controller.passwordController,
+      focusNode: controller.passwordFocusNode,
+    );
 
     /// 底部
     Widget bottom = getBottomBox(

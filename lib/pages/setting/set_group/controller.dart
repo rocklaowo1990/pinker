@@ -8,23 +8,23 @@ import 'package:pinker/widgets/widgets.dart';
 class SetGroupController extends GetxController {
   final state = SetGroupState();
 
-  void handleEditGroup(item) {
-    Get.toNamed(
+  void handleEditGroup(item) async {
+    var result = await Get.toNamed(
       AppRoutes.set + AppRoutes.setGroup + AppRoutes.setGroupInfo,
       arguments: item,
     );
+    if (result != null) _response();
   }
 
-  void handleAddGroup() {
-    Get.toNamed(
+  void handleAddGroup() async {
+    var result = await Get.toNamed(
       AppRoutes.set + AppRoutes.setGroup + AppRoutes.setGroupInfo,
       arguments: 1,
     );
+    if (result != null) _response();
   }
 
-  @override
-  void onReady() async {
-    super.onReady();
+  void _response() async {
     ResponseEntity responseEntity = await SubscribeGroupApi.list();
     if (responseEntity.code == 200) {
       state.groupList = responseEntity.data!['list'];
@@ -32,5 +32,11 @@ class SetGroupController extends GetxController {
     } else {
       getSnackTop(responseEntity.msg);
     }
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+    _response();
   }
 }

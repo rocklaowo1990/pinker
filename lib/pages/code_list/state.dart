@@ -10,4 +10,9 @@ class CodeListState {
   final RxString searchRx = ''.obs;
   set searchValue(String value) => searchRx.value = value;
   String get searchValue => searchRx.value;
+
+  /// 正在请求数据
+  final RxBool _isLoading = true.obs;
+  set isLoading(bool value) => _isLoading.value = value;
+  bool get isLoading => _isLoading.value;
 }

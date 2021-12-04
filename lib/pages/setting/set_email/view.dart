@@ -38,7 +38,6 @@ class SetEmailView extends GetView<SetEmailController> {
     Widget userRegister = getInput(
       type: Lang.inputEmail.tr,
       controller: controller.textController,
-      autofocus: true,
       focusNode: controller.focusNode,
     );
 

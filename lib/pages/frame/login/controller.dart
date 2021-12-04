@@ -29,24 +29,24 @@ class LoginController extends GetxController {
     userPasswordFocusNode.unfocus();
   }
 
-  /// 输入框文本监听
-  void _textListener() {
-    state.isDissable =
-        userCountController.text.isEmpty || userPasswordController.text.isEmpty
-            ? true
-            : false;
-  }
-
-  /// 初始化
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
+    userCountFocusNode.requestFocus();
     userCountController.addListener(() {
       _textListener();
     });
     userPasswordController.addListener(() {
       _textListener();
     });
+  }
+
+  /// 输入框文本监听
+  void _textListener() {
+    state.isDissable =
+        userCountController.text.isEmpty || userPasswordController.text.isEmpty
+            ? true
+            : false;
   }
 
   /// 找回密码

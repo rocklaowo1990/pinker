@@ -23,6 +23,7 @@ class ForgotInfoController extends GetxController {
 
   void handleNext() async {
     getDialog();
+    focusNode.unfocus();
     if (textController.text == forgotController.userInfo.phone ||
         textController.text == forgotController.userInfo.email) {
       textController.clear();
@@ -40,11 +41,10 @@ class ForgotInfoController extends GetxController {
   }
 
   @override
-  void onInit() async {
-    super.onInit();
-    await Future.delayed(const Duration(milliseconds: 200), () {
-      focusNode.requestFocus();
-    });
+  void onReady() async {
+    super.onReady();
+    focusNode.requestFocus();
+
     textController.addListener(() {
       String text = textController.text;
       state.isDissable = duCheckStringLength(text, 7) ? false : true;
