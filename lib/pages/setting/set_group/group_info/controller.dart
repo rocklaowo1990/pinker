@@ -30,11 +30,15 @@ class SetGroupInfoController extends GetxController {
   TextEditingController textEditingPrice = TextEditingController();
   FocusNode focusPrice = FocusNode();
 
-  Future<void> handleSure() async {
+  void _cancel() {
+    Get.back();
+  }
+
+  void _sure() async {
+    Get.back();
+
     /// Loading弹窗
     getDialog();
-    focusGroupName.unfocus();
-    focusPrice.unfocus();
 
     /// 头像地址
     String avatarUrl = '';
@@ -126,8 +130,25 @@ class SetGroupInfoController extends GetxController {
     }
   }
 
+  void handleSure() async {
+    focusGroupName.unfocus();
+    focusPrice.unfocus();
+    getDialog(
+      child: DialogChild.alert(
+        onPressedLeft: _cancel,
+        onPressedRight: _sure,
+        title: arguments != 1 ? '修改订阅组' : '添加订阅组',
+        content: '是否确认继续操作',
+        leftText: '取消',
+      ),
+      autoBack: true,
+    );
+  }
+
   /// 添加头像按钮
   void handleGetImage() async {
+    focusGroupName.unfocus();
+    focusPrice.unfocus();
     await getImage(_camera, _gallery);
   }
 
