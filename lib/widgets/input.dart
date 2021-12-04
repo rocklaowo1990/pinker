@@ -19,7 +19,7 @@ Widget getInput({
   required FocusNode focusNode,
 
   /// 是否自动获取焦点
-  bool autofocus = false,
+  // bool autofocus = false,
 
   /// 键盘右下角的按钮类型
   TextInputAction? textInputAction,
@@ -93,7 +93,7 @@ Widget getInput({
     return TextField(
       cursorColor: AppColors.mainColor,
       textInputAction: textInputAction,
-      autofocus: autofocus,
+      // autofocus: autofocus,
       focusNode: focusNode,
       controller: controller,
       keyboardType: keyboardType,
