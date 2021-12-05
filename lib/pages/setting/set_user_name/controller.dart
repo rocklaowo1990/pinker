@@ -22,6 +22,9 @@ class SetUserNameController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+
+    focusNode.requestFocus();
+
     textController.addListener(() {
       String text = textController.text;
       if (isUserNameSenond(text)) {
@@ -66,6 +69,7 @@ class SetUserNameController extends GetxController {
   }
 
   void handleSure() async {
+    focusNode.unfocus();
     getDialog(
       child: DialogChild.alert(
         onPressedLeft: _cancel,
@@ -76,5 +80,12 @@ class SetUserNameController extends GetxController {
       ),
       autoBack: true,
     );
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    textController.dispose();
+    super.dispose();
   }
 }

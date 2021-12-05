@@ -20,9 +20,19 @@ class SettingController extends GetxController {
     Get.back();
   }
 
+  // 注销账号
+  void handleDeltetAccount() {
+    Get.toNamed(AppRoutes.set + AppRoutes.deleteAccount);
+  }
+
   /// 去语言选择页面
-  void handleGoLanguage() {
+  void handleSetLanguage() {
     Get.toNamed(AppRoutes.set + AppRoutes.language);
+  }
+
+  /// 设置水印
+  void handleSetUserLogo() {
+    Get.toNamed(AppRoutes.set + AppRoutes.setUserLogo);
   }
 
   /// 设置用户名

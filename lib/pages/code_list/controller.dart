@@ -23,7 +23,6 @@ class CodeListController extends GetxController {
   void onReady() async {
     super.onReady();
 
-    /// 查找本地区号数据，如果不存在就发送请求
     ResponseEntity responseEntity = await CommonApi.getAreaCodeList();
     if (responseEntity.code == 200) {
       await StorageUtil()

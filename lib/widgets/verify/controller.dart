@@ -23,7 +23,7 @@ class WidgetsVerifyController extends GetxController {
   }
 
   void onChanged(
-    text,
+    String text,
     Future<bool> Function(String text) isVerify,
     VoidCallback result,
   ) async {

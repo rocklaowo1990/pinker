@@ -35,7 +35,7 @@ class SettingView extends GetView<SettingController> {
               ? Lang.setLangValueCN.tr
               : Lang.setLangValueEN.tr,
           color: AppColors.secondIcon)),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleSetLanguage,
     );
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
@@ -129,7 +129,7 @@ class SettingView extends GetView<SettingController> {
       onPressed: controller.handleHiddenList,
     );
 
-    /// 水印设置
+    /// 订阅组设置
     Widget setGroup = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
       title: '订阅组设置',
@@ -142,7 +142,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
       title: '水印设置',
       secondTitle: getSpan(''),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleSetUserLogo,
     );
 
     /// 注销账号
@@ -150,7 +150,7 @@ class SettingView extends GetView<SettingController> {
       icon: SvgPicture.asset('assets/svg/set_logout.svg'),
       title: '注销账号',
       secondTitle: getSpan(''),
-      onPressed: controller.handleGoLanguage,
+      onPressed: controller.handleDeltetAccount,
     );
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////

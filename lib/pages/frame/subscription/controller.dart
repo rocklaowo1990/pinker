@@ -54,7 +54,7 @@ class SubscriptionController extends GetxController {
   /// 请求数据
   Future<dynamic> _getList() async {
     /// 开始请求
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       'pageNo': '1',
       'pageSize': '20',
       'type': '1',

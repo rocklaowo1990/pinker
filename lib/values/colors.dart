@@ -34,6 +34,9 @@ class AppColors {
   /// 主要背景，一般用于页面背景
   static const Color mainBacground = Color(0xff262932);
 
+  /// 主要背景的半透明状态
+  static const Color mainBacground50 = Color(0xaa262932);
+
   /// 次要背景，和主要背景拉开层次
   static const Color secondBacground = Color(0xff2e313c);
 

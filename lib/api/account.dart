@@ -74,4 +74,19 @@ class AccountApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 验证密码 //////////////////////////////////////////////////////////////////
+  static Future<ResponseEntity> deleteAccount(data) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+    var response = await HttpUtil().get(
+      '/api/account/deleteAccount',
+      queryParameters: data,
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

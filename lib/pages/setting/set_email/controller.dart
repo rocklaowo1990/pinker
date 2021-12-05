@@ -38,7 +38,9 @@ class SetEmailController extends GetxController {
     _textListener();
   }
 
-  void handleNext() async {
+  void handleNext() {
+    focusNode.unfocus();
+
     /// 下一步按钮，点击事件
     getDialog(
       child: DialogChild.alert(
@@ -57,9 +59,8 @@ class SetEmailController extends GetxController {
     Get.back();
   }
 
-  void _sure() async {
+  void _sure() {
     Get.back();
-    focusNode.unfocus();
     Map<String, dynamic> data = {
       'account': textController.text,
       'areaCode': state.code,
@@ -71,5 +72,12 @@ class SetEmailController extends GetxController {
       AppRoutes.set + AppRoutes.checkPassword + AppRoutes.setVerify,
       arguments: data,
     );
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    textController.dispose();
+    super.dispose();
   }
 }

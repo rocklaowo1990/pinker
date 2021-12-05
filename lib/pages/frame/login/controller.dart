@@ -75,7 +75,7 @@ class LoginController extends GetxController {
     }
 
     /// 准备请求数据
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       'account': userCountController.text,
       'password': duMD5(userPasswordController.text),
       'accountType': _accoutnType(),

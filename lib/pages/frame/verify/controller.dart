@@ -27,7 +27,7 @@ class VerifyController extends GetxController {
   /// 请求验证码
   Future<bool> sendCode() async {
     /// 准备请求数据
-    Map<String, String> data = {};
+    Map<String, dynamic> data = {};
 
     if (arguments['accountType'] == '1') {
       data = {

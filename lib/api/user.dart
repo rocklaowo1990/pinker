@@ -223,4 +223,37 @@ class UserApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 获取水印设计 //////////////////////////////////////////////////////////////
+  static Future<ResponseEntity> getUserLogo() async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+
+    // 请求
+    var response = await HttpUtil().postForm(
+      '/api/user/getUserLogo',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 获取水印设计 //////////////////////////////////////////////////////////////
+  static Future<ResponseEntity> setUserLogo(data) async {
+    // 读取token
+    String token = StorageUtil().getJSON(storageUserTokenKey);
+
+    // 请求
+    var response = await HttpUtil().postForm(
+      '/api/user/setUserLogo',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      }),
+      data: data,
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

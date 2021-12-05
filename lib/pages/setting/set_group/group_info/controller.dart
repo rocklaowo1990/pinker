@@ -236,7 +236,6 @@ class SetGroupInfoController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    focusGroupName.requestFocus();
     if (arguments != 1) {
       textEditingGroupName.addListener(() {
         _linstenerEdit();
@@ -262,5 +261,14 @@ class SetGroupInfoController extends GetxController {
         _linstenerAdd();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    focusGroupName.dispose();
+    focusPrice.dispose();
+    textEditingGroupName.dispose();
+    textEditingPrice.dispose();
+    super.dispose();
   }
 }

@@ -38,10 +38,12 @@ class CheckPasswordController extends GetxController {
   void handleNext() async {
     getDialog();
     focusNode.unfocus();
+
     Map<String, dynamic> data = {
       'password': duMD5(textController.text),
       'type': '1',
     };
+
     ResponseEntity responseEntity = await AccountApi.checkPassword(data);
     if (responseEntity.code == 200) {
       String data = duMD5(textController.text);
@@ -49,12 +51,26 @@ class CheckPasswordController extends GetxController {
       Get.back();
       Get.toNamed(
         AppRoutes.set + AppRoutes.checkPassword + arguments,
-        arguments: data,
+        arguments: arguments == AppRoutes.setVerify
+            ? {
+                'password': duMD5(textController.text),
+                'userId': myController.userInfo['userId'],
+                'verifyType': 3,
+              }
+            : data,
       );
     } else {
       await futureMill(500);
       Get.back();
       getSnackTop(responseEntity.msg);
+      focusNode.requestFocus();
     }
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    textController.dispose();
+    super.dispose();
   }
 }

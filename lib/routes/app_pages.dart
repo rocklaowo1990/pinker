@@ -4,6 +4,8 @@ import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
+import 'package:pinker/pages/setting/delete_account/library.dart';
+import 'package:pinker/pages/setting/delete_account/view.dart';
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/pages/setting/set_email/library.dart';
 import 'package:pinker/pages/setting/set_group/group_info/binding.dart';
@@ -14,6 +16,8 @@ import 'package:pinker/pages/setting/set_password/binding.dart';
 import 'package:pinker/pages/setting/set_password/view.dart';
 import 'package:pinker/pages/setting/set_phone/binding.dart';
 import 'package:pinker/pages/setting/set_phone/library.dart';
+import 'package:pinker/pages/setting/set_user_logo/library.dart';
+import 'package:pinker/pages/setting/set_user_logo/view.dart';
 import 'package:pinker/pages/setting/set_user_name/library.dart';
 import 'package:pinker/pages/setting/verify/library.dart';
 
@@ -62,6 +66,16 @@ class AppPages {
           name: AppRoutes.language,
           page: () => const LanguageView(),
           binding: LanguageBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.setUserLogo,
+          page: () => const SetUserLogoView(),
+          binding: SetUserLogoBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.deleteAccount,
+          page: () => const DeleteAccountView(),
+          binding: DeleteAccountBinding(),
         ),
         GetPage(
           name: AppRoutes.setUserName,

@@ -144,7 +144,7 @@ class RegisterController extends GetxController {
     getDialog();
 
     /// 准备检测账号是否重复
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       'account': textController.text,
       'accountType': state.isPhone ? '1' : '2',
     };

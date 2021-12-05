@@ -90,4 +90,11 @@ class SetPhoneController extends GetxController {
       arguments: data,
     );
   }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    textController.dispose();
+    super.dispose();
+  }
 }

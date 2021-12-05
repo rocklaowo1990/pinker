@@ -184,7 +184,7 @@ class HttpUtil {
 
   /// 读取本地配置
   Map<String, dynamic>? getAuthorizationHeader() {
-    Map<String, String>? headers;
+    Map<String, dynamic>? headers;
     String? accessToken = Global.token;
     headers = {
       'Authorization': 'Bearer $accessToken',
