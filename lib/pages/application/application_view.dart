@@ -24,6 +24,7 @@ class ApplicationView extends GetView<ApplicationController> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           controller.bottomChild(0),
           controller.bottomChild(1),

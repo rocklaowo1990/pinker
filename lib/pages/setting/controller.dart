@@ -112,11 +112,11 @@ class SettingController extends GetxController {
   void onReady() {
     super.onReady();
     if (arguments != null) {
-      state.userName = arguments!.userName ?? '';
-      state.phone = arguments!.phone ?? '点击添加';
-      state.email = arguments!.email ?? '点击添加';
-      state.blockCount = arguments!.blockCount ?? 0;
-      state.hiddenCount = arguments!.hiddenCount ?? 0;
+      state.userName = arguments!.userName;
+      state.phone = arguments!.phone;
+      state.email = arguments!.email;
+      state.blockCount = arguments!.blockCount;
+      state.hiddenCount = arguments!.hiddenCount;
     }
 
     interval(state.sendTimeRx, (value) {

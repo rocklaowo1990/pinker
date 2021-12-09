@@ -6,21 +6,21 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/pages/setting/library.dart';
 
-import 'package:pinker/pages/setting/set_user_name/library.dart';
+import 'package:pinker/pages/setting/verify/library.dart';
 
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class SetVerifyController extends GetxController {
-  final state = SetUserNameState();
+  final state = SetVerifyState();
   final arguments = Get.arguments;
 
   final SettingController settingController = Get.find();
   final MyController myController = Get.find();
 
-  late String codeData;
-  int? verifyType;
+  late String codeData; //服务器发过来的验证码
+  int? verifyType; //验证码类型（ID专用）
 
   void next() async {
     /// 准备请求数据
@@ -111,7 +111,10 @@ class SetVerifyController extends GetxController {
 
     /// 返回数据处理
     if (codeNumber.code == 200) {
-      verifyType = codeNumber.data!['status'];
+      if (codeNumber.data!['account'] != null) {
+        state.account = codeNumber.data!['account'];
+        verifyType = codeNumber.data!['status'];
+      }
       getSnackTop(
         Lang.codeSussful.tr,
         isError: false,

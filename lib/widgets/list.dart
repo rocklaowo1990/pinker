@@ -84,11 +84,14 @@ Widget getUserList({
   String? nickName,
   VoidCallback? onPressed,
   String? buttonText,
+  Widget? button,
+  EdgeInsetsGeometry? padding,
+  BoxBorder? border,
 }) {
   /// 头像
   Widget avatarBox = Container(
-    width: 30.w,
-    height: 30.w,
+    width: 26.w,
+    height: 26.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
@@ -117,6 +120,7 @@ Widget getUserList({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       getSpan(nickName, color: AppColors.mainText),
+      SizedBox(height: 2.h),
       SizedBox(
         width: 60.w,
         child: getSpan(
@@ -151,14 +155,15 @@ Widget getUserList({
   ///
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(8.w),
+    padding: padding ?? EdgeInsets.all(8.w),
     decoration: BoxDecoration(
-      border: Border(top: BorderSide(width: 0.5.w, color: AppColors.line)),
+      border: border ??
+          Border(top: BorderSide(width: 0.5.w, color: AppColors.line)),
     ),
     child: Row(
       children: [
         Expanded(child: leftBox),
-        buttonBox,
+        button ?? buttonBox,
       ],
     ),
   );

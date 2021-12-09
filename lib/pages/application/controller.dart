@@ -51,8 +51,8 @@ class ApplicationController extends GetxController {
     }
     return getButton(
       child: child,
-      width: 32.h,
-      height: 32.h,
+      width: 25.h,
+      height: 25.h,
       background: Colors.transparent,
       onPressed: () {
         if (state.rxIntValue != index) state.rxIntValue = index;

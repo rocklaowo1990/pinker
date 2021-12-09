@@ -50,7 +50,8 @@ dependencies:
 
   # http 请求
   dio: ^4.0.1
-  cookie_jar: ^3.0.1
+  # 缓存
+  cookie_jar: ^3.0.1 
   dio_cookie_manager: ^2.0.0
 
   # 加密安全 SHA
@@ -70,6 +71,12 @@ dependencies:
 
   # SVG
   flutter_svg: ^0.23.0+1
+
+  # video_player 视频播放
+  video_player: ^2.2.7
+
+  # 图片缩放组建
+  extended_image: ^5.1.3
   
 
 dev_dependencies:

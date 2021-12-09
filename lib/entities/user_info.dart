@@ -3,98 +3,98 @@ import 'dart:convert';
 class UserInfo {
   UserInfo({
     /// 头像
-    this.avatar,
+    required this.avatar,
 
     /// 银行卡
-    this.banks,
+    required this.banks,
 
     /// 个人主页背景
-    this.bannerPic,
+    required this.bannerPic,
 
     /// 生日
-    this.birthday,
+    required this.birthday,
 
     /// 屏蔽列表
-    this.blockCount,
+    required this.blockCount,
 
     /// 注册日期
-    this.createDate,
+    required this.createDate,
 
     /// 钻石账户
-    this.diamondBalance,
+    required this.diamondBalance,
 
     /// 数字货币
-    this.digitalCurrency,
+    required this.digitalCurrency,
 
     /// 邮箱
-    this.email,
+    required this.email,
 
     /// 订阅者
-    this.fansCount,
+    required this.fansCount,
 
     /// 订阅的用户
-    this.followCount,
+    required this.followCount,
 
     /// 订阅组
-    this.groupName,
+    required this.groupName,
 
     /// 隐藏列表
-    this.hiddenCount,
+    required this.hiddenCount,
 
     /// 个人简介
-    this.intro,
+    required this.intro,
 
     /// 是否订阅
-    this.isSubscribe,
+    required this.isSubscribe,
 
     /// 昵称
-    this.nickName,
+    required this.nickName,
 
     /// P币账户
-    this.pCoinBalance,
+    required this.pCoinBalance,
 
     /// 手机
-    this.phone,
+    required this.phone,
 
     /// 订阅的群聊
-    this.subChatCount,
+    required this.subChatCount,
 
     /// 用户ID
-    this.userId,
+    required this.userId,
 
     /// 用户名
-    this.userName,
+    required this.userName,
 
     /// 水印开关
-    this.watermarkSwitch,
+    required this.watermarkSwitch,
 
     /// 水印文字
-    this.watermarkText,
+    required this.watermarkText,
   });
 
-  String? avatar;
-  List<Bank>? banks;
-  String? bannerPic;
-  int? birthday;
-  int? blockCount;
-  int? createDate;
-  int? diamondBalance;
-  DigitalCurrency? digitalCurrency;
-  String? email;
-  int? fansCount;
-  int? followCount;
-  String? groupName;
-  int? hiddenCount;
-  String? intro;
-  int? isSubscribe;
-  String? nickName;
-  int? pCoinBalance;
-  String? phone;
-  int? subChatCount;
-  int? userId;
-  String? userName;
-  int? watermarkSwitch;
-  String? watermarkText;
+  String avatar;
+  List<Bank> banks;
+  String bannerPic;
+  int birthday;
+  int blockCount;
+  int createDate;
+  int diamondBalance;
+  DigitalCurrency digitalCurrency;
+  String email;
+  int fansCount;
+  int followCount;
+  String groupName;
+  int hiddenCount;
+  String intro;
+  int isSubscribe;
+  String nickName;
+  int pCoinBalance;
+  String phone;
+  int subChatCount;
+  int userId;
+  String userName;
+  int watermarkSwitch;
+  String watermarkText;
 
   factory UserInfo.fromRawJson(String str) =>
       UserInfo.fromJson(json.decode(str));
@@ -103,18 +103,13 @@ class UserInfo {
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
         avatar: json["avatar"],
-        banks: json["banks"] == null || json["banks"] == []
-            ? null
-            : List<Bank>.from(json["banks"].map((x) => Bank.fromJson(x))),
+        banks: List<Bank>.from(json["banks"].map((x) => Bank.fromJson(x))),
         bannerPic: json["bannerPic"],
         birthday: json["birthday"],
         blockCount: json["blockCount"],
         createDate: json["createDate"],
         diamondBalance: json["diamondBalance"],
-        digitalCurrency:
-            json["digitalCurrency"] == null || json["digitalCurrency"] == {}
-                ? null
-                : DigitalCurrency.fromJson(json["digitalCurrency"]),
+        digitalCurrency: DigitalCurrency.fromJson(json["digitalCurrency"]),
         email: json["email"],
         fansCount: json["fansCount"],
         followCount: json["followCount"],
@@ -134,16 +129,13 @@ class UserInfo {
 
   Map<String, dynamic> toJson() => {
         "avatar": avatar,
-        "banks": banks == null || banks == []
-            ? null
-            : List<dynamic>.from(banks!.map((x) => x.toJson())),
+        "banks": List<dynamic>.from(banks.map((x) => x.toJson())),
         "bannerPic": bannerPic,
         "birthday": birthday,
         "blockCount": blockCount,
         "createDate": createDate,
         "diamondBalance": diamondBalance,
-        "digitalCurrency":
-            digitalCurrency == null ? null : digitalCurrency!.toJson(),
+        "digitalCurrency": digitalCurrency.toJson(),
         "email": email,
         "fansCount": fansCount,
         "followCount": followCount,
@@ -164,18 +156,18 @@ class UserInfo {
 
 class Bank {
   Bank({
-    this.id,
-    this.name,
-    this.cardNumber,
-    this.bankCode,
-    this.bankName,
+    required this.id,
+    required this.name,
+    required this.cardNumber,
+    required this.bankCode,
+    required this.bankName,
   });
 
-  int? id;
-  String? name;
-  String? cardNumber;
-  String? bankCode;
-  String? bankName;
+  int id;
+  String name;
+  String cardNumber;
+  String bankCode;
+  String bankName;
 
   factory Bank.fromRawJson(String str) => Bank.fromJson(json.decode(str));
 
@@ -200,14 +192,14 @@ class Bank {
 
 class DigitalCurrency {
   DigitalCurrency({
-    this.btcBalance,
-    this.ethBalance,
-    this.usdtBalance,
+    required this.btcBalance,
+    required this.ethBalance,
+    required this.usdtBalance,
   });
 
-  int? btcBalance;
-  int? ethBalance;
-  int? usdtBalance;
+  int btcBalance;
+  int ethBalance;
+  int usdtBalance;
 
   factory DigitalCurrency.fromRawJson(String str) =>
       DigitalCurrency.fromJson(json.decode(str));

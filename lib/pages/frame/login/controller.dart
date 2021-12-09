@@ -86,11 +86,11 @@ class LoginController extends GetxController {
 
     /// 返回数据处理
     if (login.code == 200) {
-      /// 储存Token
-      await Global.saveToken(login.data!['token']);
-
       /// 全局token赋值
       Global.token = login.data!['token'];
+
+      /// 储存Token
+      await Global.saveToken(Global.token!);
 
       /// 去往首页
       await futureMill(500);

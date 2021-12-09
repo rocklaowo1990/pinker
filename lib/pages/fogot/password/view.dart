@@ -25,8 +25,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         color: AppColors.secondBacground,
       ),
       child: Center(
-        child: controller.forgotController.userInfo.avatar == '' ||
-                controller.forgotController.userInfo.avatar == null
+        child: controller.forgotController.userInfo.avatar.isEmpty
             ? SvgPicture.asset(
                 'assets/svg/avatar_default.svg',
                 width: 80.w,
@@ -35,7 +34,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                 radius: 80.w,
                 backgroundImage: NetworkImage(serverApiUrl +
                     serverPort +
-                    controller.forgotController.userInfo.avatar!),
+                    controller.forgotController.userInfo.avatar),
               ),
       ),
     );

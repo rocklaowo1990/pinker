@@ -78,7 +78,7 @@ AppBar getMainBar({required Widget left, required Widget right}) {
       right,
       const SizedBox(),
     ],
-    backgroundColor: AppColors.mainBacground,
+    backgroundColor: AppColors.secondBacground,
     elevation: 0.5.w,
     shadowColor: AppColors.thirdIcon,
     systemOverlayStyle: const SystemUiOverlayStyle(

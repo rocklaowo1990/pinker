@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/global.dart';
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
 
 class AccountApi {
   /// 登陆API ///////////////////////////////////////////////////////////////////
@@ -48,13 +48,11 @@ class AccountApi {
 
   /// 退出登陆 //////////////////////////////////////////////////////////////////
   static Future<ResponseEntity> logout() async {
-    // 读取token
-    String token = StorageUtil().getJSON(storageUserTokenKey);
     var response = await HttpUtil().postForm(
       '/api/account/logout',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': token,
+        'token': Global.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -62,29 +60,25 @@ class AccountApi {
 
   /// 验证密码 //////////////////////////////////////////////////////////////////
   static Future<ResponseEntity> checkPassword(data) async {
-    // 读取token
-    String token = StorageUtil().getJSON(storageUserTokenKey);
     var response = await HttpUtil().postForm(
       '/api/account/CheckPassword',
       data: data,
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': token,
+        'token': Global.token,
       }),
     );
     return ResponseEntity.fromJson(response);
   }
 
-  /// 验证密码 //////////////////////////////////////////////////////////////////
+  /// 注销账号 //////////////////////////////////////////////////////////////////
   static Future<ResponseEntity> deleteAccount(data) async {
-    // 读取token
-    String token = StorageUtil().getJSON(storageUserTokenKey);
     var response = await HttpUtil().get(
       '/api/account/deleteAccount',
       queryParameters: data,
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': token,
+        'token': Global.token,
       }),
     );
     return ResponseEntity.fromJson(response);

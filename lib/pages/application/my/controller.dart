@@ -31,13 +31,13 @@ class MyController extends GetxController {
 
   void _getUserInfo(Map<String, dynamic> info) {
     UserInfo _userInfo = UserInfo.fromJson(info);
-    state.avatar = _userInfo.avatar ?? '';
-    state.nickName = _userInfo.nickName ?? '您的昵称';
-    state.userName = _userInfo.userName ?? 'userName';
-    state.diamondBalance = _userInfo.diamondBalance ?? 0;
-    state.pCoinBalance = _userInfo.pCoinBalance ?? 0;
-    state.followCount = _userInfo.followCount ?? 0;
-    state.subChatCount = _userInfo.subChatCount ?? 0;
+    state.avatar = _userInfo.avatar;
+    state.nickName = _userInfo.nickName;
+    state.userName = _userInfo.userName;
+    state.diamondBalance = _userInfo.diamondBalance;
+    state.pCoinBalance = _userInfo.pCoinBalance;
+    state.followCount = _userInfo.followCount;
+    state.subChatCount = _userInfo.subChatCount;
   }
 
   @override
@@ -50,6 +50,7 @@ class MyController extends GetxController {
       if (_info.code == 200) {
         await StorageUtil().setJSON(storageUserInfoKey, _info.data!);
         userInfo = _info.data!;
+
         _getUserInfo(userInfo);
       } else {
         userInfo = {};
