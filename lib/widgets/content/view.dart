@@ -45,7 +45,7 @@ Widget content(
       );
 
       /// 图像展示
-      Widget image(String url) {
+      Widget image(String url, int index) {
         return getButton(
           radius: BorderRadius.circular(4.w),
           child: Container(
@@ -58,7 +58,7 @@ Widget content(
             ),
           ),
           onPressed: () {
-            controller.handleOpenImage(item);
+            controller.handleOpenImage(item, index);
           },
         );
       }
@@ -68,17 +68,19 @@ Widget content(
           ? Row(
               children: [
                 Expanded(
-                    child:
-                        image(serverApiUrl + serverPort + item.works.pics![0])),
+                    child: image(
+                        serverApiUrl + serverPort + item.works.pics![0], 0)),
                 SizedBox(width: 4.w),
                 Expanded(
                     child: item.works.pics!.length > 1
-                        ? image(serverApiUrl + serverPort + item.works.pics![1])
+                        ? image(
+                            serverApiUrl + serverPort + item.works.pics![1], 1)
                         : Container()),
                 SizedBox(width: 4.w),
                 Expanded(
                     child: item.works.pics!.length > 2
-                        ? image(serverApiUrl + serverPort + item.works.pics![2])
+                        ? image(
+                            serverApiUrl + serverPort + item.works.pics![2], 2)
                         : Container()),
               ],
             )
@@ -88,22 +90,28 @@ Widget content(
                     Row(
                       children: [
                         Expanded(
-                            child: image(serverApiUrl +
-                                serverPort +
-                                item.works.video!.previewsUrls![0])),
+                            child: image(
+                                serverApiUrl +
+                                    serverPort +
+                                    item.works.video!.previewsUrls![0],
+                                0)),
                         SizedBox(width: 4.w),
                         Expanded(
                             child: item.works.video!.previewsUrls!.length > 1
-                                ? image(serverApiUrl +
-                                    serverPort +
-                                    item.works.video!.previewsUrls![1])
+                                ? image(
+                                    serverApiUrl +
+                                        serverPort +
+                                        item.works.video!.previewsUrls![1],
+                                    1)
                                 : Container()),
                         SizedBox(width: 4.w),
                         Expanded(
                             child: item.works.video!.previewsUrls!.length > 2
-                                ? image(serverApiUrl +
-                                    serverPort +
-                                    item.works.video!.previewsUrls![2])
+                                ? image(
+                                    serverApiUrl +
+                                        serverPort +
+                                        item.works.video!.previewsUrls![2],
+                                    2)
                                 : Container()),
                       ],
                     ),

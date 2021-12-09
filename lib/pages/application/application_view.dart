@@ -15,7 +15,7 @@ class ApplicationView extends GetView<ApplicationController> {
     Widget bottomNavigationBar = Container(
       width: double.infinity,
       height: 32.h,
-      padding: EdgeInsets.only(left: 7.w, right: 7.w),
+      padding: EdgeInsets.only(left: 9.w, right: 9.w),
       decoration: BoxDecoration(
         color: AppColors.secondBacground,
         border: Border(
@@ -24,7 +24,6 @@ class ApplicationView extends GetView<ApplicationController> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           controller.bottomChild(0),
           controller.bottomChild(1),
