@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/response.dart';
+
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/pages/setting/library.dart';
@@ -111,9 +111,9 @@ class SetVerifyController extends GetxController {
 
     /// 返回数据处理
     if (codeNumber.code == 200) {
-      if (codeNumber.data!['account'] != null) {
-        state.account = codeNumber.data!['account'];
-        verifyType = codeNumber.data!['status'];
+      if (codeNumber.data['account'] != null) {
+        state.account = codeNumber.data['account'];
+        verifyType = codeNumber.data['status'];
       }
       getSnackTop(
         Lang.codeSussful.tr,

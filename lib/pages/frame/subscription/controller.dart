@@ -9,7 +9,6 @@ import 'package:pinker/pages/frame/subscription/state.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 
-import 'package:pinker/widgets/snackbar.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class SubscriptionController extends GetxController {
@@ -62,7 +61,7 @@ class SubscriptionController extends GetxController {
     ResponseEntity getUserList = await UserApi.list(data);
 
     if (getUserList.code == 200) {
-      state.userList = getUserList.data!['list'];
+      state.userList = getUserList.data['list'];
     } else {
       getSnackTop(getUserList.msg);
     }

@@ -38,7 +38,7 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
         iconRight: const SizedBox(),
         onPressed: controller.handlePhoneType,
         title:
-            '向尾号 ${getLastTwo(controller.forgotController.userInfo.phone)} 的电话号码发送验证码');
+            '向尾号 ${getLastTwo(controller.forgotController.forgotInfo.phone)} 的电话号码发送验证码');
 
     /// 邮箱验证列表
     Widget listEmail = getButtonList(
@@ -52,7 +52,7 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
         iconRight: const SizedBox(),
         onPressed: controller.handleEmailType,
         title:
-            '向尾号 ${getEmailHide(controller.forgotController.userInfo.email)} 的电子邮箱发送验证码');
+            '向尾号 ${getEmailHide(controller.forgotController.forgotInfo.email)} 的电子邮箱发送验证码');
 
     /// 底部
     Widget bottom = getBottomBox(
@@ -80,10 +80,10 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
                 ],
               ),
             ),
-            if (controller.forgotController.userInfo.phone != '') listPhone,
-            if (controller.forgotController.userInfo.email != '')
+            if (controller.forgotController.forgotInfo.phone != '') listPhone,
+            if (controller.forgotController.forgotInfo.email != '')
               SizedBox(height: 4.w),
-            if (controller.forgotController.userInfo.email != '') listEmail,
+            if (controller.forgotController.forgotInfo.email != '') listEmail,
           ],
         ),
         bottom,

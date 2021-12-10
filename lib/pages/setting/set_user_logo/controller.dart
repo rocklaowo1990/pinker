@@ -44,8 +44,8 @@ class SetUserLogoController extends GetxController {
 
       await futureMill(300);
 
-      text = responseEntity.data!['text'];
-      enable = responseEntity.data!['enable'];
+      text = responseEntity.data['text'];
+      enable = responseEntity.data['enable'];
       state.enable = enable;
       textController.text = text;
       state.isLoading = false;

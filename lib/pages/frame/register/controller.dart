@@ -152,7 +152,7 @@ class RegisterController extends GetxController {
     ResponseEntity responseEntity = await AccountApi.checkAccount(data);
 
     if (responseEntity.code == 200) {
-      if (responseEntity.data!['status'] == 0) {
+      if (responseEntity.data['status'] == 0) {
         // 把注册数据传到下一页
         // String bornYear = state.showTime.year.toString();
 

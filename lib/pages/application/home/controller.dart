@@ -24,7 +24,7 @@ class HomeController extends GetxController {
 
     ResponseEntity responseEntity = await ContentApi.contentList(data);
     if (responseEntity.code == 200) {
-      ContentList contentList = ContentList.fromJson(responseEntity.data!);
+      ContentList contentList = ContentList.fromJson(responseEntity.data);
       state.showList.addAll(contentList.list);
       state.isLoading = false;
     } else {

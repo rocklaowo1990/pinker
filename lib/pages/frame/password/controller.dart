@@ -38,7 +38,7 @@ class PasswordController extends GetxController {
     if (registerAccount.code == 200) {
       /// 注册成功
       /// 储存用户数据
-      Global.token = registerAccount.data!['token'];
+      Global.token = registerAccount.data['token'];
       await Global.saveToken(Global.token!);
 
       /// 去头像设置页面

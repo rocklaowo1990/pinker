@@ -27,7 +27,7 @@ class SetGroupController extends GetxController {
   void _response() async {
     ResponseEntity responseEntity = await SubscribeGroupApi.list();
     if (responseEntity.code == 200) {
-      state.groupList = responseEntity.data!['list'];
+      state.groupList = responseEntity.data['list'];
       state.isLoading = false;
     } else {
       getSnackTop(responseEntity.msg);

@@ -87,7 +87,7 @@ class LoginController extends GetxController {
     /// 返回数据处理
     if (login.code == 200) {
       /// 全局token赋值
-      Global.token = login.data!['token'];
+      Global.token = login.data['token'];
 
       /// 储存Token
       await Global.saveToken(Global.token!);

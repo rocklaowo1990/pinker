@@ -15,3 +15,4 @@ export 'user_list/library.dart';
 export 'content/library.dart';
 export 'video_box.dart';
 export 'media.dart';
+export 'image_box.dart';

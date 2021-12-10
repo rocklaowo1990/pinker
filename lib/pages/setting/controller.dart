@@ -2,12 +2,10 @@ import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/response.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/widgets/user_list/library.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
@@ -97,14 +95,9 @@ class SettingController extends GetxController {
   void _signOut() async {
     Get.back();
     getDialog();
-    ResponseEntity _logOut = await AccountApi.logout();
-    if (_logOut.code == 200) {
-      await futureMill(300);
-      Get.back();
-    } else {
-      await futureMill(300);
-      Get.back();
-    }
+    await AccountApi.logout();
+    await futureMill(200);
+    Get.back();
     goLoginPage();
   }
 

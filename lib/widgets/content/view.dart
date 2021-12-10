@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/values/values.dart';
-import 'package:pinker/widgets/content/library.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
@@ -47,14 +46,13 @@ Widget content(
       /// 图像展示
       Widget image(String url, int index) {
         return getButton(
-          radius: BorderRadius.circular(4.w),
-          child: Container(
-            width: double.infinity,
+          child: getImageBox(
+            url,
             height: 60.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4.w)),
-              image:
-                  DecorationImage(image: NetworkImage(url), fit: BoxFit.cover),
+            width: double.infinity,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(
+              Radius.circular(4.w),
             ),
           ),
           onPressed: () {
@@ -68,8 +66,10 @@ Widget content(
           ? Row(
               children: [
                 Expanded(
-                    child: image(
-                        serverApiUrl + serverPort + item.works.pics![0], 0)),
+                    child: item.works.pics!.isNotEmpty
+                        ? image(
+                            serverApiUrl + serverPort + item.works.pics![0], 0)
+                        : Container()),
                 SizedBox(width: 4.w),
                 Expanded(
                     child: item.works.pics!.length > 1

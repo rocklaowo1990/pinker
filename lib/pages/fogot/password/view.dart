@@ -25,7 +25,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         color: AppColors.secondBacground,
       ),
       child: Center(
-        child: controller.forgotController.userInfo.avatar.isEmpty
+        child: controller.forgotController.forgotInfo.avatar.isEmpty
             ? SvgPicture.asset(
                 'assets/svg/avatar_default.svg',
                 width: 80.w,
@@ -34,20 +34,20 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                 radius: 80.w,
                 backgroundImage: NetworkImage(serverApiUrl +
                     serverPort +
-                    controller.forgotController.userInfo.avatar),
+                    controller.forgotController.forgotInfo.avatar),
               ),
       ),
     );
 
     /// 昵称
     Widget nickName = getSpan(
-      controller.forgotController.userInfo.nickName,
+      controller.forgotController.forgotInfo.nickName,
       fontSize: 17,
     );
 
     /// 用户名
     Widget userName = getSpan(
-      '@${controller.forgotController.userInfo.userName}',
+      '@${controller.forgotController.forgotInfo.userName}',
       color: AppColors.secondText,
     );
 

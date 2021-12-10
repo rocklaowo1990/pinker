@@ -4,10 +4,10 @@ import 'package:pinker/widgets/widgets.dart';
 
 class ContentBoxController extends GetxController {
   void handleOpenVideo(String url, String snapshotUrl) async {
-    MediaWidgets.videoPage(url, snapshotUrl);
+    MediaView.videoPage(url, snapshotUrl);
   }
 
   void handleOpenImage(ListElement item, int index) async {
-    MediaWidgets.imagePage(item, index);
+    MediaView.imagePage(item, index);
   }
 }

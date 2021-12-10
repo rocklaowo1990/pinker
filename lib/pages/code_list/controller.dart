@@ -26,8 +26,8 @@ class CodeListController extends GetxController {
     ResponseEntity responseEntity = await CommonApi.getAreaCodeList();
     if (responseEntity.code == 200) {
       await StorageUtil()
-          .setJSON(storageCodeListOpenKey, responseEntity.data!['list']);
-      codeList = responseEntity.data!['list'];
+          .setJSON(storageCodeListOpenKey, responseEntity.data['list']);
+      codeList = responseEntity.data['list'];
       state.showList.addAll(codeList);
       state.isLoading = false;
     } else {

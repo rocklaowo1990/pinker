@@ -66,7 +66,7 @@ class AvatarController extends GetxController {
     /// 成功
     if (verifyResource.code == 200) {
       /// 验证的时候，如果返回的url是空，代表这个图片是新的，可以上传
-      if (verifyResource.data!['url'] == '') {
+      if (verifyResource.data['url'] == '') {
         /// 开始上传
         ResponseEntity uploadFile = await CommonApi.uploadFile(
           fileName: '$flieMD5.jpg',
@@ -77,12 +77,12 @@ class AvatarController extends GetxController {
 
         /// 上传结果
         if (uploadFile.code == 200) {
-          avatarUrl = uploadFile.data!['url'];
+          avatarUrl = uploadFile.data['url'];
         } else {
           getSnackTop(uploadFile.msg);
         }
       } else {
-        avatarUrl = verifyResource.data!['url'];
+        avatarUrl = verifyResource.data['url'];
       }
 
       /// 准备修改头像

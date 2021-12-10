@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/entities/user_info.dart';
+import 'package:pinker/entities/entities.dart';
+
 import 'package:pinker/pages/fogot/index/library.dart';
 import 'package:pinker/pages/fogot/info/library.dart';
 
@@ -23,8 +24,7 @@ class ForgotController extends GetxController {
     Get.back();
   }
 
-  /// 初始化用户数据
-  UserInfo userInfo = UserInfo.fromJson({
+  ForgotInfo forgotInfo = ForgotInfo.fromJson({
     'userId': 0,
     'userName': '',
     'nickName': '',
@@ -91,17 +91,18 @@ class ForgotController extends GetxController {
   @override
   void onInit() async {
     if (arguments != null) {
-      UserInfo _userInfo = UserInfo.fromJson(arguments!);
-      userInfo.userId = _userInfo.userId;
-      userInfo.phone = _userInfo.phone;
-      if (userInfo.phone == '') {
-        userInfo.email = _userInfo.email;
+      ForgotInfo _forgotInfo = ForgotInfo.fromJson(arguments!);
+      forgotInfo.userId = _forgotInfo.userId;
+      forgotInfo.phone = _forgotInfo.phone;
+      if (forgotInfo.phone == '') {
+        forgotInfo.email = _forgotInfo.email;
         state.verifyType = 2;
       }
-      userInfo.avatar = _userInfo.avatar;
-      userInfo.userName = _userInfo.userName;
+      forgotInfo.avatar = _forgotInfo.avatar;
+      forgotInfo.userName = _forgotInfo.userName;
       state.pageIndex = 2;
     }
+
     super.onInit();
   }
 

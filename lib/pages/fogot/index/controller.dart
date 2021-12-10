@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
-import 'package:pinker/entities/response.dart';
-import 'package:pinker/entities/user_info.dart';
+import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/fogot/index/library.dart';
 
@@ -32,16 +31,16 @@ class ForgotIndexController extends GetxController {
     focusNode.unfocus();
     Map<String, dynamic> data = {'account': textController.text};
 
-    ResponseEntity _userInfo = await AccountApi.verificateAccount(data);
+    ResponseEntity _forgotInfo = await AccountApi.verificateAccount(data);
 
-    if (_userInfo.code == 200) {
-      UserInfo userInfo = UserInfo.fromJson(_userInfo.data!);
-      forgotController.userInfo.userId = userInfo.userId;
-      forgotController.userInfo.userName = userInfo.userName;
-      forgotController.userInfo.nickName = userInfo.nickName;
-      forgotController.userInfo.avatar = userInfo.avatar;
-      forgotController.userInfo.phone = userInfo.phone;
-      forgotController.userInfo.email = userInfo.email;
+    if (_forgotInfo.code == 200) {
+      ForgotInfo forgotInfo = ForgotInfo.fromJson(_forgotInfo.data);
+      forgotController.forgotInfo.userId = forgotInfo.userId;
+      forgotController.forgotInfo.userName = forgotInfo.userName;
+      forgotController.forgotInfo.nickName = forgotInfo.nickName;
+      forgotController.forgotInfo.avatar = forgotInfo.avatar;
+      forgotController.forgotInfo.phone = forgotInfo.phone;
+      forgotController.forgotInfo.email = forgotInfo.email;
       await futureMill(500);
       Get.back();
 
@@ -62,7 +61,7 @@ class ForgotIndexController extends GetxController {
 
       Get.back();
       textController.clear();
-      getSnackTop(_userInfo.msg);
+      getSnackTop(_forgotInfo.msg);
     }
   }
 

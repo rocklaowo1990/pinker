@@ -24,8 +24,8 @@ class ForgotInfoController extends GetxController {
   void handleNext() async {
     getDialog();
     focusNode.unfocus();
-    if (textController.text == forgotController.userInfo.phone ||
-        textController.text == forgotController.userInfo.email) {
+    if (textController.text == forgotController.forgotInfo.phone ||
+        textController.text == forgotController.forgotInfo.email) {
       textController.clear();
 
       await futureMill(500);

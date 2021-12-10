@@ -26,7 +26,7 @@ class ForgotVerifyController extends GetxController {
   Future<bool> sendCode() async {
     /// 准备请求数据
     Map<String, dynamic> data = {
-      'userId': forgotController.userInfo.userId,
+      'userId': forgotController.forgotInfo.userId,
       'verifyType': forgotController.state.verifyType,
     };
 
@@ -52,7 +52,7 @@ class ForgotVerifyController extends GetxController {
     Map<String, dynamic> data = {
       'code': code,
       'verifyType': forgotController.state.verifyType,
-      'userId': forgotController.userInfo.userId,
+      'userId': forgotController.forgotInfo.userId,
     };
 
     ResponseEntity checkCode = await CommonApi.checkCodeByType(data); // 弹窗停留时间

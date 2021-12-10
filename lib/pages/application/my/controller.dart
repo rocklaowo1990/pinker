@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+
 import 'package:pinker/api/user.dart';
-import 'package:pinker/entities/user_info.dart';
+
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/application/my/library.dart';
@@ -48,8 +48,8 @@ class MyController extends GetxController {
     if (_userInfo == null) {
       ResponseEntity _info = await UserApi.info();
       if (_info.code == 200) {
-        await StorageUtil().setJSON(storageUserInfoKey, _info.data!);
-        userInfo = _info.data!;
+        await StorageUtil().setJSON(storageUserInfoKey, _info.data);
+        userInfo = _info.data;
 
         _getUserInfo(userInfo);
       } else {

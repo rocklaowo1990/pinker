@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/subscription/library.dart';
 
-import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 

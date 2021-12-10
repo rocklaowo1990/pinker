@@ -31,7 +31,7 @@ class ForgotPasswordController extends GetxController {
     focusNode.unfocus();
     Map<String, dynamic> data = forgotController.arguments == null
         ? {
-            'userId': '${forgotController.userInfo.userId}',
+            'userId': '${forgotController.forgotInfo.userId}',
             'code': '${forgotController.publicData['code']}',
             'newPassword': duMD5(textController.text),
             'type': '${forgotController.state.verifyType}',
@@ -49,7 +49,7 @@ class ForgotPasswordController extends GetxController {
     if (_resetPassword.code == 200) {
       if (forgotController.arguments == null) {
         /// 储存Token
-        await Global.saveToken(_resetPassword.data!['token']);
+        await Global.saveToken(_resetPassword.data['token']);
 
         /// 去往首页
         await futureMill(500);
