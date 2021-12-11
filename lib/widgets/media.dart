@@ -59,6 +59,7 @@ class MediaView {
     return getDialog(
       width: double.infinity,
       height: double.infinity,
+      color: AppColors.mainBacground,
       child: Stack(
         children: [
           child,
@@ -105,6 +106,7 @@ class MediaView {
     return getDialog(
       width: double.infinity,
       height: double.infinity,
+      color: AppColors.mainBacground,
       child: Stack(
         children: [
           child,

@@ -64,22 +64,20 @@ class MyView extends GetView<MyController> {
                     width: 18.w,
                     height: 18.w,
                     child: Obx(
-                      () => Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.secondBacground,
-                          image: controller.state.avatar.isNotEmpty
-                              ? DecorationImage(
-                                  image: NetworkImage(serverApiUrl +
+                      () => controller.state.avatar.isEmpty
+                          ? SvgPicture.asset('assets/svg/avatar_default.svg',
+                              width: 18.w)
+                          : getImageBox(
+                              isInclude(controller.state.avatar,
+                                      serverApiUrl + serverPort)
+                                  ? controller.state.avatar
+                                  : serverApiUrl +
                                       serverPort +
-                                      controller.state.avatar))
-                              : null,
-                        ),
-                        child: controller.state.avatar.isEmpty
-                            ? SvgPicture.asset('assets/svg/avatar_default.svg',
-                                width: 30.w)
-                            : null,
-                      ),
+                                      controller.state.avatar,
+                              shape: BoxShape.circle,
+                              width: 18.w,
+                              height: 18.w,
+                            ),
                     ),
                   )),
             ),
@@ -108,14 +106,17 @@ class MyView extends GetView<MyController> {
       children: [
         Row(
           children: [
-            Obx(() => getImageBox(
-                  isInclude(controller.state.avatar, serverApiUrl + serverPort)
-                      ? controller.state.avatar
-                      : serverApiUrl + serverPort + controller.state.avatar,
-                  shape: BoxShape.circle,
-                  width: 30.w,
-                  height: 30.w,
-                )),
+            Obx(() => controller.state.avatar.isEmpty
+                ? SvgPicture.asset('assets/svg/avatar_default.svg', width: 30.w)
+                : getImageBox(
+                    isInclude(
+                            controller.state.avatar, serverApiUrl + serverPort)
+                        ? controller.state.avatar
+                        : serverApiUrl + serverPort + controller.state.avatar,
+                    shape: BoxShape.circle,
+                    width: 30.w,
+                    height: 30.w,
+                  )),
             SizedBox(width: 6.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

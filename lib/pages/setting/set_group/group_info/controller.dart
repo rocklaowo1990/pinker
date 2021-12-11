@@ -48,7 +48,7 @@ class SetGroupInfoController extends GetxController {
       Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
 
       /// 获取token
-      String token = StorageUtil().getJSON(storageUserTokenKey);
+      String token = await StorageUtil().getJSON(storageUserTokenKey);
 
       /// 准备验证资源
       Map<String, dynamic> verifyResourceData = {
@@ -98,11 +98,13 @@ class SetGroupInfoController extends GetxController {
     Map<String, dynamic> data = arguments != 1
         ? {
             'groupId': arguments['groupId'],
-            if (textEditingGroupName.text != arguments['groupName'])
-              'groupName': textEditingGroupName.text,
+            'groupName': textEditingGroupName.text != arguments['groupName']
+                ? textEditingGroupName.text
+                : arguments['groupName'],
             'groupPic': state.image > 0 ? avatarUrl : arguments['groupPic'],
-            if (textEditingPrice.text != arguments['amount'])
-              'amount': textEditingPrice.text,
+            'amount': textEditingPrice.text != arguments['amount']
+                ? textEditingPrice.text
+                : arguments['amount'],
             'timeLen': arguments['timelen'],
           }
         : {

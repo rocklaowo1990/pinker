@@ -35,14 +35,13 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
           child: Center(
               child: Obx(() => controller.state.image == 0
                   ? controller.arguments != 1
-                      ? CircleAvatar(
-                          radius: 60.w,
-                          backgroundImage: NetworkImage(
-                            serverApiUrl +
-                                serverPort +
-                                controller.arguments['groupPic'],
-                          ),
-                        )
+                      ? getImageBox(
+                          serverApiUrl +
+                              serverPort +
+                              controller.arguments['groupPic'],
+                          shape: BoxShape.circle,
+                          width: 60.w,
+                          height: 60.w)
                       : SvgPicture.asset(
                           'assets/svg/avatar_default.svg',
                           width: 60.w,

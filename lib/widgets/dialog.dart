@@ -15,7 +15,7 @@ Future<dynamic> getDialog({
   bool? autoBack,
   double? width,
   double? height,
-  Color color = AppColors.mainBacground,
+  Color color = Colors.transparent,
   Object? arguments,
 }) async {
   Get.dialog(
