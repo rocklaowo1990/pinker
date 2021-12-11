@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/my/library.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -107,23 +108,13 @@ class MyView extends GetView<MyController> {
       children: [
         Row(
           children: [
-            Obx(() => Container(
+            Obx(() => getImageBox(
+                  isInclude(controller.state.avatar, serverApiUrl + serverPort)
+                      ? controller.state.avatar
+                      : serverApiUrl + serverPort + controller.state.avatar,
+                  shape: BoxShape.circle,
                   width: 30.w,
                   height: 30.w,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.secondBacground,
-                    image: controller.state.avatar.isNotEmpty
-                        ? DecorationImage(
-                            image: NetworkImage(serverApiUrl +
-                                serverPort +
-                                controller.state.avatar))
-                        : null,
-                  ),
-                  child: controller.state.avatar.isEmpty
-                      ? SvgPicture.asset('assets/svg/avatar_default.svg',
-                          width: 30.w)
-                      : null,
                 )),
             SizedBox(width: 6.w),
             Column(

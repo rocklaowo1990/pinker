@@ -104,9 +104,12 @@ Widget getUserList({
               'assets/svg/avatar_default.svg',
               width: 32.w,
             )
-          : getImageBox(isInclude(avatar, serverApiUrl + serverPort)
-              ? avatar
-              : serverApiUrl + serverPort + avatar),
+          : getImageBox(
+              isInclude(avatar, serverApiUrl + serverPort)
+                  ? avatar
+                  : serverApiUrl + serverPort + avatar,
+              shape: BoxShape.circle,
+            ),
     ),
   );
 

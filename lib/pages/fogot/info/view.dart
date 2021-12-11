@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/fogot/info/library.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
@@ -25,17 +26,15 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
         color: AppColors.secondBacground,
       ),
       child: Center(
-        child: controller.forgotController.forgotInfo.avatar.isEmpty
-            ? SvgPicture.asset(
-                'assets/svg/avatar_default.svg',
-                width: 80.w,
-              )
-            : CircleAvatar(
-                radius: 80.w,
-                backgroundImage: NetworkImage(serverApiUrl +
-                    serverPort +
-                    controller.forgotController.forgotInfo.avatar),
-              ),
+        child: getImageBox(
+          isInclude(controller.forgotController.forgotInfo.avatar,
+                  serverApiUrl + serverPort)
+              ? controller.forgotController.forgotInfo.avatar
+              : serverApiUrl +
+                  serverPort +
+                  controller.forgotController.forgotInfo.avatar,
+          shape: BoxShape.circle,
+        ),
       ),
     );
 
