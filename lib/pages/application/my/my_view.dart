@@ -239,7 +239,7 @@ class MyView extends GetView<MyController> {
         ),
         background: AppColors.secondBacground,
         onPressed: onPressed,
-        radius: BorderRadius.all(
+        borderRadius: BorderRadius.all(
           Radius.circular(8.w),
         ),
         padding: EdgeInsets.all(8.w),

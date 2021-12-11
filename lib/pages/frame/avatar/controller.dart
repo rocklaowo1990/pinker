@@ -122,7 +122,6 @@ class AvatarController extends GetxController {
     if (image != null) {
       getDialog(
         child: DialogChild.imageCrop(image!, cropKey, onPressed: _imageResult),
-        barrierColor: AppColors.mainBacground,
       );
     }
   }
@@ -134,7 +133,6 @@ class AvatarController extends GetxController {
     if (image != null) {
       getDialog(
         child: DialogChild.imageCrop(image!, cropKey, onPressed: _imageResult),
-        barrierColor: AppColors.mainBacground,
       );
     }
   }

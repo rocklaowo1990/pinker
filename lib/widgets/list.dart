@@ -69,7 +69,7 @@ Widget getButtonList({
   /// 组合
   return getButton(
     child: textButtonChild,
-    radius: BorderRadius.zero,
+    borderRadius: BorderRadius.zero,
     background: AppColors.secondBacground,
     height: height,
     padding: EdgeInsets.all(9.w),
@@ -104,13 +104,9 @@ Widget getUserList({
               'assets/svg/avatar_default.svg',
               width: 32.w,
             )
-          : CircleAvatar(
-              radius: 32.w,
-              backgroundImage: NetworkImage(
-                  isInclude(avatar, serverApiUrl + serverPort)
-                      ? avatar
-                      : serverApiUrl + serverPort + avatar),
-            ),
+          : getImageBox(isInclude(avatar, serverApiUrl + serverPort)
+              ? avatar
+              : serverApiUrl + serverPort + avatar),
     ),
   );
 

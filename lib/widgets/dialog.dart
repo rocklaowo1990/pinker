@@ -15,13 +15,15 @@ Future<dynamic> getDialog({
   bool? autoBack,
   double? width,
   double? height,
-  Color? barrierColor,
+  Color color = AppColors.mainBacground,
   Object? arguments,
 }) async {
   Get.dialog(
-    child ?? DialogChild.loading(),
+    Material(
+      child: child ?? DialogChild.loading(),
+      color: color,
+    ),
     barrierDismissible: autoBack ?? false,
-    barrierColor: barrierColor,
     arguments: arguments,
     useSafeArea: false,
   );
@@ -75,7 +77,7 @@ class DialogChild {
             child: Text(leftText ?? Lang.edit.tr),
             width: double.infinity,
             background: Colors.transparent,
-            radius: onPressedRight != null
+            borderRadius: onPressedRight != null
                 ? BorderRadius.only(
                     bottomLeft: Radius.circular(8.w),
                   )
@@ -100,7 +102,7 @@ class DialogChild {
               child: Text(rightText ?? Lang.sure.tr),
               width: double.infinity,
               background: Colors.transparent,
-              radius: BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(8.w),
               ),
               onPressed: onPressedRight,

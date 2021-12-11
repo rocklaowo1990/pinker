@@ -271,27 +271,27 @@ class ReplyPermission {
 
 class Video {
   Video({
-    this.snapshotUrl,
-    this.url,
-    this.format,
-    this.duration,
-    this.previewsUrls,
+    required this.snapshotUrl,
+    required this.url,
+    required this.format,
+    required this.duration,
+    required this.previewsUrls,
   });
 
-  String? snapshotUrl;
-  String? url;
-  String? format;
-  int? duration;
-  List<String>? previewsUrls;
+  String snapshotUrl;
+  String url;
+  String format;
+  int duration;
+  List<String> previewsUrls;
 
   factory Video.fromJson(Map<String, dynamic> json) => Video(
-        snapshotUrl: json["snapshot_url"],
-        url: json["url"],
-        format: json["format"],
-        duration: json["duration"],
-        previewsUrls: json["previews_urls"] != null
-            ? List<String>.from(json["previews_urls"].map((x) => x))
-            : null,
+        snapshotUrl: json["snapshot_url"] ?? '',
+        url: json["url"] ?? '',
+        format: json["format"] ?? '',
+        duration: json["duration"] ?? 0,
+        previewsUrls: json["previews_urls"] == null
+            ? []
+            : List<String>.from(json["previews_urls"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -299,9 +299,7 @@ class Video {
         "url": url,
         "format": format,
         "duration": duration,
-        "previews_urls": previewsUrls != null
-            ? List<dynamic>.from(previewsUrls!.map((x) => x))
-            : null,
+        "previews_urls": List<dynamic>.from(previewsUrls.map((x) => x)),
       };
 }
 
@@ -309,33 +307,31 @@ class ListWorks {
   ListWorks({
     required this.replyPermission,
     required this.payPermission,
-    this.content,
-    this.pics,
-    this.video,
+    required this.content,
+    required this.pics,
+    required this.video,
   });
 
   ReplyPermission replyPermission;
   FluffyPayPermission payPermission;
-  String? content;
-  List<String>? pics;
-  Video? video;
+  String content;
+  List<String> pics;
+  Video video;
 
   factory ListWorks.fromJson(Map<String, dynamic> json) => ListWorks(
         replyPermission: ReplyPermission.fromJson(json["replyPermission"]),
         payPermission: FluffyPayPermission.fromJson(json["payPermission"]),
         content: json["content"],
-        pics: json["pics"] != null
-            ? List<String>.from(json["pics"].map((x) => x))
-            : null,
-        video: json["video"] != null ? Video.fromJson(json["video"]) : null,
+        pics: List<String>.from(json["pics"].map((x) => x)),
+        video: Video.fromJson(json["video"]),
       );
 
   Map<String, dynamic> toJson() => {
         "replyPermission": replyPermission.toJson(),
         "payPermission": payPermission.toJson(),
         "content": content,
-        "pics": pics != null ? List<dynamic>.from(pics!.map((x) => x)) : null,
-        "video": video != null ? video!.toJson() : null,
+        "pics": List<dynamic>.from(pics.map((x) => x)),
+        "video": video.toJson(),
       };
 }
 

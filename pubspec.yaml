@@ -74,6 +74,7 @@ dependencies:
 
   # video_player 视频播放
   video_player: ^2.2.7
+  chewie: ^1.2.2
 
   # 图片缩放组建
   extended_image: ^6.0.1

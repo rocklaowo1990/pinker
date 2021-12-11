@@ -19,12 +19,15 @@ class HomeController extends GetxController {
     super.onReady();
 
     Map<String, dynamic> data = {
-      'type': 1,
+      'pageNo': 1,
+      'pageSize': 20,
+      'type': 2,
     };
 
     ResponseEntity responseEntity = await ContentApi.contentList(data);
     if (responseEntity.code == 200) {
       ContentList contentList = ContentList.fromJson(responseEntity.data);
+
       state.showList.addAll(contentList.list);
       state.isLoading = false;
     } else {

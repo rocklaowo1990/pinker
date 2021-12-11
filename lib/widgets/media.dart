@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,11 +7,13 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 class MediaView {
   static Widget _backButton({
-    PageController? pageController,
+    ExtendedPageController? pageController,
     VideoPlayerController? videoPlayerController,
+    ChewieController? chewieController,
   }) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w, top: 24.w),
@@ -20,9 +23,11 @@ class MediaView {
         background: Colors.black54,
         child: SvgPicture.asset('assets/svg/icon_back.svg'),
         onPressed: () {
-          Get.back();
           if (videoPlayerController != null) videoPlayerController.dispose();
           if (pageController != null) pageController.dispose();
+          if (chewieController != null) chewieController.dispose();
+
+          Get.back();
         },
       ),
     );
@@ -30,28 +35,30 @@ class MediaView {
 
   static Future<dynamic> imagePage(ListElement item, int index) {
     late List images;
-    if (item.works.pics != null) {
-      images = item.works.pics!;
+    if (item.works.pics.isNotEmpty) {
+      images = item.works.pics;
     } else {
-      images = item.works.video!.previewsUrls!;
+      images = item.works.video.previewsUrls;
     }
-    final PageController pageController = PageController(initialPage: index);
+    final ExtendedPageController pageController =
+        ExtendedPageController(initialPage: index);
 
-    Widget child = PageView(
+    Widget child = ExtendedImageGesturePageView.builder(
+      itemBuilder: (BuildContext context, int _index) {
+        return Center(
+          child: getImageBox(
+            serverApiUrl + serverPort + images[_index],
+            mode: ExtendedImageMode.gesture,
+          ),
+        );
+      },
+      itemCount: images.length,
       controller: pageController,
-      children: images
-          .map((url) => Center(
-                child: getImageBox(
-                  serverApiUrl + serverPort + url,
-                ),
-              ))
-          .toList(),
     );
 
     return getDialog(
       width: double.infinity,
       height: double.infinity,
-      barrierColor: AppColors.mainBacground,
       child: Stack(
         children: [
           child,
@@ -62,36 +69,32 @@ class MediaView {
   }
 
   static Future<dynamic> videoPage(String url, String snapshotUrl) {
-    VideoPlayerController videoPlayerController =
+    final VideoPlayerController videoPlayerController =
         VideoPlayerController.network(serverApiUrl + serverPort + url);
+
+    ChewieController? chewieController;
 
     Widget child = Center(
       child: FutureBuilder(
         future: videoPlayerController.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            // If the VideoPlayerController has finished initialization, use
-            // the data it provides to limit the aspect ratio of the video.
-            videoPlayerController.play();
-            return AspectRatio(
-              aspectRatio: videoPlayerController.value.aspectRatio,
-              // Use the VideoPlayer widget to display the video.
-              child: VideoPlayer(videoPlayerController),
+            chewieController = ChewieController(
+              videoPlayerController: videoPlayerController,
+              autoPlay: true,
+              looping: true,
+            );
+
+            return Chewie(
+              controller: chewieController!,
             );
           } else {
-            // If the VideoPlayerController is still initializing, show a
-            // loading spinner.
-            return Column(
+            return Stack(
               children: [
-                const Spacer(),
-                Column(
-                  children: [
-                    const CircularProgressIndicator(),
-                    SizedBox(height: 10.h),
-                    getSpan('加载视频...'),
-                  ],
+                Center(
+                  child: getImageBox(serverApiUrl + serverPort + snapshotUrl),
                 ),
-                const Spacer(),
+                const Center(child: CircularProgressIndicator()),
               ],
             );
           }
@@ -102,11 +105,12 @@ class MediaView {
     return getDialog(
       width: double.infinity,
       height: double.infinity,
-      barrierColor: AppColors.mainBacground,
       child: Stack(
         children: [
           child,
-          _backButton(videoPlayerController: videoPlayerController),
+          _backButton(
+              videoPlayerController: videoPlayerController,
+              chewieController: chewieController),
         ],
       ),
     );

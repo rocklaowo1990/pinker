@@ -54,7 +54,7 @@ class SettingView extends GetView<SettingController> {
     Widget signOut = getButton(
       child: getSpan('退出登陆', color: AppColors.errro),
       onPressed: controller.handleSignOut,
-      radius: const BorderRadius.all(Radius.zero),
+      borderRadius: const BorderRadius.all(Radius.zero),
       background: AppColors.secondBacground,
       padding: EdgeInsets.all(9.w),
     );

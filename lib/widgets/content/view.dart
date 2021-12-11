@@ -46,6 +46,8 @@ Widget content(
       /// 图像展示
       Widget image(String url, int index) {
         return getButton(
+          background: AppColors.mainBacground,
+          borderRadius: BorderRadius.all(Radius.circular(4.w)),
           child: getImageBox(
             url,
             height: 60.h,
@@ -62,57 +64,59 @@ Widget content(
       }
 
       // 资源区内容
-      Widget media = item.works.pics != null
+      Widget media = item.works.pics.isNotEmpty
           ? Row(
               children: [
                 Expanded(
-                    child: item.works.pics!.isNotEmpty
+                    child: item.works.pics.isNotEmpty
                         ? image(
-                            serverApiUrl + serverPort + item.works.pics![0], 0)
-                        : Container()),
+                            serverApiUrl + serverPort + item.works.pics[0], 0)
+                        : const SizedBox()),
                 SizedBox(width: 4.w),
                 Expanded(
-                    child: item.works.pics!.length > 1
+                    child: item.works.pics.length > 1
                         ? image(
-                            serverApiUrl + serverPort + item.works.pics![1], 1)
-                        : Container()),
+                            serverApiUrl + serverPort + item.works.pics[1], 1)
+                        : const SizedBox()),
                 SizedBox(width: 4.w),
                 Expanded(
-                    child: item.works.pics!.length > 2
+                    child: item.works.pics.length > 2
                         ? image(
-                            serverApiUrl + serverPort + item.works.pics![2], 2)
-                        : Container()),
+                            serverApiUrl + serverPort + item.works.pics[2], 2)
+                        : const SizedBox()),
               ],
             )
-          : item.works.video != null && item.works.video!.previewsUrls != null
+          : item.works.video.previewsUrls.isNotEmpty
               ? Column(
                   children: [
                     Row(
                       children: [
                         Expanded(
-                            child: image(
-                                serverApiUrl +
-                                    serverPort +
-                                    item.works.video!.previewsUrls![0],
-                                0)),
-                        SizedBox(width: 4.w),
-                        Expanded(
-                            child: item.works.video!.previewsUrls!.length > 1
+                            child: item.works.video.previewsUrls.isNotEmpty
                                 ? image(
                                     serverApiUrl +
                                         serverPort +
-                                        item.works.video!.previewsUrls![1],
+                                        item.works.video.previewsUrls[0],
+                                    0)
+                                : const SizedBox()),
+                        SizedBox(width: 4.w),
+                        Expanded(
+                            child: item.works.video.previewsUrls.length > 1
+                                ? image(
+                                    serverApiUrl +
+                                        serverPort +
+                                        item.works.video.previewsUrls[1],
                                     1)
-                                : Container()),
+                                : const SizedBox()),
                         SizedBox(width: 4.w),
                         Expanded(
-                            child: item.works.video!.previewsUrls!.length > 2
+                            child: item.works.video.previewsUrls.length > 2
                                 ? image(
                                     serverApiUrl +
                                         serverPort +
-                                        item.works.video!.previewsUrls![2],
+                                        item.works.video.previewsUrls[2],
                                     2)
-                                : Container()),
+                                : const SizedBox()),
                       ],
                     ),
                     SizedBox(height: 5.h),
@@ -127,7 +131,7 @@ Widget content(
                             image: DecorationImage(
                                 image: NetworkImage(serverApiUrl +
                                     serverPort +
-                                    item.works.video!.snapshotUrl!),
+                                    item.works.video.snapshotUrl),
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -143,8 +147,8 @@ Widget content(
                             child: getButton(
                                 onPressed: () {
                                   controller.handleOpenVideo(
-                                      item.works.video!.url!,
-                                      item.works.video!.snapshotUrl!);
+                                      item.works.video.url,
+                                      item.works.video.snapshotUrl);
                                 },
                                 width: 26.w,
                                 height: 26.w,
@@ -159,7 +163,7 @@ Widget content(
                     )
                   ],
                 )
-              : Container();
+              : const SizedBox();
       Widget _contentButton({
         required Widget icon,
         int? data,
@@ -230,12 +234,13 @@ Widget content(
               padding: EdgeInsets.fromLTRB(9.w, 8.h, 9.w, 0),
               child: Column(
                 children: [
-                  if (item.works.content != null &&
-                      item.works.content!.isNotEmpty)
-                    workContent,
-                  if (item.works.pics != null || item.works.video!.url != null)
+                  if (item.works.content.isNotEmpty) workContent,
+                  if (item.works.content.isNotEmpty &&
+                      (item.works.pics.isNotEmpty ||
+                          item.works.video.url.isNotEmpty))
                     SizedBox(height: 8.h),
-                  if (item.works.pics != null || item.works.video!.url != null)
+                  if (item.works.pics.isNotEmpty ||
+                      item.works.video.url.isNotEmpty)
                     media,
                 ],
               ),

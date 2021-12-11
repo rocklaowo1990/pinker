@@ -159,7 +159,6 @@ class SetGroupInfoController extends GetxController {
     if (image != null) {
       getDialog(
         child: DialogChild.imageCrop(image!, cropKey, onPressed: _imageResult),
-        barrierColor: AppColors.mainBacground,
       );
     }
   }
@@ -171,7 +170,6 @@ class SetGroupInfoController extends GetxController {
     if (image != null) {
       getDialog(
         child: DialogChild.imageCrop(image!, cropKey, onPressed: _imageResult),
-        barrierColor: AppColors.mainBacground,
       );
     }
   }
