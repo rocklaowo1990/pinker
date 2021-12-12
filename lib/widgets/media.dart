@@ -67,28 +67,11 @@ class MediaView {
 
   static Future<dynamic> videoPage(String url, String snapshotUrl) {
     final FijkPlayer fijkPlayer = FijkPlayer();
-
+    fijkPlayer.setDataSource(serverApiUrl + serverPort + url, autoPlay: true);
     Widget child = Center(
-      child: FutureBuilder(
-        future: fijkPlayer.setDataSource(serverApiUrl + serverPort + url,
-            autoPlay: true),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return FijkView(
-              color: AppColors.mainBacground,
-              player: fijkPlayer,
-            );
-          } else {
-            return Stack(
-              children: [
-                Center(
-                  child: getImageBox(serverApiUrl + serverPort + snapshotUrl),
-                ),
-                const Center(child: CircularProgressIndicator()),
-              ],
-            );
-          }
-        },
+      child: FijkView(
+        color: AppColors.mainBacground,
+        player: fijkPlayer,
       ),
     );
 
