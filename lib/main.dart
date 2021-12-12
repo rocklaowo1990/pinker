@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/global.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'lang/translation_service.dart';
 import 'routes/app_pages.dart';
 import 'utils/utils.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
 
         /// 系统字典，用来改变系统组件的语言
         localizationsDelegates: const [
+          RefreshLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

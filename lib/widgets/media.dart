@@ -6,14 +6,12 @@ import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
+import 'package:fijkplayer/fijkplayer.dart';
 
 class MediaView {
   static Widget _backButton({
     ExtendedPageController? pageController,
-    VideoPlayerController? videoPlayerController,
-    ChewieController? chewieController,
+    FijkPlayer? fijkPlayer,
   }) {
     return Padding(
       padding: EdgeInsets.only(left: 10.w, top: 24.w),
@@ -23,9 +21,7 @@ class MediaView {
         background: Colors.black54,
         child: SvgPicture.asset('assets/svg/icon_back.svg'),
         onPressed: () {
-          if (videoPlayerController != null) videoPlayerController.dispose();
           if (pageController != null) pageController.dispose();
-          if (chewieController != null) chewieController.dispose();
 
           Get.back();
         },
@@ -70,24 +66,17 @@ class MediaView {
   }
 
   static Future<dynamic> videoPage(String url, String snapshotUrl) {
-    final VideoPlayerController videoPlayerController =
-        VideoPlayerController.network(serverApiUrl + serverPort + url);
-
-    ChewieController? chewieController;
+    final FijkPlayer fijkPlayer = FijkPlayer();
 
     Widget child = Center(
       child: FutureBuilder(
-        future: videoPlayerController.initialize(),
+        future: fijkPlayer.setDataSource(serverApiUrl + serverPort + url,
+            autoPlay: true),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            chewieController = ChewieController(
-              videoPlayerController: videoPlayerController,
-              autoPlay: true,
-              looping: true,
-            );
-
-            return Chewie(
-              controller: chewieController!,
+            return FijkView(
+              color: AppColors.mainBacground,
+              player: fijkPlayer,
             );
           } else {
             return Stack(
@@ -111,8 +100,8 @@ class MediaView {
         children: [
           child,
           _backButton(
-              videoPlayerController: videoPlayerController,
-              chewieController: chewieController),
+            fijkPlayer: fijkPlayer,
+          ),
         ],
       ),
     );

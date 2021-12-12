@@ -10,8 +10,9 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 Widget content(
-  ListElement item,
-) {
+  ListElement item, {
+  bool? isInview,
+}) {
   return GetBuilder<ContentBoxController>(
     init: ContentBoxController(),
     builder: (controller) {

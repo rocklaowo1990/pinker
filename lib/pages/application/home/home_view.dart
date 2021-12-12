@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +8,7 @@ import 'package:pinker/pages/application/home/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -77,16 +79,49 @@ class HomeView extends GetView<HomeController> {
     );
 
     // 有数据的状态
-    Widget hadData = Obx(() => ListView.builder(
-          itemCount: controller.state.showList.length,
-          itemBuilder: (context, index) {
-            return content(controller.state.showList[index]);
-          },
-        ));
+    // Widget hadData = Obx(() => ListView.builder(
+    //       itemCount: controller.state.showList.length,
+    //       itemBuilder: (context, index) {
+    //         return content(controller.state.showList[index]);
+    //       },
+    //     ));
 
     // 整体布局
-    Widget _body =
-        Obx(() => controller.state.showList.isEmpty ? noData : hadData);
+    Widget _body = Obx(() => controller.state.showList.isEmpty
+        ? noData
+        : SmartRefresher(
+            controller: controller.refreshController,
+            enablePullUp: true,
+            child: ListView.builder(
+              itemCount: controller.state.showList.length,
+              itemBuilder: (context, index) {
+                return content(controller.state.showList[index]);
+              },
+            ),
+            footer: CustomFooter(
+              builder: (BuildContext context, LoadStatus? mode) {
+                Widget body;
+                if (mode == LoadStatus.idle) {
+                  body = const Text("上拉加载");
+                } else if (mode == LoadStatus.loading) {
+                  body = const CupertinoActivityIndicator();
+                } else if (mode == LoadStatus.failed) {
+                  body = const Text("加载失败！点击重试！");
+                } else if (mode == LoadStatus.canLoading) {
+                  body = const Text("松手,加载更多!");
+                } else {
+                  body = const Text("没有更多数据了!");
+                }
+                return SizedBox(
+                  height: 55.0,
+                  child: Center(child: body),
+                );
+              },
+            ),
+            header: const WaterDropHeader(),
+            onRefresh: controller.onRefresh,
+            onLoading: controller.onLoading,
+          ));
 
     /// body
     Widget body = Obx(() => controller.state.isLoading ? loading : _body);
