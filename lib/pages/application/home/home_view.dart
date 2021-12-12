@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -99,21 +98,41 @@ class HomeView extends GetView<HomeController> {
               },
             ),
             footer: CustomFooter(
+              height: 80.h,
+              loadStyle: LoadStyle.ShowWhenLoading,
               builder: (BuildContext context, LoadStatus? mode) {
                 Widget body;
                 if (mode == LoadStatus.idle) {
-                  body = const Text("上拉加载");
+                  body = getSpan(
+                    "加载完成",
+                    color: AppColors.secondText,
+                  );
                 } else if (mode == LoadStatus.loading) {
-                  body = const CupertinoActivityIndicator();
+                  body = SizedBox(
+                      width: 9.w,
+                      height: 9.w,
+                      child: CircularProgressIndicator(
+                          backgroundColor: AppColors.mainIcon,
+                          color: AppColors.mainColor,
+                          strokeWidth: 1.w));
                 } else if (mode == LoadStatus.failed) {
-                  body = const Text("加载失败！点击重试！");
+                  body = getSpan(
+                    "加载失败！点击重试！",
+                    color: AppColors.secondText,
+                  );
                 } else if (mode == LoadStatus.canLoading) {
-                  body = const Text("松手,加载更多!");
+                  body = getSpan(
+                    "释放刷新",
+                    color: AppColors.secondText,
+                  );
                 } else {
-                  body = const Text("没有更多数据了!");
+                  body = getSpan(
+                    "没有更多数据了!",
+                    color: AppColors.secondText,
+                  );
                 }
                 return SizedBox(
-                  height: 55.0,
+                  height: 80.h,
                   child: Center(child: body),
                 );
               },

@@ -21,9 +21,9 @@ class MediaView {
         background: Colors.black54,
         child: SvgPicture.asset('assets/svg/icon_back.svg'),
         onPressed: () {
-          if (pageController != null) pageController.dispose();
-
           Get.back();
+          if (fijkPlayer != null) fijkPlayer.release();
+          if (pageController != null) pageController.dispose();
         },
       ),
     );
