@@ -14,9 +14,12 @@ Future<bool> isAuthenticated() async {
 Future deleteAuthentication() async {
   await StorageUtil().remove(storageUserTokenKey);
   await StorageUtil().remove(storageUserInfoKey);
+  await StorageUtil().remove(storageUserContentListKey);
+  await StorageUtil().remove(storageIsHadUserInfo);
 
   Global.token = null;
   Global.isOfflineLogin = false;
+  Global.isHadUserInfo = false;
 }
 
 /// 重新登录

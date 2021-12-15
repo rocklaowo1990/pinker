@@ -2,8 +2,10 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:pinker/api/content.dart';
 import 'package:pinker/entities/content_list.dart';
 import 'package:pinker/entities/response.dart';
+import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/utils/utils.dart';
+import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -48,6 +50,12 @@ class HomeController extends GetxController {
         state.isLoading = false;
         totalSize = contentList.totalSize;
         refreshController.loadComplete();
+        Map<String, dynamic> _storageUserContentList = {
+          'list': state.showList,
+          'totalSize': state.showList.length,
+        };
+        await StorageUtil()
+            .setJSON(storageUserContentListKey, _storageUserContentList);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -77,6 +85,10 @@ class HomeController extends GetxController {
       state.showList.addAll(contentList.list);
       state.isLoading = false;
       totalSize = contentList.totalSize;
+      await StorageUtil()
+          .setJSON(storageUserContentListKey, responseEntity.data);
+      await StorageUtil().setBool(storageIsHadUserInfo, true);
+      Global.isHadUserInfo = true;
     } else {
       getSnackTop(responseEntity.msg);
     }
@@ -85,8 +97,23 @@ class HomeController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    if (Global.isHadUserInfo) {
+      state.isLoading = false;
+      Map<String, dynamic> _contentList =
+          await StorageUtil().getJSON(storageUserContentListKey);
+      ContentList contentList = ContentList.fromJson(_contentList);
 
-    _refresh();
+      pageIndex = contentList.list.length ~/ 20;
+      totalSize =
+          contentList.list.length % 20 == 0 ? 20 : contentList.list.length % 20;
+
+      print(pageIndex);
+      print(totalSize);
+
+      state.showList.addAll(contentList.list);
+    } else {
+      _refresh();
+    }
   }
 
   @override

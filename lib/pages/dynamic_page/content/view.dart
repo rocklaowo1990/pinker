@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 
+import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
+
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';

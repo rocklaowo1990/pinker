@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/fogot/info/library.dart';
-import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
@@ -27,12 +27,7 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
       ),
       child: Center(
         child: getImageBox(
-          isInclude(controller.forgotController.forgotInfo.avatar,
-                  serverApiUrl + serverPort)
-              ? controller.forgotController.forgotInfo.avatar
-              : serverApiUrl +
-                  serverPort +
-                  controller.forgotController.forgotInfo.avatar,
+          controller.forgotController.forgotInfo.avatar,
           shape: BoxShape.circle,
         ),
       ),

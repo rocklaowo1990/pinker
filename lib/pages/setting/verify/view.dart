@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
 import 'package:pinker/pages/setting/verify/library.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';

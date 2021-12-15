@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/setting/set_group/library.dart';
-import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -99,9 +98,7 @@ class SetGroupView extends GetView<SetGroupController> {
                       color: AppColors.secondBacground,
                     ),
                     child: getImageBox(
-                      isInclude(groupPic, serverApiUrl + serverPort)
-                          ? groupPic
-                          : serverApiUrl + serverPort + groupPic,
+                      serverApiUrl + serverPort + groupPic,
                       shape: BoxShape.circle,
                     ),
                   ),

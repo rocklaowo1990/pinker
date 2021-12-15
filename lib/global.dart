@@ -34,6 +34,9 @@ class Global {
   /// 是否第一次打开
   // static bool? isFirstOpen;
 
+  /// 是否有用户数据
+  static bool isHadUserInfo = false;
+
   /// 是否离线登录
   static bool isOfflineLogin = false;
 
@@ -71,10 +74,16 @@ class Global {
     // isFirstOpen ??= true;
 
     // 读取离线用户信息
-    String? _token = StorageUtil().getJSON(storageUserTokenKey);
+    String? _token = await StorageUtil().getJSON(storageUserTokenKey);
     if (_token != null) {
       token = _token;
       isOfflineLogin = true;
+    }
+
+    // 读取离线用户信息
+    bool? _isHadUserInfo = StorageUtil().getBool(storageIsHadUserInfo);
+    if (_isHadUserInfo != null) {
+      isHadUserInfo = _isHadUserInfo;
     }
   }
 

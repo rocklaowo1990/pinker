@@ -105,9 +105,7 @@ Widget getUserList({
               width: 32.w,
             )
           : getImageBox(
-              isInclude(avatar, serverApiUrl + serverPort)
-                  ? avatar
-                  : serverApiUrl + serverPort + avatar,
+              serverApiUrl + serverPort + avatar,
               shape: BoxShape.circle,
             ),
     ),
