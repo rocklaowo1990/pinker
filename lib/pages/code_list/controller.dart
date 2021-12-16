@@ -31,6 +31,7 @@ class CodeListController extends GetxController {
       state.showList.addAll(codeList);
       state.isLoading = false;
     } else {
+      state.isLoading = false;
       getSnackTop(responseEntity.msg);
     }
 

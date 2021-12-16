@@ -58,22 +58,32 @@ class CodeListView extends GetView<CodeListController> {
                         SizedBox(height: 6.h),
                         getSpan('加载中...', color: AppColors.secondText),
                       ]))
-                    : Column(
-                        children: controller.state.showList
-                            .map((item) => getButtonList(
-                                onPressed: () {
-                                  controller.handleChooise(item);
-                                },
-                                title: Get.locale == const Locale('zh', 'CN')
-                                    ? '+${item['area_code']}      ${item['op_name']}'
-                                    : '+${item['area_code']}      ${item['country']}',
-                                iconRight: Icon(Icons.check_circle,
-                                    size: 9.w,
-                                    color: '${item['area_code']}' ==
-                                            controller.arguments
-                                        ? AppColors.mainColor
-                                        : AppColors.thirdIcon)))
-                            .toList()),
+                    : controller.state.showList.isEmpty
+                        ? Center(
+                            child: Column(children: [
+                            SizedBox(height: 40.h),
+                            SvgPicture.asset('assets/svg/error_2.svg',
+                                width: 55.w),
+                            SizedBox(height: 6.h),
+                            getSpan('网络连接失败', color: AppColors.secondText),
+                          ]))
+                        : Column(
+                            children: controller.state.showList
+                                .map((item) => getButtonList(
+                                    onPressed: () {
+                                      controller.handleChooise(item);
+                                    },
+                                    title: Get.locale ==
+                                            const Locale('zh', 'CN')
+                                        ? '+${item['area_code']}      ${item['op_name']}'
+                                        : '+${item['area_code']}      ${item['country']}',
+                                    iconRight: Icon(Icons.check_circle,
+                                        size: 9.w,
+                                        color: '${item['area_code']}' ==
+                                                controller.arguments
+                                            ? AppColors.mainColor
+                                            : AppColors.thirdIcon)))
+                                .toList()),
               ),
             ),
           )

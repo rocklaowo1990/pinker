@@ -120,7 +120,7 @@ class ApplicationController extends GetxController {
         if (state.pageIndex == 2) Get.offAllNamed(AppRoutes.chat, id: 2);
         if (state.pageIndex == 3) Get.offAllNamed(AppRoutes.my, id: 2);
       },
-      time: const Duration(milliseconds: 200),
+      time: const Duration(milliseconds: 100),
     );
   }
 

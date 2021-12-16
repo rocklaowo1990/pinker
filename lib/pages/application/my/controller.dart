@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/global.dart';
 
 import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -15,17 +16,16 @@ class MyController extends GetxController {
   final MyState state = MyState();
   final ScrollController scrollController = ScrollController();
 
-  /// 读取用户信息
-  final _userInfo = StorageUtil().getJSON(storageUserInfoKey);
-
-  late Map<String, dynamic> userInfo;
-
   void handleMail() {
     Get.toNamed(AppRoutes.set);
   }
 
   void handleSetting() {
+    /// 读取用户信息
+    var userInfo = StorageUtil().getJSON(storageUserInfoKey);
+    userInfo ??= <String, dynamic>{};
     UserInfo _userInfo = UserInfo.fromJson(userInfo);
+
     Get.toNamed(AppRoutes.set, arguments: _userInfo);
   }
 
@@ -38,6 +38,9 @@ class MyController extends GetxController {
     state.pCoinBalance = _userInfo.pCoinBalance;
     state.followCount = _userInfo.followCount;
     state.subChatCount = _userInfo.subChatCount;
+    state.userId = _userInfo.userId;
+    state.phone = _userInfo.phone;
+    state.email = _userInfo.email;
   }
 
   @override
@@ -45,23 +48,18 @@ class MyController extends GetxController {
     super.onReady();
 
     /// 本地没有用户数据，请求用户的数据，然后保存至本地
-    if (_userInfo == null) {
+    if (Global.isHadUserInfo) {
+      /// 读取用户信息
+      final _userInfo = StorageUtil().getJSON(storageUserInfoKey);
+      _getUserInfo(_userInfo);
+    } else {
       ResponseEntity _info = await UserApi.info();
       if (_info.code == 200) {
         await StorageUtil().setJSON(storageUserInfoKey, _info.data);
-        userInfo = _info.data;
-
-        _getUserInfo(userInfo);
+        _getUserInfo(_info.data);
       } else {
-        userInfo = {};
-        _getUserInfo(userInfo);
         getSnackTop(_info.msg);
       }
-
-      /// 本地有用户的数据，直接拿来用
-    } else {
-      _getUserInfo(_userInfo);
-      userInfo = _userInfo;
     }
     scrollController.addListener(() {
       state.opacity = scrollController.offset / 100;

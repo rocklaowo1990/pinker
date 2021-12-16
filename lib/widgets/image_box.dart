@@ -15,15 +15,19 @@ Widget getImageBox(
   ExtendedImageMode mode = ExtendedImageMode.none,
 }) {
   return ExtendedImage.network(
-    url,
+    serverApiUrl + serverPort + url,
     width: width,
     height: height,
+    cancelToken: CancellationToken(),
     fit: fit,
     cache: true,
+    retries: 1,
+    timeLimit: const Duration(seconds: 3),
     border: border,
     shape: shape,
     borderRadius: borderRadius,
     mode: mode,
+    cacheMaxAge: const Duration(days: 5),
     initGestureConfigHandler: mode == ExtendedImageMode.gesture
         ? (state) {
             return GestureConfig(

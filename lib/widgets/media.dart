@@ -42,10 +42,7 @@ class MediaView {
     Widget child = ExtendedImageGesturePageView.builder(
       itemBuilder: (BuildContext context, int _index) {
         return Center(
-          child: getImageBox(
-            serverApiUrl + serverPort + images[_index],
-            mode: ExtendedImageMode.gesture,
-          ),
+          child: getImageBox(images[_index], mode: ExtendedImageMode.gesture),
         );
       },
       itemCount: images.length,

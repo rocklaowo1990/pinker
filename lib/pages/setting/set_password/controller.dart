@@ -69,7 +69,7 @@ class SetPasswordController extends GetxController {
   void handleReset() {
     /// 打开找回密码页面
     Get.bottomSheet(
-      ForgotView(arguments: myController.userInfo),
+      const ForgotView(arguments: 'setting'),
       isScrollControlled: true, //全屏高度
       enableDrag: false, //下滑手势：关闭
       enterBottomSheetDuration: const Duration(milliseconds: 300),

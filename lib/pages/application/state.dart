@@ -10,4 +10,9 @@ class ApplicationState {
   final RxInt _pageIndex = 0.obs;
   set pageIndex(int value) => _pageIndex.value = value;
   int get pageIndex => _pageIndex.value;
+
+  /// 用户信息
+  final RxMap<String, dynamic> _userInfo = <String, dynamic>{}.obs;
+  set userInfo(Map<String, dynamic> value) => _userInfo.value = value;
+  Map<String, dynamic> get userInfo => _userInfo;
 }

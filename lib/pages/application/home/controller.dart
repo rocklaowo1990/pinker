@@ -1,19 +1,24 @@
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
+import 'package:pinker/api/api.dart';
+
 import 'package:pinker/api/content.dart';
 import 'package:pinker/entities/content_list.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/home/library.dart';
+import 'package:pinker/pages/application/library.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
-  HomeController();
   final HomeState state = HomeState();
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
+
+  final ApplicationController applicationController = Get.find();
 
   int pageIndex = 1;
   int totalSize = 0;
@@ -22,12 +27,11 @@ class HomeController extends GetxController {
 
   void onRefresh() async {
     refreshController.resetNoData();
-    // monitor network fetch
+
     await futureMill(1000);
     _refresh();
     await futureMill(1000);
 
-    // if failed,use refreshFailed()
     refreshController.refreshCompleted();
   }
 
@@ -91,6 +95,17 @@ class HomeController extends GetxController {
       Global.isHadUserInfo = true;
     } else {
       getSnackTop(responseEntity.msg);
+      state.isLoading = false;
+    }
+  }
+
+  Future<void> _getUserInfo() async {
+    ResponseEntity _info = await UserApi.info();
+    if (_info.code == 200) {
+      await StorageUtil().setJSON(storageUserInfoKey, _info.data);
+      applicationController.state.userInfo = _info.data;
+    } else {
+      getSnackTop(_info.msg);
     }
   }
 
@@ -107,12 +122,15 @@ class HomeController extends GetxController {
       totalSize =
           contentList.list.length % 20 == 0 ? 20 : contentList.list.length % 20;
 
-      print(pageIndex);
-      print(totalSize);
-
       state.showList.addAll(contentList.list);
+
+      // 个人信息
+      // 读取用户信息
+      final _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
+      applicationController.state.userInfo = _userInfo;
     } else {
-      _refresh();
+      await _refresh();
+      await _getUserInfo();
     }
   }
 

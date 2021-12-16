@@ -11,7 +11,7 @@ import 'package:pinker/widgets/widgets.dart';
 
 class ForgotView extends StatelessWidget {
   const ForgotView({Key? key, this.arguments}) : super(key: key);
-  final Map<String, dynamic>? arguments;
+  final String? arguments;
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
 
 import 'package:pinker/pages/setting/library.dart';
@@ -81,8 +80,8 @@ class UserListPageController extends GetxController {
 
       await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
 
-      MyController myController = Get.find();
-      myController.userInfo = StorageUtil().getJSON(storageUserInfoKey);
+      // MyController myController = Get.find();
+      // myController.userInfo = StorageUtil().getJSON(storageUserInfoKey);
 
       Get.back();
       state.userList.remove(item);
@@ -106,6 +105,7 @@ class UserListPageController extends GetxController {
       _page++;
       state.isLoading = false;
     } else {
+      state.isLoading = false;
       getSnackTop(responseEntity.msg);
     }
 

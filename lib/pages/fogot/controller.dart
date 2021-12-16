@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/application/my/library.dart';
 
 import 'package:pinker/pages/fogot/index/library.dart';
 import 'package:pinker/pages/fogot/info/library.dart';
@@ -17,7 +18,7 @@ class ForgotController extends GetxController {
   /// 状态控制器
   final ForgotState state = ForgotState();
 
-  final Map<String, dynamic>? arguments;
+  final String? arguments;
 
   /// 关闭页面
   void handleBack() {
@@ -91,15 +92,15 @@ class ForgotController extends GetxController {
   @override
   void onInit() async {
     if (arguments != null) {
-      ForgotInfo _forgotInfo = ForgotInfo.fromJson(arguments!);
-      forgotInfo.userId = _forgotInfo.userId;
-      forgotInfo.phone = _forgotInfo.phone;
+      final MyController myController = Get.find();
+      forgotInfo.userId = myController.state.userId;
+      forgotInfo.phone = myController.state.phone;
       if (forgotInfo.phone == '') {
-        forgotInfo.email = _forgotInfo.email;
+        forgotInfo.email = myController.state.email;
         state.verifyType = 2;
       }
-      forgotInfo.avatar = _forgotInfo.avatar;
-      forgotInfo.userName = _forgotInfo.userName;
+      forgotInfo.avatar = myController.state.avatar;
+      forgotInfo.userName = myController.state.userName;
       state.pageIndex = 2;
     }
 

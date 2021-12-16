@@ -51,11 +51,9 @@ class SetUserNameController extends GetxController {
       myController.state.userName = textController.text;
       settingController.state.userName = textController.text;
 
-      Map<String, dynamic> _userInfo = myController.userInfo;
+      var _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
       _userInfo['userName'] = textController.text;
       await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
-
-      myController.userInfo = StorageUtil().getJSON(storageUserInfoKey);
 
       await futureMill(500);
       Get.back();

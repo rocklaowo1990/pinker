@@ -16,6 +16,11 @@ class MyState {
   set diamondBalance(int value) => _diamondBalance.value = value;
   int get diamondBalance => _diamondBalance.value;
 
+  /// 钻石金额
+  final RxInt _userId = 0.obs;
+  set userId(int value) => _userId.value = value;
+  int get userId => _userId.value;
+
   /// 用户名
   final RxString _userName = 'userName'.obs;
   set userName(String value) => _userName.value = value;
@@ -25,6 +30,16 @@ class MyState {
   final RxString _nickName = '您的昵称'.obs;
   set nickName(String value) => _nickName.value = value;
   String get nickName => _nickName.value;
+
+  /// 手机号吗
+  final RxString _phone = ''.obs;
+  set phone(String value) => _phone.value = value;
+  String get phone => _phone.value;
+
+  /// 邮箱地址
+  final RxString _email = ''.obs;
+  set email(String value) => _email.value = value;
+  String get email => _email.value;
 
   /// P币账户
   final RxInt _pCoinBalance = 0.obs;

@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:cookie_jar/cookie_jar.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:pinker/entities/response.dart';
-
 import 'package:pinker/global.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
@@ -50,8 +47,8 @@ class HttpUtil {
     dio = Dio(options);
 
     // Cookie管理
-    CookieJar cookieJar = CookieJar();
-    dio.interceptors.add(CookieManager(cookieJar));
+    // CookieJar cookieJar = CookieJar();
+    // dio.interceptors.add(CookieManager(cookieJar));
 
     // 添加拦截器
     dio.interceptors.add(InterceptorsWrapper(
@@ -79,7 +76,7 @@ class HttpUtil {
       },
       onError: (DioError e, handler) {
         // Do something with response error
-        ErrorEntity eInfo = createErrorEntity(e);
+        createErrorEntity(e);
         // switch (eInfo.code) {
         //   case 401: // 没有权限 重新登录
         //     break;
@@ -98,9 +95,8 @@ class HttpUtil {
         // }
         return handler.resolve(Response(
           data: {
-            'code': eInfo.code,
-            'msg': eInfo.message,
-            'data': '',
+            'code': -1,
+            'msg': '网络连接失败',
           },
           requestOptions: RequestOptions(
             path: '',

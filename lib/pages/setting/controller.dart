@@ -105,7 +105,7 @@ class SettingController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (arguments != null) {
+    if (arguments != null && arguments != <String, dynamic>{}) {
       state.userName = arguments!.userName;
       state.phone = arguments!.phone;
       state.email = arguments!.email;

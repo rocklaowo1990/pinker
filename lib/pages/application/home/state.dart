@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 
 class HomeState {
-  /// 检索后，用来显示的列表
+  /// 首页：订阅推文列表
   final RxList<ListElement> _showList = <ListElement>[].obs;
   set showList(value) => _showList.value = value;
   RxList<ListElement> get showList => _showList;

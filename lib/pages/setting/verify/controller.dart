@@ -57,15 +57,15 @@ class SetVerifyController extends GetxController {
         goLoginPage();
       } else {
         arguments['accountType'] == '1'
-            ? settingController.state.phone = arguments['account']
-            : settingController.state.email = arguments['account'];
+            ? myController.state.phone = arguments['account']
+            : myController.state.email = arguments['account'];
         if (settingController.arguments != null) {
           UserInfo _userInfo = settingController.arguments!;
           (arguments['accountType'] == '1')
               ? _userInfo.phone = arguments['account']
               : _userInfo.email = arguments['account'];
+
           await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
-          myController.userInfo = StorageUtil().getJSON(storageUserInfoKey);
         }
 
         Get.back(); // 返回更换手机号码

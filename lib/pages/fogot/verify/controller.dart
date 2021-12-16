@@ -43,6 +43,7 @@ class ForgotVerifyController extends GetxController {
       forgotController.state.sendTime = 60;
       return true;
     } else {
+      getSnackTop(codeNumber.msg);
       return false;
     }
   }

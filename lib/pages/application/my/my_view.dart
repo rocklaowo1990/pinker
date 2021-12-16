@@ -67,9 +67,7 @@ class MyView extends GetView<MyController> {
                           ? SvgPicture.asset('assets/svg/avatar_default.svg',
                               width: 18.w)
                           : getImageBox(
-                              serverApiUrl +
-                                  serverPort +
-                                  controller.state.avatar,
+                              controller.state.avatar,
                               shape: BoxShape.circle,
                               width: 18.w,
                               height: 18.w,
@@ -105,7 +103,7 @@ class MyView extends GetView<MyController> {
             Obx(() => controller.state.avatar.isEmpty
                 ? SvgPicture.asset('assets/svg/avatar_default.svg', width: 30.w)
                 : getImageBox(
-                    serverApiUrl + serverPort + controller.state.avatar,
+                    controller.state.avatar,
                     shape: BoxShape.circle,
                     width: 30.w,
                     height: 30.w,
