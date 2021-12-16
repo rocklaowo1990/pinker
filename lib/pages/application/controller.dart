@@ -123,10 +123,4 @@ class ApplicationController extends GetxController {
       time: const Duration(milliseconds: 100),
     );
   }
-
-  /// 页面销毁
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

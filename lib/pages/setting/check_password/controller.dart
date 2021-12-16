@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 
 import 'package:pinker/entities/response.dart';
-import 'package:pinker/pages/application/my/library.dart';
+import 'package:pinker/pages/application/library.dart';
+
 import 'package:pinker/pages/setting/check_password/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 
@@ -17,7 +18,7 @@ class CheckPasswordController extends GetxController {
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  final MyController myController = Get.find();
+  final ApplicationController applicationController = Get.find();
 
   final String arguments = Get.arguments;
 
@@ -54,7 +55,7 @@ class CheckPasswordController extends GetxController {
         arguments: arguments == AppRoutes.setVerify
             ? {
                 'password': duMD5(textController.text),
-                'userId': myController.state.userId,
+                'userId': applicationController.state.userInfoMap['userId'],
                 'verifyType': 3,
               }
             : data,

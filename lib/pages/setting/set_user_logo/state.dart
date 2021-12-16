@@ -7,9 +7,9 @@ class SetUserLogoState {
   bool get isDissable => _isDissable.value;
 
   /// 开关控制器
-  final RxBool _enable = false.obs;
-  set enable(bool value) => _enable.value = value;
-  bool get enable => _enable.value;
+  final RxInt _enable = 0.obs;
+  set enable(int value) => _enable.value = value;
+  int get enable => _enable.value;
 
   /// 是否在请求数据
   final RxBool _isLoading = true.obs;

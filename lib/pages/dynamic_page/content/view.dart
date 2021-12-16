@@ -72,20 +72,17 @@ Widget content(
               children: [
                 Expanded(
                     child: item.works.pics.isNotEmpty
-                        ? image(
-                            serverApiUrl + serverPort + item.works.pics[0], 0)
+                        ? image(item.works.pics[0], 0)
                         : const SizedBox()),
                 SizedBox(width: 4.w),
                 Expanded(
                     child: item.works.pics.length > 1
-                        ? image(
-                            serverApiUrl + serverPort + item.works.pics[1], 1)
+                        ? image(item.works.pics[1], 1)
                         : const SizedBox()),
                 SizedBox(width: 4.w),
                 Expanded(
                     child: item.works.pics.length > 2
-                        ? image(
-                            serverApiUrl + serverPort + item.works.pics[2], 2)
+                        ? image(item.works.pics[2], 2)
                         : const SizedBox()),
               ],
             )
@@ -96,70 +93,52 @@ Widget content(
                       children: [
                         Expanded(
                             child: item.works.video.previewsUrls.isNotEmpty
-                                ? image(
-                                    serverApiUrl +
-                                        serverPort +
-                                        item.works.video.previewsUrls[0],
-                                    0)
+                                ? image(item.works.video.previewsUrls[0], 0)
                                 : const SizedBox()),
                         SizedBox(width: 4.w),
                         Expanded(
                             child: item.works.video.previewsUrls.length > 1
-                                ? image(
-                                    serverApiUrl +
-                                        serverPort +
-                                        item.works.video.previewsUrls[1],
-                                    1)
+                                ? image(item.works.video.previewsUrls[1], 1)
                                 : const SizedBox()),
                         SizedBox(width: 4.w),
                         Expanded(
                             child: item.works.video.previewsUrls.length > 2
-                                ? image(
-                                    serverApiUrl +
-                                        serverPort +
-                                        item.works.video.previewsUrls[2],
-                                    2)
+                                ? image(item.works.video.previewsUrls[2], 2)
                                 : const SizedBox()),
                       ],
                     ),
                     SizedBox(height: 5.h),
                     Stack(
                       children: [
-                        Container(
-                          width: double.infinity,
-                          height: 100.h,
-                          decoration: BoxDecoration(
+                        getImageBox(item.works.video.snapshotUrl,
+                            width: double.infinity,
+                            height: 100.h,
+                            shape: BoxShape.rectangle,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(4.w)),
-                            image: DecorationImage(
-                                image: NetworkImage(serverApiUrl +
-                                    serverPort +
-                                    item.works.video.snapshotUrl),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
+                                BorderRadius.all(Radius.circular(4.w))),
+                        getButton(
+                          onPressed: () {
+                            controller.handleOpenVideo(item.works.video.url);
+                          },
+                          borderRadius: BorderRadius.all(Radius.circular(4.w)),
                           height: 100.h,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.w)),
-                            color: Colors.black54,
-                          ),
+                          background: Colors.black54,
                           child: Center(
-                            child: getButton(
-                                onPressed: () {
-                                  controller.handleOpenVideo(
-                                      item.works.video.url,
-                                      item.works.video.snapshotUrl);
-                                },
-                                width: 26.w,
-                                height: 26.w,
-                                child: Icon(
-                                  Icons.play_arrow,
-                                  size: 20.w,
-                                  color: AppColors.mainIcon,
-                                )),
+                            child: Container(
+                              width: 26.w,
+                              height: 26.w,
+                              child: Icon(
+                                Icons.play_arrow,
+                                size: 20.w,
+                                color: AppColors.mainIcon,
+                              ),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.mainColor,
+                                border: Border.all(
+                                    color: AppColors.mainIcon, width: 1.w),
+                              ),
+                            ),
                           ),
                         ),
                       ],

@@ -63,15 +63,13 @@ class MyView extends GetView<MyController> {
                     width: 18.w,
                     height: 18.w,
                     child: Obx(
-                      () => controller.state.avatar.isEmpty
-                          ? SvgPicture.asset('assets/svg/avatar_default.svg',
-                              width: 18.w)
-                          : getImageBox(
-                              controller.state.avatar,
-                              shape: BoxShape.circle,
-                              width: 18.w,
-                              height: 18.w,
-                            ),
+                      () => getImageBox(
+                        controller
+                            .applicationController.state.userInfoMap['avatar'],
+                        shape: BoxShape.circle,
+                        width: 18.w,
+                        height: 18.w,
+                      ),
                     ),
                   )),
             ),
@@ -100,20 +98,22 @@ class MyView extends GetView<MyController> {
       children: [
         Row(
           children: [
-            Obx(() => controller.state.avatar.isEmpty
-                ? SvgPicture.asset('assets/svg/avatar_default.svg', width: 30.w)
-                : getImageBox(
-                    controller.state.avatar,
-                    shape: BoxShape.circle,
-                    width: 30.w,
-                    height: 30.w,
-                  )),
+            Obx(() => getImageBox(
+                  controller.applicationController.state.userInfoMap['avatar'],
+                  shape: BoxShape.circle,
+                  width: 30.w,
+                  height: 30.w,
+                )),
             SizedBox(width: 6.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Obx(() => getSpan(controller.state.nickName, fontSize: 17)),
-                Obx(() => getSpan('@${controller.state.userName}')),
+                Obx(() => getSpan(
+                    controller
+                        .applicationController.state.userInfoMap['nickName'],
+                    fontSize: 17)),
+                Obx(() => getSpan(
+                    '@${controller.applicationController.state.userInfoMap['userName']}')),
               ],
             ),
           ],
@@ -178,7 +178,8 @@ class MyView extends GetView<MyController> {
           Obx(() => _walletChild(
                 title: '钻石账户',
                 svg: 'assets/svg/icon_diamond.svg',
-                number: '${controller.state.diamondBalance}',
+                number:
+                    '${controller.applicationController.state.userInfoMap['diamondBalance']}',
                 buttonText: '购买钻石',
                 onPressed: () {},
               )),
@@ -190,7 +191,8 @@ class MyView extends GetView<MyController> {
           Obx(() => _walletChild(
                 title: 'P币账户',
                 svg: 'assets/svg/icon_diamond.svg',
-                number: '${controller.state.pCoinBalance}',
+                number:
+                    '${controller.applicationController.state.userInfoMap['pCoinBalance']}',
                 buttonText: '立即提现',
                 onPressed: () {},
               )),
@@ -235,7 +237,8 @@ class MyView extends GetView<MyController> {
         child: Obx(() => _subscription(
               title: '订阅的用户',
               svg: 'assets/svg/icon_person_add.svg',
-              number: '${controller.state.followCount}',
+              number:
+                  '${controller.applicationController.state.userInfoMap['followCount']}',
               onPressed: () {},
             )),
       ),
@@ -244,7 +247,8 @@ class MyView extends GetView<MyController> {
         child: Obx(() => _subscription(
               title: '订阅的群聊',
               svg: 'assets/svg/icon_person_team.svg',
-              number: '${controller.state.subChatCount}',
+              number:
+                  '${controller.applicationController.state.userInfoMap['subChatCount']}',
               onPressed: () {},
             )),
       ),

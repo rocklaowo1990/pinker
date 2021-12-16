@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/application/library.dart';
 
 import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
 
-import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
@@ -20,7 +20,7 @@ class UserListPageController extends GetxController {
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  final SettingController settingController = Get.find();
+  final ApplicationController applicationController = Get.find();
 
   /// 1:屏蔽 其他的是隐藏
   final int? type;
@@ -67,21 +67,13 @@ class UserListPageController extends GetxController {
     if (responseEntity.code == 200) {
       await futureMill(500);
       type == 1
-          ? settingController.state.blockCount = _userList.length - 1
-          : settingController.state.hiddenCount = _userList.length - 1;
+          ? applicationController.state.userInfoMap['blockCount'] =
+              _userList.length - 1
+          : applicationController.state.userInfoMap['hiddenCount'] =
+              _userList.length - 1;
 
-      UserInfo? _userInfo = settingController.arguments;
-
-      if (_userInfo != null) {
-        type == 1
-            ? _userInfo.blockCount = _userList.length - 1
-            : _userInfo.hiddenCount = _userList.length - 1;
-      }
-
-      await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
-
-      // MyController myController = Get.find();
-      // myController.userInfo = StorageUtil().getJSON(storageUserInfoKey);
+      await StorageUtil()
+          .setJSON(storageUserInfoKey, applicationController.state.userInfoMap);
 
       Get.back();
       state.userList.remove(item);

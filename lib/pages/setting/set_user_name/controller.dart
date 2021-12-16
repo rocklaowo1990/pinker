@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/response.dart';
-import 'package:pinker/pages/application/my/library.dart';
-import 'package:pinker/pages/setting/library.dart';
+import 'package:pinker/pages/application/library.dart';
+
 import 'package:pinker/pages/setting/set_user_name/library.dart';
 
 import 'package:pinker/utils/utils.dart';
@@ -16,8 +16,7 @@ class SetUserNameController extends GetxController {
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  final MyController myController = Get.find();
-  final SettingController settingController = Get.find();
+  final ApplicationController applicationController = Get.find();
 
   @override
   void onReady() {
@@ -48,8 +47,7 @@ class SetUserNameController extends GetxController {
     ResponseEntity responseEntity = await UserApi.setUserName(data);
 
     if (responseEntity.code == 200) {
-      myController.state.userName = textController.text;
-      settingController.state.userName = textController.text;
+      applicationController.state.userInfoMap['userName'] = textController.text;
 
       var _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
       _userInfo['userName'] = textController.text;

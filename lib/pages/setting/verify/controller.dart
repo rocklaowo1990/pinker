@@ -3,7 +3,7 @@ import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/lang/translation_service.dart';
-import 'package:pinker/pages/application/my/library.dart';
+import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/setting/library.dart';
 
 import 'package:pinker/pages/setting/verify/library.dart';
@@ -16,8 +16,8 @@ class SetVerifyController extends GetxController {
   final state = SetVerifyState();
   final arguments = Get.arguments;
 
+  final ApplicationController applicationController = Get.find();
   final SettingController settingController = Get.find();
-  final MyController myController = Get.find();
 
   late String codeData; //服务器发过来的验证码
   int? verifyType; //验证码类型（ID专用）
@@ -57,16 +57,12 @@ class SetVerifyController extends GetxController {
         goLoginPage();
       } else {
         arguments['accountType'] == '1'
-            ? myController.state.phone = arguments['account']
-            : myController.state.email = arguments['account'];
-        if (settingController.arguments != null) {
-          UserInfo _userInfo = settingController.arguments!;
-          (arguments['accountType'] == '1')
-              ? _userInfo.phone = arguments['account']
-              : _userInfo.email = arguments['account'];
-
-          await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
-        }
+            ? applicationController.state.userInfoMap['phone'] =
+                arguments['account']
+            : applicationController.state.userInfoMap['email'] =
+                arguments['account'];
+        await StorageUtil().setJSON(
+            storageUserInfoKey, applicationController.state.userInfoMap);
 
         Get.back(); // 返回更换手机号码
         Get.back(); // 返回验证密码

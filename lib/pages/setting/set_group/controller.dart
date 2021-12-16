@@ -30,6 +30,8 @@ class SetGroupController extends GetxController {
       state.groupList = responseEntity.data['list'];
       state.isLoading = false;
     } else {
+      state.isLoading = false;
+
       getSnackTop(responseEntity.msg);
     }
   }

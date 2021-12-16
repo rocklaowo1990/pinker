@@ -62,9 +62,11 @@ class MediaView {
     );
   }
 
-  static Future<dynamic> videoPage(String url, String snapshotUrl) {
+  static Future<dynamic> videoPage(String url) {
     final FijkPlayer fijkPlayer = FijkPlayer();
+
     fijkPlayer.setDataSource(serverApiUrl + serverPort + url, autoPlay: true);
+
     Widget child = Center(
       child: FijkView(
         color: AppColors.mainBacground,

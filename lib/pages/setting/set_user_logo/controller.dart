@@ -14,7 +14,7 @@ class SetUserLogoController extends GetxController {
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  bool enable = false;
+  int enable = 0;
   String text = '';
 
   /// 输入框文本监听
@@ -34,7 +34,7 @@ class SetUserLogoController extends GetxController {
   }
 
   void handleOnChangedNoValue() {
-    state.enable = !state.enable;
+    state.enable = state.enable == 0 ? 1 : 0;
   }
 
   void _response() async {
@@ -89,7 +89,7 @@ class SetUserLogoController extends GetxController {
     Get.back();
     getDialog();
     Map<String, dynamic> data = {
-      'enable': state.enable ? 1 : 2,
+      'enable': state.enable,
       'text': textController.text,
     };
     ResponseEntity responseEntity = await UserApi.setUserLogo(data);

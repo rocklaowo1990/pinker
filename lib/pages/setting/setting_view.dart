@@ -63,10 +63,12 @@ class SettingView extends GetView<SettingController> {
     Widget setUserName = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_user_name.svg'),
       title: '用户名',
-      secondTitle: Obx(() => getSpan(
-            controller.state.userName,
-            color: AppColors.secondIcon,
-          )),
+      secondTitle: controller.arguments != null
+          ? Obx(() => getSpan(
+                controller.arguments!.state.userInfoMap['userName'],
+                color: AppColors.secondIcon,
+              ))
+          : null,
       onPressed: controller.handleSetUserName,
     );
 
@@ -74,12 +76,16 @@ class SettingView extends GetView<SettingController> {
     Widget setUserPhone = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_phone.svg'),
       title: '手机',
-      secondTitle: Obx(() => getSpan(
-            controller.state.phone == '点击添加' || controller.state.phone.isEmpty
-                ? '点击添加'
-                : '尾号' + getLastTwo(controller.state.phone),
-            color: AppColors.secondIcon,
-          )),
+      secondTitle: controller.arguments != null
+          ? Obx(() => getSpan(
+                controller.arguments!.state.userInfoMap['phone'] == ''
+                    ? '点击添加'
+                    : '尾号' +
+                        getLastTwo(
+                            controller.arguments!.state.userInfoMap['phone']),
+                color: AppColors.secondIcon,
+              ))
+          : null,
       onPressed: controller.handleSetPhone,
     );
 
@@ -87,12 +93,16 @@ class SettingView extends GetView<SettingController> {
     Widget setUserEmail = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_email.svg'),
       title: '电子邮箱',
-      secondTitle: Obx(() => getSpan(
-            controller.state.email == '点击添加' || controller.state.email.isEmpty
-                ? '点击添加'
-                : '尾号' + getEmailHide(controller.state.email),
-            color: AppColors.secondIcon,
-          )),
+      secondTitle: controller.arguments != null
+          ? Obx(() => getSpan(
+                controller.arguments!.state.userInfoMap['email'] == ''
+                    ? '点击添加'
+                    : '尾号' +
+                        getEmailHide(
+                            controller.arguments!.state.userInfoMap['email']),
+                color: AppColors.secondIcon,
+              ))
+          : null,
       onPressed: controller.handleSetEmail,
     );
 
@@ -111,10 +121,12 @@ class SettingView extends GetView<SettingController> {
     Widget blockCount = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_shield_list.svg'),
       title: '已屏蔽列表',
-      secondTitle: Obx(() => getSpan(
-            '${controller.state.blockCount}',
-            color: AppColors.secondIcon,
-          )),
+      secondTitle: controller.arguments != null
+          ? Obx(() => getSpan(
+                '${controller.arguments!.state.userInfoMap['blockCount']}',
+                color: AppColors.secondIcon,
+              ))
+          : null,
       onPressed: controller.handleBlockList,
     );
 
@@ -122,10 +134,12 @@ class SettingView extends GetView<SettingController> {
     Widget hiddenCount = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_hide_list.svg'),
       title: '已隐藏列表',
-      secondTitle: Obx(() => getSpan(
-            '${controller.state.hiddenCount}',
-            color: AppColors.secondIcon,
-          )),
+      secondTitle: controller.arguments != null
+          ? Obx(() => getSpan(
+                '${controller.arguments!.state.userInfoMap['hiddenCount']}',
+                color: AppColors.secondIcon,
+              ))
+          : null,
       onPressed: controller.handleHiddenList,
     );
 

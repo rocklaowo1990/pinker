@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
+import 'package:pinker/pages/application/library.dart';
 
-import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
 
 import 'package:pinker/pages/setting/library.dart';
@@ -11,8 +11,8 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class SettingController extends GetxController {
-  final state = LanguageState();
-  final UserInfo? arguments = Get.arguments;
+  final LanguageState state = LanguageState();
+  final ApplicationController? arguments = Get.arguments;
 
   /// 返回
   void handleGoSignBeforePage() {
@@ -105,13 +105,6 @@ class SettingController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (arguments != null && arguments != <String, dynamic>{}) {
-      state.userName = arguments!.userName;
-      state.phone = arguments!.phone;
-      state.email = arguments!.email;
-      state.blockCount = arguments!.blockCount;
-      state.hiddenCount = arguments!.hiddenCount;
-    }
 
     interval(state.sendTimeRx, (value) {
       if (state.sendTime > 0) state.sendTime--;

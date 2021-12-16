@@ -63,7 +63,7 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
         title: '水印开关',
         onPressed: controller.handleOnChangedNoValue,
         iconRight: Obx(() => Switch(
-              value: controller.state.enable,
+              value: controller.state.enable == 0 ? false : true,
               onChanged: controller.handleOnChanged,
             )));
 

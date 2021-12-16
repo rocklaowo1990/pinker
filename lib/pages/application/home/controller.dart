@@ -2,8 +2,9 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 
 import 'package:pinker/api/content.dart';
-import 'package:pinker/entities/content_list.dart';
-import 'package:pinker/entities/response.dart';
+
+import 'package:pinker/entities/entities.dart';
+
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/pages/application/library.dart';
@@ -103,7 +104,7 @@ class HomeController extends GetxController {
     ResponseEntity _info = await UserApi.info();
     if (_info.code == 200) {
       await StorageUtil().setJSON(storageUserInfoKey, _info.data);
-      applicationController.state.userInfo = _info.data;
+      applicationController.state.userInfoMap = _info.data;
     } else {
       getSnackTop(_info.msg);
     }
@@ -127,7 +128,7 @@ class HomeController extends GetxController {
       // 个人信息
       // 读取用户信息
       final _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
-      applicationController.state.userInfo = _userInfo;
+      applicationController.state.userInfoMap = _userInfo;
     } else {
       await _refresh();
       await _getUserInfo();

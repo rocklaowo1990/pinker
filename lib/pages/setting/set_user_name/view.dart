@@ -45,7 +45,10 @@ class SetUserNameView extends GetView<SetUserNameController> {
                 children: [
                   getSpan('当前用户名', color: AppColors.secondText),
                   SizedBox(height: 8.h),
-                  getSpan(controller.myController.state.userName, fontSize: 17),
+                  getSpan(
+                      controller
+                          .applicationController.state.userInfoMap['userName'],
+                      fontSize: 17),
                   SizedBox(height: 20.h),
                   getInput(
                     type: '输入新的用户名',
