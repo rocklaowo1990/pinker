@@ -4,17 +4,13 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-
-import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
+import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
-Widget content(
-  ListElement item, {
-  bool? isInview,
-}) {
+Widget contentList(ListElement item) {
   return GetBuilder<ContentBoxController>(
     init: ContentBoxController(),
     builder: (controller) {
@@ -118,7 +114,8 @@ Widget content(
                                 BorderRadius.all(Radius.circular(4.w))),
                         getButton(
                           onPressed: () {
-                            controller.handleOpenVideo(item.works.video.url);
+                            controller.handleOpenVideo(
+                                item, item.works.video.url);
                           },
                           borderRadius: BorderRadius.all(Radius.circular(4.w)),
                           height: 100.h,

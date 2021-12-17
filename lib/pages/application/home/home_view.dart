@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/home/library.dart';
-import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
+import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -95,7 +95,7 @@ class HomeView extends GetView<HomeController> {
             child: ListView.builder(
               itemCount: controller.state.showList.length,
               itemBuilder: (context, index) {
-                return content(controller.state.showList[index]);
+                return contentList(controller.state.showList[index]);
               },
             ),
             footer: CustomFooter(

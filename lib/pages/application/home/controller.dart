@@ -44,7 +44,7 @@ class HomeController extends GetxController {
       Map<String, dynamic> data = {
         'pageNo': pageIndex,
         'pageSize': 20,
-        'type': 2,
+        'type': 3,
       };
 
       ResponseEntity responseEntity = await ContentApi.contentList(data);
@@ -52,6 +52,7 @@ class HomeController extends GetxController {
       if (responseEntity.code == 200) {
         ContentList contentList = ContentList.fromJson(responseEntity.data);
         state.showList.addAll(contentList.list);
+
         state.isLoading = false;
         totalSize = contentList.totalSize;
         refreshController.loadComplete();
@@ -80,7 +81,7 @@ class HomeController extends GetxController {
     Map<String, dynamic> data = {
       'pageNo': 1,
       'pageSize': 20,
-      'type': 2,
+      'type': 3,
     };
 
     ResponseEntity responseEntity = await ContentApi.contentList(data);
@@ -88,6 +89,7 @@ class HomeController extends GetxController {
       ContentList contentList = ContentList.fromJson(responseEntity.data);
       state.showList.clear();
       state.showList.addAll(contentList.list);
+
       state.isLoading = false;
       totalSize = contentList.totalSize;
       await StorageUtil()

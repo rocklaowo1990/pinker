@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 import 'package:pinker/pages/application/library.dart';
-
-import 'package:pinker/pages/dynamic_page/dynamic_page.dart';
+import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';

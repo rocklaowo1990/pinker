@@ -12,7 +12,7 @@ import 'package:pinker/widgets/widgets.dart';
 /// 中间弹出窗：默认是loading ////////////////////////////////////////////////////
 Future<dynamic> getDialog({
   Widget? child,
-  bool? autoBack,
+  bool autoBack = false,
   double? width,
   double? height,
   Color color = Colors.transparent,
@@ -23,7 +23,7 @@ Future<dynamic> getDialog({
       child: child ?? DialogChild.loading(),
       color: color,
     ),
-    barrierDismissible: autoBack ?? false,
+    barrierDismissible: autoBack,
     arguments: arguments,
     useSafeArea: false,
   );

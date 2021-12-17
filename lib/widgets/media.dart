@@ -8,27 +8,27 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 
-class MediaView {
-  static Widget _backButton({
-    ExtendedPageController? pageController,
-    FijkPlayer? fijkPlayer,
-  }) {
-    return Padding(
-      padding: EdgeInsets.only(left: 10.w, top: 24.w),
-      child: getButton(
-        height: 24.w,
-        width: 24.w,
-        background: Colors.black54,
-        child: SvgPicture.asset('assets/svg/icon_back.svg'),
-        onPressed: () {
-          Get.back();
-          if (fijkPlayer != null) fijkPlayer.release();
-          if (pageController != null) pageController.dispose();
-        },
-      ),
-    );
-  }
+Widget _backButton({
+  ExtendedPageController? pageController,
+  FijkPlayer? fijkPlayer,
+}) {
+  return Padding(
+    padding: EdgeInsets.only(left: 10.w, top: 24.w),
+    child: getButton(
+      height: 24.w,
+      width: 24.w,
+      background: Colors.black54,
+      child: SvgPicture.asset('assets/svg/icon_back.svg'),
+      onPressed: () {
+        Get.back();
+        if (fijkPlayer != null) fijkPlayer.release();
+        if (pageController != null) pageController.dispose();
+      },
+    ),
+  );
+}
 
+class MediaView {
   static Future<dynamic> imagePage(ListElement item, int index) {
     late List images;
     if (item.works.pics.isNotEmpty) {
@@ -71,6 +71,25 @@ class MediaView {
       child: FijkView(
         color: AppColors.mainBacground,
         player: fijkPlayer,
+        panelBuilder: (
+          FijkPlayer fijkPlayer,
+          FijkData fijkData,
+          BuildContext buildContext,
+          Size size,
+          Rect rect,
+        ) {
+          return getButton(
+            borderRadius: BorderRadius.zero,
+            background: Colors.transparent,
+            child: const SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            onPressed: () {
+              print('object');
+            },
+          );
+        },
       ),
     );
 
@@ -78,14 +97,11 @@ class MediaView {
       width: double.infinity,
       height: double.infinity,
       color: AppColors.mainBacground,
-      child: Stack(
-        children: [
-          child,
-          _backButton(
-            fijkPlayer: fijkPlayer,
-          ),
-        ],
-      ),
+      child: child,
     );
   }
+}
+
+Future getMediaPage() {
+  return getDialog();
 }
