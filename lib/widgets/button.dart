@@ -5,7 +5,7 @@ import 'package:pinker/values/values.dart';
 /// 按钮封装
 Widget getButton({
   /// 按钮的背景色
-  Color? background,
+  Color background = AppColors.mainColor,
 
   /// 按钮的背景色
   Color? overlayColor,
@@ -26,10 +26,10 @@ Widget getButton({
   BorderRadiusGeometry? borderRadius,
 
   /// 子组件对齐方式
-  AlignmentGeometry? alignment,
+  AlignmentGeometry alignment = Alignment.center,
 
   /// padding
-  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry padding = EdgeInsets.zero,
 
   /// 边框
   BorderSide? side,
@@ -41,7 +41,7 @@ Widget getButton({
       onPressed: onPressed,
       style: ButtonStyle(
         /// 对其方式，默认居中对齐
-        alignment: alignment ?? Alignment.center,
+        alignment: alignment,
 
         /// 按钮文字样式
         textStyle: MaterialStateProperty.all(
@@ -60,11 +60,10 @@ Widget getButton({
         side: side == null ? null : MaterialStateProperty.all(side),
 
         /// 清空按钮的padding
-        padding: MaterialStateProperty.all(padding ?? EdgeInsets.zero),
+        padding: MaterialStateProperty.all(padding),
 
         /// 按钮背景色，默认主色
-        backgroundColor:
-            MaterialStateProperty.all(background ?? AppColors.mainColor),
+        backgroundColor: MaterialStateProperty.all(background),
       ),
       child: child,
     ),

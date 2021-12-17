@@ -11,7 +11,7 @@ import 'package:pinker/widgets/widgets.dart';
 /// appBar
 /// 普通的appBar
 AppBar getAppBar(
-  Widget? title, {
+  Widget title, {
   Widget? leading,
   List<Widget>? actions,
   Color? backgroundColor,

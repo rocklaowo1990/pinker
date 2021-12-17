@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 
 class MediaViewState {
-  /// 列表数组
-  final RxList _userList = [].obs;
-  set userList(List value) => _userList.value = value;
-  List get userList => _userList;
+  /// 透明度监听
+  final RxInt opacityListenRx = 0.obs;
+  set opacityListen(int value) => opacityListenRx.value = value;
+  int get opacityListen => opacityListenRx.value;
 
-  /// 正在请求数据
-  final RxBool _isLoading = true.obs;
-  set isLoading(bool value) => _isLoading.value = value;
-  bool get isLoading => _isLoading.value;
+  /// 透明度
+  final RxDouble _opacity = 1.0.obs;
+  set opacity(double value) => _opacity.value = value;
+  double get opacity => _opacity.value;
 }
