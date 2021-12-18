@@ -79,69 +79,20 @@ class HomeView extends GetView<HomeController> {
     );
 
     // 整体布局
-    Widget _body = Obx(() => controller.state.showList.isEmpty
-        ? noData
-        : SmartRefresher(
-            controller: controller.refreshController,
-            enablePullUp: true,
-            child: ListView.builder(
-              itemCount: controller.state.showList.length,
-              itemBuilder: (context, index) {
-                return contentList(controller.state.showList[index]);
-              },
-            ),
-            header: WaterDropHeader(
-              refresh: SizedBox(
-                  width: 9.w,
-                  height: 9.w,
-                  child: CircularProgressIndicator(
-                      backgroundColor: AppColors.mainIcon,
-                      color: AppColors.mainColor,
-                      strokeWidth: 1.w)),
-            ),
-            footer: CustomFooter(
-              height: 80.h,
-              loadStyle: LoadStyle.ShowWhenLoading,
-              builder: (BuildContext context, LoadStatus? mode) {
-                Widget body;
-                if (mode == LoadStatus.idle) {
-                  body = getSpan(
-                    "加载完成",
-                    color: AppColors.secondText,
-                  );
-                } else if (mode == LoadStatus.loading) {
-                  body = SizedBox(
-                      width: 9.w,
-                      height: 9.w,
-                      child: CircularProgressIndicator(
-                          backgroundColor: AppColors.mainIcon,
-                          color: AppColors.mainColor,
-                          strokeWidth: 1.w));
-                } else if (mode == LoadStatus.failed) {
-                  body = getSpan(
-                    "加载失败！点击重试！",
-                    color: AppColors.secondText,
-                  );
-                } else if (mode == LoadStatus.canLoading) {
-                  body = getSpan(
-                    "释放刷新",
-                    color: AppColors.secondText,
-                  );
-                } else {
-                  body = getSpan(
-                    "没有更多数据了!",
-                    color: AppColors.secondText,
-                  );
-                }
-                return SizedBox(
-                  height: 80.h,
-                  child: Center(child: body),
-                );
-              },
-            ),
-            onRefresh: controller.onRefresh,
-            onLoading: controller.onLoading,
-          ));
+    Widget _body = Obx(
+      () => controller.state.showList.isEmpty
+          ? noData
+          : getRefresher(
+              controller: controller.refreshController,
+              child: ListView.builder(
+                itemCount: controller.state.showList.length,
+                itemBuilder: (context, index) {
+                  return contentList(controller.state.showList[index]);
+                },
+              ),
+              onLoading: controller.onLoading,
+              onRefresh: controller.onRefresh),
+    );
 
     /// body
     Widget body = Obx(() => controller.state.isLoading ? loading : _body);

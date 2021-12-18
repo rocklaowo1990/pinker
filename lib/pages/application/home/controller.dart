@@ -65,7 +65,6 @@ class HomeController extends GetxController {
       } else {
         pageIndex--;
         refreshController.loadFailed();
-
         getSnackTop(responseEntity.msg);
       }
     } else {
@@ -86,7 +85,6 @@ class HomeController extends GetxController {
 
     ResponseEntity responseEntity = await ContentApi.contentList(data);
     if (responseEntity.code == 200) {
-      print(responseEntity.data);
       ContentList contentList = ContentList.fromJson(responseEntity.data);
       state.showList.clear();
       state.showList.addAll(contentList.list);

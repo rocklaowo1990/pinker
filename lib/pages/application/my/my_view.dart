@@ -7,6 +7,7 @@ import 'package:pinker/pages/application/my/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyView extends GetView<MyController> {
   const MyView({Key? key}) : super(key: key);
@@ -62,14 +63,12 @@ class MyView extends GetView<MyController> {
                     onPressed: () {},
                     width: 18.w,
                     height: 18.w,
-                    child: Obx(
-                      () => getImageBox(
-                        controller
-                            .applicationController.state.userInfoMap['avatar'],
-                        shape: BoxShape.circle,
-                        width: 18.w,
-                        height: 18.w,
-                      ),
+                    child: getImageBox(
+                      controller
+                          .applicationController.state.userInfoMap['avatar'],
+                      shape: BoxShape.circle,
+                      width: 18.w,
+                      height: 18.w,
                     ),
                   )),
             ),
@@ -317,7 +316,6 @@ class MyView extends GetView<MyController> {
 
     /// body
     Widget bodyChild = SingleChildScrollView(
-      controller: controller.scrollController,
       child: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -365,7 +363,26 @@ class MyView extends GetView<MyController> {
     Widget body = Stack(
       children: [
         background,
-        bodyChild,
+        getRefresher(
+          controller: controller.refreshController,
+          child: bodyChild,
+          isFooter: false,
+          onRefresh: controller.onRefresh,
+          scrollController: controller.scrollController,
+          header: WaterDropHeader(
+            complete: getSpan('刷新成功', color: AppColors.mainText),
+            idleIcon: const Icon(Icons.autorenew,
+                size: 20, color: AppColors.mainColor),
+            waterDropColor: AppColors.mainIcon,
+            refresh: SizedBox(
+                width: 9.w,
+                height: 9.w,
+                child: CircularProgressIndicator(
+                    backgroundColor: AppColors.mainIcon,
+                    color: AppColors.mainColor,
+                    strokeWidth: 1.w)),
+          ),
+        ),
         appBar,
       ],
     );

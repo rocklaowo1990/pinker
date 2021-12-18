@@ -5,12 +5,24 @@ import 'package:pinker/pages/application/library.dart';
 
 import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/utils/utils.dart';
+
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyController extends GetxController {
   final MyState state = MyState();
   final ScrollController scrollController = ScrollController();
 
   final ApplicationController applicationController = Get.find();
+
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+
+  void onRefresh() async {
+    await futureMill(1000);
+
+    refreshController.refreshCompleted();
+  }
 
   void handleMail() {
     Get.toNamed(AppRoutes.set);
@@ -25,9 +37,11 @@ class MyController extends GetxController {
     super.onReady();
 
     scrollController.addListener(() {
-      state.opacity = scrollController.offset / 100;
-      if (state.opacity > 1) state.opacity = 1;
-      if (state.opacity < 0) state.opacity = 0;
+      // state.opacity = scrollController.offset / 100;
+
+      print(scrollController.offset);
+      if (scrollController.offset >= 50) state.opacity = 1;
+      if (scrollController.offset < 50) state.opacity = 0;
     });
   }
 
@@ -35,6 +49,7 @@ class MyController extends GetxController {
   void dispose() {
     scrollController.dispose();
     applicationController.dispose();
+    refreshController.dispose();
     super.dispose();
   }
 }

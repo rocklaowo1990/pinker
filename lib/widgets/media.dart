@@ -85,9 +85,7 @@ class MediaView {
               width: double.infinity,
               height: double.infinity,
             ),
-            onPressed: () {
-              print('object');
-            },
+            onPressed: () {},
           );
         },
       ),

@@ -26,11 +26,6 @@ class MediaViewController extends GetxController {
       state.opacityListenRx,
       (int value) {
         state.opacity = state.opacity == 1.0 ? 0.0 : 1.0;
-        if (state.opacity == 1.0) {
-          Future.delayed(const Duration(milliseconds: 3000), () {
-            state.opacity = 0.0;
-          });
-        }
       },
       time: const Duration(milliseconds: 200),
     );

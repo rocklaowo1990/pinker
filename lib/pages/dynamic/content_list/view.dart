@@ -328,7 +328,7 @@ Widget contentList(ListElement item) {
                   )
                 : SizedBox(height: 8.h),
             _imageBox(item.works.pics),
-            SizedBox(height: 4.w),
+            SizedBox(height: 8.h),
             _payBox(1),
           ],
         );
@@ -347,7 +347,7 @@ Widget contentList(ListElement item) {
               children: [
                 getImageBox(item.works.video.snapshotUrl,
                     width: double.infinity,
-                    height: 100.h,
+                    height: 128.h,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(Radius.circular(4.w))),
                 getButton(
@@ -355,7 +355,7 @@ Widget contentList(ListElement item) {
                     controller.handleOpenVideo(item, item.works.video.url);
                   },
                   borderRadius: BorderRadius.all(Radius.circular(4.w)),
-                  height: 100.h,
+                  height: 128.h,
                   background: Colors.black54,
                   child: Center(
                     child: Container(
@@ -389,7 +389,7 @@ Widget contentList(ListElement item) {
                   )
                 : SizedBox(height: 8.h),
             _imageBox(item.works.video.previewsUrls),
-            SizedBox(height: 4.w),
+            SizedBox(height: 8.h),
             _payBox(2),
           ],
         );
