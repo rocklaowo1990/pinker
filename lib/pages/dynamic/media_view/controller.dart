@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/dynamic/media_view/library.dart';
@@ -14,7 +15,6 @@ class MediaViewController extends GetxController {
   }
 
   void handleLeading() {
-    print(state.opacity);
     Get.back();
   }
 
@@ -26,9 +26,18 @@ class MediaViewController extends GetxController {
       state.opacityListenRx,
       (int value) {
         state.opacity = state.opacity == 1.0 ? 0.0 : 1.0;
+        if (state.opacity == 1.0) {
+          Future.delayed(const Duration(milliseconds: 3000), () {
+            state.opacity = 0.0;
+          });
+        }
       },
       time: const Duration(milliseconds: 200),
     );
+
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      state.opacity = 0.0;
+    });
   }
 
   @override

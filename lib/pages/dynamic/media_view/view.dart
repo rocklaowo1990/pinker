@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/dynamic.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -21,24 +22,30 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
       );
 
       // appBar 右侧的设置按钮
-      Widget moreButton = getButton(
-        width: 32.w,
-        height: 32.w,
-        background: Colors.transparent,
-        onPressed: () {},
-        child: const Icon(
-          Icons.more_horiz,
-          color: AppColors.mainIcon,
+      Widget moreButton = Center(
+        child: getButton(
+          width: 20.w,
+          height: 20.w,
+          background: AppColors.mainBacground50,
+          onPressed: () {},
+          child: const Icon(
+            Icons.more_horiz,
+            color: AppColors.mainIcon,
+          ),
         ),
       );
 
       // appBar 左侧的返回按钮
-      Widget leading = Obx(() => getButton(
-            child: SvgPicture.asset('assets/svg/icon_back.svg'),
-            onPressed: controller.state.opacity == 0.0
-                ? null
-                : controller.handleLeading,
-            background: Colors.transparent,
+      Widget leading = Obx(() => Center(
+            child: getButton(
+              height: 20.w,
+              width: 20.w,
+              child: SvgPicture.asset('assets/svg/icon_back.svg'),
+              onPressed: controller.state.opacity == 0.0
+                  ? null
+                  : controller.handleLeading,
+              background: AppColors.mainBacground50,
+            ),
           ));
 
       // appBar
@@ -47,6 +54,7 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
         leading: leading,
         actions: [
           moreButton,
+          SizedBox(width: 4.w),
         ],
       );
 
@@ -90,6 +98,8 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
           itemCount: images.length,
           controller: controller.pageController,
         );
+      } else {
+        mediaBox = Container();
       }
 
       // 媒体的页面布局
@@ -112,6 +122,7 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
             child: Column(
               children: [
                 appBar,
+                avatar,
               ],
             )),
       );

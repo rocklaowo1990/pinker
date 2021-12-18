@@ -1,13 +1,8 @@
 import 'package:get/get.dart';
 
 class ContentBoxState {
-  /// 列表数组
-  final RxList _userList = [].obs;
-  set userList(List value) => _userList.value = value;
-  List get userList => _userList;
-
-  /// 正在请求数据
-  final RxBool _isLoading = true.obs;
-  set isLoading(bool value) => _isLoading.value = value;
-  bool get isLoading => _isLoading.value;
+  // 是否显示资源的状态管理器
+  final RxInt _canSee = 0.obs;
+  set canSee(int value) => _canSee.value = value;
+  int get canSee => _canSee.value;
 }

@@ -78,14 +78,6 @@ class HomeView extends GetView<HomeController> {
       ),
     );
 
-    // 有数据的状态
-    // Widget hadData = Obx(() => ListView.builder(
-    //       itemCount: controller.state.showList.length,
-    //       itemBuilder: (context, index) {
-    //         return content(controller.state.showList[index]);
-    //       },
-    //     ));
-
     // 整体布局
     Widget _body = Obx(() => controller.state.showList.isEmpty
         ? noData
@@ -97,6 +89,15 @@ class HomeView extends GetView<HomeController> {
               itemBuilder: (context, index) {
                 return contentList(controller.state.showList[index]);
               },
+            ),
+            header: WaterDropHeader(
+              refresh: SizedBox(
+                  width: 9.w,
+                  height: 9.w,
+                  child: CircularProgressIndicator(
+                      backgroundColor: AppColors.mainIcon,
+                      color: AppColors.mainColor,
+                      strokeWidth: 1.w)),
             ),
             footer: CustomFooter(
               height: 80.h,
@@ -138,7 +139,6 @@ class HomeView extends GetView<HomeController> {
                 );
               },
             ),
-            header: const WaterDropHeader(),
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoading,
           ));

@@ -48,10 +48,11 @@ class ForgotPasswordController extends GetxController {
 
     if (_resetPassword.code == 200) {
       if (forgotController.arguments == null) {
-        /// 储存Token
+        Global.token = _resetPassword.data['token'];
+        // 储存Token
         await Global.saveToken(_resetPassword.data['token']);
 
-        /// 去往首页
+        // 去往首页
         await futureMill(500);
 
         Get.back();

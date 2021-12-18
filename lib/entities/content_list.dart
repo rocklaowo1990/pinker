@@ -37,7 +37,6 @@ class ListElement {
     this.isTopMost,
     this.groupPrice,
     this.subStatus,
-    this.quoteSource,
   });
 
   int wid;
@@ -56,7 +55,6 @@ class ListElement {
   int? isTopMost;
   int? groupPrice;
   int? subStatus;
-  QuoteSource? quoteSource;
 
   factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
         wid: json["wid"],
@@ -75,9 +73,6 @@ class ListElement {
         isTopMost: json["isTopMost"],
         groupPrice: json["groupPrice"],
         subStatus: json["subStatus"],
-        quoteSource: json["quoteSource"] != null
-            ? QuoteSource.fromJson(json["quoteSource"])
-            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,7 +92,6 @@ class ListElement {
         "isTopMost": isTopMost,
         "groupPrice": groupPrice,
         "subStatus": subStatus,
-        "quoteSource": quoteSource != null ? quoteSource!.toJson() : null,
       };
 }
 
@@ -133,139 +127,35 @@ class ListAuthor {
       };
 }
 
-class QuoteSource {
-  QuoteSource({
-    required this.wid,
-    required this.author,
-    required this.works,
-  });
-
-  String wid;
-  QuoteSourceAuthor author;
-  QuoteSourceWorks works;
-
-  factory QuoteSource.fromJson(Map<String, dynamic> json) => QuoteSource(
-        wid: json["wid"],
-        author: QuoteSourceAuthor.fromJson(json["author"]),
-        works: QuoteSourceWorks.fromJson(json["works"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "wid": wid,
-        "author": author.toJson(),
-        "works": works.toJson(),
-      };
-}
-
-class QuoteSourceAuthor {
-  QuoteSourceAuthor({
-    required this.userId,
-    required this.avatar,
-    required this.nickName,
-    required this.userName,
-    required this.intro,
-  });
-
-  String userId;
-  String avatar;
-  String nickName;
-  String userName;
-  String intro;
-
-  factory QuoteSourceAuthor.fromJson(Map<String, dynamic> json) =>
-      QuoteSourceAuthor(
-        userId: json["userId"],
-        avatar: json["avatar"],
-        nickName: json["nickName"],
-        userName: json["userName"],
-        intro: json["intro"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "userId": userId,
-        "avatar": avatar,
-        "nickName": nickName,
-        "userName": userName,
-        "intro": intro,
-      };
-}
-
-class QuoteSourceWorks {
-  QuoteSourceWorks({
-    this.content,
-    this.video,
-    this.pics,
+class ListWorks {
+  ListWorks({
     required this.replyPermission,
     required this.payPermission,
+    required this.content,
+    required this.pics,
+    required this.video,
   });
 
-  String? content;
-  Video? video;
-  List<String>? pics;
   ReplyPermission replyPermission;
-  PurplePayPermission payPermission;
+  FluffyPayPermission payPermission;
+  String content;
+  List<String> pics;
+  Video video;
 
-  factory QuoteSourceWorks.fromJson(Map<String, dynamic> json) =>
-      QuoteSourceWorks(
-        content: json["content"],
-        video: Video.fromJson(json["video"]),
-        pics: List<String>.from(json["pics"].map((x) => x)),
+  factory ListWorks.fromJson(Map<String, dynamic> json) => ListWorks(
         replyPermission: ReplyPermission.fromJson(json["replyPermission"]),
-        payPermission: PurplePayPermission.fromJson(json["payPermission"]),
+        payPermission: FluffyPayPermission.fromJson(json["payPermission"]),
+        content: json["content"],
+        pics: List<String>.from(json["pics"].map((x) => x)),
+        video: Video.fromJson(json["video"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "content": content,
-        "video": video != null ? video!.toJson() : null,
-        "pics": pics != null ? List<dynamic>.from(pics!.map((x) => x)) : null,
         "replyPermission": replyPermission.toJson(),
         "payPermission": payPermission.toJson(),
-      };
-}
-
-class PurplePayPermission {
-  PurplePayPermission({
-    required this.type,
-    this.groupId,
-    this.price,
-  });
-
-  String type;
-  String? groupId;
-  String? price;
-
-  factory PurplePayPermission.fromJson(Map<String, dynamic> json) =>
-      PurplePayPermission(
-        type: json["type"],
-        groupId: json["groupId"],
-        price: json["price"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "type": type,
-        "groupId": groupId,
-        "price": price,
-      };
-}
-
-class ReplyPermission {
-  ReplyPermission({
-    required this.type,
-    this.groupId,
-  });
-
-  int type;
-  int? groupId;
-
-  factory ReplyPermission.fromJson(Map<String, dynamic> json) =>
-      ReplyPermission(
-        type: json["type"],
-        groupId: json["groupId"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "type": type,
-        "groupId": groupId,
+        "content": content,
+        "pics": List<dynamic>.from(pics.map((x) => x)),
+        "video": video.toJson(),
       };
 }
 
@@ -303,35 +193,24 @@ class Video {
       };
 }
 
-class ListWorks {
-  ListWorks({
-    required this.replyPermission,
-    required this.payPermission,
-    required this.content,
-    required this.pics,
-    required this.video,
+class ReplyPermission {
+  ReplyPermission({
+    required this.type,
+    this.groupId,
   });
 
-  ReplyPermission replyPermission;
-  FluffyPayPermission payPermission;
-  String content;
-  List<String> pics;
-  Video video;
+  int type;
+  int? groupId;
 
-  factory ListWorks.fromJson(Map<String, dynamic> json) => ListWorks(
-        replyPermission: ReplyPermission.fromJson(json["replyPermission"]),
-        payPermission: FluffyPayPermission.fromJson(json["payPermission"]),
-        content: json["content"],
-        pics: List<String>.from(json["pics"].map((x) => x)),
-        video: Video.fromJson(json["video"]),
+  factory ReplyPermission.fromJson(Map<String, dynamic> json) =>
+      ReplyPermission(
+        type: json["type"],
+        groupId: json["groupId"],
       );
 
   Map<String, dynamic> toJson() => {
-        "replyPermission": replyPermission.toJson(),
-        "payPermission": payPermission.toJson(),
-        "content": content,
-        "pics": List<dynamic>.from(pics.map((x) => x)),
-        "video": video.toJson(),
+        "type": type,
+        "groupId": groupId,
       };
 }
 
