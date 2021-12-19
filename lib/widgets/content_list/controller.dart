@@ -13,15 +13,19 @@ class ContentBoxController extends GetxController {
     state.canSee = item.canSee;
   }
 
+  void handlePay() {
+    state.canSee = 1;
+  }
+
   void handleOpenVideo(ListElement item, String url) async {
-    getMediaView(item, url: url);
+    getMediaView(item, this, url: url);
   }
 
   void handleOpenImage(ListElement item, int index) async {
-    getMediaView(item, index: index);
+    getMediaView(item, this, index: index);
   }
 
   void handleOpenContent(ListElement item) async {
-    getMediaView(item);
+    getMediaView(item, this);
   }
 }

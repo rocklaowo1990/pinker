@@ -13,7 +13,7 @@ class UserListPageController extends GetxController {
   UserListPageController(this.type);
 
   /// 状态管理
-  final state = UserListPageState();
+  final UserListPageState state = UserListPageState();
 
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();

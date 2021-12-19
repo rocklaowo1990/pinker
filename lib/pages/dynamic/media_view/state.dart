@@ -11,7 +11,7 @@ class MediaViewState {
   set opacity(double value) => _opacity.value = value;
   double get opacity => _opacity.value;
 
-  /// 首页：订阅推文列表
+  /// 图片数组
   final RxList<String> _imagesList = <String>[].obs;
   set imagesList(List<String> value) => _imagesList.value = value;
   RxList<String> get imagesList => _imagesList;

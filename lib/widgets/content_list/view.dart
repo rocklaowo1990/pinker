@@ -234,7 +234,7 @@ Widget contentList(ListElement item) {
       }
     }
     return getButton(
-      onPressed: () {},
+      onPressed: controller.handlePay,
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(5.w, 5.w, 8.w, 5.w),
       background: AppColors.inputFiled,
@@ -305,102 +305,99 @@ Widget contentList(ListElement item) {
   // 付费后获得新的状态数据，更新数据再来更新显示状态
   Widget _showMedia() {
     if (item.works.pics.isNotEmpty) {
-      if (item.canSee != 0) {
-        return Column(
-          children: [
-            item.works.content.isNotEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: _workContent(() {
-                      controller.handleOpenImage(item, 0);
-                    }),
-                  )
-                : SizedBox(height: 8.h),
-            _imageBox(item.works.pics),
-          ],
-        );
-      } else {
-        return Column(
-          children: [
-            item.works.content.isNotEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: _workContent(() {
-                      controller.handleOpenImage(item, 0);
-                    }),
-                  )
-                : SizedBox(height: 8.h),
-            _imageBox(item.works.pics),
-            SizedBox(height: 8.h),
-            _payBox(1),
-          ],
-        );
-      }
-    } else if (item.works.video.url.isNotEmpty) {
-      if (item.canSee != 0) {
-        return Column(
-          children: [
-            item.works.content.isNotEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: _workContent(() {
-                      controller.handleOpenVideo(item, item.works.video.url);
-                    }),
-                  )
-                : SizedBox(height: 8.h),
-            Stack(
+      return Obx(() => controller.state.canSee != 0
+          ? Column(
               children: [
-                getImageBox(item.works.video.snapshotUrl,
-                    width: double.infinity,
-                    height: 128.h,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(4.w))),
-                getButton(
-                  onPressed: () {
-                    controller.handleOpenVideo(item, item.works.video.url);
-                  },
-                  borderRadius: BorderRadius.all(Radius.circular(4.w)),
-                  height: 128.h,
-                  background: Colors.black54,
-                  child: Center(
-                    child: Container(
-                      width: 26.w,
-                      height: 26.w,
-                      child: Icon(
-                        Icons.play_arrow,
-                        size: 20.w,
-                        color: AppColors.mainIcon,
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.mainColor,
-                        border:
-                            Border.all(color: AppColors.mainIcon, width: 1.w),
+                item.works.content.isNotEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        child: _workContent(() {
+                          controller.handleOpenImage(item, 0);
+                        }),
+                      )
+                    : SizedBox(height: 8.h),
+                _imageBox(item.works.pics),
+              ],
+            )
+          : Column(
+              children: [
+                item.works.content.isNotEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        child: _workContent(() {
+                          controller.handleOpenImage(item, 0);
+                        }),
+                      )
+                    : SizedBox(height: 8.h),
+                _imageBox(item.works.pics),
+                SizedBox(height: 8.h),
+                _payBox(1),
+              ],
+            ));
+    } else if (item.works.video.url.isNotEmpty) {
+      return Obx(() => controller.state.canSee != 0
+          ? Column(
+              children: [
+                item.works.content.isNotEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        child: _workContent(() {
+                          controller.handleOpenVideo(
+                              item, item.works.video.url);
+                        }),
+                      )
+                    : SizedBox(height: 8.h),
+                Stack(
+                  children: [
+                    getImageBox(item.works.video.snapshotUrl,
+                        width: double.infinity,
+                        height: 128.h,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                    getButton(
+                      onPressed: () {
+                        controller.handleOpenVideo(item, item.works.video.url);
+                      },
+                      borderRadius: BorderRadius.all(Radius.circular(4.w)),
+                      height: 128.h,
+                      background: Colors.black54,
+                      child: Center(
+                        child: Container(
+                          width: 26.w,
+                          height: 26.w,
+                          child: Icon(
+                            Icons.play_arrow,
+                            size: 20.w,
+                            color: AppColors.mainIcon,
+                          ),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.mainColor,
+                            border: Border.all(
+                                color: AppColors.mainIcon, width: 1.w),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
-            ),
-          ],
-        );
-      } else {
-        return Column(
-          children: [
-            item.works.content.isNotEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: _workContent(() {
-                      controller.handleOpenImage(item, 0);
-                    }),
-                  )
-                : SizedBox(height: 8.h),
-            _imageBox(item.works.video.previewsUrls),
-            SizedBox(height: 8.h),
-            _payBox(2),
-          ],
-        );
-      }
+            )
+          : Column(
+              children: [
+                item.works.content.isNotEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        child: _workContent(() {
+                          controller.handleOpenImage(item, 0);
+                        }),
+                      )
+                    : SizedBox(height: 8.h),
+                _imageBox(item.works.video.previewsUrls),
+                SizedBox(height: 8.h),
+                _payBox(2),
+              ],
+            ));
     } else {
       return Padding(
         padding: EdgeInsets.only(top: 8.h),

@@ -10,10 +10,12 @@ import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Future getMediaView(ListElement item, {int? index, String? url}) {
+Future getMediaView(ListElement item, ContentBoxController contentBoxController,
+    {int? index, String? url}) {
   Widget child = GetBuilder<MediaViewController>(
     init: MediaViewController(),
     builder: (controller) {
+      // 顶层的头像
       Widget avatar = getImageBox(
         item.author.avatar,
         shape: BoxShape.circle,
@@ -58,9 +60,23 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
         ],
       );
 
-      // 用来装媒体的
-      late Widget mediaBox;
+      // 顶层构造
+      Widget body = Obx(
+        () => AnimatedOpacity(
+            opacity: controller.state.opacity,
+            duration: const Duration(milliseconds: 300),
+            child: Column(
+              children: [
+                appBar,
+                avatar,
+              ],
+            )),
+      );
 
+      // 底层
+      // 用来装媒体的
+      // 媒体部分比较重要，包含购买和是否可阅读等权限
+      late Widget mediaBox;
       if (url != null) {
         controller.fijkPlayer = FijkPlayer();
         controller.fijkPlayer!
@@ -83,7 +99,7 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
         controller.pageController = ExtendedPageController(initialPage: index);
 
         if (item.works.pics.isNotEmpty) {
-          if (controller.contentBoxController.state.canSee == 0) {
+          if (contentBoxController.state.canSee == 0) {
             for (int i = 0; i < 4; i++) {
               controller.state.imagesList.add(item.works.pics[i]);
             }
@@ -92,16 +108,12 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
           }
           mediaBox = Obx(() => ExtendedImageGesturePageView.builder(
                 itemBuilder: (BuildContext context, int _index) {
-                  if (_index >= 3 &&
-                      controller.contentBoxController.state.canSee == 0) {
+                  if (_index >= 3 && contentBoxController.state.canSee == 0) {
                     return getButton(
                         child: getSpan('text'),
                         onPressed: () {
-                          print(
-                              '${controller.contentBoxController.state.canSee}');
-                          controller.contentBoxController.state.canSee = 1;
-                          print(
-                              '${controller.contentBoxController.state.canSee}');
+                          contentBoxController.state.canSee = 1;
+
                           controller.state.imagesList.clear();
                           controller.state.imagesList.addAll(item.works.pics);
                         });
@@ -131,6 +143,7 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
                       return getButton(
                           child: getSpan('text'),
                           onPressed: () {
+                            contentBoxController.state.canSee = 1;
                             controller.state.imagesList.clear();
                             controller.fijkPlayer = FijkPlayer();
                             controller.fijkPlayer!.setDataSource(
@@ -138,7 +151,6 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
                                     serverPort +
                                     item.works.video.url,
                                 autoPlay: true);
-                            print('object');
                           });
                     }
                   },
@@ -173,19 +185,6 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
           overlayColor: Colors.transparent,
         ),
         backgroundColor: AppColors.mainBacground,
-      );
-
-      // 顶层构造
-      Widget body = Obx(
-        () => AnimatedOpacity(
-            opacity: controller.state.opacity,
-            duration: const Duration(milliseconds: 300),
-            child: Column(
-              children: [
-                appBar,
-                avatar,
-              ],
-            )),
       );
 
       // 整体构造

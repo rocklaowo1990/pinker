@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 
@@ -20,6 +21,8 @@ class HomeController extends GetxController {
       RefreshController(initialRefresh: false);
 
   final ApplicationController applicationController = Get.find();
+
+  final ScrollController scrollController = ScrollController();
 
   int pageIndex = 1;
   int totalSize = 0;
@@ -139,6 +142,7 @@ class HomeController extends GetxController {
   @override
   void dispose() {
     refreshController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 }
