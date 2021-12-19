@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:pinker/entities/entities.dart';
+
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
