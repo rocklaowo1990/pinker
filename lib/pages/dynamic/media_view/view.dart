@@ -80,24 +80,85 @@ Future getMediaView(ListElement item, {int? index, String? url}) {
           },
         );
       } else if (index != null) {
-        late List images;
-        if (item.works.pics.isNotEmpty) {
-          images = item.works.pics;
-        } else {
-          images = item.works.video.previewsUrls;
-        }
         controller.pageController = ExtendedPageController(initialPage: index);
 
-        mediaBox = ExtendedImageGesturePageView.builder(
-          itemBuilder: (BuildContext context, int _index) {
-            return Center(
-              child:
-                  getImageBox(images[_index], mode: ExtendedImageMode.gesture),
-            );
-          },
-          itemCount: images.length,
-          controller: controller.pageController,
-        );
+        if (item.works.pics.isNotEmpty) {
+          if (controller.contentBoxController.state.canSee == 0) {
+            for (int i = 0; i < 4; i++) {
+              controller.state.imagesList.add(item.works.pics[i]);
+            }
+          } else {
+            controller.state.imagesList.addAll(item.works.pics);
+          }
+          mediaBox = Obx(() => ExtendedImageGesturePageView.builder(
+                itemBuilder: (BuildContext context, int _index) {
+                  if (_index >= 3 &&
+                      controller.contentBoxController.state.canSee == 0) {
+                    return getButton(
+                        child: getSpan('text'),
+                        onPressed: () {
+                          print(
+                              '${controller.contentBoxController.state.canSee}');
+                          controller.contentBoxController.state.canSee = 1;
+                          print(
+                              '${controller.contentBoxController.state.canSee}');
+                          controller.state.imagesList.clear();
+                          controller.state.imagesList.addAll(item.works.pics);
+                        });
+                  } else {
+                    return Center(
+                      child: getImageBox(controller.state.imagesList[_index],
+                          mode: ExtendedImageMode.gesture),
+                    );
+                  }
+                },
+                itemCount: controller.state.imagesList.length,
+                controller: controller.pageController,
+              ));
+        } else {
+          controller.state.imagesList.addAll(item.works.video.previewsUrls);
+          controller.state.imagesList.add(item.works.video.snapshotUrl);
+
+          mediaBox = Obx(() => controller.state.imagesList.isNotEmpty
+              ? ExtendedImageGesturePageView.builder(
+                  itemBuilder: (BuildContext context, int _index) {
+                    if (_index < 3) {
+                      return Center(
+                        child: getImageBox(controller.state.imagesList[_index],
+                            mode: ExtendedImageMode.gesture),
+                      );
+                    } else {
+                      return getButton(
+                          child: getSpan('text'),
+                          onPressed: () {
+                            controller.state.imagesList.clear();
+                            controller.fijkPlayer = FijkPlayer();
+                            controller.fijkPlayer!.setDataSource(
+                                serverApiUrl +
+                                    serverPort +
+                                    item.works.video.url,
+                                autoPlay: true);
+                            print('object');
+                          });
+                    }
+                  },
+                  itemCount: controller.state.imagesList.length,
+                  controller: controller.pageController,
+                )
+              : FijkView(
+                  color: AppColors.mainBacground,
+                  player: controller.fijkPlayer!,
+                  panelBuilder: (
+                    FijkPlayer fijkPlayer,
+                    FijkData fijkData,
+                    BuildContext buildContext,
+                    Size size,
+                    Rect rect,
+                  ) {
+                    return const SizedBox();
+                  },
+                ));
+        }
       } else {
         mediaBox = Container();
       }

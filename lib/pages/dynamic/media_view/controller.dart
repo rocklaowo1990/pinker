@@ -4,11 +4,14 @@ import 'package:fijkplayer/fijkplayer.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/dynamic/media_view/library.dart';
+import 'package:pinker/widgets/content_list/library.dart';
 
 class MediaViewController extends GetxController {
   final MediaViewState state = MediaViewState();
   FijkPlayer? fijkPlayer;
   ExtendedPageController? pageController;
+
+  final ContentBoxController contentBoxController = ContentBoxController();
 
   void handleOpcatiy() {
     state.opacityListen++;
@@ -27,7 +30,7 @@ class MediaViewController extends GetxController {
       (int value) {
         state.opacity = state.opacity == 1.0 ? 0.0 : 1.0;
       },
-      time: const Duration(milliseconds: 200),
+      time: const Duration(milliseconds: 100),
     );
   }
 
