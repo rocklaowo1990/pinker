@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
-import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/values/values.dart';
 

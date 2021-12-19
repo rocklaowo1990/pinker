@@ -4,11 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/home/library.dart';
-import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);

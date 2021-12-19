@@ -37,9 +37,6 @@ class MyController extends GetxController {
     super.onReady();
 
     scrollController.addListener(() {
-      // state.opacity = scrollController.offset / 100;
-
-      print(scrollController.offset);
       if (scrollController.offset >= 50) state.opacity = 1;
       if (scrollController.offset < 50) state.opacity = 0;
     });

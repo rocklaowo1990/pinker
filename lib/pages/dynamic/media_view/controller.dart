@@ -29,10 +29,6 @@ class MediaViewController extends GetxController {
       },
       time: const Duration(milliseconds: 200),
     );
-
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      state.opacity = 0.0;
-    });
   }
 
   @override

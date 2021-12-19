@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/pages/fogot/verify/library.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 class ForgotVerifyView extends GetView<ForgotVerifyController> {
   const ForgotVerifyView({Key? key}) : super(key: key);

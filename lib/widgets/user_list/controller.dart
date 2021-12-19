@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/application/library.dart';
-import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';

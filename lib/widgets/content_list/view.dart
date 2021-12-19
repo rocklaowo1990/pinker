@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/pages/dynamic/dynamic.dart';
 
 import 'package:pinker/values/values.dart';
 
@@ -35,19 +34,21 @@ Widget contentList(ListElement item) {
     ),
   );
 
-  // 推文的内容
-  Widget workContent = SizedBox(
-    width: double.infinity,
-    child: GestureDetector(
-      child: getSpan(
-        item.works.content,
-        textAlign: TextAlign.start,
+  /// 推文的内容
+  /// 内容因为也是分成了很多情况，所以封装了一个方法
+  /// 用来实现不同的情况
+  Widget _workContent(VoidCallback? onTap) {
+    return SizedBox(
+      width: double.infinity,
+      child: GestureDetector(
+        child: getSpan(
+          item.works.content,
+          textAlign: TextAlign.start,
+        ),
+        onTap: onTap,
       ),
-      onTap: () {
-        controller.handleOpenContent(item);
-      },
-    ),
-  );
+    );
+  }
 
   /// 图像展示
   Widget _image(String url, int index) {
@@ -69,9 +70,9 @@ Widget contentList(ListElement item) {
     );
   }
 
-  // 图片上展示的数字
-  // 三个图片哪里有
-  // 购买区域哪里也有
+  /// 图片上展示的数字
+  /// 三个图片哪里有
+  /// 购买区域哪里也有
   Widget _imageCount(String count) {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
@@ -83,7 +84,7 @@ Widget contentList(ListElement item) {
     );
   }
 
-  // 这里是一排三个的图片，需要传入图片的数组
+  /// 这里是一排三个的图片，需要传入图片的数组
   Widget _imageBox(List<String> images) {
     return Row(
       children: [
@@ -221,13 +222,12 @@ Widget contentList(ListElement item) {
           children: [
             SvgPicture.asset(
               'assets/svg/icon_diamond.svg',
-              height: 15,
+              height: 13,
             ),
             const SizedBox(width: 5),
             getSpan(
               '${item.works.payPermission.price}',
               color: AppColors.thirdText,
-              fontSize: 17,
             ),
           ],
         );
@@ -269,14 +269,13 @@ Widget contentList(ListElement item) {
                       children: [
                         getSpan(
                           '付费资源：',
-                          fontSize: 17,
                           color: AppColors.thirdText,
                         ),
                         price,
                       ],
                     ),
                     const SizedBox(height: 2),
-                    getSpan(mediaInfo),
+                    getSpan(mediaInfo, color: AppColors.secondText),
                   ],
                 )
               ],
@@ -312,7 +311,9 @@ Widget contentList(ListElement item) {
             item.works.content.isNotEmpty
                 ? Padding(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: workContent,
+                    child: _workContent(() {
+                      controller.handleOpenImage(item, 0);
+                    }),
                   )
                 : SizedBox(height: 8.h),
             _imageBox(item.works.pics),
@@ -324,7 +325,9 @@ Widget contentList(ListElement item) {
             item.works.content.isNotEmpty
                 ? Padding(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: workContent,
+                    child: _workContent(() {
+                      controller.handleOpenImage(item, 0);
+                    }),
                   )
                 : SizedBox(height: 8.h),
             _imageBox(item.works.pics),
@@ -340,7 +343,9 @@ Widget contentList(ListElement item) {
             item.works.content.isNotEmpty
                 ? Padding(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: workContent,
+                    child: _workContent(() {
+                      controller.handleOpenVideo(item, item.works.video.url);
+                    }),
                   )
                 : SizedBox(height: 8.h),
             Stack(
@@ -385,7 +390,9 @@ Widget contentList(ListElement item) {
             item.works.content.isNotEmpty
                 ? Padding(
                     padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                    child: workContent,
+                    child: _workContent(() {
+                      controller.handleOpenImage(item, 0);
+                    }),
                   )
                 : SizedBox(height: 8.h),
             _imageBox(item.works.video.previewsUrls),
@@ -397,7 +404,9 @@ Widget contentList(ListElement item) {
     } else {
       return Padding(
         padding: EdgeInsets.only(top: 8.h),
-        child: workContent,
+        child: _workContent(() {
+          controller.handleOpenContent(item);
+        }),
       );
     }
   }
