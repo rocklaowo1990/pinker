@@ -60,6 +60,9 @@ Future getMediaView(ListElement item, ContentBoxController contentBoxController,
         ],
       );
 
+      // 底部信息
+      Widget contentButton = getContentButton(contentBoxController);
+
       // 顶层构造
       Widget body = Obx(
         () => AnimatedOpacity(
@@ -69,6 +72,7 @@ Future getMediaView(ListElement item, ContentBoxController contentBoxController,
               children: [
                 appBar,
                 avatar,
+                contentButton,
               ],
             )),
       );

@@ -11,6 +11,11 @@ class ContentBoxController extends GetxController {
   // 暂时还不知道为啥要在这里初始化
   void initState(ListElement item) {
     state.canSee = item.canSee;
+    state.commentCount = item.commentCount;
+    state.forwardCount = item.forwardCount;
+    state.isLike = item.isLike;
+    state.likeCount = item.likeCount;
+    state.isForward = item.isForward;
   }
 
   void handlePay() {
