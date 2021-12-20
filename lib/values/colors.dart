@@ -25,6 +25,9 @@ class AppColors {
   /// 金色文字
   static const Color thirdText = Color(0xfffcc82b);
 
+  /// 青色文本
+  static const Color fourText = Color(0xff28E4FF);
+
   /// 输入框颜色
   static const Color inputFiled = Color(0xff20232a);
 

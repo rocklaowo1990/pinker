@@ -70,14 +70,11 @@ Widget getUserListPage({
                               children: controller.state.userList
                                   .map((item) => Container(
                                       color: AppColors.secondBacground,
-                                      child: getUserList(
-                                          avatar: item['avatar'],
-                                          userName: item['userName'],
-                                          nickName: item['nickName'],
-                                          buttonText: '移出',
-                                          onPressed: () {
-                                            controller.handleListOnTap(item);
-                                          })))
+                                      child: getUserList(item['avatar'],
+                                          item['userName'], item['nickName'],
+                                          buttonText: '移出', buttonPressed: () {
+                                        controller.handleListOnTap(item);
+                                      })))
                                   .toList()))
                     ])));
 

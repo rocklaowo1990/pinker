@@ -69,3 +69,29 @@ String getEmailHide(String value) {
   List<String> part_1 = value.split('@');
   return getLastTwo(part_1[0]) + '@' + part_1[1];
 }
+
+/// 时间格式化
+String getDuration(int value) {
+  // 初始化
+  // 首先默认所有的时间都是 0
+  int minute = 0;
+  int second = 0;
+  int hour = 0;
+
+  // 第一步是看分钟的数量
+  minute = value ~/ 60;
+  second = value % 60;
+  String secondString = second < 10 ? '0$second' : '$second';
+
+  if (minute < 10) {
+    return '0$minute:$secondString';
+  } else if (minute < 60) {
+    return '$minute:$secondString';
+  } else {
+    hour = minute ~/ 60;
+    minute = minute % 60;
+    String hourString = hour < 10 ? '0$hour' : '$hour';
+    String minuteString = minute < 10 ? '0$minute' : '$minute';
+    return '$hourString:$minuteString:$secondString';
+  }
+}

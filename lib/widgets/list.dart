@@ -77,16 +77,15 @@ Widget getButtonList({
   );
 }
 
-/// 用户列表
-Widget getUserList({
-  String? avatar,
-  String? userName,
-  String? nickName,
+/// 用户头像
+/// 用户昵称
+/// 用户名的组合
+/// 这里单独封装出来是为了其他地方可用
+Widget getUserAvatar(
+  String avatar,
+  String nickName,
+  String userName, {
   VoidCallback? onPressed,
-  String? buttonText,
-  Widget? button,
-  EdgeInsetsGeometry? padding,
-  BoxBorder? border,
 }) {
   /// 头像
   Widget avatarBox = Container(
@@ -97,9 +96,7 @@ Widget getUserList({
       color: AppColors.thirdIcon,
     ),
     child: Center(
-      child: avatar == null ||
-              avatar.isEmpty ||
-              isInclude(avatar, 'user_default_head.png')
+      child: avatar.isEmpty || isInclude(avatar, 'user_default_head.png')
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
               width: 32.w,
@@ -128,18 +125,43 @@ Widget getUserList({
   );
 
   /// 左侧组合
-  Widget leftBox = Row(
-    children: [
-      avatarBox,
-      SizedBox(width: 8.w),
-      userNameBox,
-    ],
+  return getButton(
+    onPressed: onPressed,
+    background: Colors.transparent,
+    child: Row(
+      children: [
+        avatarBox,
+        SizedBox(width: 8.w),
+        userNameBox,
+      ],
+    ),
+  );
+}
+
+/// 用户列表
+Widget getUserList(
+  String avatar,
+  String userName,
+  String nickName, {
+  VoidCallback? buttonPressed,
+  VoidCallback? avatarPressed,
+  String? buttonText,
+  Widget? button,
+  EdgeInsetsGeometry? padding,
+  BoxBorder? border,
+}) {
+  /// 左侧组合
+  Widget leftBox = getUserAvatar(
+    avatar,
+    nickName,
+    userName,
+    onPressed: avatarPressed,
   );
 
   /// 按钮
   Widget buttonBox = getButton(
     child: getSpan(buttonText ?? '订阅'),
-    onPressed: onPressed,
+    onPressed: buttonPressed,
     width: 40.w,
     height: 16.w,
     side: BorderSide(width: 0.5.w, color: AppColors.mainColor),

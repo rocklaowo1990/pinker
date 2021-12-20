@@ -16,3 +16,5 @@ export 'content_list/library.dart';
 export 'user_list/library.dart';
 export 'verify/library.dart';
 export 'content_button.dart';
+export 'content_avatar.dart';
+export 'content_pay_box.dart';

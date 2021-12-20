@@ -1,5 +1,3 @@
-// 底部哪一条功能按钮的封装方法
-// 留言、喜欢、转发、分享
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,6 +7,8 @@ import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
+// 底部哪一条功能按钮的封装方法
+// 留言、喜欢、转发、分享
 Widget _contentButton({
   required Widget icon,
   String? data,
@@ -85,19 +85,21 @@ Widget getContentButton(ContentBoxController contentBoxController) {
                     : AppColors.errro,
               )),
           Obx(() => _contentButton(
-                icon: SvgPicture.asset(
-                  'assets/svg/icon_forward.svg',
-                  height: 10.w,
-                  color: contentBoxController.state.isForward == 0
-                      ? null
-                      : Colors.green,
-                ),
+                icon: contentBoxController.state.isForward == 0
+                    ? SvgPicture.asset(
+                        'assets/svg/icon_forward.svg',
+                        height: 10.w,
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/icon_forward_press.svg',
+                        height: 10.w,
+                      ),
                 data: contentBoxController.state.forwardCount == 0
                     ? '转发'
                     : '${contentBoxController.state.forwardCount}',
                 color: contentBoxController.state.isForward == 0
                     ? AppColors.secondText
-                    : Colors.green,
+                    : AppColors.fourText,
                 onPressed: _onForward,
               )),
         ],

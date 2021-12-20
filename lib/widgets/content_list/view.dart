@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
-
 import 'package:pinker/widgets/widgets.dart';
 
 Widget contentList(ListElement item) {
@@ -16,21 +14,14 @@ Widget contentList(ListElement item) {
   controller.initState(item);
 
   // 推文的作者信息
-  Widget author = getUserList(
-    border: const Border.fromBorderSide(BorderSide.none),
-    avatar: item.author.avatar,
-    userName: item.author.userName,
-    nickName: item.author.nickName,
+  Widget author = Padding(
     padding: EdgeInsets.fromLTRB(9.w, 10.w, 0, 0),
-    button: getButton(
-      width: 26.w,
-      height: 26.w,
-      background: Colors.transparent,
-      onPressed: () {},
-      child: const Icon(
-        Icons.more_horiz,
-        color: AppColors.mainIcon,
-      ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        getContentAvatar(item),
+        getContentMore(item),
+      ],
     ),
   );
 
@@ -70,20 +61,6 @@ Widget contentList(ListElement item) {
     );
   }
 
-  /// 图片上展示的数字
-  /// 三个图片哪里有
-  /// 购买区域哪里也有
-  Widget _imageCount(String count) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100.w),
-        color: AppColors.mainBacground50,
-      ),
-      child: getSpan(count),
-    );
-  }
-
   /// 这里是一排三个的图片，需要传入图片的数组
   Widget _imageBox(List<String> images) {
     return Row(
@@ -102,7 +79,7 @@ Widget contentList(ListElement item) {
                       Obx(() =>
                           controller.state.canSee != 0 && images.length > 3
                               ? Positioned(
-                                  child: _imageCount('${images.length - 3}'),
+                                  child: getImageCount('+${images.length - 3}'),
                                   bottom: 8,
                                   right: 8,
                                 )
@@ -118,123 +95,6 @@ Widget contentList(ListElement item) {
   // 留言、喜欢、转发、分享
   // 留言、喜欢、转发、分享 的构造
   Widget contentInfo = getContentButton(controller);
-
-  // 没有购买的时候，预览图下方展示的需要购买的信息
-  // 图片购买和视频购买所展示的信息不太一样
-  // 需要传入参数进行区分
-  // 区分图片和视频的信息，区分好了以后展示
-  Widget _payBox(int type) {
-    late Widget mediaType;
-    late String url;
-    late String mediaInfo;
-    late Widget price;
-    if (type == 1) {
-      url = item.works.pics[0];
-      mediaType = _imageCount('${item.works.pics.length - 3}');
-      mediaInfo = '图片： ${item.works.pics.length - 3} 张';
-    } else {
-      url = item.works.video.previewsUrls[0];
-      mediaType = Container(
-        height: 20.w,
-        width: 20.w,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.mainBacground50,
-        ),
-        child: Center(
-          child: Icon(
-            Icons.play_arrow,
-            color: AppColors.mainIcon,
-            size: 12.w,
-          ),
-        ),
-      );
-      mediaInfo = '视频： ${item.works.video.duration} 分钟';
-    }
-
-    if (item.works.payPermission.type == 2) {
-      price = getSpan(
-        '需订阅',
-        color: AppColors.thirdText,
-        fontSize: 17,
-      );
-    } else {
-      if (item.works.payPermission.type != 0) {
-        price = Row(
-          children: [
-            SvgPicture.asset(
-              'assets/svg/icon_diamond.svg',
-              height: 13,
-            ),
-            const SizedBox(width: 5),
-            getSpan(
-              '${item.works.payPermission.price}',
-              color: AppColors.thirdText,
-            ),
-          ],
-        );
-      }
-    }
-    return getButton(
-      onPressed: controller.handlePay,
-      width: double.infinity,
-      padding: EdgeInsets.fromLTRB(5.w, 5.w, 8.w, 5.w),
-      background: AppColors.inputFiled,
-      borderRadius: BorderRadius.all(Radius.circular(4.w)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Stack(
-                  children: [
-                    getImageBox(url,
-                        width: 32.h,
-                        height: 32.h,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(4.w))),
-                    SizedBox(
-                      height: 32.h,
-                      width: 32.h,
-                      child: Center(
-                        child: mediaType,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        getSpan(
-                          '付费资源：',
-                          color: AppColors.thirdText,
-                        ),
-                        price,
-                      ],
-                    ),
-                    const SizedBox(height: 2),
-                    getSpan(mediaInfo, color: AppColors.secondText),
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            child: getSpan('查看'),
-            padding: EdgeInsets.fromLTRB(12.w, 4.w, 12.w, 4.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(500.w),
-              color: AppColors.mainColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   // 资源区
   // 1、分成可观看和不可观看
@@ -273,7 +133,7 @@ Widget contentList(ListElement item) {
                     : SizedBox(height: 8.h),
                 _imageBox(item.works.pics),
                 SizedBox(height: 8.h),
-                _payBox(1),
+                getContentPayBox(item, 1, controller, null),
               ],
             ));
     } else if (item.works.video.url.isNotEmpty) {
@@ -321,6 +181,12 @@ Widget contentList(ListElement item) {
                         ),
                       ),
                     ),
+                    Positioned(
+                      child:
+                          getImageCount(getDuration(item.works.video.duration)),
+                      bottom: 8,
+                      left: 8,
+                    )
                   ],
                 ),
               ],
@@ -337,7 +203,7 @@ Widget contentList(ListElement item) {
                     : SizedBox(height: 8.h),
                 _imageBox(item.works.video.previewsUrls),
                 SizedBox(height: 8.h),
-                _payBox(2),
+                getContentPayBox(item, 2, controller, null),
               ],
             ));
     } else {
