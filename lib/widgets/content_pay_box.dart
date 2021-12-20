@@ -45,6 +45,7 @@ Widget getContentPayBox(
         mediaViewController.fijkPlayer!.setDataSource(
             serverApiUrl + serverPort + item.works.video.url,
             autoPlay: true);
+        mediaViewController.state.imagesList.clear();
       } else {
         for (int i = 4; i < item.works.pics.length; i++) {
           mediaViewController.state.imagesList.add(item.works.pics[i]);

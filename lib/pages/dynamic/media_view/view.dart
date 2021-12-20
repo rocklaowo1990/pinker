@@ -9,11 +9,22 @@ import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Future getMediaView(ListElement item, ContentBoxController contentBoxController,
-    {int? index, String? url}) {
+Future getMediaView(
+  ListElement item,
+  ContentBoxController contentBoxController, {
+  int? index,
+  String? url,
+}) {
   Widget child = GetBuilder<MediaViewController>(
     init: MediaViewController(),
     builder: (controller) {
+      // 初始化
+      // 这种结构的只能在这里初始化
+      // 在里面初始化需要在控制器里面加入index变量
+      if (index != null) {
+        controller.state.pageIndex = index;
+      }
+
       // appBar 右侧的设置按钮
       Widget moreButton = getContentMore(
         item,
@@ -37,7 +48,10 @@ Future getMediaView(ListElement item, ContentBoxController contentBoxController,
 
       // appBar
       AppBar appBar = getAppBar(
-        const SizedBox(),
+        Obx(() => controller.state.imagesList.isEmpty
+            ? const SizedBox()
+            : getSpan(
+                '${controller.state.pageIndex + 1}/${controller.state.imagesList.length}')),
         leading: leading,
         actions: [
           moreButton,
@@ -178,6 +192,7 @@ Future getMediaView(ListElement item, ContentBoxController contentBoxController,
                   },
                   itemCount: controller.state.imagesList.length,
                   controller: controller.pageController,
+                  onPageChanged: controller.handleOnPageChanged,
                 )
               : ExtendedImageGesturePageView.builder(
                   itemBuilder: (BuildContext context, int _index) {
@@ -188,6 +203,7 @@ Future getMediaView(ListElement item, ContentBoxController contentBoxController,
                   },
                   itemCount: controller.state.imagesList.length,
                   controller: controller.pageController,
+                  onPageChanged: controller.handleOnPageChanged,
                 ));
           // 这里开始就是视频区域
           // 视频不可观看的时候，是有三张预览图
@@ -235,6 +251,7 @@ Future getMediaView(ListElement item, ContentBoxController contentBoxController,
                   },
                   itemCount: controller.state.imagesList.length,
                   controller: controller.pageController,
+                  onPageChanged: controller.handleOnPageChanged,
                 )
               : FijkView(
                   color: AppColors.mainBacground,

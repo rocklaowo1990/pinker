@@ -10,6 +10,12 @@ class MediaViewController extends GetxController {
   FijkPlayer? fijkPlayer;
   ExtendedPageController? pageController;
 
+  int pageIndex = 0;
+  void handleOnPageChanged(value) {
+    state.pageIndex = value;
+    print(value);
+  }
+
   void handleOpcatiy() {
     state.opacityListen++;
   }

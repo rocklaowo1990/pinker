@@ -91,8 +91,9 @@ Widget getContentButton(ContentBoxController contentBoxController) {
                         height: 10.w,
                       )
                     : SvgPicture.asset(
-                        'assets/svg/icon_forward_press.svg',
+                        'assets/svg/icon_forward.svg',
                         height: 10.w,
+                        color: AppColors.fourText,
                       ),
                 data: contentBoxController.state.forwardCount == 0
                     ? '转发'

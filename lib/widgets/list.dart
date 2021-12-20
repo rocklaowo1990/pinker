@@ -127,6 +127,7 @@ Widget getUserAvatar(
   /// 左侧组合
   return getButton(
     onPressed: onPressed,
+    overlayColor: Colors.transparent,
     background: Colors.transparent,
     child: Row(
       children: [
