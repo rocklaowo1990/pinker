@@ -13,7 +13,6 @@ class MediaViewController extends GetxController {
   int pageIndex = 0;
   void handleOnPageChanged(value) {
     state.pageIndex = value;
-    print(value);
   }
 
   void handleOpcatiy() {

@@ -4,20 +4,17 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/community/library.dart';
+
 import 'package:pinker/pages/application/community/widgets/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class CommunityView extends StatelessWidget {
+class CommunityView extends GetView<CommunityController> {
   const CommunityView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /// 控制器
-    final CommunityController controller = CommunityController();
-
-    ///
     Widget _leftChild(String title, int index) {
       return Obx(
         () => GestureDetector(

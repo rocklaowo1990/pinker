@@ -1,5 +1,6 @@
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pinker/utils/utils.dart';
@@ -37,6 +38,9 @@ class Global {
   /// 是否有用户数据
   static bool isHadUserInfo = false;
 
+  /// 是否有社区的推文信息
+  static bool isHadPublicContent = false;
+
   /// 是否离线登录
   static bool isOfflineLogin = false;
 
@@ -47,6 +51,10 @@ class Global {
   static Future init() async {
     /// 运行初始
     WidgetsFlutterBinding.ensureInitialized();
+
+    // 强制竖屏
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     /// 读取设备信息
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

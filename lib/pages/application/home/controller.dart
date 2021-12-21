@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 
-import 'package:pinker/api/content.dart';
-
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/global.dart';
@@ -50,7 +48,7 @@ class HomeController extends GetxController {
         'type': 3,
       };
 
-      ResponseEntity responseEntity = await ContentApi.contentList(data);
+      ResponseEntity responseEntity = await ContentApi.homeContentList(data);
 
       if (responseEntity.code == 200) {
         ContentList contentList = ContentList.fromJson(responseEntity.data);
@@ -64,7 +62,7 @@ class HomeController extends GetxController {
           'totalSize': state.showList.length,
         };
         await StorageUtil()
-            .setJSON(storageUserContentListKey, _storageUserContentList);
+            .setJSON(storageHomeContentListKey, _storageUserContentList);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -86,7 +84,7 @@ class HomeController extends GetxController {
       'type': 3,
     };
 
-    ResponseEntity responseEntity = await ContentApi.contentList(data);
+    ResponseEntity responseEntity = await ContentApi.homeContentList(data);
     if (responseEntity.code == 200) {
       ContentList contentList = ContentList.fromJson(responseEntity.data);
       state.showList.clear();
@@ -95,7 +93,7 @@ class HomeController extends GetxController {
       state.isLoading = false;
       totalSize = contentList.totalSize;
       await StorageUtil()
-          .setJSON(storageUserContentListKey, responseEntity.data);
+          .setJSON(storageHomeContentListKey, responseEntity.data);
       await StorageUtil().setBool(storageIsHadUserInfo, true);
       Global.isHadUserInfo = true;
     } else {
@@ -120,7 +118,7 @@ class HomeController extends GetxController {
     if (Global.isHadUserInfo) {
       state.isLoading = false;
       Map<String, dynamic> _contentList =
-          await StorageUtil().getJSON(storageUserContentListKey);
+          await StorageUtil().getJSON(storageHomeContentListKey);
       ContentList contentList = ContentList.fromJson(_contentList);
 
       pageIndex = contentList.list.length ~/ 20;

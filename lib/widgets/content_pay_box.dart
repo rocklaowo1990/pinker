@@ -105,7 +105,7 @@ Widget getContentPayBox(
     onPressed: _onPressed,
     width: double.infinity,
     padding: EdgeInsets.fromLTRB(5.w, 5.w, 8.w, 5.w),
-    background: AppColors.inputFiled,
+    background: AppColors.line,
     borderRadius: BorderRadius.all(Radius.circular(4.w)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

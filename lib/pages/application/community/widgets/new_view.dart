@@ -11,8 +11,23 @@ class NewView extends GetView<CommunityController> {
 
   @override
   Widget build(BuildContext context) {
-    /// body
-    Widget body = Center(
+    // loading时显示转圈圈
+    Widget loading = Center(
+        child: Column(children: [
+      SizedBox(height: 40.h),
+      SizedBox(
+          width: 9.w,
+          height: 9.w,
+          child: CircularProgressIndicator(
+              backgroundColor: AppColors.mainIcon,
+              color: AppColors.mainColor,
+              strokeWidth: 1.w)),
+      SizedBox(height: 6.h),
+      getSpan('加载中...', color: AppColors.secondText),
+    ]));
+
+    // 没有数据的时候，显示暂无数据
+    Widget noData = Center(
       child: Column(
         children: [
           SizedBox(height: 40.h),
@@ -25,6 +40,36 @@ class NewView extends GetView<CommunityController> {
         ],
       ),
     );
+
+    // 整体布局
+    Widget _body = Obx(
+      () => controller.state.showListNew.isEmpty
+          ? noData
+          : getRefresher(
+              controller: controller.refreshControllerNew,
+              scrollController: controller.scrollController,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Column(
+                        children: controller.state.showListNew
+                            .map((index) => contentList(index))
+                            .toList()),
+                  ],
+                ),
+              ),
+              onLoading: () {
+                controller.onLoading(2);
+              },
+              onRefresh: () {
+                controller.onRefresh(2);
+              },
+            ),
+    );
+
+    /// body
+    Widget body = Obx(() => controller.state.isLoadingNew ? loading : _body);
+
     return Scaffold(
       body: body,
       backgroundColor: AppColors.mainBacground,

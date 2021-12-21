@@ -20,4 +20,9 @@ class MediaViewState {
   final RxInt _pageIndex = 0.obs;
   set pageIndex(int value) => _pageIndex.value = value;
   int get pageIndex => _pageIndex.value;
+
+  /// 是否全屏
+  final RxBool _isFullScreen = false.obs;
+  set isFullScreen(bool value) => _isFullScreen.value = value;
+  bool get isFullScreen => _isFullScreen.value;
 }

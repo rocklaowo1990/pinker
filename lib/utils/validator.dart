@@ -70,6 +70,11 @@ String getEmailHide(String value) {
   return getLastTwo(part_1[0]) + '@' + part_1[1];
 }
 
+/// 时间戳转时间
+DateTime getDateTime(int value) {
+  return DateTime.fromMicrosecondsSinceEpoch(value);
+}
+
 /// 时间格式化
 String getDuration(int value) {
   // 初始化

@@ -15,4 +15,16 @@ class ContentApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 作品列表：首页 /////////////////////////////////////////////////
+  static Future homeContentList(data) async {
+    var response = await HttpUtil().get(
+      '/api/content/homeContentList',
+      queryParameters: data,
+      options: Options(headers: {
+        'token': Global.token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

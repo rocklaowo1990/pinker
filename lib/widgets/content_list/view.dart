@@ -19,7 +19,7 @@ Widget contentList(ListElement item) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        getContentAvatar(item),
+        Expanded(child: getContentAvatar(item)),
         getContentMore(item),
       ],
     ),

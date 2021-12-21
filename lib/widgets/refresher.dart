@@ -34,7 +34,6 @@ Widget getRefresher({
         ),
     footer: isFooter
         ? CustomFooter(
-            height: 80.h,
             loadStyle: LoadStyle.ShowWhenLoading,
             builder: (BuildContext context, LoadStatus? mode) {
               Widget body;
@@ -67,9 +66,11 @@ Widget getRefresher({
                   color: AppColors.secondText,
                 );
               }
-              return SizedBox(
-                height: 80.h,
-                child: Center(child: body),
+              return Center(
+                child: Padding(
+                  child: body,
+                  padding: const EdgeInsets.only(top: 20),
+                ),
               );
             },
           )

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +83,10 @@ Future getMediaView(
                 ),
                 getButton(
                     child: getSpan('已订阅'),
+                    onPressed: () {
+                      controller.state.isFullScreen = true;
+                      controller.fijkPlayer!.enterFullScreen();
+                    },
                     padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6)),
               ],
             ),
@@ -107,13 +113,29 @@ Future getMediaView(
                 const Spacer(),
                 contentBody,
                 contentButton,
-                Container(
-                  color: Colors.black54,
-                  height: 10.h,
-                )
               ],
             )),
       );
+
+      Widget filterBox(int type) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 8.0,
+            sigmaY: 8.0,
+          ),
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+              width: double.infinity,
+              height: 70,
+              child: Center(
+                child: getContentPayBox(
+                    item, type, contentBoxController, controller),
+              ),
+            ),
+          ),
+        );
+      }
 
       // 底层
       // 用来装媒体的
@@ -126,19 +148,21 @@ Future getMediaView(
         controller.fijkPlayer!
             .setDataSource(serverApiUrl + serverPort + url, autoPlay: true);
 
-        mediaBox = FijkView(
-          color: AppColors.mainBacground,
-          player: controller.fijkPlayer!,
-          panelBuilder: (
-            FijkPlayer fijkPlayer,
-            FijkData fijkData,
-            BuildContext buildContext,
-            Size size,
-            Rect rect,
-          ) {
-            return const SizedBox();
-          },
-        );
+        mediaBox = Obx(() => FijkView(
+              color: AppColors.mainBacground,
+              player: controller.fijkPlayer!,
+              panelBuilder: controller.state.isFullScreen
+                  ? defaultFijkPanelBuilder
+                  : (
+                      FijkPlayer fijkPlayer,
+                      FijkData fijkData,
+                      BuildContext buildContext,
+                      Size size,
+                      Rect rect,
+                    ) {
+                      return const SizedBox();
+                    },
+            ));
         // 这里就是传入的图片都下标
         // 代表的意思就是媒体可能是图片（包含付费和未付费，也可能是没有付费的视频）
         // 没有付费的视频也是有三张图片的
@@ -170,17 +194,8 @@ Future getMediaView(
                                 controller.state.imagesList[_index],
                                 mode: ExtendedImageMode.gesture),
                           ),
-                          SizedBox(
-                            child: Center(
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
-                                width: double.infinity,
-                                height: 70,
-                                child: getContentPayBox(
-                                    item, 1, contentBoxController, controller),
-                              ),
-                            ),
-                          ),
+                          Container(color: AppColors.mainBacground50),
+                          filterBox(1),
                         ],
                       );
                     } else {
@@ -230,21 +245,8 @@ Future getMediaView(
                                 controller.state.imagesList[_index],
                                 mode: ExtendedImageMode.gesture),
                           ),
-                          SizedBox(
-                            child: Center(
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
-                                width: double.infinity,
-                                height: 70,
-                                child: getContentPayBox(
-                                  item,
-                                  2,
-                                  contentBoxController,
-                                  controller,
-                                ),
-                              ),
-                            ),
-                          ),
+                          Container(color: AppColors.mainBacground50),
+                          filterBox(2),
                         ],
                       );
                     }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -9,14 +11,12 @@ import 'package:pinker/widgets/widgets.dart';
 /// 本部分也包含点击事件
 
 Widget getContentAvatar(ListElement item) {
-  void _onPressed() {
-    print(item.author.avatar);
-  }
+  void _onPressed() {}
 
   return getUserAvatar(
     item.author.avatar,
     item.author.nickName,
-    item.author.userName,
+    '${item.author.userName} · ${getDateTime(item.createDate)}',
     onPressed: _onPressed,
   );
 }
@@ -27,9 +27,7 @@ Widget getContentMore(
   double? width,
   double? height,
 }) {
-  void _onPressed() {
-    print(item.author.userName);
-  }
+  void _onPressed() {}
 
   return Center(
     child: getButton(
