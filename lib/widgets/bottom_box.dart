@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
+/// 这是有键盘的时候，底部的那一条功能条
+/// 常用的地方有注册页面的底部
+/// 例如登陆页面的底部
 Widget getBottomBox({
   Widget? leftWidget,
   Widget? rightWidget,

@@ -9,7 +9,8 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-/// 中间弹出窗：默认是loading ////////////////////////////////////////////////////
+/// 中间弹出窗：默认是loading
+/// 中间弹出通用
 Future<dynamic> getDialog({
   Widget? child,
   bool autoBack = false,
@@ -29,7 +30,9 @@ Future<dynamic> getDialog({
   );
 }
 
-/// 弹窗专用子组件 ////////////////////////////////////////////////////////
+/// 弹窗专用子组件
+/// 这里的组件只供弹窗使用
+/// 可以调用里面的静态组件
 class DialogChild {
   /// loading
   static Widget loading({

@@ -16,6 +16,7 @@ class ContentBoxController extends GetxController {
     state.isLike = item.isLike;
     state.likeCount = item.likeCount;
     state.isForward = item.isForward;
+    state.subStatus = item.subStatus ?? 0;
   }
 
   void handlePay() {

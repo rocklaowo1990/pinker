@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinker/values/values.dart';
 
 /// 按钮封装
+/// 基本上所有的按钮都可以用到
+/// 这个按钮是全局的，任何按钮都可以调用该方法
 Widget getButton({
   /// 按钮的背景色
   Color background = AppColors.mainColor,

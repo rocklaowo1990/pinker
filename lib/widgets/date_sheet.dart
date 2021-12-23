@@ -8,6 +8,9 @@ import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
+/// 底部弹出的日期选择器
+/// 注册那里用了一下
+/// 如果其他地方需要用的话，可以用调用该方法
 Future getDateBox({
   DateTime? initialDateTime,
   required VoidCallback onPressed,

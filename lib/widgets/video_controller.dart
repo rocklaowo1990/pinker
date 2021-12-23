@@ -32,7 +32,9 @@ Widget getVideoController(
   return Container(
     width: double.infinity,
     height: 50,
-    color: AppColors.mainBacground50,
+    decoration: const BoxDecoration(
+        color: Colors.black54,
+        border: Border(top: BorderSide(color: AppColors.line, width: 1))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -58,8 +60,8 @@ Widget getVideoController(
                     fijkPlayer.pause();
                     videoTime.value = value.toInt();
                   },
-                  onChangeEnd: (value) {
-                    fijkPlayer.seekTo(value.toInt());
+                  onChangeEnd: (value) async {
+                    await fijkPlayer.seekTo(value.toInt());
                     fijkPlayer.start();
                   },
                 ))),

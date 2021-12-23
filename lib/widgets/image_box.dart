@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pinker/values/values.dart';
 
+/// 这个方法是所有网络图片的容器
+/// networ 都调用这个方法
+/// 这个方法可以用来缓存图片
 Widget getImageBox(
   String url, {
   double? width,

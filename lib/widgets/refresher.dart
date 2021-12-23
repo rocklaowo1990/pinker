@@ -4,6 +4,9 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+/// 上下刷新组件
+/// 可以控制是否需要上拉
+/// 下拉刷新是一定有的
 Widget getRefresher({
   required RefreshController controller,
   required Widget child,

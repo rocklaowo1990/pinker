@@ -94,7 +94,7 @@ Widget contentList(ListElement item) {
   // 底部哪一条功能按钮的封装方法
   // 留言、喜欢、转发、分享
   // 留言、喜欢、转发、分享 的构造
-  Widget contentInfo = getContentButton(controller);
+  Widget contentInfo = getContentButton(item, controller);
 
   // 资源区
   // 1、分成可观看和不可观看

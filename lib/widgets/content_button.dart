@@ -2,41 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/dynamic/comments_view/view.dart';
 
 import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 
-// 底部哪一条功能按钮的封装方法
-// 留言、喜欢、转发、分享
-Widget _contentButton({
-  required Widget icon,
-  String? data,
-  VoidCallback? onPressed,
-  Color color = AppColors.secondText,
-}) {
-  return getButton(
-    padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
-    height: 24.w + 15,
-    background: Colors.transparent,
-    overlayColor: Colors.transparent,
-    onPressed: onPressed,
-    child: Row(
-      children: [
-        icon,
-        if (data != null) SizedBox(width: 4.w),
-        if (data != null)
-          getSpan(
-            data,
-            color: color,
-          ),
-      ],
-    ),
-  );
-}
-
-// 留言、喜欢、转发、分享 的构造
-Widget getContentButton(ContentBoxController contentBoxController) {
+/// 底部哪一条功能按钮的封装方法
+/// 留言、喜欢、转发、分享
+/// 留言、喜欢、转发、分享 的构造
+Widget getContentButton(
+    ListElement item, ContentBoxController contentBoxController) {
   void _onLike() {
     contentBoxController.state.isLike =
         contentBoxController.state.isLike == 0 ? 1 : 0;
@@ -53,6 +30,10 @@ Widget getContentButton(ContentBoxController contentBoxController) {
         : contentBoxController.state.forwardCount++;
   }
 
+  void _onComment() {
+    getCommentsView(item);
+  }
+
   return Row(
     children: [
       Row(
@@ -62,6 +43,7 @@ Widget getContentButton(ContentBoxController contentBoxController) {
                   'assets/svg/icon_reply.svg',
                   height: 10.w,
                 ),
+                onPressed: _onComment,
                 data: contentBoxController.state.commentCount == 0
                     ? '写评论'
                     : '${contentBoxController.state.commentCount}',
@@ -113,5 +95,31 @@ Widget getContentButton(ContentBoxController contentBoxController) {
         ),
       ),
     ],
+  );
+}
+
+Widget _contentButton({
+  required Widget icon,
+  String? data,
+  VoidCallback? onPressed,
+  Color color = AppColors.secondText,
+}) {
+  return getButton(
+    padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+    height: 24.w + 15,
+    background: Colors.transparent,
+    overlayColor: Colors.transparent,
+    onPressed: onPressed,
+    child: Row(
+      children: [
+        icon,
+        if (data != null) SizedBox(width: 4.w),
+        if (data != null)
+          getSpan(
+            data,
+            color: color,
+          ),
+      ],
+    ),
   );
 }

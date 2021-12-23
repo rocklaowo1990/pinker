@@ -114,8 +114,6 @@ Widget getInput({
           contentPadding: contentPadding ??
               EdgeInsets.only(
                 left: 10.w,
-                top: 8.h,
-                bottom: 8.h,
               ),
           filled: true,
           fillColor: AppColors.inputFiled,

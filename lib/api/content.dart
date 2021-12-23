@@ -27,4 +27,16 @@ class ContentApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 评论列表 /////////////////////////////////////////////////
+  static Future commentsList(data) async {
+    var response = await HttpUtil().get(
+      '/api/content/commentsList',
+      queryParameters: data,
+      options: Options(headers: {
+        'token': Global.token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

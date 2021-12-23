@@ -30,4 +30,10 @@ class ContentBoxState {
   final RxInt _isForward = 0.obs;
   set isForward(int value) => _isForward.value = value;
   int get isForward => _isForward.value;
+
+  // 是否已经订阅
+  // 是否已转发
+  final RxInt _subStatus = 0.obs;
+  set subStatus(int value) => _subStatus.value = value;
+  int get subStatus => _subStatus.value;
 }

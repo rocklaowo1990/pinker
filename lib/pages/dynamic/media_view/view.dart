@@ -65,7 +65,7 @@ Future getMediaView(
       // 就是留言、喜欢、转发、分享那些
       Widget contentButton = Container(
         color: Colors.black54,
-        child: getContentButton(contentBoxController),
+        child: getContentButton(item, contentBoxController),
       );
 
       // 头像信息和订阅组合
@@ -81,10 +81,18 @@ Future getMediaView(
                 Expanded(
                   child: getContentAvatar(item),
                 ),
-                getButton(
-                    child: getSpan('已订阅'),
-                    onPressed: () {},
-                    padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6)),
+                Obx(() => contentBoxController.state.subStatus == 0
+                    ? getButton(
+                        child: getSpan('订阅'),
+                        onPressed: () {},
+                        padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6),
+                        side: BorderSide(
+                            width: 0.5.w, color: AppColors.mainColor),
+                        background: Colors.transparent,
+                      )
+                    : getButton(
+                        child: getSpan('已订阅'),
+                        padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6)))
               ],
             ),
             if (item.works.content.isNotEmpty) SizedBox(height: 8.h),
