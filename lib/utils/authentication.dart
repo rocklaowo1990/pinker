@@ -14,10 +14,15 @@ Future<bool> isAuthenticated() async {
 Future deleteAuthentication() async {
   await StorageUtil().remove(storageUserTokenKey);
   await StorageUtil().remove(storageUserInfoKey);
-  await StorageUtil().remove(storageHomeContentListKey);
-  await StorageUtil().remove(storageNewContentListKey);
-  await StorageUtil().remove(storageHotContentListKey);
   await StorageUtil().remove(storageIsHadUserInfo);
+
+  await StorageUtil().remove(storageHomeContentListKey);
+
+  await StorageUtil().remove(storageNewContentListKey);
+  await StorageUtil().remove(storageIsHadNewContent);
+
+  await StorageUtil().remove(storageHotContentListKey);
+  await StorageUtil().remove(storageIsHadHotContent);
 
   Global.token = null;
   Global.isOfflineLogin = false;

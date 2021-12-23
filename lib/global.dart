@@ -38,9 +38,6 @@ class Global {
   /// 是否有用户数据
   static bool isHadUserInfo = false;
 
-  /// 是否有社区的推文信息
-  static bool isHadPublicContent = false;
-
   /// 是否离线登录
   static bool isOfflineLogin = false;
 

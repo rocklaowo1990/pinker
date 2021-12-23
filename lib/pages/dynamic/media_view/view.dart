@@ -83,38 +83,21 @@ Future getMediaView(
                 ),
                 getButton(
                     child: getSpan('已订阅'),
-                    onPressed: () {
-                      controller.state.isFullScreen = true;
-                      controller.fijkPlayer!.enterFullScreen();
-                    },
+                    onPressed: () {},
                     padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6)),
               ],
             ),
-            SizedBox(height: 8.h),
-            SizedBox(
-              width: double.infinity,
-              child: getSpan(
-                item.works.content,
-                textAlign: TextAlign.start,
+            if (item.works.content.isNotEmpty) SizedBox(height: 8.h),
+            if (item.works.content.isNotEmpty)
+              SizedBox(
+                width: double.infinity,
+                child: getSpan(
+                  item.works.content,
+                  textAlign: TextAlign.start,
+                ),
               ),
-            ),
           ],
         ),
-      );
-
-      // 顶层构造
-      Widget body = Obx(
-        () => AnimatedOpacity(
-            opacity: controller.state.opacity,
-            duration: const Duration(milliseconds: 300),
-            child: Column(
-              children: [
-                appBar,
-                const Spacer(),
-                contentBody,
-                contentButton,
-              ],
-            )),
       );
 
       Widget filterBox(int type) {
@@ -137,6 +120,28 @@ Future getMediaView(
         );
       }
 
+      // 顶层构造
+      Widget body = Obx(
+        () => AnimatedOpacity(
+            opacity: controller.state.opacity,
+            duration: const Duration(milliseconds: 300),
+            child: Column(
+              children: [
+                appBar,
+                const Spacer(),
+                contentBody,
+                contentButton,
+                if (contentBoxController.state.canSee == 1 &&
+                    item.works.video.url.isNotEmpty &&
+                    controller.fijkPlayer != null)
+                  getVideoController(
+                    controller.fijkPlayer!,
+                    controller.handleExitFlullScreen,
+                    controller.handleEenterFlullScreen,
+                  ),
+              ],
+            )),
+      );
       // 底层
       // 用来装媒体的
       // 媒体部分比较重要，包含购买和是否可阅读等权限
@@ -255,19 +260,21 @@ Future getMediaView(
                   controller: controller.pageController,
                   onPageChanged: controller.handleOnPageChanged,
                 )
-              : FijkView(
-                  color: AppColors.mainBacground,
-                  player: controller.fijkPlayer!,
-                  panelBuilder: (
-                    FijkPlayer fijkPlayer,
-                    FijkData fijkData,
-                    BuildContext buildContext,
-                    Size size,
-                    Rect rect,
-                  ) {
-                    return const SizedBox();
-                  },
-                ));
+              : Obx(() => FijkView(
+                    color: AppColors.mainBacground,
+                    player: controller.fijkPlayer!,
+                    panelBuilder: controller.state.isFullScreen
+                        ? defaultFijkPanelBuilder
+                        : (
+                            FijkPlayer fijkPlayer,
+                            FijkData fijkData,
+                            BuildContext buildContext,
+                            Size size,
+                            Rect rect,
+                          ) {
+                            return const SizedBox();
+                          },
+                  )));
         }
         // 这里就是纯文本了
         // 没有任何媒体内容

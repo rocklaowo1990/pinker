@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+
 import 'package:pinker/pages/application/community/library.dart';
 
-import 'package:pinker/pages/application/community/widgets/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -69,14 +70,34 @@ class CommunityView extends GetView<CommunityController> {
       right: right,
     );
 
+    // /// body
+    // Widget body = PageView(
+    //   controller: controller.pageController,
+    //   children: const [
+    //     ContentListNewView(),
+    //     ContentListHotView(),
+    //   ],
+    //   onPageChanged: controller.handlePageChanged,
+    // );
+
+    // Widget body = ExtendedImageGesturePageView.builder(
+    //   itemBuilder: (BuildContext context, int _index) {
+    //     if (_index == 0) {
+    //       return const ContentListNewView();
+    //     } else {
+    //       return const ContentListHotView();
+    //     }
+    //   },
+    //   itemCount: 2,
+    //   controller: controller.pageController,
+    //   onPageChanged: controller.handleChangedTab,
+    // );
+
     /// body
-    Widget body = PageView(
-      controller: controller.pageController,
-      children: const [
-        NewView(),
-        HotView(),
-      ],
-      onPageChanged: controller.handlePageChanged,
+    Widget body = Navigator(
+      key: Get.nestedKey(3),
+      initialRoute: AppRoutes.contentNew,
+      onGenerateRoute: controller.onGenerateRoute,
     );
 
     /// 页面

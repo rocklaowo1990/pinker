@@ -12,15 +12,15 @@ class CommunityState {
   set showListNew(value) => _showListNew.value = value;
   RxList<ListElement> get showListNew => _showListNew;
 
-  /// 推文列表:最热
-  final RxList<ListElement> _showListHot = <ListElement>[].obs;
-  set showListHot(value) => _showListHot.value = value;
-  RxList<ListElement> get showListHot => _showListHot;
-
   /// 正在请求数据:最新
   final RxBool _isLoadingNew = true.obs;
   set isLoadingNew(bool value) => _isLoadingNew.value = value;
   bool get isLoadingNew => _isLoadingNew.value;
+
+  /// 推文列表:最热
+  final RxList<ListElement> _showListHot = <ListElement>[].obs;
+  set showListHot(value) => _showListHot.value = value;
+  RxList<ListElement> get showListHot => _showListHot;
 
   /// 正在请求数据：最热
   final RxBool _isLoadingHot = true.obs;

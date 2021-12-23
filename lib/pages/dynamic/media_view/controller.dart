@@ -23,6 +23,14 @@ class MediaViewController extends GetxController {
     Get.back();
   }
 
+  void handleExitFlullScreen() {
+    state.isFullScreen = false;
+  }
+
+  void handleEenterFlullScreen() {
+    state.isFullScreen = true;
+  }
+
   @override
   void onReady() {
     super.onReady();

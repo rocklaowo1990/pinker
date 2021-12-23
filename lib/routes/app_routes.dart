@@ -42,4 +42,8 @@ class AppRoutes {
   static const community = '/community';
   static const chat = '/chat';
   static const my = '/my';
+
+  /// 社区
+  static const contentNew = '/contentNew';
+  static const contentHot = '/contentHot';
 }

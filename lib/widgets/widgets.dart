@@ -18,3 +18,4 @@ export 'verify/library.dart';
 export 'content_button.dart';
 export 'content_avatar.dart';
 export 'content_pay_box.dart';
+export 'video_controller.dart';

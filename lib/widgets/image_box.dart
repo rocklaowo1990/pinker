@@ -7,9 +7,9 @@ Widget getImageBox(
   String url, {
   double? width,
   double? height,
-  BoxShape? shape,
+  BoxShape shape = BoxShape.rectangle,
   Color color = AppColors.mainBacground,
-  BoxFit fit = BoxFit.cover,
+  BoxFit fit = BoxFit.fitWidth,
   BoxBorder? border,
   BorderRadius? borderRadius,
   ExtendedImageMode mode = ExtendedImageMode.none,
@@ -18,7 +18,6 @@ Widget getImageBox(
     serverApiUrl + serverPort + url,
     width: width,
     height: height,
-    cancelToken: CancellationToken(),
     fit: fit,
     cache: true,
     retries: 1,
@@ -27,7 +26,6 @@ Widget getImageBox(
     shape: shape,
     borderRadius: borderRadius,
     mode: mode,
-    cacheMaxAge: const Duration(days: 5),
     initGestureConfigHandler: mode == ExtendedImageMode.gesture
         ? (state) {
             return GestureConfig(
@@ -45,4 +43,20 @@ Widget getImageBox(
           }
         : null,
   );
+
+  // return Container(
+  //   width: width,
+  //   height: height,
+  //   decoration: BoxDecoration(
+  //       border: border,
+  //       borderRadius: borderRadius,
+  //       color: color,
+  //       shape: shape,
+  //       image: DecorationImage(
+  //         image: NetworkImage(
+  //           serverApiUrl + serverPort + url,
+  //         ),
+  //         fit: fit,
+  //       )),
+  // );
 }

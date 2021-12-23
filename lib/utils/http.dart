@@ -1,4 +1,6 @@
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/utils/utils.dart';
@@ -47,8 +49,8 @@ class HttpUtil {
     dio = Dio(options);
 
     // Cookie管理
-    // CookieJar cookieJar = CookieJar();
-    // dio.interceptors.add(CookieManager(cookieJar));
+    CookieJar cookieJar = CookieJar();
+    dio.interceptors.add(CookieManager(cookieJar));
 
     // 添加拦截器
     dio.interceptors.add(InterceptorsWrapper(

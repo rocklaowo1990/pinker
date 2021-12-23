@@ -25,4 +25,9 @@ class MediaViewState {
   final RxBool _isFullScreen = false.obs;
   set isFullScreen(bool value) => _isFullScreen.value = value;
   bool get isFullScreen => _isFullScreen.value;
+
+  /// 是否显示播放器控制条
+  final RxBool _isShowVideoController = false.obs;
+  set isShowVideoController(bool value) => _isShowVideoController.value = value;
+  bool get isShowVideoController => _isShowVideoController.value;
 }
