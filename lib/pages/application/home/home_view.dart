@@ -82,17 +82,11 @@ class HomeView extends GetView<HomeController> {
           ? noData
           : getRefresher(
               controller: controller.refreshController,
-              scrollController: controller.scrollController,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Column(
-                        children: controller.state.showList
-                            .map((index) => contentList(index))
-                            .toList()),
-                  ],
-                ),
-              ),
+              // scrollController: controller.scrollController,
+              child: ListView(
+                  children: controller.state.showList
+                      .map((index) => contentList(index))
+                      .toList()),
               onLoading: controller.onLoading,
               onRefresh: controller.onRefresh,
             ),

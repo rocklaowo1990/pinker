@@ -67,7 +67,7 @@ class CodeListView extends GetView<CodeListController> {
                             SizedBox(height: 6.h),
                             getSpan('网络连接失败', color: AppColors.secondText),
                           ]))
-                        : Column(
+                        : ListView(
                             children: controller.state.showList
                                 .map((item) => getButtonList(
                                     onPressed: () {
