@@ -50,17 +50,13 @@ class SubscriptionView extends GetView<SubscriptionController> {
     Widget body = Column(
       children: [
         Expanded(
-          child: Scrollbar(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 8.h),
-                  top,
-                  SizedBox(height: 16.h),
-                  middle,
-                ],
-              ),
-            ),
+          child: ListView(
+            children: [
+              SizedBox(height: 8.h),
+              top,
+              SizedBox(height: 16.h),
+              middle,
+            ],
           ),
         ),
         bottom,

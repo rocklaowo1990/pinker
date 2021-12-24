@@ -36,47 +36,46 @@ Widget getUserListPage({
       AppBar appBar = getAppBar(
         getSpan(title ?? '请输入页面标题', fontSize: 17),
         backgroundColor: AppColors.secondBacground,
-        bottom: searchBox,
         bottomHeight: 48,
       );
 
       /// body
-      Widget body = Obx(() => Scrollbar(
-          child: controller.state.isLoading
-              ? Center(
-                  child: Column(children: [
-                  SizedBox(height: 40.h),
-                  SizedBox(
-                      width: 9.w,
-                      height: 9.w,
-                      child: CircularProgressIndicator(
-                          backgroundColor: AppColors.mainIcon,
-                          color: AppColors.mainColor,
-                          strokeWidth: 1.w)),
-                  SizedBox(height: 6.h),
-                  getSpan('加载中...', color: AppColors.secondText),
-                ]))
-              : controller.state.userList.isEmpty
+      Widget body = Obx(() => controller.state.isLoading
+          ? Center(
+              child: Column(children: [
+              SizedBox(height: 40.h),
+              SizedBox(
+                  width: 9.w,
+                  height: 9.w,
+                  child: CircularProgressIndicator(
+                      backgroundColor: AppColors.mainIcon,
+                      color: AppColors.mainColor,
+                      strokeWidth: 1.w)),
+              SizedBox(height: 6.h),
+              getSpan('加载中...', color: AppColors.secondText),
+            ]))
+          : Column(children: [
+              searchBox,
+              controller.state.userList.isEmpty
                   ? Center(
                       child: Column(children: [
-                      SizedBox(height: 40.h),
-                      SvgPicture.asset('assets/svg/error_4.svg', width: 55.w),
+                      SizedBox(height: 20.h),
+                      SvgPicture.asset('assets/svg/error_1.svg', width: 55.w),
                       SizedBox(height: 6.h),
                       getSpan('暂无数据', color: AppColors.secondText),
                     ]))
-                  : Column(children: [
-                      Expanded(
-                          child: ListView(
-                              children: controller.state.userList
-                                  .map((item) => Container(
-                                      color: AppColors.secondBacground,
-                                      child: getUserList(item['avatar'],
-                                          item['userName'], item['nickName'],
-                                          buttonText: '移出', buttonPressed: () {
-                                        controller.handleListOnTap(item);
-                                      })))
-                                  .toList()))
-                    ])));
+                  : Expanded(
+                      child: ListView(
+                          children: controller.state.userList
+                              .map((item) => Container(
+                                  color: AppColors.secondBacground,
+                                  child: getUserList(item['avatar'],
+                                      item['userName'], item['nickName'],
+                                      buttonText: '移出', buttonPressed: () {
+                                    controller.handleListOnTap(item);
+                                  })))
+                              .toList())),
+            ]));
 
       return Scaffold(
         appBar: appBar,

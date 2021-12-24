@@ -53,16 +53,11 @@ class ContentListNewView extends StatelessWidget {
                 : getRefresher(
                     controller: controller.refreshController,
                     scrollController: controller.scrollController,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Column(
-                              children: controller.state.showList
-                                  .map((index) => contentList(index))
-                                  .toList()),
-                        ],
-                      ),
-                    ),
+                    child: ListView(
+                        controller: controller.scrollController,
+                        children: controller.state.showList
+                            .map((index) => contentList(index))
+                            .toList()),
                     onLoading: () {
                       controller.onLoading();
                     },

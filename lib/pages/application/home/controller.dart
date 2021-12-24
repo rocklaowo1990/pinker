@@ -30,16 +30,15 @@ class HomeController extends GetxController {
   void onRefresh() async {
     refreshController.resetNoData();
 
-    await futureMill(1000);
+    await futureMill(300);
     _refresh();
-    await futureMill(1000);
+    await futureMill(300);
 
     refreshController.refreshCompleted();
   }
 
   void onLoading() async {
-    // monitor network fetch
-    await futureMill(2000);
+    await futureMill(300);
     if (totalSize >= 20) {
       pageIndex++;
       Map<String, dynamic> data = {
@@ -71,8 +70,6 @@ class HomeController extends GetxController {
     } else {
       refreshController.loadNoData();
     }
-
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
   }
 
   Future<void> _refresh() async {

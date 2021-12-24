@@ -82,8 +82,8 @@ class HomeView extends GetView<HomeController> {
           ? noData
           : getRefresher(
               controller: controller.refreshController,
-              // scrollController: controller.scrollController,
               child: ListView(
+                  controller: controller.scrollController,
                   children: controller.state.showList
                       .map((index) => contentList(index))
                       .toList()),

@@ -111,49 +111,44 @@ class SetGroupView extends GetView<SetGroupController> {
     }
 
     /// body
-    Widget body = Obx(() => Scrollbar(
-        child: controller.state.isLoading
+    Widget body = Obx(() => controller.state.isLoading
+        ? Center(
+            child: Column(children: [
+            SizedBox(height: 40.h),
+            SizedBox(
+                width: 9.w,
+                height: 9.w,
+                child: CircularProgressIndicator(
+                    backgroundColor: AppColors.mainIcon,
+                    color: AppColors.mainColor,
+                    strokeWidth: 1.w)),
+            SizedBox(height: 6.h),
+            getSpan('加载中...', color: AppColors.secondText),
+          ]))
+        : controller.state.groupList.isEmpty
             ? Center(
                 child: Column(children: [
-                SizedBox(height: 40.h),
-                SizedBox(
-                    width: 9.w,
-                    height: 9.w,
-                    child: CircularProgressIndicator(
-                        backgroundColor: AppColors.mainIcon,
-                        color: AppColors.mainColor,
-                        strokeWidth: 1.w)),
+                SizedBox(height: 20.h),
+                SvgPicture.asset('assets/svg/error_4.svg', width: 55.w),
                 SizedBox(height: 6.h),
-                getSpan('加载中...', color: AppColors.secondText),
+                getSpan('暂无数据', color: AppColors.secondText),
               ]))
-            : controller.state.groupList.isEmpty
-                ? Center(
-                    child: Column(children: [
-                    SizedBox(height: 40.h),
-                    SvgPicture.asset('assets/svg/error_4.svg', width: 55.w),
-                    SizedBox(height: 6.h),
-                    getSpan('暂无数据', color: AppColors.secondText),
-                  ]))
-                : Column(children: [
-                    Expanded(
-                        child: ListView(
-                            children: controller.state.groupList
-                                .map((item) => Padding(
-                                    padding: EdgeInsets.fromLTRB(
-                                        10.w, 10.w, 10.w, 0),
-                                    child: getButton(
-                                      child: groupList(
-                                        groupName: item['groupName'],
-                                        groupPic: item['groupPic'],
-                                        timelen: item['timelen'],
-                                        amount: item['amount'],
-                                      ),
-                                      onPressed: () {
-                                        controller.handleEditGroup(item);
-                                      },
-                                    )))
-                                .toList()))
-                  ])));
+            : ListView(
+                children: controller.state.groupList
+                    .map((item) => Padding(
+                        padding: EdgeInsets.fromLTRB(10.w, 10.w, 10.w, 0),
+                        child: getButton(
+                          child: groupList(
+                            groupName: item['groupName'],
+                            groupPic: item['groupPic'],
+                            timelen: item['timelen'],
+                            amount: item['amount'],
+                          ),
+                          onPressed: () {
+                            controller.handleEditGroup(item);
+                          },
+                        )))
+                    .toList()));
 
     /// 页面
     return Scaffold(

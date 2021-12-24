@@ -92,6 +92,12 @@ class UserListPageController extends GetxController {
       _userList = responseEntity.data['list'];
       state.userList = responseEntity.data['list'];
 
+      type == 1
+          ? applicationController.state.userInfoMap['blockCount'] =
+              _userList.length
+          : applicationController.state.userInfoMap['hiddenCount'] =
+              _userList.length;
+
       _page++;
       state.isLoading = false;
     } else {
