@@ -30,7 +30,6 @@ Future getMediaView(
       // appBar 右侧的设置按钮
       Widget moreButton = getContentMore(
         item,
-        background: Colors.black54,
         width: 20.w,
         height: 20.w,
       );
@@ -40,11 +39,11 @@ Future getMediaView(
             child: getButton(
               height: 20.w,
               width: 20.w,
+              background: Colors.transparent,
               child: SvgPicture.asset('assets/svg/icon_back.svg'),
               onPressed: controller.state.opacity == 0.0
                   ? null
                   : controller.handleLeading,
-              background: Colors.black54,
             ),
           ));
 
@@ -55,6 +54,7 @@ Future getMediaView(
             : getSpan(
                 '${controller.state.pageIndex + 1}/${controller.state.imagesList.length}')),
         leading: leading,
+        backgroundColor: Colors.black54,
         actions: [
           moreButton,
           SizedBox(width: 4.w),

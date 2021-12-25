@@ -35,8 +35,8 @@ class ListElementComments {
   Author author;
   int createDate;
   String content;
-  double commentCount;
-  double likeCount;
+  int commentCount;
+  int likeCount;
   int isLike;
   Author? replyUser;
 
@@ -46,8 +46,8 @@ class ListElementComments {
         author: Author.fromJson(json["author"]),
         createDate: json["createDate"],
         content: json["content"],
-        commentCount: json["commentCount"].toDouble(),
-        likeCount: json["likeCount"].toDouble(),
+        commentCount: json["commentCount"],
+        likeCount: json["likeCount"],
         isLike: json["isLike"],
         replyUser: json["replyUser"] == null || json["replyUser"] == []
             ? null

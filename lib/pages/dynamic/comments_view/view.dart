@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/dynamic/comments_view/comment_item/view.dart';
 import 'package:pinker/pages/dynamic/comments_view/controller.dart';
 
 import 'package:pinker/values/values.dart';
@@ -51,25 +52,22 @@ Future getCommentsView(ListElement item) {
             ? noData
             : getRefresher(
                 controller: controller.refreshController,
-                scrollController: controller.scrollController,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: controller.state.showList
-                        .map((index) => SizedBox(
-                              child: index.replyUser != null
-                                  ? getSpan(index.replyUser!.userId.toString())
-                                  : getSpan(index.author.userId.toString()),
-                              height: 100,
-                              width: double.infinity,
-                            ))
-                        .toList(),
-                  ),
+                child: ListView(
+                  children: controller.state.showList
+                      .map((index) => Container(
+                            child: getCommentItem(index),
+                            padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 0),
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(color: AppColors.line))),
+                          ))
+                      .toList(),
                 ),
                 onLoading: () {
-                  // controller.onLoading();
+                  controller.onLoading();
                 },
                 onRefresh: () {
-                  // controller.onRefresh();
+                  controller.onRefresh();
                 },
               ),
       );
@@ -103,7 +101,7 @@ Future getCommentsView(ListElement item) {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getSpan('条评论'),
+                        getSpan('${item.commentCount} 条评论'),
                         getButton(
                           child: const Icon(Icons.close,
                               color: AppColors.mainIcon),

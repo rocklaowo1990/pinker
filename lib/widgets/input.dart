@@ -74,6 +74,10 @@ Widget getInput({
     textObs.value = value;
   }
 
+  controller.addListener(() {
+    textObs.value = controller.text;
+  });
+
   onPressed = clearText;
 
   /// 根据不同的类型 初始化

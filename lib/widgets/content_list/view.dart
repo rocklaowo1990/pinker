@@ -28,7 +28,7 @@ Widget contentList(ListElement item) {
   /// 推文的内容
   /// 内容因为也是分成了很多情况，所以封装了一个方法
   /// 用来实现不同的情况
-  Widget _workContent(VoidCallback? onTap) {
+  Widget _workContent() {
     return SizedBox(
       width: double.infinity,
       child: GestureDetector(
@@ -36,7 +36,6 @@ Widget contentList(ListElement item) {
           item.works.content,
           textAlign: TextAlign.start,
         ),
-        onTap: onTap,
       ),
     );
   }
@@ -113,9 +112,7 @@ Widget contentList(ListElement item) {
                 item.works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                        child: _workContent(() {
-                          controller.handleOpenImage(item, 0);
-                        }),
+                        child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
                 _imageBox(item.works.pics),
@@ -126,9 +123,7 @@ Widget contentList(ListElement item) {
                 item.works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                        child: _workContent(() {
-                          controller.handleOpenImage(item, 0);
-                        }),
+                        child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
                 _imageBox(item.works.pics),
@@ -143,10 +138,7 @@ Widget contentList(ListElement item) {
                 item.works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                        child: _workContent(() {
-                          controller.handleOpenVideo(
-                              item, item.works.video.url);
-                        }),
+                        child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
                 Stack(
@@ -196,9 +188,7 @@ Widget contentList(ListElement item) {
                 item.works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
-                        child: _workContent(() {
-                          controller.handleOpenImage(item, 0);
-                        }),
+                        child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
                 _imageBox(item.works.video.previewsUrls),
@@ -209,9 +199,7 @@ Widget contentList(ListElement item) {
     } else {
       return Padding(
         padding: EdgeInsets.only(top: 8.h),
-        child: _workContent(() {
-          controller.handleOpenContent(item);
-        }),
+        child: _workContent(),
       );
     }
   }

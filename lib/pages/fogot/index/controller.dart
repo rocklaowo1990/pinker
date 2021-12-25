@@ -61,6 +61,7 @@ class ForgotIndexController extends GetxController {
 
       Get.back();
       textController.clear();
+      focusNode.requestFocus();
       getSnackTop(_forgotInfo.msg);
     }
   }

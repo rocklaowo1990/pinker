@@ -103,9 +103,10 @@ Widget _contentButton({
   String? data,
   VoidCallback? onPressed,
   Color color = AppColors.secondText,
+  EdgeInsetsGeometry? padding,
 }) {
   return getButton(
-    padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+    padding: padding ?? EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
     height: 24.w + 15,
     background: Colors.transparent,
     overlayColor: Colors.transparent,

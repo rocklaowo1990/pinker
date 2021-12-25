@@ -4,6 +4,7 @@ import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/dynamic/comments_view/library.dart';
+import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -16,6 +17,16 @@ class CommentsViewController extends GetxController {
 
   int pageIndex = 1;
   int totalSize = 0;
+
+  Future<void> onRefresh() async {
+    await futureMill(500);
+    refreshController.refreshCompleted();
+  }
+
+  Future<void> onLoading() async {
+    await futureMill(500);
+    refreshController.loadNoData();
+  }
 
   @override
   void onReady() async {
