@@ -26,7 +26,7 @@ Widget getCommentItem(ListElementComments item) {
               shape: BoxShape.circle,
               width: 50,
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 9.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,6 +69,7 @@ Widget getCommentItem(ListElementComments item) {
               ),
             ),
             getButton(
+              width: 60,
               background: Colors.transparent,
               overlayColor: Colors.transparent,
               onPressed: controller.onLike,
