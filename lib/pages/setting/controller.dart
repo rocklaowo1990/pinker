@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
+import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/application/library.dart';
-import 'package:pinker/pages/setting/count_list/library.dart';
 
 import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -48,12 +48,34 @@ class SettingController extends GetxController {
 
   /// 屏蔽列表
   void handleBlockList() {
-    Get.to(() => getUserListPage(title: '屏蔽列表', type: 1));
+    Map<String, dynamic> _data = {
+      'title': '屏蔽列表',
+      'getCountUrl': '/api/user/blockUserList',
+      'setCountUrl': '/api/user/block',
+      'countType': 'blockCount',
+      'secondTitle': '取消屏蔽',
+      'dataName': 'isBlock',
+    };
+
+    SetCountListEntities data = SetCountListEntities.fromJson(_data);
+
+    Get.toNamed(AppRoutes.set + AppRoutes.setCountList, arguments: data);
   }
 
   /// 隐藏列表
   void handleHiddenList() {
-    Get.to(() => getUserListPage(title: '隐藏列表', type: 2));
+    Map<String, dynamic> _data = {
+      'title': '隐藏列表',
+      'getCountUrl': '/api/user/hideUserList',
+      'setCountUrl': '/api/user/hide',
+      'countType': 'hiddenCount',
+      'secondTitle': '取消隐藏',
+      'dataName': 'isHide',
+    };
+
+    SetCountListEntities data = SetCountListEntities.fromJson(_data);
+
+    Get.toNamed(AppRoutes.set + AppRoutes.setCountList, arguments: data);
   }
 
   /// 更换邮箱

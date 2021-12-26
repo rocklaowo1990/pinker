@@ -19,6 +19,7 @@ class AppRoutes {
   static const setGroupInfo = '/setGroupInfo';
   static const setUserLogo = '/setUserLogo';
   static const deleteAccount = '/deleteAccount';
+  static const setCountList = '/setCountList';
 
   /// 注册
   static const index = '/index';

@@ -31,7 +31,7 @@ Widget getContentButton(
   }
 
   void _onComment() {
-    getCommentsView(item);
+    getCommentsView(item, contentBoxController);
   }
 
   return Row(

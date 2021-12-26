@@ -13,6 +13,7 @@ Widget getButtonList({
   Widget? iconRight,
   VoidCallback? onPressed,
   double? height,
+  EdgeInsetsGeometry? padding,
 }) {
   /// 左边初始化
   Widget left = Row(
@@ -72,7 +73,7 @@ Widget getButtonList({
     borderRadius: BorderRadius.zero,
     background: AppColors.secondBacground,
     height: height,
-    padding: EdgeInsets.all(9.w),
+    padding: padding ?? EdgeInsets.all(9.w),
     onPressed: onPressed,
   );
 }

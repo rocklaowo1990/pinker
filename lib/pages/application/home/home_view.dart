@@ -85,7 +85,7 @@ class HomeView extends GetView<HomeController> {
               child: ListView(
                   controller: controller.scrollController,
                   children: controller.state.showList
-                      .map((index) => contentList(index))
+                      .map((index) => getContentList(index))
                       .toList()),
               onLoading: controller.onLoading,
               onRefresh: controller.onRefresh,

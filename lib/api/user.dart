@@ -140,45 +140,35 @@ class UserApi {
   }
 
   /// 已屏蔽的用户列表 ///////////////////////////////////////////////////////////
-  static Future<ResponseEntity> settingUserList(
-    int? type,
-    int? page,
+  /// 屏蔽列表地址：'/api/user/blockUserList'
+  /// 隐藏列表地址：'/api/user/hideUserList'
+  static Future<ResponseEntity> getCountList(
+    String apiUrl,
+    Map<String, dynamic> data,
   ) async {
     // 请求
     var response = await HttpUtil().get(
-      type == 1 || type == null
-          ? '/api/user/blockUserList'
-          : '/api/user/hideUserList',
+      apiUrl,
       options: Options(headers: {
         'token': Global.token,
       }),
-      queryParameters: {
-        'pageNo': page,
-        'pageSize': '20',
-      },
+      queryParameters: data,
     );
     return ResponseEntity.fromJson(response);
   }
 
-  /// 屏蔽用户/取消 //////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> block(data) async {
+  /// 屏蔽用户/ 隐藏用户 /////////////////////
+  /// 这里是操作屏蔽和隐藏
+  /// 隐藏：'/api/user/hide'
+  /// 屏蔽：'/api/user/block'
+  /// data：这里直接放到一起，通过不同的参数去区分
+  static Future<ResponseEntity> blockHide(
+    String apiUrl,
+    Map<String, dynamic> data,
+  ) async {
     // 请求
     var response = await HttpUtil().postForm(
-      '/api/user/block',
-      options: Options(headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
-      }),
-      data: data,
-    );
-    return ResponseEntity.fromJson(response);
-  }
-
-  /// 隐藏用户/取消 //////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> hide(data) async {
-    // 请求
-    var response = await HttpUtil().postForm(
-      '/api/user/hide',
+      apiUrl,
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'token': Global.token,

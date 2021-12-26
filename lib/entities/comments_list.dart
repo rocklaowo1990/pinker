@@ -1,5 +1,5 @@
-class CommentsList {
-  CommentsList({
+class CommentsListEntities {
+  CommentsListEntities({
     required this.list,
     required this.totalSize,
   });
@@ -7,7 +7,8 @@ class CommentsList {
   List<ListElementComments> list;
   int totalSize;
 
-  factory CommentsList.fromJson(Map<String, dynamic> json) => CommentsList(
+  factory CommentsListEntities.fromJson(Map<String, dynamic> json) =>
+      CommentsListEntities(
         list: List<ListElementComments>.from(
             json["list"].map((x) => ListElementComments.fromJson(x))),
         totalSize: json["totalSize"],

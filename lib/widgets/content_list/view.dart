@@ -8,7 +8,7 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget contentList(ListElement item) {
+Widget getContentList(ListElement item) {
   final ContentBoxController controller = ContentBoxController();
 
   controller.initState(item);

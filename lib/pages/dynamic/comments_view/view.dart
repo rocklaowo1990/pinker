@@ -9,13 +9,18 @@ import 'package:pinker/pages/dynamic/comments_view/controller.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Future getCommentsView(ListElement item) {
+Future getCommentsView(
+  ListElement item,
+  ContentBoxController contentBoxController,
+) {
   Widget child = GetBuilder<CommentsViewController>(
-    init: CommentsViewController(item),
+    init: CommentsViewController(),
     builder: (controller) {
       // 初始化
       // 这种结构的只能在这里初始化
       // 在里面初始化需要在控制器里面加入index变量
+
+      controller.onRefresh(item, contentBoxController);
 
       Widget loading = Center(
           child: Column(children: [
@@ -53,9 +58,10 @@ Future getCommentsView(ListElement item) {
             : getRefresher(
                 controller: controller.refreshController,
                 child: ListView(
+                  controller: controller.scrollController,
                   children: controller.state.showList
-                      .map((index) => Container(
-                            child: getCommentItem(index),
+                      .map((item) => Container(
+                            child: getCommentItem(item, controller),
                             padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 0),
                             decoration: const BoxDecoration(
                                 border: Border(
@@ -64,10 +70,11 @@ Future getCommentsView(ListElement item) {
                       .toList(),
                 ),
                 onLoading: () {
-                  controller.onLoading();
+                  controller.onLoading(item, contentBoxController);
                 },
+                isFooter: controller.state.showList.length < 20 ? false : true,
                 onRefresh: () {
-                  controller.onRefresh();
+                  controller.onRefresh(item, contentBoxController);
                 },
               ),
       );
@@ -95,13 +102,15 @@ Future getCommentsView(ListElement item) {
                       topRight: Radius.circular(8.w))),
               width: double.infinity,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(9.w, 0, 0, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getSpan('${item.commentCount} 条评论'),
+                        getSpan(
+                            '${contentBoxController.state.commentCount} 条评论'),
                         getButton(
                           child: const Icon(Icons.close,
                               color: AppColors.mainIcon),
@@ -118,27 +127,54 @@ Future getCommentsView(ListElement item) {
                     child: body,
                   ),
                   Container(height: 1, color: AppColors.line),
+                  Obx(
+                    () => controller.state.replyUserName.isNotEmpty
+                        ? Padding(
+                            padding: EdgeInsets.only(left: 4.w),
+                            child: getButton(
+                                onPressed: controller.handleClearReplyId,
+                                height: 30,
+                                width: 200,
+                                background: AppColors.line,
+                                padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    getSpan(
+                                        '回复 ${controller.state.replyUserName}'),
+                                    const Icon(
+                                      Icons.close,
+                                      color: AppColors.mainIcon,
+                                      size: 17,
+                                    ),
+                                  ],
+                                )),
+                          )
+                        : const SizedBox(),
+                  ),
                   Padding(
-                      padding: EdgeInsets.all(4.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: getInput(
-                              height: 40,
-                              type: '文明回复，共创美好环境 ~',
-                              controller: TextEditingController(),
-                              focusNode: FocusNode(),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          getButton(
-                            child: getSpan('回复'),
+                    padding: EdgeInsets.all(4.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: getInput(
                             height: 40,
-                            width: 80,
+                            type: '文明回复，共创美好环境 ~',
+                            controller: controller.textController,
+                            focusNode: controller.focusNode,
                           ),
-                        ],
-                      )),
+                        ),
+                        const SizedBox(width: 12),
+                        getButton(
+                          child: getSpan('回复'),
+                          height: 40,
+                          width: 70,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

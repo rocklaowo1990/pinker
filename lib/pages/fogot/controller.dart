@@ -25,7 +25,7 @@ class ForgotController extends GetxController {
     Get.back();
   }
 
-  ForgotInfo forgotInfo = ForgotInfo.fromJson({
+  ForgotInfoEntities forgotInfo = ForgotInfoEntities.fromJson({
     'userId': 0,
     'userName': '',
     'nickName': '',

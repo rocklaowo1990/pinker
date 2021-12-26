@@ -34,7 +34,8 @@ class ForgotIndexController extends GetxController {
     ResponseEntity _forgotInfo = await AccountApi.verificateAccount(data);
 
     if (_forgotInfo.code == 200) {
-      ForgotInfo forgotInfo = ForgotInfo.fromJson(_forgotInfo.data);
+      ForgotInfoEntities forgotInfo =
+          ForgotInfoEntities.fromJson(_forgotInfo.data);
       forgotController.forgotInfo.userId = forgotInfo.userId;
       forgotController.forgotInfo.userName = forgotInfo.userName;
       forgotController.forgotInfo.nickName = forgotInfo.nickName;

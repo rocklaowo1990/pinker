@@ -55,14 +55,10 @@ class ContentListHotView extends StatelessWidget {
                     child: ListView(
                         controller: controller.scrollController,
                         children: controller.state.showList
-                            .map((index) => contentList(index))
+                            .map((index) => getContentList(index))
                             .toList()),
-                    onLoading: () {
-                      controller.onLoading();
-                    },
-                    onRefresh: () {
-                      controller.onRefresh();
-                    },
+                    onLoading: controller.onLoading,
+                    onRefresh: controller.onRefresh,
                   ),
           );
 

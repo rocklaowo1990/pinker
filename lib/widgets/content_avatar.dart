@@ -26,7 +26,9 @@ Widget getContentMore(
   double? width,
   double? height,
 }) {
-  void _onPressed() {}
+  void _onPressed() {
+    print(item.author.userName);
+  }
 
   return Center(
     child: getButton(

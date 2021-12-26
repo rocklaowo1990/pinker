@@ -1,6 +1,6 @@
 // 找回密码时的数据格式化
-class ForgotInfo {
-  ForgotInfo({
+class ForgotInfoEntities {
+  ForgotInfoEntities({
     required this.userId,
     required this.userName,
     required this.nickName,
@@ -16,7 +16,8 @@ class ForgotInfo {
   String phone;
   String email;
 
-  factory ForgotInfo.fromJson(Map<String, dynamic> json) => ForgotInfo(
+  factory ForgotInfoEntities.fromJson(Map<String, dynamic> json) =>
+      ForgotInfoEntities(
         userId: json["userId"],
         userName: json["userName"],
         nickName: json["nickName"],

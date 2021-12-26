@@ -45,7 +45,8 @@ class ContentListNewController extends GetxController {
       ResponseEntity responseEntity = await ContentApi.contentList(data);
 
       if (responseEntity.code == 200) {
-        ContentList contentList = ContentList.fromJson(responseEntity.data);
+        ContentListEntities contentList =
+            ContentListEntities.fromJson(responseEntity.data);
         state.showList.addAll(contentList.list);
 
         state.isLoading = false;
@@ -80,7 +81,8 @@ class ContentListNewController extends GetxController {
 
     ResponseEntity responseEntity = await ContentApi.contentList(data);
     if (responseEntity.code == 200) {
-      ContentList contentList = ContentList.fromJson(responseEntity.data);
+      ContentListEntities contentList =
+          ContentListEntities.fromJson(responseEntity.data);
       state.showList.clear();
       state.showList.addAll(contentList.list);
 
@@ -106,7 +108,8 @@ class ContentListNewController extends GetxController {
       state.isLoading = false;
       Map<String, dynamic> _contentList =
           await StorageUtil().getJSON(storageNewContentListKey);
-      ContentList contentList = ContentList.fromJson(_contentList);
+      ContentListEntities contentList =
+          ContentListEntities.fromJson(_contentList);
 
       pageIndex = contentList.list.length ~/ 20;
       totalSize =

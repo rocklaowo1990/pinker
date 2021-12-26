@@ -4,6 +4,8 @@ import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
+import 'package:pinker/pages/setting/count_list/binding.dart';
+import 'package:pinker/pages/setting/count_list/library.dart';
 import 'package:pinker/pages/setting/delete_account/library.dart';
 
 import 'package:pinker/pages/setting/library.dart';
@@ -66,6 +68,11 @@ class AppPages {
           name: AppRoutes.language,
           page: () => const LanguageView(),
           binding: LanguageBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.setCountList,
+          page: () => const SetCountListView(),
+          binding: SetCountListBinding(),
         ),
         GetPage(
           name: AppRoutes.setUserLogo,

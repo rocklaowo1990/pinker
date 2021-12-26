@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class UserInfo {
-  UserInfo({
+class UserInfoEntities {
+  UserInfoEntities({
     /// 头像
     required this.avatar,
 
@@ -96,12 +96,13 @@ class UserInfo {
   int watermarkSwitch;
   String watermarkText;
 
-  factory UserInfo.fromRawJson(String str) =>
-      UserInfo.fromJson(json.decode(str));
+  factory UserInfoEntities.fromRawJson(String str) =>
+      UserInfoEntities.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
+  factory UserInfoEntities.fromJson(Map<String, dynamic> json) =>
+      UserInfoEntities(
         avatar: json["avatar"],
         banks: List<Bank>.from(json["banks"].map((x) => Bank.fromJson(x))),
         bannerPic: json["bannerPic"],

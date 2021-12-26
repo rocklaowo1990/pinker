@@ -1,5 +1,5 @@
-class ContentList {
-  ContentList({
+class ContentListEntities {
+  ContentListEntities({
     required this.list,
     required this.totalSize,
   });
@@ -7,7 +7,8 @@ class ContentList {
   List<ListElement> list;
   int totalSize;
 
-  factory ContentList.fromJson(Map<String, dynamic> json) => ContentList(
+  factory ContentListEntities.fromJson(Map<String, dynamic> json) =>
+      ContentListEntities(
         list: List<ListElement>.from(
             json["list"].map((x) => ListElement.fromJson(x))),
         totalSize: json["totalSize"],

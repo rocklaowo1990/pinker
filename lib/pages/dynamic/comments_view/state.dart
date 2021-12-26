@@ -11,4 +11,9 @@ class CommentsViewState {
   final RxBool _isLoading = true.obs;
   set isLoading(bool value) => _isLoading.value = value;
   bool get isLoading => _isLoading.value;
+
+  /// 回复对象的昵称
+  final RxString _replyUserName = ''.obs;
+  set replyUserName(String value) => _replyUserName.value = value;
+  String get replyUserName => _replyUserName.value;
 }
