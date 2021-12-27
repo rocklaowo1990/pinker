@@ -159,6 +159,14 @@ class SettingView extends GetView<SettingController> {
       onPressed: controller.handleSetUserLogo,
     );
 
+    /// 麻将结算系统
+    Widget money = getButtonList(
+      icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
+      title: '麻将结算系统',
+      secondTitle: getSpan('内测版', color: AppColors.secondIcon),
+      onPressed: controller.handleMoney,
+    );
+
     /// 注销账号
     Widget logout = getButtonList(
       icon: SvgPicture.asset('assets/svg/set_logout.svg'),
@@ -209,6 +217,8 @@ class SettingView extends GetView<SettingController> {
         setGroup,
         SizedBox(height: 1.h),
         setWatermark,
+        SizedBox(height: 1.h),
+        money,
         SizedBox(height: 1.h),
         langList,
         SizedBox(height: 1.h),

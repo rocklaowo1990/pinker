@@ -86,6 +86,14 @@ class SettingController extends GetxController {
     );
   }
 
+  /// 更换邮箱
+  void handleMoney() {
+    Get.toNamed(
+      AppRoutes.set + AppRoutes.money,
+      arguments: AppRoutes.setEmail,
+    );
+  }
+
   /// 更换密码
   void handleSetPassword() {
     Get.toNamed(AppRoutes.set + AppRoutes.setPassword);

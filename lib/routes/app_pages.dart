@@ -9,6 +9,9 @@ import 'package:pinker/pages/setting/count_list/library.dart';
 import 'package:pinker/pages/setting/delete_account/library.dart';
 
 import 'package:pinker/pages/setting/library.dart';
+import 'package:pinker/pages/setting/money/binding.dart';
+import 'package:pinker/pages/setting/money/money_set/library.dart';
+import 'package:pinker/pages/setting/money/view.dart';
 import 'package:pinker/pages/setting/set_email/library.dart';
 import 'package:pinker/pages/setting/set_group/group_info/binding.dart';
 import 'package:pinker/pages/setting/set_group/group_info/view.dart';
@@ -68,6 +71,18 @@ class AppPages {
           name: AppRoutes.language,
           page: () => const LanguageView(),
           binding: LanguageBinding(),
+        ),
+        GetPage(
+          name: AppRoutes.money,
+          page: () => const MoneyView(),
+          binding: MoneyBinding(),
+          children: [
+            GetPage(
+              name: AppRoutes.moneySet,
+              page: () => const MoneySetView(),
+              binding: MoneySetBinding(),
+            ),
+          ],
         ),
         GetPage(
           name: AppRoutes.setCountList,

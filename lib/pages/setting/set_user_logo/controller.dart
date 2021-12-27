@@ -29,7 +29,7 @@ class SetUserLogoController extends GetxController {
   }
 
   void handleOnChanged(value) {
-    state.enable = value;
+    state.enable = value ? 1 : 0;
     _textListener();
   }
 
