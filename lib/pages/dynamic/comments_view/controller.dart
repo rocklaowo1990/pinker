@@ -100,5 +100,6 @@ class CommentsViewController extends GetxController {
   void handleClearReplyId() {
     state.replyUserName = '';
     replyId = 0;
+    focusNode.unfocus();
   }
 }
