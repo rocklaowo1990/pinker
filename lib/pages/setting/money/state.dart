@@ -1,139 +1,24 @@
 import 'package:get/get.dart';
 
 class MoneyState {
-  /// 胡牌玩家ID
-  final RxInt _huId = 100.obs;
-  set huId(int value) => _huId.value = value;
-  int get huId => _huId.value;
+  RxList<int> resault = [0, 0, 0, 0].obs;
 
-  final RxList<int> resault = [0, 0, 0, 0].obs;
+  RxList<int> resaultOnly = [0, 0, 0, 0].obs;
 
-  final RxList<int> resaultOnly = [0, 0, 0, 0].obs;
+  RxList<int> ji = [0, 0, 0, 0].obs;
 
-  final RxList<int> public = [0, 0, 0, 0].obs;
+  RxList<int> ma_0 = [0, 0, 0, 0].obs;
+  RxList<int> ma_1 = [0, 0, 0, 0].obs;
+  RxList<int> ma_2 = [0, 0, 0, 0].obs;
+  RxList<int> ma_3 = [0, 0, 0, 0].obs;
 
-  final RxList<List<int>> ma = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
-  ].obs;
+  RxList<int> playerOnly_0 = [0, 0, 0].obs;
+  RxList<int> playerOnly_1 = [0, 0, 0].obs;
+  RxList<int> playerOnly_2 = [0, 0, 0].obs;
+  RxList<int> playerOnly_3 = [0, 0, 0].obs;
 
-  final RxList<List<Map<String, int>>> payOnly = [
-    [
-      {
-        'id': 1,
-        'number': 0,
-      },
-      {
-        'id': 2,
-        'number': 0,
-      },
-      {
-        'id': 3,
-        'number': 0,
-      }
-    ],
-    [
-      {
-        'id': 0,
-        'number': 0,
-      },
-      {
-        'id': 2,
-        'number': 0,
-      },
-      {
-        'id': 3,
-        'number': 0,
-      }
-    ],
-    [
-      {
-        'id': 0,
-        'number': 0,
-      },
-      {
-        'id': 1,
-        'number': 0,
-      },
-      {
-        'id': 3,
-        'number': 0,
-      }
-    ],
-    [
-      {
-        'id': 0,
-        'number': 0,
-      },
-      {
-        'id': 1,
-        'number': 0,
-      },
-      {
-        'id': 2,
-        'number': 0,
-      }
-    ],
-  ].obs;
-
-  final RxList<List<Map<String, int>>> shouOnly = [
-    [
-      {
-        'id': 1,
-        'number': 0,
-      },
-      {
-        'id': 2,
-        'number': 0,
-      },
-      {
-        'id': 3,
-        'number': 0,
-      }
-    ],
-    [
-      {
-        'id': 0,
-        'number': 0,
-      },
-      {
-        'id': 2,
-        'number': 0,
-      },
-      {
-        'id': 3,
-        'number': 0,
-      }
-    ],
-    [
-      {
-        'id': 0,
-        'number': 0,
-      },
-      {
-        'id': 1,
-        'number': 0,
-      },
-      {
-        'id': 3,
-        'number': 0,
-      }
-    ],
-    [
-      {
-        'id': 0,
-        'number': 0,
-      },
-      {
-        'id': 1,
-        'number': 0,
-      },
-      {
-        'id': 2,
-        'number': 0,
-      }
-    ],
-  ].obs;
+  /// 是否手机注册，否则就是邮箱
+  final RxBool _isReset = true.obs;
+  set isReset(value) => _isReset.value = value;
+  bool get isReset => _isReset.value;
 }

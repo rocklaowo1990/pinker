@@ -23,6 +23,22 @@ class MoneyView extends GetView<MoneyController> {
     Widget playerBox({
       required int id,
     }) {
+      late RxList<int> palyOnly;
+      late RxList<int> ma;
+
+      if (id == 0) {
+        palyOnly = controller.state.playerOnly_0;
+        ma = controller.state.ma_0;
+      } else if (id == 1) {
+        palyOnly = controller.state.playerOnly_1;
+        ma = controller.state.ma_1;
+      } else if (id == 2) {
+        palyOnly = controller.state.playerOnly_2;
+        ma = controller.state.ma_2;
+      } else if (id == 3) {
+        palyOnly = controller.state.playerOnly_3;
+        ma = controller.state.ma_3;
+      }
       return getButton(
         width: double.infinity,
         padding: EdgeInsets.all(9.w),
@@ -63,50 +79,42 @@ class MoneyView extends GetView<MoneyController> {
               color: AppColors.line,
             ),
             SizedBox(height: 6.h),
-            Obx(() => Column(
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        getSpan('你拥有的鸡：', color: AppColors.secondText),
-                        getSpan(
-                          '${controller.state.public[id]}',
+                    getSpan('你拥有的鸡：', color: AppColors.secondText),
+                    Obx(() => getSpan(
+                          '${controller.state.ji[id]}',
                           color: AppColors.secondText,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        getSpan('你的单独收支：', color: AppColors.secondText),
-                        getSpan(
-                          '${controller.state.payOnly[id][0]['id']! + 1}(${controller.state.payOnly[id][0]['number']}), ${controller.state.payOnly[id][1]['id']! + 1}(${controller.state.payOnly[id][2]['number']}), ${controller.state.payOnly[id][2]['id']! + 1}(${controller.state.payOnly[id][2]['number']})',
-                          color: AppColors.secondText,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        getSpan('你的单独收入：', color: AppColors.secondText),
-                        getSpan(
-                          '${controller.state.shouOnly[id][0]['id']! + 1}(${controller.state.shouOnly[id][0]['number']}), ${controller.state.shouOnly[id][1]['id']! + 1}(${controller.state.shouOnly[id][2]['number']}), ${controller.state.shouOnly[id][2]['id']! + 1}(${controller.state.shouOnly[id][2]['number']})',
-                          color: AppColors.secondText,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        getSpan('你中的码：', color: AppColors.secondText),
-                        getSpan(
-                          '1(${controller.state.ma[id][0]}), 2(${controller.state.ma[id][1]}), 3(${controller.state.ma[id][2]}), 4(${controller.state.ma[id][3]})',
-                          color: AppColors.secondText,
-                        ),
-                      ],
-                    ),
+                        )),
                   ],
-                )),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    getSpan('你的单独收支：', color: AppColors.secondText),
+                    Obx(() => getSpan(
+                          '${controller.payOnlyId[id][0] + 1}(${palyOnly[0]}), ${controller.payOnlyId[id][1] + 1}(${palyOnly[1]}), ${controller.payOnlyId[id][2] + 1}(${palyOnly[2]})',
+                          color: AppColors.secondText,
+                        )),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    getSpan('你中的码号：', color: AppColors.secondText),
+                    Obx(() => getSpan(
+                          '1(${ma[0]}), 2(${ma[1]}), 3(${ma[2]}), 4(${[
+                            ma[3]
+                          ]})',
+                          color: AppColors.secondText,
+                        )),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       );
@@ -130,6 +138,7 @@ class MoneyView extends GetView<MoneyController> {
               child: getSpan('开始结算'),
               width: double.infinity,
               height: 22.h,
+              onPressed: controller.handleResault,
             )
           ],
         ),
