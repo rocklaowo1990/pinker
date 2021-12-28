@@ -68,7 +68,7 @@ class MoneyView extends GetView<MoneyController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getSpan('所有人要给你的数量：', color: AppColors.secondText),
+                        getSpan('你拥有的鸡：', color: AppColors.secondText),
                         getSpan(
                           '${controller.state.public[id]}',
                           color: AppColors.secondText,
@@ -78,7 +78,7 @@ class MoneyView extends GetView<MoneyController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getSpan('你的单独支出：', color: AppColors.secondText),
+                        getSpan('你的单独收支：', color: AppColors.secondText),
                         getSpan(
                           '${controller.state.payOnly[id][0]['id']! + 1}(${controller.state.payOnly[id][0]['number']}), ${controller.state.payOnly[id][1]['id']! + 1}(${controller.state.payOnly[id][2]['number']}), ${controller.state.payOnly[id][2]['id']! + 1}(${controller.state.payOnly[id][2]['number']})',
                           color: AppColors.secondText,

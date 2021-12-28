@@ -21,41 +21,76 @@ class MoneySetView extends GetView<MoneySetController> {
       backgroundColor: AppColors.secondBacground,
     );
 
-    Widget _switchHu = getButtonList(
-        height: 30.h,
-        title: '胡',
-        onPressed: controller.handleOnChangedNoValue,
-        iconRight: Obx(() => Switch(
-              value: controller.state.isHu == 0 ? false : true,
-              onChanged: controller.handleOnChanged,
-            )));
+    Widget _setNumber(String number) {
+      late Widget textBox;
+      if (number == 'public') {
+        textBox = Obx(() => getSpan(
+            '${controller.moneyController.state.public[controller.arguments]}'));
+      } else {
+        textBox = Obx(() => getSpan(
+            '${controller.moneyController.state.public[controller.arguments]}'));
+      }
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          getButton(
+              child: Center(
+                child: getSpan('-', fontSize: 17),
+              ),
+              width: 22.h,
+              background: AppColors.line,
+              height: 22.h,
+              onPressed: () {
+                if (number == 'public') {
+                  controller
+                      .moneyController.state.public[controller.arguments]--;
+                }
+                print('number');
+                print(controller.moneyController.state.public);
+              },
+              borderRadius: BorderRadius.all(Radius.circular(1000.h))),
+          textBox,
+          getButton(
+              child: Center(
+                child: getSpan('+', fontSize: 17),
+              ),
+              width: 22.h,
+              background: AppColors.line,
+              height: 22.h,
+              onPressed: () {
+                if (number == 'public') {
+                  controller
+                      .moneyController.state.public[controller.arguments]++;
+                }
+                print(number);
+                print(controller.moneyController.state.public);
+              },
+              borderRadius: BorderRadius.all(Radius.circular(1000.h))),
+        ],
+      );
+    }
 
-    Widget _switchTing = getButtonList(
-        height: 30.h,
-        title: '听',
-        onPressed: controller.handleOnChangedNoValue,
-        iconRight: Obx(() => Switch(
-              value: controller.state.isHu == 0 ? false : true,
-              onChanged: controller.handleOnChanged,
-            )));
-
-    Widget _switchGang = getButtonList(
-        height: 30.h,
-        title: '杠',
-        onPressed: controller.handleOnChangedNoValue,
-        iconRight: Obx(() => Switch(
-              value: controller.state.isHu == 0 ? false : true,
-              onChanged: controller.handleOnChanged,
-            )));
+    Widget setJi = Container(
+      height: 30.h,
+      width: double.infinity,
+      color: AppColors.secondBacground,
+      padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          getSpan('你拥有的鸡：'),
+          SizedBox(
+            width: 70.w,
+            child: _setNumber('public'),
+          ),
+        ],
+      ),
+    );
 
     Widget body = ListView(
       children: [
         SizedBox(height: 10.h),
-        _switchHu,
-        SizedBox(height: 1.h),
-        _switchTing,
-        SizedBox(height: 1.h),
-        _switchGang,
+        setJi,
       ],
     );
 
