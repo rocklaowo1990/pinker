@@ -42,8 +42,12 @@ class MoneySetView extends GetView<MoneySetController> {
               height: 22.h,
               onPressed: () {
                 if (number == 'public') {
-                  controller
-                      .moneyController.state.public[controller.arguments]--;
+                  if (controller
+                          .moneyController.state.public[controller.arguments] >
+                      0) {
+                    controller
+                        .moneyController.state.public[controller.arguments]--;
+                  }
                 }
                 print('number');
                 print(controller.moneyController.state.public);
