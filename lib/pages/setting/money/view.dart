@@ -60,7 +60,7 @@ class MoneyView extends GetView<MoneyController> {
                     ),
                     SizedBox(width: 6.w),
                     Obx(() => getSpan(
-                        '玩家 ${id + 1}  (单：${controller.state.resaultOnly[id]})')),
+                        '玩家 ${id + 1}  (中鸡：${controller.state.zhongJi[id]})')),
                   ],
                 ),
                 Obx(() => controller.state.resault[id] == 0
@@ -104,7 +104,7 @@ class MoneyView extends GetView<MoneyController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    getSpan('你中的码号：', color: AppColors.secondText),
+                    getSpan('你买的码号：', color: AppColors.secondText),
                     Obx(() => getSpan(
                           '1(${ma[0]}), 2(${ma[1]}), 3(${ma[2]}), 4(${[
                             ma[3]

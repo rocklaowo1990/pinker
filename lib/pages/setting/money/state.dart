@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 class MoneyState {
   RxList<int> resault = [0, 0, 0, 0].obs;
 
-  RxList<int> resaultOnly = [0, 0, 0, 0].obs;
+  RxList<int> resaultSingle = [0, 0, 0, 0].obs;
 
   RxList<int> ji = [0, 0, 0, 0].obs;
+  RxList<int> zhongJi = [0, 0, 0, 0].obs;
 
   RxList<int> ma_0 = [0, 0, 0, 0].obs;
   RxList<int> ma_1 = [0, 0, 0, 0].obs;

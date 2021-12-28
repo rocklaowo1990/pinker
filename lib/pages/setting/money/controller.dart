@@ -21,80 +21,81 @@ class MoneyController extends GetxController {
   }
 
   void handleResault() {
-    state.resaultOnly.value = [0, 0, 0, 0];
+    state.resaultSingle.value = [0, 0, 0, 0];
     state.resault.value = [0, 0, 0, 0];
-    List<int> numberMa = [
+    List<int> resaultMa = [0, 0, 0, 0];
+
+    List<int> maAll = [
       state.ma_0[0] + state.ma_1[0] + state.ma_2[0] + state.ma_3[0],
       state.ma_0[1] + state.ma_1[1] + state.ma_2[1] + state.ma_3[1],
       state.ma_0[2] + state.ma_1[2] + state.ma_2[2] + state.ma_3[2],
       state.ma_0[3] + state.ma_1[3] + state.ma_2[3] + state.ma_3[3],
     ];
-    List<int> numberPay = [0, 0, 0, 0];
-    List<int> ma = [0, 0, 0, 0];
+
+    state.zhongJi.clear();
+    state.zhongJi.addAll(maAll);
+
+    var ma = [
+      [state.ma_0[0], state.ma_0[1], state.ma_0[2], state.ma_0[3]],
+      [state.ma_1[0], state.ma_1[1], state.ma_1[2], state.ma_1[3]],
+      [state.ma_2[0], state.ma_2[1], state.ma_2[2], state.ma_2[3]],
+      [state.ma_3[0], state.ma_3[1], state.ma_3[2], state.ma_3[3]],
+    ];
+
+    var only = [
+      [state.playerOnly_0[0], state.playerOnly_0[1], state.playerOnly_0[2]],
+      [state.playerOnly_1[0], state.playerOnly_1[1], state.playerOnly_1[2]],
+      [state.playerOnly_2[0], state.playerOnly_2[1], state.playerOnly_2[2]],
+      [state.playerOnly_3[0], state.playerOnly_3[1], state.playerOnly_3[2]],
+    ];
 
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         if (i != j) {
-          state.resaultOnly[i] =
-              state.resaultOnly[i] + (state.ji[i] - state.ji[j]);
+          state.resaultSingle[i] += (state.ji[i] - state.ji[j]);
+          if (ma[i][j] > 0) {
+            print('o');
+
+            for (int k = 0; k < 4; k++) {
+              if (i != k && j != k) {
+                state.resaultSingle[i] +=
+                    (state.ji[j] - state.ji[k]) * ma[i][j];
+              }
+            }
+          } else if (ma[i][j] == 0) {
+            print('obje111111ct');
+
+            for (int k = 0; k < 4; k++) {
+              if (i != k) {
+                state.resaultSingle[i] +=
+                    (state.ji[i] - state.ji[k]) * ma[i][k];
+              }
+            }
+            state.resaultSingle[i] += (state.ji[i] - state.ji[j]) * ma[i][j];
+          }
+          if (maAll[j] - ma[i][j] > 0) {
+            print('object');
+            for (int k = 0; k < maAll[j] - ma[i][j]; k++) {
+              if (i != k && j != k) {
+                state.resaultSingle[i] +=
+                    (state.ji[i] - state.ji[j]) * ma[i][j];
+              }
+            }
+          }
         }
       }
-    }
 
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        if (i == 0) {
-          numberPay[i] = numberPay[i] +
-              (state.ji[i] - state.ji[j]) * (numberMa[j] - state.ma_0[j]);
-        } else if (i != j && i == 1) {
-          numberPay[i] = numberPay[i] +
-              (state.ji[i] - state.ji[j]) * (numberMa[j] - state.ma_1[j]);
-        } else if (i != j && i == 2) {
-          numberPay[i] = numberPay[i] +
-              (state.ji[i] - state.ji[j]) * (numberMa[j] - state.ma_2[j]);
-        } else if (i != j && i == 3) {
-          numberPay[i] = numberPay[i] +
-              (state.ji[i] - state.ji[j]) * (numberMa[j] - state.ma_3[j]);
-        }
-      }
-    }
-    print(numberPay);
-
-    for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         if (i == j) {
-          if (i == 0) {
-            numberMa[i] = numberMa[i] + state.ma_0[j] * state.resaultOnly[j];
-          } else if (i == 1) {
-            numberMa[i] = numberMa[i] + state.ma_1[j] * state.resaultOnly[j];
-          } else if (i == 2) {
-            numberMa[i] = numberMa[i] + state.ma_2[j] * state.resaultOnly[j];
-          } else if (i == 3) {
-            numberMa[i] = numberMa[i] + state.ma_3[j] * state.resaultOnly[j];
-          }
-        } else {
-          if (i == 0) {
-            numberMa[i] = numberMa[i] +
-                state.ma_0[j] * state.resaultOnly[j] -
-                state.ji[i] * state.ma_0[i];
-          } else if (i == 1) {
-            numberMa[i] = numberMa[i] +
-                state.ma_1[j] * state.resaultOnly[j] -
-                state.ji[i] * state.ma_1[i];
-          } else if (i == 2) {
-            numberMa[i] = numberMa[i] +
-                state.ma_2[j] * state.resaultOnly[j] -
-                state.ji[i] * state.ma_2[i];
-          } else if (i == 3) {
-            numberMa[i] = numberMa[i] +
-                state.ma_3[j] * state.resaultOnly[j] -
-                state.ji[i] * state.ma_3[i];
-          }
+          resaultMa[i] += state.resaultSingle[i] * ma[i][j];
         }
       }
-    }
-    for (int i = 0; i < 4; i++) {
-      state.resault[i] = numberPay[i] + state.resaultOnly[i] + ma[i];
+
+      for (int j = 0; j < 3; j++) {
+        state.resaultSingle[i] += only[i][j];
+      }
+      state.resault[i] =
+          state.resault[i] + state.resaultSingle[i] + resaultMa[i];
     }
   }
 }
