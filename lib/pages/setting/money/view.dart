@@ -14,38 +14,28 @@ class MoneyView extends GetView<MoneyController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan('麻将结算系统'),
-      line: AppColors.line,
-      backgroundColor: AppColors.secondBacground,
-    );
+    AppBar appBar = getAppBar(getSpan('麻将结算系统'),
+        line: AppColors.line,
+        backgroundColor: AppColors.secondBacground,
+        actions: [
+          getButton(
+            child: getSpan('重置'),
+            width: 70,
+            background: Colors.transparent,
+            onPressed: controller.handleReset,
+          ),
+        ]);
 
-    Widget playerBox({
-      required int id,
-    }) {
-      late RxList<int> palyOnly;
-      late RxList<int> ma;
-
-      if (id == 0) {
-        palyOnly = controller.state.playerOnly_0;
-        ma = controller.state.ma_0;
-      } else if (id == 1) {
-        palyOnly = controller.state.playerOnly_1;
-        ma = controller.state.ma_1;
-      } else if (id == 2) {
-        palyOnly = controller.state.playerOnly_2;
-        ma = controller.state.ma_2;
-      } else if (id == 3) {
-        palyOnly = controller.state.playerOnly_3;
-        ma = controller.state.ma_3;
-      }
+    Widget playerBox(
+      MoneySystems player,
+    ) {
       return getButton(
         width: double.infinity,
         padding: EdgeInsets.all(9.w),
         background: AppColors.secondBacground,
         borderRadius: BorderRadius.all(Radius.circular(8.w)),
         onPressed: () {
-          controller.handleSet(id);
+          controller.handleSet(player.playerId);
         },
         child: Column(
           children: [
@@ -59,16 +49,16 @@ class MoneyView extends GetView<MoneyController> {
                       height: 30,
                     ),
                     SizedBox(width: 6.w),
-                    Obx(() => getSpan(
-                        '玩家 ${id + 1}  (中鸡：${controller.state.zhongJi[id]})')),
+                    Obx(() =>
+                        getSpan('玩家 ${player.playerId}  (被买：${player.beBuy})')),
                   ],
                 ),
-                Obx(() => controller.state.resault[id] == 0
+                Obx(() => player.resault == 0
                     ? getSpan('+0', fontSize: 20, color: AppColors.secondText)
-                    : controller.state.resault[id] > 0
-                        ? getSpan('+${controller.state.resault[id]}',
+                    : player.resault > 0
+                        ? getSpan('+${player.resault}',
                             fontSize: 20, color: AppColors.errro)
-                        : getSpan('${controller.state.resault[id]}',
+                        : getSpan('${player.resault}',
                             fontSize: 20, color: Colors.green)),
               ],
             ),
@@ -84,10 +74,12 @@ class MoneyView extends GetView<MoneyController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    getSpan('你拥有的鸡：', color: AppColors.secondText),
+                    getSpan('你拥有的公共鸡：', color: AppColors.secondText),
                     Obx(() => getSpan(
-                          '${controller.state.ji[id]}',
-                          color: AppColors.secondText,
+                          '${player.ji}',
+                          color: player.ji > 0
+                              ? AppColors.errro
+                              : AppColors.secondText,
                         )),
                   ],
                 ),
@@ -95,22 +87,67 @@ class MoneyView extends GetView<MoneyController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     getSpan('你的单独收支：', color: AppColors.secondText),
-                    Obx(() => getSpan(
-                          '${controller.payOnlyId[id][0] + 1}(${palyOnly[0]}), ${controller.payOnlyId[id][1] + 1}(${palyOnly[1]}), ${controller.payOnlyId[id][2] + 1}(${palyOnly[2]})',
-                          color: AppColors.secondText,
-                        )),
+                    Row(
+                      children: [
+                        Obx(() => getSpan('${player.only_1}',
+                            color: player.only_1 > 0
+                                ? AppColors.errro
+                                : player.only_1 < 0
+                                    ? Colors.green
+                                    : AppColors.secondText)),
+                        getSpan(' , ', color: AppColors.secondText),
+                        Obx(() => getSpan('${player.only_2})',
+                            color: player.only_2 > 0
+                                ? AppColors.errro
+                                : player.only_2 > 0
+                                    ? Colors.green
+                                    : AppColors.secondText)),
+                        getSpan(' , ', color: AppColors.secondText),
+                        Obx(() => getSpan('${player.only_3})',
+                            color: player.only_3 > 0
+                                ? AppColors.errro
+                                : player.only_3 < 0
+                                    ? Colors.green
+                                    : AppColors.secondText)),
+                      ],
+                    )
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     getSpan('你买的码号：', color: AppColors.secondText),
-                    Obx(() => getSpan(
-                          '1(${ma[0]}), 2(${ma[1]}), 3(${ma[2]}), 4(${[
-                            ma[3]
-                          ]})',
-                          color: AppColors.secondText,
-                        )),
+                    Row(
+                      children: [
+                        Obx(() => getSpan(
+                              '1(${player.ma_1})',
+                              color: player.ma_1 > 0
+                                  ? AppColors.errro
+                                  : AppColors.secondText,
+                            )),
+                        getSpan(' , ', color: AppColors.secondText),
+                        Obx(() => getSpan(
+                              '2(${player.ma_2})',
+                              color: player.ma_1 > 0
+                                  ? AppColors.errro
+                                  : AppColors.secondText,
+                            )),
+                        getSpan(' , ', color: AppColors.secondText),
+                        Obx(() => getSpan(
+                              '3(${player.ma_3})',
+                              color: player.ma_1 > 0
+                                  ? AppColors.errro
+                                  : AppColors.secondText,
+                            )),
+                        getSpan(' , ', color: AppColors.secondText),
+                        Obx(() => getSpan(
+                              '4(${player.ma_4})',
+                              color: player.ma_1 > 0
+                                  ? AppColors.errro
+                                  : AppColors.secondText,
+                            )),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -126,13 +163,13 @@ class MoneyView extends GetView<MoneyController> {
         padding: EdgeInsets.all(9.w),
         child: Column(
           children: [
-            playerBox(id: 0),
+            playerBox(controller.state.player_1),
             SizedBox(height: 6.h),
-            playerBox(id: 1),
+            playerBox(controller.state.player_2),
             SizedBox(height: 6.h),
-            playerBox(id: 2),
+            playerBox(controller.state.player_3),
             SizedBox(height: 6.h),
-            playerBox(id: 3),
+            playerBox(controller.state.player_4),
             SizedBox(height: 10.h),
             getButton(
               child: getSpan('开始结算'),
