@@ -190,7 +190,7 @@ class Video {
         "url": url,
         "format": format,
         "duration": duration,
-        "previews_urls": List<dynamic>.from(previewsUrls.map((x) => x)),
+        "previews_urls": List<String>.from(previewsUrls.map((x) => x)),
       };
 }
 

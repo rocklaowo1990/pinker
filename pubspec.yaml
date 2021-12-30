@@ -43,7 +43,7 @@ dependencies:
   flutter_screenutil: ^5.0.1
 
   # get 框架
-  get: ^4.5.1
+  get: ^4.6.1
 
   # 本地储存
   shared_preferences: ^2.0.10
