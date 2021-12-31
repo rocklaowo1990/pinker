@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/pages/application/library.dart';
 
 import 'package:pinker/pages/fogot/index/library.dart';
 import 'package:pinker/pages/fogot/info/library.dart';
@@ -92,16 +91,16 @@ class ForgotController extends GetxController {
   @override
   void onInit() async {
     if (arguments != null) {
-      final ApplicationController applicationController = Get.find();
-      forgotInfo.userId = applicationController.state.userInfoMap['userId'];
-      forgotInfo.phone = applicationController.state.userInfoMap['phone'];
-      if (forgotInfo.phone == '') {
-        forgotInfo.email = applicationController.state.userInfoMap['email'];
-        state.verifyType = 2;
-      }
-      forgotInfo.avatar = applicationController.state.userInfoMap['avatar'];
-      forgotInfo.userName = applicationController.state.userInfoMap['userName'];
-      state.pageIndex = 2;
+      // final ApplicationController applicationController = Get.find();
+      // forgotInfo.userId = applicationController.state.userInfoMap['userId'];
+      // forgotInfo.phone = applicationController.state.userInfoMap['phone'];
+      // if (forgotInfo.phone == '') {
+      //   forgotInfo.email = applicationController.state.userInfoMap['email'];
+      //   state.verifyType = 2;
+      // }
+      // forgotInfo.avatar = applicationController.state.userInfoMap['avatar'];
+      // forgotInfo.userName = applicationController.state.userInfoMap['userName'];
+      // state.pageIndex = 2;
     }
 
     super.onInit();

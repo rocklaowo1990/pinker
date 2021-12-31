@@ -65,7 +65,7 @@ class SettingView extends GetView<SettingController> {
       title: '用户名',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
-                controller.arguments!.state.userInfoMap['userName'],
+                controller.arguments!.state.userInfo.value.userName,
                 color: AppColors.secondIcon,
               ))
           : null,
@@ -78,11 +78,11 @@ class SettingView extends GetView<SettingController> {
       title: '手机',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
-                controller.arguments!.state.userInfoMap['phone'] == ''
+                controller.arguments!.state.userInfo.value.phone.isEmpty
                     ? '点击添加'
                     : '尾号' +
                         getLastTwo(
-                            controller.arguments!.state.userInfoMap['phone']),
+                            controller.arguments!.state.userInfo.value.phone),
                 color: AppColors.secondIcon,
               ))
           : null,
@@ -95,11 +95,11 @@ class SettingView extends GetView<SettingController> {
       title: '电子邮箱',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
-                controller.arguments!.state.userInfoMap['email'] == ''
+                controller.arguments!.state.userInfo.value.email.isEmpty
                     ? '点击添加'
                     : '尾号' +
                         getEmailHide(
-                            controller.arguments!.state.userInfoMap['email']),
+                            controller.arguments!.state.userInfo.value.email),
                 color: AppColors.secondIcon,
               ))
           : null,
@@ -123,7 +123,7 @@ class SettingView extends GetView<SettingController> {
       title: '已屏蔽列表',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
-                '${controller.arguments!.state.userInfoMap['blockCount']}',
+                '${controller.arguments!.state.userInfo.value.blockCount}',
                 color: AppColors.secondIcon,
               ))
           : null,
@@ -136,7 +136,7 @@ class SettingView extends GetView<SettingController> {
       title: '已隐藏列表',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
-                '${controller.arguments!.state.userInfoMap['hiddenCount']}',
+                '${controller.arguments!.state.userInfo.value.hiddenCount}',
                 color: AppColors.secondIcon,
               ))
           : null,

@@ -47,7 +47,7 @@ class SetUserNameView extends GetView<SetUserNameController> {
                   SizedBox(height: 8.h),
                   getSpan(
                       controller
-                          .applicationController.state.userInfoMap['userName'],
+                          .applicationController.state.userInfo.value.userName,
                       fontSize: 17),
                   SizedBox(height: 20.h),
                   getInput(

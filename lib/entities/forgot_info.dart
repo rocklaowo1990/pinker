@@ -34,4 +34,13 @@ class ForgotInfoEntities {
         'phone': phone,
         'email': email,
       };
+
+  static Map<String, dynamic> child = {
+    'userId': 0,
+    'userName': '',
+    'nickName': '',
+    'avatar': '',
+    'phone': '',
+    'email': '',
+  };
 }

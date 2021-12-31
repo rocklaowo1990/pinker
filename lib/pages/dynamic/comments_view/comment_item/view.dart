@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/pages/dynamic/comments_view/comment_item/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -16,8 +15,6 @@ Widget getCommentList(
   int? contentListIndex,
   int? contentListType,
 }) {
-  final CommentListController controller = CommentListController();
-
   // 初始化
   // 这种结构的只能在这里初始化
   // 在里面初始化需要在控制器里面加入index变量

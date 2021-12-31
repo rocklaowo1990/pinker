@@ -12,10 +12,5 @@ class ApplicationState {
   set pageIndex(int value) => _pageIndex.value = value;
   int get pageIndex => _pageIndex.value;
 
-  /// 用户信息（json)
-  final RxMap<String, dynamic> _userInfoMap = <String, dynamic>{}.obs;
-  set userInfoMap(Map<String, dynamic> value) => _userInfoMap.value = value;
-  Map<String, dynamic> get userInfoMap => _userInfoMap;
-
   final userInfo = UserInfoEntities.fromJson(UserInfoEntities.child).obs;
 }

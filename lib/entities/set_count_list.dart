@@ -34,4 +34,12 @@ class SetCountListEntities {
         'secondTitle': secondTitle,
         'dataName': dataName,
       };
+  static Map<String, dynamic> child = {
+    'title': '',
+    'getCountUrl': '',
+    'setCountUrl': '',
+    'countType': '',
+    'secondTitle': '',
+    'dataName': '',
+  };
 }

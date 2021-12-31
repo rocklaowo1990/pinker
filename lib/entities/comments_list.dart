@@ -20,7 +20,23 @@ class CommentsListEntities {
       };
 
   static Map<String, dynamic> child = {
-    "list": <_ListElement>[],
+    "list": [
+      {
+        "cid": 0,
+        "author": {
+          "userId": 0,
+          "avatar": '',
+          "nickName": '',
+          "userName": '',
+          "intro": '',
+        },
+        "createDate": 0,
+        "content": '',
+        "commentCount": 0,
+        "likeCount": 0,
+        "isLike": 0,
+      }
+    ],
     "totalSize": 0,
   };
 }

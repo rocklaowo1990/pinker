@@ -18,8 +18,6 @@ Widget getContentList(
   int index, {
   int? type,
 }) {
-  final ContentBoxController controller = ContentBoxController();
-
   // 推文的作者信息
   Widget author = Padding(
     padding: EdgeInsets.fromLTRB(9.w, 10.w, 0, 0),

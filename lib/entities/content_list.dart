@@ -20,7 +20,46 @@ class ContentListEntities {
       };
 
   static Map<String, dynamic> child = {
-    "list": <_ListElement>[],
+    "list": [
+      {
+        "wid": 0,
+        "createDate": 0,
+        "commentCount": 0,
+        "forwardCount": 0,
+        "likeCount": 0,
+        "shareCount": 0,
+        "isLike": 0,
+        "viewCount": 0,
+        "author": {
+          "userId": 0,
+          "avatar": '',
+          "nickName": '',
+          "userName": '',
+          "intro": '',
+        },
+        "works": {
+          "replyPermission": {
+            "type": 0,
+            "groupId": 0,
+          },
+          "payPermission": {
+            "type": 0,
+          },
+          "content": '',
+          "pics": [],
+          "video": {
+            "snapshot_url": '',
+            "url": '',
+            "format": '',
+            "duration": 0,
+            "previews_urls": [],
+          },
+        },
+        "canSee": 0,
+        "isForward": 0,
+        "canReply": 0,
+      }
+    ],
     "totalSize": 0,
   };
 }
@@ -53,8 +92,8 @@ class _ListElement {
   int shareCount;
   int isLike;
   int viewCount;
-  _ListAuthor author;
-  _ListWorks works;
+  _Author author;
+  _Works works;
   int canSee;
   int isForward;
   int canReply;
@@ -71,8 +110,8 @@ class _ListElement {
         shareCount: json["shareCount"],
         isLike: json["isLike"],
         viewCount: json["viewCount"],
-        author: _ListAuthor.fromJson(json["author"]),
-        works: _ListWorks.fromJson(json["works"]),
+        author: _Author.fromJson(json["author"]),
+        works: _Works.fromJson(json["works"]),
         canSee: json["canSee"],
         isForward: json["isForward"],
         canReply: json["canReply"],
@@ -101,8 +140,8 @@ class _ListElement {
       };
 }
 
-class _ListAuthor {
-  _ListAuthor({
+class _Author {
+  _Author({
     required this.userId,
     required this.avatar,
     required this.nickName,
@@ -116,7 +155,7 @@ class _ListAuthor {
   String userName;
   String intro;
 
-  factory _ListAuthor.fromJson(Map<String, dynamic> json) => _ListAuthor(
+  factory _Author.fromJson(Map<String, dynamic> json) => _Author(
         userId: json["userId"],
         avatar: json["avatar"],
         nickName: json["nickName"],
@@ -133,8 +172,8 @@ class _ListAuthor {
       };
 }
 
-class _ListWorks {
-  _ListWorks({
+class _Works {
+  _Works({
     required this.replyPermission,
     required this.payPermission,
     required this.content,
@@ -143,21 +182,21 @@ class _ListWorks {
   });
 
   _ReplyPermission replyPermission;
-  _FluffyPayPermission payPermission;
+  _PayPermission payPermission;
   String content;
   List<String> pics;
   _Video video;
 
-  factory _ListWorks.fromJson(Map<String, dynamic> json) => _ListWorks(
-        replyPermission: _ReplyPermission.fromJson(json["_ReplyPermission"]),
-        payPermission: _FluffyPayPermission.fromJson(json["payPermission"]),
+  factory _Works.fromJson(Map<String, dynamic> json) => _Works(
+        replyPermission: _ReplyPermission.fromJson(json["replyPermission"]),
+        payPermission: _PayPermission.fromJson(json["payPermission"]),
         content: json["content"],
         pics: List<String>.from(json["pics"].map((x) => x)),
         video: _Video.fromJson(json["video"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "_ReplyPermission": replyPermission.toJson(),
+        "replyPermission": replyPermission.toJson(),
         "payPermission": payPermission.toJson(),
         "content": content,
         "pics": List<dynamic>.from(pics.map((x) => x)),
@@ -220,8 +259,8 @@ class _ReplyPermission {
       };
 }
 
-class _FluffyPayPermission {
-  _FluffyPayPermission({
+class _PayPermission {
+  _PayPermission({
     required this.type,
     this.groupId,
     this.price,
@@ -231,8 +270,7 @@ class _FluffyPayPermission {
   int? groupId;
   int? price;
 
-  factory _FluffyPayPermission.fromJson(Map<String, dynamic> json) =>
-      _FluffyPayPermission(
+  factory _PayPermission.fromJson(Map<String, dynamic> json) => _PayPermission(
         type: json["type"],
         groupId: json["groupId"],
         price: json["price"],

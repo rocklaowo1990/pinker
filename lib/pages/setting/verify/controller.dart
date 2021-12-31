@@ -56,13 +56,13 @@ class SetVerifyController extends GetxController {
       if (arguments['verifyType'] == 3) {
         goLoginPage();
       } else {
-        arguments['accountType'] == '1'
-            ? applicationController.state.userInfoMap['phone'] =
-                arguments['account']
-            : applicationController.state.userInfoMap['email'] =
-                arguments['account'];
+        // arguments['accountType'] == '1'
+        //     ? applicationController.state.userInfoMap['phone'] =
+        //         arguments['account']
+        //     : applicationController.state.userInfoMap['email'] =
+        //         arguments['account'];
         await StorageUtil().setJSON(
-            storageUserInfoKey, applicationController.state.userInfoMap);
+            storageUserInfoKey, applicationController.state.userInfo.value);
 
         Get.back(); // 返回更换手机号码
         Get.back(); // 返回验证密码

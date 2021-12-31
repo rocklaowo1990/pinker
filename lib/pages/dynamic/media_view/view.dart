@@ -15,6 +15,7 @@ Future getMediaView(
   Rx<ContentListEntities> contentList,
   int index, {
   int? type,
+  int? imagetIndex,
 }) {
   Widget child = GetBuilder<MediaViewController>(
     init: MediaViewController(),
@@ -179,7 +180,7 @@ Future getMediaView(
         // 这里就是传入的图片都下标
         // 代表的意思就是媒体可能是图片（包含付费和未付费，也可能是没有付费的视频）
         // 没有付费的视频也是有三张图片的
-      } else if (index != null) {
+      } else if (imagetIndex != null) {
         controller.pageController = ExtendedPageController(initialPage: index);
 
         // 这里用来区分到底是图片媒体还是视频媒体

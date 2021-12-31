@@ -64,7 +64,7 @@ class MyView extends GetView<MyController> {
                     height: 18.w,
                     child: getImageBox(
                       controller
-                          .applicationController.state.userInfoMap['avatar'],
+                          .applicationController.state.userInfo.value.avatar,
                       shape: BoxShape.circle,
                       width: 18.w,
                       height: 18.w,
@@ -97,7 +97,7 @@ class MyView extends GetView<MyController> {
         Row(
           children: [
             Obx(() => getImageBox(
-                  controller.applicationController.state.userInfoMap['avatar'],
+                  controller.applicationController.state.userInfo.value.avatar,
                   shape: BoxShape.circle,
                   width: 30.w,
                   height: 30.w,
@@ -108,10 +108,10 @@ class MyView extends GetView<MyController> {
               children: [
                 Obx(() => getSpan(
                     controller
-                        .applicationController.state.userInfoMap['nickName'],
+                        .applicationController.state.userInfo.value.nickName,
                     fontSize: 17)),
                 Obx(() => getSpan(
-                    '@${controller.applicationController.state.userInfoMap['userName']}')),
+                    '@${controller.applicationController.state.userInfo.value.userName}')),
               ],
             ),
           ],
@@ -177,7 +177,7 @@ class MyView extends GetView<MyController> {
                 title: '钻石账户',
                 svg: 'assets/svg/icon_diamond.svg',
                 number:
-                    '${controller.applicationController.state.userInfoMap['diamondBalance']}',
+                    '${controller.applicationController.state.userInfo.value.diamondBalance}',
                 buttonText: '购买钻石',
                 onPressed: () {},
               )),
@@ -190,7 +190,7 @@ class MyView extends GetView<MyController> {
                 title: 'P币账户',
                 svg: 'assets/svg/icon_diamond.svg',
                 number:
-                    '${controller.applicationController.state.userInfoMap['pCoinBalance']}',
+                    '${controller.applicationController.state.userInfo.value.pCoinBalance}',
                 buttonText: '立即提现',
                 onPressed: () {},
               )),
@@ -236,7 +236,7 @@ class MyView extends GetView<MyController> {
               title: '订阅的用户',
               svg: 'assets/svg/icon_person_add.svg',
               number:
-                  '${controller.applicationController.state.userInfoMap['followCount']}',
+                  '${controller.applicationController.state.userInfo.value.followCount}',
               onPressed: () {},
             )),
       ),
@@ -246,7 +246,7 @@ class MyView extends GetView<MyController> {
               title: '订阅的群聊',
               svg: 'assets/svg/icon_person_team.svg',
               number:
-                  '${controller.applicationController.state.userInfoMap['subChatCount']}',
+                  '${controller.applicationController.state.userInfo.value.subChatCount}',
               onPressed: () {},
             )),
       ),

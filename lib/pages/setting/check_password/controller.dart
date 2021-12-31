@@ -55,7 +55,7 @@ class CheckPasswordController extends GetxController {
         arguments: arguments == AppRoutes.setVerify
             ? {
                 'password': duMD5(textController.text),
-                'userId': applicationController.state.userInfoMap['userId'],
+                'userId': applicationController.state.userInfo.value.userId,
                 'verifyType': 3,
               }
             : data,

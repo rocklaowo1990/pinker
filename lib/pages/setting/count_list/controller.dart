@@ -57,9 +57,9 @@ class SetCountListController extends GetxController {
       state.isLoading = false;
       totalSize = responseEntity.data['totalSize'];
 
-      applicationController.state.userInfoMap[arguments.countType] = totalSize;
-      await StorageUtil()
-          .setJSON(storageUserInfoKey, applicationController.state.userInfoMap);
+      // applicationController.state.userInfoMap[arguments.countType] = totalSize;
+      await StorageUtil().setJSON(
+          storageUserInfoKey, applicationController.state.userInfo.value);
     } else {
       getSnackTop(responseEntity.msg);
       state.isLoading = false;
@@ -86,10 +86,10 @@ class SetCountListController extends GetxController {
         totalSize = responseEntity.data['totalSize'];
         refreshController.loadComplete();
 
-        applicationController.state.userInfoMap[arguments.countType] =
-            totalSize;
+        // applicationController.state.userInfoMap[arguments.countType] =
+        //     totalSize;
         await StorageUtil().setJSON(
-            storageUserInfoKey, applicationController.state.userInfoMap);
+            storageUserInfoKey, applicationController.state.userInfo.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -131,11 +131,11 @@ class SetCountListController extends GetxController {
         await UserApi.blockHide(arguments.setCountUrl, data);
 
     if (responseEntity.code == 200) {
-      applicationController.state.userInfoMap[arguments.countType] =
-          _dataList.length - 1;
+      // applicationController.state.userInfoMap[arguments.countType] =
+      //     _dataList.length - 1;
 
-      await StorageUtil()
-          .setJSON(storageUserInfoKey, applicationController.state.userInfoMap);
+      await StorageUtil().setJSON(
+          storageUserInfoKey, applicationController.state.userInfo.value);
       await futureMill(500);
 
       Get.back();

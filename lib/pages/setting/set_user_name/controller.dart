@@ -47,7 +47,7 @@ class SetUserNameController extends GetxController {
     ResponseEntity responseEntity = await UserApi.setUserName(data);
 
     if (responseEntity.code == 200) {
-      applicationController.state.userInfoMap['userName'] = textController.text;
+      // applicationController.state.userInfoMap['userName'] = textController.text;
 
       var _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
       _userInfo['userName'] = textController.text;
