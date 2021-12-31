@@ -6,7 +6,7 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/code_list/library.dart';
 
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class CodeListController extends GetxController {
@@ -25,8 +25,6 @@ class CodeListController extends GetxController {
 
     ResponseEntity responseEntity = await CommonApi.getAreaCodeList();
     if (responseEntity.code == 200) {
-      await StorageUtil()
-          .setJSON(storageCodeListOpenKey, responseEntity.data['list']);
       codeList = responseEntity.data['list'];
       state.showList.addAll(codeList);
       state.isLoading = false;

@@ -7,7 +7,7 @@ import 'package:pinker/pages/setting/money/state.dart';
 class MoneySetController extends GetxController {
   final state = MoneySetState();
   final MoneyController moneyController = Get.find();
-  final MoneySystems arguments = Get.arguments;
+  final Rx<MoneySystems> arguments = Get.arguments;
 
   void handleBack() {
     Get.back();

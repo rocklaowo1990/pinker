@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pinker/entities/entities.dart';
 
 class ApplicationState {
   /// 防抖监听
@@ -15,4 +16,6 @@ class ApplicationState {
   final RxMap<String, dynamic> _userInfoMap = <String, dynamic>{}.obs;
   set userInfoMap(Map<String, dynamic> value) => _userInfoMap.value = value;
   Map<String, dynamic> get userInfoMap => _userInfoMap;
+
+  final userInfo = UserInfoEntities.fromJson(UserInfoEntities.child).obs;
 }

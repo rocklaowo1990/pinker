@@ -27,7 +27,7 @@ class MoneyView extends GetView<MoneyController> {
         ]);
 
     Widget playerBox(
-      MoneySystems player,
+      Rx<MoneySystems> player,
     ) {
       return getButton(
         width: double.infinity,
@@ -35,7 +35,7 @@ class MoneyView extends GetView<MoneyController> {
         background: AppColors.secondBacground,
         borderRadius: BorderRadius.all(Radius.circular(8.w)),
         onPressed: () {
-          controller.handleSet(player.playerId);
+          controller.handleSet(player);
         },
         child: Column(
           children: [
@@ -49,16 +49,16 @@ class MoneyView extends GetView<MoneyController> {
                       height: 30,
                     ),
                     SizedBox(width: 6.w),
-                    Obx(() =>
-                        getSpan('玩家 ${player.playerId}  (被买：${player.beBuy})')),
+                    Obx(() => getSpan(
+                        '玩家 ${player.value.playerId}  (被买：${player.value.beBuy})')),
                   ],
                 ),
-                Obx(() => player.resault == 0
+                Obx(() => player.value.resault == 0
                     ? getSpan('+0', fontSize: 20, color: AppColors.secondText)
-                    : player.resault > 0
-                        ? getSpan('+${player.resault}',
+                    : player.value.resault > 0
+                        ? getSpan('+${player.value.resault}',
                             fontSize: 20, color: AppColors.errro)
-                        : getSpan('${player.resault}',
+                        : getSpan('${player.value.resault}',
                             fontSize: 20, color: Colors.green)),
               ],
             ),
@@ -76,8 +76,8 @@ class MoneyView extends GetView<MoneyController> {
                   children: [
                     getSpan('你拥有的公共鸡：', color: AppColors.secondText),
                     Obx(() => getSpan(
-                          '${player.ji}',
-                          color: player.ji > 0
+                          '${player.value.ji}',
+                          color: player.value.ji > 0
                               ? AppColors.errro
                               : AppColors.secondText,
                         )),
@@ -89,24 +89,24 @@ class MoneyView extends GetView<MoneyController> {
                     getSpan('你的单独收支：', color: AppColors.secondText),
                     Row(
                       children: [
-                        Obx(() => getSpan('${player.only_1}',
-                            color: player.only_1 > 0
+                        Obx(() => getSpan('${player.value.only_1}',
+                            color: player.value.only_1 > 0
                                 ? AppColors.errro
-                                : player.only_1 < 0
+                                : player.value.only_1 < 0
                                     ? Colors.green
                                     : AppColors.secondText)),
                         getSpan(' , ', color: AppColors.secondText),
-                        Obx(() => getSpan('${player.only_2})',
-                            color: player.only_2 > 0
+                        Obx(() => getSpan('${player.value.only_2})',
+                            color: player.value.only_2 > 0
                                 ? AppColors.errro
-                                : player.only_2 > 0
+                                : player.value.only_2 > 0
                                     ? Colors.green
                                     : AppColors.secondText)),
                         getSpan(' , ', color: AppColors.secondText),
-                        Obx(() => getSpan('${player.only_3})',
-                            color: player.only_3 > 0
+                        Obx(() => getSpan('${player.value.only_3})',
+                            color: player.value.only_3 > 0
                                 ? AppColors.errro
-                                : player.only_3 < 0
+                                : player.value.only_3 < 0
                                     ? Colors.green
                                     : AppColors.secondText)),
                       ],
@@ -120,29 +120,29 @@ class MoneyView extends GetView<MoneyController> {
                     Row(
                       children: [
                         Obx(() => getSpan(
-                              '1(${player.ma_1})',
-                              color: player.ma_1 > 0
+                              '1(${player.value.ma_1})',
+                              color: player.value.ma_1 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),
                         getSpan(' , ', color: AppColors.secondText),
                         Obx(() => getSpan(
-                              '2(${player.ma_2})',
-                              color: player.ma_1 > 0
+                              '2(${player.value.ma_2})',
+                              color: player.value.ma_1 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),
                         getSpan(' , ', color: AppColors.secondText),
                         Obx(() => getSpan(
-                              '3(${player.ma_3})',
-                              color: player.ma_1 > 0
+                              '3(${player.value.ma_3})',
+                              color: player.value.ma_1 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),
                         getSpan(' , ', color: AppColors.secondText),
                         Obx(() => getSpan(
-                              '4(${player.ma_4})',
-                              color: player.ma_1 > 0
+                              '4(${player.value.ma_4})',
+                              color: player.value.ma_1 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),

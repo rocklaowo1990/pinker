@@ -48,16 +48,15 @@ class ContentListNewView extends StatelessWidget {
 
           // 整体布局
           Widget _body = Obx(
-            () => controller.state.showList.isEmpty
+            () => controller.state.contentList.value.list.isEmpty
                 ? noData
                 : getRefresher(
                     controller: controller.refreshController,
-                    scrollController: controller.scrollController,
-                    child: ListView(
-                        controller: controller.scrollController,
-                        children: controller.state.showList
-                            .map((index) => getContentList(index))
-                            .toList()),
+                    child: ListView.builder(
+                        itemBuilder: (BuildContext buildContext, int index) {
+                      return getContentList(
+                          controller.state.contentList, index);
+                    }),
                     onLoading: controller.onLoading,
                     onRefresh: controller.onRefresh,
                   ),

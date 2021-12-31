@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget getContentList(ListElement item) {
+/// 0：首页
+/// 1：全部
+/// 2：最新
+/// 3：最热
+Widget getContentList(
+  Rx<ContentListEntities> contentList,
+  int index, {
+  int? type,
+}) {
   final ContentBoxController controller = ContentBoxController();
-
-  controller.initState(item);
 
   // 推文的作者信息
   Widget author = Padding(
@@ -19,8 +26,8 @@ Widget getContentList(ListElement item) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: getContentAvatar(item)),
-        getContentMore(item),
+        Expanded(child: getContentAvatar(contentList, index)),
+        // getContentMore(item),
       ],
     ),
   );
@@ -33,7 +40,7 @@ Widget getContentList(ListElement item) {
       width: double.infinity,
       child: GestureDetector(
         child: getSpan(
-          item.works.content,
+          contentList.value.list[index].works.content,
           textAlign: TextAlign.start,
         ),
       ),
@@ -55,7 +62,7 @@ Widget getContentList(ListElement item) {
         ),
       ),
       onPressed: () {
-        controller.handleOpenImage(item, index);
+        getMediaView(contentList, index, type: type);
       },
     );
   }
@@ -75,14 +82,14 @@ Widget getContentList(ListElement item) {
                 ? Stack(
                     children: [
                       _image(images[2], 2),
-                      Obx(() =>
-                          controller.state.canSee != 0 && images.length > 3
-                              ? Positioned(
-                                  child: getImageCount('+${images.length - 3}'),
-                                  bottom: 8,
-                                  right: 8,
-                                )
-                              : const SizedBox()),
+                      Obx(() => contentList.value.list[index].canSee != 0 &&
+                              images.length > 3
+                          ? Positioned(
+                              child: getImageCount('+${images.length - 3}'),
+                              bottom: 8,
+                              right: 8,
+                            )
+                          : const SizedBox()),
                     ],
                   )
                 : const SizedBox()),
@@ -93,7 +100,7 @@ Widget getContentList(ListElement item) {
   // 底部哪一条功能按钮的封装方法
   // 留言、喜欢、转发、分享
   // 留言、喜欢、转发、分享 的构造
-  Widget contentInfo = getContentButton(item, controller);
+  Widget contentInfo = getContentButton(contentList, index);
 
   // 资源区
   // 1、分成可观看和不可观看
@@ -105,37 +112,37 @@ Widget getContentList(ListElement item) {
   // 所以需要一个状态管理器
   // 付费后获得新的状态数据，更新数据再来更新显示状态
   Widget _showMedia() {
-    if (item.works.pics.isNotEmpty) {
-      return Obx(() => controller.state.canSee != 0
+    if (contentList.value.list[index].works.pics.isNotEmpty) {
+      return Obx(() => contentList.value.list[index].canSee != 0
           ? Column(
               children: [
-                item.works.content.isNotEmpty
+                contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
                         child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
-                _imageBox(item.works.pics),
+                _imageBox(contentList.value.list[index].works.pics),
               ],
             )
           : Column(
               children: [
-                item.works.content.isNotEmpty
+                contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
                         child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
-                _imageBox(item.works.pics),
+                _imageBox(contentList.value.list[index].works.pics),
                 SizedBox(height: 8.h),
-                getContentPayBox(item, 1, controller, null),
+                getContentPayBox(contentList, index),
               ],
             ));
-    } else if (item.works.video.url.isNotEmpty) {
-      return Obx(() => controller.state.canSee != 0
+    } else if (contentList.value.list[index].works.video.url.isNotEmpty) {
+      return Obx(() => contentList.value.list[index].canSee != 0
           ? Column(
               children: [
-                item.works.content.isNotEmpty
+                contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
                         child: _workContent(),
@@ -143,14 +150,15 @@ Widget getContentList(ListElement item) {
                     : SizedBox(height: 8.h),
                 Stack(
                   children: [
-                    getImageBox(item.works.video.snapshotUrl,
+                    getImageBox(
+                        contentList.value.list[index].works.video.snapshotUrl,
                         width: double.infinity,
                         height: 128.h,
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.all(Radius.circular(4.w))),
                     getButton(
                       onPressed: () {
-                        controller.handleOpenVideo(item, item.works.video.url);
+                        getMediaView(contentList, index, type: type);
                       },
                       borderRadius: BorderRadius.all(Radius.circular(4.w)),
                       height: 128.h,
@@ -174,8 +182,8 @@ Widget getContentList(ListElement item) {
                       ),
                     ),
                     Positioned(
-                      child:
-                          getImageCount(getDuration(item.works.video.duration)),
+                      child: getImageCount(getDuration(
+                          contentList.value.list[index].works.video.duration)),
                       bottom: 8,
                       left: 8,
                     )
@@ -185,15 +193,16 @@ Widget getContentList(ListElement item) {
             )
           : Column(
               children: [
-                item.works.content.isNotEmpty
+                contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
                         child: _workContent(),
                       )
                     : SizedBox(height: 8.h),
-                _imageBox(item.works.video.previewsUrls),
+                _imageBox(
+                    contentList.value.list[index].works.video.previewsUrls),
                 SizedBox(height: 8.h),
-                getContentPayBox(item, 2, controller, null),
+                getContentPayBox(contentList, index),
               ],
             ));
     } else {

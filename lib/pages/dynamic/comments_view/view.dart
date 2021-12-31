@@ -3,24 +3,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/pages/dynamic/comments_view/comment_item/view.dart';
+import 'package:pinker/pages/dynamic/comments_view/comment_item/library.dart';
+
 import 'package:pinker/pages/dynamic/comments_view/controller.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 Future getCommentsView(
-  ListElement item,
-  ContentBoxController contentBoxController,
-) {
+  Rx<ContentListEntities> contentList,
+  int index, {
+  int? type,
+}) {
   Widget child = GetBuilder<CommentsViewController>(
     init: CommentsViewController(),
     builder: (controller) {
       // 初始化
       // 这种结构的只能在这里初始化
       // 在里面初始化需要在控制器里面加入index变量
-
-      controller.onRefresh(item, contentBoxController);
 
       Widget loading = Center(
           child: Column(children: [
@@ -53,29 +53,19 @@ Future getCommentsView(
 
       // 整体布局
       Widget _body = Obx(
-        () => controller.state.showList.isEmpty
-            ? noData
+        () => controller.state.commentList.value.list.isEmpty
+            ? SingleChildScrollView(child: noData)
             : getRefresher(
                 controller: controller.refreshController,
-                child: ListView(
-                  controller: controller.scrollController,
-                  children: controller.state.showList
-                      .map((item) => Container(
-                            child: getCommentItem(item, controller),
-                            padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 0),
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(color: AppColors.line))),
-                          ))
-                      .toList(),
-                ),
-                onLoading: () {
-                  controller.onLoading(item, contentBoxController);
-                },
-                isFooter: controller.state.showList.length < 20 ? false : true,
-                onRefresh: () {
-                  controller.onRefresh(item, contentBoxController);
-                },
+                child: ListView.builder(
+                    itemBuilder: (BuildContext buildContext, int index) {
+                  return getCommentList(controller.state.commentList, index);
+                }),
+                onLoading: () {},
+                isFooter: controller.state.commentList.value.list.length < 20
+                    ? false
+                    : true,
+                onRefresh: () {},
               ),
       );
 
@@ -110,7 +100,7 @@ Future getCommentsView(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         getSpan(
-                            '${contentBoxController.state.commentCount} 条评论'),
+                            '${controller.state.commentList.value.list.length} 条评论'),
                         getButton(
                           child: const Icon(Icons.close,
                               color: AppColors.mainIcon),
@@ -132,7 +122,7 @@ Future getCommentsView(
                         ? Padding(
                             padding: EdgeInsets.only(left: 4.w),
                             child: getButton(
-                                onPressed: controller.handleClearReplyId,
+                                onPressed: () {},
                                 height: 30,
                                 width: 200,
                                 background: AppColors.line,
@@ -171,6 +161,7 @@ Future getCommentsView(
                           child: getSpan('回复'),
                           height: 40,
                           width: 70,
+                          onPressed: () {},
                         ),
                       ],
                     ),

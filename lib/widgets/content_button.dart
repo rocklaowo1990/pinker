@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/comments_view/view.dart';
@@ -13,25 +14,28 @@ import 'package:pinker/widgets/widgets.dart';
 /// 留言、喜欢、转发、分享
 /// 留言、喜欢、转发、分享 的构造
 Widget getContentButton(
-    ListElement item, ContentBoxController contentBoxController) {
+  Rx<ContentListEntities> contentList,
+  int index, {
+  int? type,
+}) {
   void _onLike() {
-    contentBoxController.state.isLike =
-        contentBoxController.state.isLike == 0 ? 1 : 0;
-    contentBoxController.state.isLike == 0
-        ? contentBoxController.state.likeCount--
-        : contentBoxController.state.likeCount++;
+    contentList.value.list[index].isLike =
+        contentList.value.list[index].isLike == 0 ? 1 : 0;
+    contentList.value.list[index].isLike == 0
+        ? contentList.value.list[index].likeCount--
+        : contentList.value.list[index].likeCount++;
   }
 
   void _onForward() {
-    contentBoxController.state.isForward =
-        contentBoxController.state.isForward == 0 ? 1 : 0;
-    contentBoxController.state.isForward == 0
-        ? contentBoxController.state.forwardCount--
-        : contentBoxController.state.forwardCount++;
+    contentList.value.list[index].isForward =
+        contentList.value.list[index].isForward == 0 ? 1 : 0;
+    contentList.value.list[index].isForward == 0
+        ? contentList.value.list[index].forwardCount--
+        : contentList.value.list[index].forwardCount++;
   }
 
   void _onComment() {
-    getCommentsView(item, contentBoxController);
+    getCommentsView(contentList, index, type: type);
   }
 
   return Row(
@@ -44,12 +48,12 @@ Widget getContentButton(
                   height: 10.w,
                 ),
                 onPressed: _onComment,
-                data: contentBoxController.state.commentCount == 0
+                data: contentList.value.list[index].commentCount == 0
                     ? '写评论'
-                    : '${contentBoxController.state.commentCount}',
+                    : '${contentList.value.list[index].commentCount}',
               )),
           Obx(() => _contentButton(
-                icon: contentBoxController.state.isLike == 0
+                icon: contentList.value.list[index].isLike == 0
                     ? SvgPicture.asset(
                         'assets/svg/icon_like.svg',
                         height: 9.w,
@@ -58,16 +62,16 @@ Widget getContentButton(
                         'assets/svg/icon_like_press.svg',
                         height: 9.w,
                       ),
-                data: contentBoxController.state.likeCount == 0
+                data: contentList.value.list[index].likeCount == 0
                     ? '喜欢'
-                    : '${contentBoxController.state.likeCount}',
+                    : '${contentList.value.list[index].likeCount}',
                 onPressed: _onLike,
-                color: contentBoxController.state.isLike == 0
+                color: contentList.value.list[index].isLike == 0
                     ? AppColors.secondText
                     : AppColors.errro,
               )),
           Obx(() => _contentButton(
-                icon: contentBoxController.state.isForward == 0
+                icon: contentList.value.list[index].isForward == 0
                     ? SvgPicture.asset(
                         'assets/svg/icon_forward.svg',
                         height: 10.w,
@@ -77,10 +81,10 @@ Widget getContentButton(
                         height: 10.w,
                         color: AppColors.fourText,
                       ),
-                data: contentBoxController.state.forwardCount == 0
+                data: contentList.value.list[index].forwardCount == 0
                     ? '转发'
-                    : '${contentBoxController.state.forwardCount}',
-                color: contentBoxController.state.isForward == 0
+                    : '${contentList.value.list[index].forwardCount}',
+                color: contentList.value.list[index].isForward == 0
                     ? AppColors.secondText
                     : AppColors.fourText,
                 onPressed: _onForward,

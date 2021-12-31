@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/utils/validator.dart';
 import 'package:pinker/values/values.dart';
@@ -8,23 +9,25 @@ import 'package:pinker/widgets/widgets.dart';
 /// 推文列表里的头像部分
 /// 这里分开也是因为不仅一个地方调用该事件
 /// 本部分也包含点击事件
-Widget getContentAvatar(ListElement item) {
+Widget getContentAvatar(Rx<ContentListEntities> contentList, int index) {
   void _onPressed() {}
 
   return getUserAvatar(
-    item.author.avatar,
-    item.author.nickName,
-    '${item.author.userName} · ${getDateTime(item.createDate)}',
+    contentList.value.list[index].author.avatar,
+    contentList.value.list[index].author.nickName,
+    '${contentList.value.list[index].author.userName} · ${getDateTime(contentList.value.list[index].createDate)}',
     onPressed: _onPressed,
   );
 }
 
 /// 这是推文里的更多按钮
 Widget getContentMore(
-  ListElement item, {
+  Rx<ContentListEntities> contentList,
+  int index, {
   Color background = Colors.transparent,
   double? width,
   double? height,
+  int? type,
 }) {
   void _onPressed() {}
 

@@ -17,24 +17,20 @@ class ContentListNewController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   int pageIndex = 1;
-  int totalSize = 0;
-
-  void handleMail() {}
 
   void onRefresh() async {
     refreshController.resetNoData();
 
-    await futureMill(1000);
+    await futureMill(300);
     _refresh();
-    await futureMill(1000);
+    await futureMill(300);
 
     refreshController.refreshCompleted();
   }
 
   void onLoading() async {
-    // monitor network fetch
-    await futureMill(2000);
-    if (totalSize >= 20) {
+    await futureMill(300);
+    if (state.contentList.value.totalSize >= 20) {
       pageIndex++;
       Map<String, dynamic> data = {
         'pageNo': pageIndex,
@@ -47,17 +43,17 @@ class ContentListNewController extends GetxController {
       if (responseEntity.code == 200) {
         ContentListEntities contentList =
             ContentListEntities.fromJson(responseEntity.data);
-        state.showList.addAll(contentList.list);
+
+        state.contentList.update((val) {
+          val!.list.addAll(contentList.list);
+        });
 
         state.isLoading = false;
-        totalSize = contentList.totalSize;
+        state.contentList.value.totalSize = contentList.totalSize;
         refreshController.loadComplete();
-        Map<String, dynamic> _storageUserContentList = {
-          'list': state.showList,
-          'totalSize': state.showList.length,
-        };
+
         await StorageUtil()
-            .setJSON(storageNewContentListKey, _storageUserContentList);
+            .setJSON(storageNewContentListKey, state.contentList.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -66,13 +62,11 @@ class ContentListNewController extends GetxController {
     } else {
       refreshController.loadNoData();
     }
-
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
   }
 
   Future<void> _refresh() async {
     pageIndex = 1;
-    totalSize = 0;
+
     Map<String, dynamic> data = {
       'pageNo': 1,
       'pageSize': 20,
@@ -81,16 +75,15 @@ class ContentListNewController extends GetxController {
 
     ResponseEntity responseEntity = await ContentApi.contentList(data);
     if (responseEntity.code == 200) {
-      ContentListEntities contentList =
+      state.contentList.value =
           ContentListEntities.fromJson(responseEntity.data);
-      state.showList.clear();
-      state.showList.addAll(contentList.list);
+
+      state.contentList.update((val) {});
 
       state.isLoading = false;
-      totalSize = contentList.totalSize;
+
       await StorageUtil()
           .setJSON(storageNewContentListKey, responseEntity.data);
-      await StorageUtil().setBool(storageIsHadNewContent, true);
     } else {
       getSnackTop(responseEntity.msg);
       state.isLoading = false;
@@ -100,24 +93,6 @@ class ContentListNewController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    // await futureMill(500);
-
-    bool? _storageIsHadNewContent =
-        StorageUtil().getBool(storageIsHadNewContent);
-    if (_storageIsHadNewContent != null) {
-      state.isLoading = false;
-      Map<String, dynamic> _contentList =
-          await StorageUtil().getJSON(storageNewContentListKey);
-      ContentListEntities contentList =
-          ContentListEntities.fromJson(_contentList);
-
-      pageIndex = contentList.list.length ~/ 20;
-      totalSize =
-          contentList.list.length % 20 == 0 ? 20 : contentList.list.length % 20;
-
-      state.showList.addAll(contentList.list);
-    } else {
-      await _refresh();
-    }
+    _refresh();
   }
 }

@@ -12,10 +12,9 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 Future getMediaView(
-  ListElement item,
-  ContentBoxController contentBoxController, {
-  int? index,
-  String? url,
+  Rx<ContentListEntities> contentList,
+  int index, {
+  int? type,
 }) {
   Widget child = GetBuilder<MediaViewController>(
     init: MediaViewController(),
@@ -23,13 +22,11 @@ Future getMediaView(
       // 初始化
       // 这种结构的只能在这里初始化
       // 在里面初始化需要在控制器里面加入index变量
-      if (index != null) {
-        controller.state.pageIndex = index;
-      }
 
       // appBar 右侧的设置按钮
       Widget moreButton = getContentMore(
-        item,
+        contentList,
+        index,
         width: 20.w,
         height: 20.w,
       );
@@ -65,7 +62,7 @@ Future getMediaView(
       // 就是留言、喜欢、转发、分享那些
       Widget contentButton = Container(
         color: Colors.black54,
-        child: getContentButton(item, contentBoxController),
+        child: getContentButton(contentList, index, type: type),
       );
 
       // 头像信息和订阅组合
@@ -79,9 +76,9 @@ Future getMediaView(
             Row(
               children: [
                 Expanded(
-                  child: getContentAvatar(item),
+                  child: getContentAvatar(contentList, index),
                 ),
-                Obx(() => contentBoxController.state.subStatus == 0
+                Obx(() => contentList.value.list[index].subStatus == 0
                     ? getButton(
                         child: getSpan('订阅'),
                         onPressed: () {},
@@ -95,12 +92,13 @@ Future getMediaView(
                         padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6)))
               ],
             ),
-            if (item.works.content.isNotEmpty) SizedBox(height: 8.h),
-            if (item.works.content.isNotEmpty)
+            if (contentList.value.list[index].works.content.isNotEmpty)
+              SizedBox(height: 8.h),
+            if (contentList.value.list[index].works.content.isNotEmpty)
               SizedBox(
                 width: double.infinity,
                 child: getSpan(
-                  item.works.content,
+                  contentList.value.list[index].works.content,
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -120,8 +118,7 @@ Future getMediaView(
               width: double.infinity,
               height: 70,
               child: Center(
-                child: getContentPayBox(
-                    item, type, contentBoxController, controller),
+                child: getContentPayBox(contentList, index),
               ),
             ),
           ),
@@ -139,8 +136,8 @@ Future getMediaView(
                 const Spacer(),
                 contentBody,
                 contentButton,
-                if (contentBoxController.state.canSee == 1 &&
-                    item.works.video.url.isNotEmpty &&
+                if (contentList.value.list[index].canSee == 1 &&
+                    contentList.value.list[index].works.video.url.isNotEmpty &&
                     controller.fijkPlayer != null)
                   getVideoController(
                     controller.fijkPlayer!,
@@ -156,10 +153,13 @@ Future getMediaView(
       late Widget mediaBox;
       // 这种是直接传的视频地址，表示的是可以直接播放
       // 这种就不用考虑他是不是已经订阅了
-      if (url != null) {
+      if (contentList.value.list[index].works.video.url.isNotEmpty) {
         controller.fijkPlayer = FijkPlayer();
-        controller.fijkPlayer!
-            .setDataSource(serverApiUrl + serverPort + url, autoPlay: true);
+        controller.fijkPlayer!.setDataSource(
+            serverApiUrl +
+                serverPort +
+                contentList.value.list[index].works.video.url,
+            autoPlay: true);
 
         mediaBox = Obx(() => FijkView(
               color: AppColors.mainBacground,
@@ -184,19 +184,21 @@ Future getMediaView(
 
         // 这里用来区分到底是图片媒体还是视频媒体
         // 图片不为空，那么就是图片媒体
-        if (item.works.pics.isNotEmpty) {
+        if (contentList.value.list[index].works.pics.isNotEmpty) {
           // 如果没有权限查看的话，最多展示四张图
-          if (contentBoxController.state.canSee == 0) {
+          if (contentList.value.list[index].canSee == 0) {
             for (int i = 0; i < 4; i++) {
-              controller.state.imagesList.add(item.works.pics[i]);
+              controller.state.imagesList
+                  .add(contentList.value.list[index].works.pics[i]);
             }
             // 如果有权限查看，那么就展示所有的图片
           } else {
-            controller.state.imagesList.addAll(item.works.pics);
+            controller.state.imagesList
+                .addAll(contentList.value.list[index].works.pics);
           }
           // 下面这里开始就是媒体的组成部分
           // 用的组件是可以缩放的图片工具
-          mediaBox = Obx(() => contentBoxController.state.canSee == 0
+          mediaBox = Obx(() => contentList.value.list[index].canSee == 0
               ? ExtendedImageGesturePageView.builder(
                   itemBuilder: (BuildContext context, int _index) {
                     if (_index >= 3) {
@@ -239,10 +241,12 @@ Future getMediaView(
           // 购买了以后就只有视频了
           // 这里就有点难处理
         } else {
-          controller.state.imagesList.addAll(item.works.video.previewsUrls);
-          controller.state.imagesList.add(item.works.video.snapshotUrl);
+          controller.state.imagesList
+              .addAll(contentList.value.list[index].works.video.previewsUrls);
+          controller.state.imagesList
+              .add(contentList.value.list[index].works.video.snapshotUrl);
 
-          mediaBox = Obx(() => contentBoxController.state.canSee == 0
+          mediaBox = Obx(() => contentList.value.list[index].canSee == 0
               ? ExtendedImageGesturePageView.builder(
                   itemBuilder: (BuildContext context, int _index) {
                     if (_index < 3) {

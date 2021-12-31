@@ -4,13 +4,13 @@ class ContentListEntities {
     required this.totalSize,
   });
 
-  List<ListElement> list;
+  List<_ListElement> list;
   int totalSize;
 
   factory ContentListEntities.fromJson(Map<String, dynamic> json) =>
       ContentListEntities(
-        list: List<ListElement>.from(
-            json["list"].map((x) => ListElement.fromJson(x))),
+        list: List<_ListElement>.from(
+            json["list"].map((x) => _ListElement.fromJson(x))),
         totalSize: json["totalSize"],
       );
 
@@ -18,10 +18,15 @@ class ContentListEntities {
         "list": List<dynamic>.from(list.map((x) => x.toJson())),
         "totalSize": totalSize,
       };
+
+  static Map<String, dynamic> child = {
+    "list": <_ListElement>[],
+    "totalSize": 0,
+  };
 }
 
-class ListElement {
-  ListElement({
+class _ListElement {
+  _ListElement({
     required this.wid,
     required this.createDate,
     required this.commentCount,
@@ -48,8 +53,8 @@ class ListElement {
   int shareCount;
   int isLike;
   int viewCount;
-  ListAuthor author;
-  ListWorks works;
+  _ListAuthor author;
+  _ListWorks works;
   int canSee;
   int isForward;
   int canReply;
@@ -57,7 +62,7 @@ class ListElement {
   int? groupPrice;
   int? subStatus;
 
-  factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
+  factory _ListElement.fromJson(Map<String, dynamic> json) => _ListElement(
         wid: json["wid"],
         createDate: json["createDate"],
         commentCount: json["commentCount"],
@@ -66,8 +71,8 @@ class ListElement {
         shareCount: json["shareCount"],
         isLike: json["isLike"],
         viewCount: json["viewCount"],
-        author: ListAuthor.fromJson(json["author"]),
-        works: ListWorks.fromJson(json["works"]),
+        author: _ListAuthor.fromJson(json["author"]),
+        works: _ListWorks.fromJson(json["works"]),
         canSee: json["canSee"],
         isForward: json["isForward"],
         canReply: json["canReply"],
@@ -96,8 +101,8 @@ class ListElement {
       };
 }
 
-class ListAuthor {
-  ListAuthor({
+class _ListAuthor {
+  _ListAuthor({
     required this.userId,
     required this.avatar,
     required this.nickName,
@@ -111,7 +116,7 @@ class ListAuthor {
   String userName;
   String intro;
 
-  factory ListAuthor.fromJson(Map<String, dynamic> json) => ListAuthor(
+  factory _ListAuthor.fromJson(Map<String, dynamic> json) => _ListAuthor(
         userId: json["userId"],
         avatar: json["avatar"],
         nickName: json["nickName"],
@@ -128,8 +133,8 @@ class ListAuthor {
       };
 }
 
-class ListWorks {
-  ListWorks({
+class _ListWorks {
+  _ListWorks({
     required this.replyPermission,
     required this.payPermission,
     required this.content,
@@ -137,22 +142,22 @@ class ListWorks {
     required this.video,
   });
 
-  ReplyPermission replyPermission;
-  FluffyPayPermission payPermission;
+  _ReplyPermission replyPermission;
+  _FluffyPayPermission payPermission;
   String content;
   List<String> pics;
-  Video video;
+  _Video video;
 
-  factory ListWorks.fromJson(Map<String, dynamic> json) => ListWorks(
-        replyPermission: ReplyPermission.fromJson(json["replyPermission"]),
-        payPermission: FluffyPayPermission.fromJson(json["payPermission"]),
+  factory _ListWorks.fromJson(Map<String, dynamic> json) => _ListWorks(
+        replyPermission: _ReplyPermission.fromJson(json["_ReplyPermission"]),
+        payPermission: _FluffyPayPermission.fromJson(json["payPermission"]),
         content: json["content"],
         pics: List<String>.from(json["pics"].map((x) => x)),
-        video: Video.fromJson(json["video"]),
+        video: _Video.fromJson(json["video"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "replyPermission": replyPermission.toJson(),
+        "_ReplyPermission": replyPermission.toJson(),
         "payPermission": payPermission.toJson(),
         "content": content,
         "pics": List<dynamic>.from(pics.map((x) => x)),
@@ -160,8 +165,8 @@ class ListWorks {
       };
 }
 
-class Video {
-  Video({
+class _Video {
+  _Video({
     required this.snapshotUrl,
     required this.url,
     required this.format,
@@ -175,7 +180,7 @@ class Video {
   int duration;
   List<String> previewsUrls;
 
-  factory Video.fromJson(Map<String, dynamic> json) => Video(
+  factory _Video.fromJson(Map<String, dynamic> json) => _Video(
         snapshotUrl: json["snapshot_url"] ?? '',
         url: json["url"] ?? '',
         format: json["format"] ?? '',
@@ -194,8 +199,8 @@ class Video {
       };
 }
 
-class ReplyPermission {
-  ReplyPermission({
+class _ReplyPermission {
+  _ReplyPermission({
     required this.type,
     this.groupId,
   });
@@ -203,8 +208,8 @@ class ReplyPermission {
   int type;
   int? groupId;
 
-  factory ReplyPermission.fromJson(Map<String, dynamic> json) =>
-      ReplyPermission(
+  factory _ReplyPermission.fromJson(Map<String, dynamic> json) =>
+      _ReplyPermission(
         type: json["type"],
         groupId: json["groupId"],
       );
@@ -215,8 +220,8 @@ class ReplyPermission {
       };
 }
 
-class FluffyPayPermission {
-  FluffyPayPermission({
+class _FluffyPayPermission {
+  _FluffyPayPermission({
     required this.type,
     this.groupId,
     this.price,
@@ -226,8 +231,8 @@ class FluffyPayPermission {
   int? groupId;
   int? price;
 
-  factory FluffyPayPermission.fromJson(Map<String, dynamic> json) =>
-      FluffyPayPermission(
+  factory _FluffyPayPermission.fromJson(Map<String, dynamic> json) =>
+      _FluffyPayPermission(
         type: json["type"],
         groupId: json["groupId"],
         price: json["price"],

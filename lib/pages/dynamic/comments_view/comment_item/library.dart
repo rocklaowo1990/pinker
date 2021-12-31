@@ -1,4 +1,4 @@
-library comment_item;
+library comment_list;
 
 export 'controller.dart';
 export 'state.dart';

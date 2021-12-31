@@ -23,7 +23,6 @@ class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   int pageIndex = 1;
-  int totalSize = 0;
 
   void handleMail() {}
 
@@ -39,7 +38,7 @@ class HomeController extends GetxController {
 
   void onLoading() async {
     await futureMill(300);
-    if (totalSize >= 20) {
+    if (state.contentList.value.totalSize >= 20) {
       pageIndex++;
       Map<String, dynamic> data = {
         'pageNo': pageIndex,
@@ -52,17 +51,17 @@ class HomeController extends GetxController {
       if (responseEntity.code == 200) {
         ContentListEntities contentList =
             ContentListEntities.fromJson(responseEntity.data);
-        state.showList.addAll(contentList.list);
+
+        state.contentList.update((val) {
+          val!.list.addAll(contentList.list);
+        });
 
         state.isLoading = false;
-        totalSize = contentList.totalSize;
+        state.contentList.value.totalSize = contentList.totalSize;
         refreshController.loadComplete();
-        Map<String, dynamic> _storageUserContentList = {
-          'list': state.showList,
-          'totalSize': state.showList.length,
-        };
+
         await StorageUtil()
-            .setJSON(storageHomeContentListKey, _storageUserContentList);
+            .setJSON(storageHomeContentListKey, state.contentList.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -75,7 +74,7 @@ class HomeController extends GetxController {
 
   Future<void> _refresh() async {
     pageIndex = 1;
-    totalSize = 0;
+
     Map<String, dynamic> data = {
       'pageNo': 1,
       'pageSize': 20,
@@ -84,13 +83,13 @@ class HomeController extends GetxController {
 
     ResponseEntity responseEntity = await ContentApi.homeContentList(data);
     if (responseEntity.code == 200) {
-      ContentListEntities contentList =
+      state.contentList.value =
           ContentListEntities.fromJson(responseEntity.data);
-      state.showList.clear();
-      state.showList.addAll(contentList.list);
+
+      state.contentList.update((val) {});
 
       state.isLoading = false;
-      totalSize = contentList.totalSize;
+
       await StorageUtil()
           .setJSON(storageHomeContentListKey, responseEntity.data);
     } else {
@@ -103,7 +102,9 @@ class HomeController extends GetxController {
     ResponseEntity _info = await UserApi.info();
     if (_info.code == 200) {
       await StorageUtil().setJSON(storageUserInfoKey, _info.data);
-      applicationController.state.userInfoMap = _info.data;
+      applicationController.state.userInfo.value =
+          UserInfoEntities.fromJson(_info.data);
+      applicationController.state.userInfo.update((val) {});
       await StorageUtil().setBool(storageIsHadUserInfo, true);
       Global.isHadUserInfo = true;
     } else {
@@ -119,19 +120,19 @@ class HomeController extends GetxController {
       state.isLoading = false;
       Map<String, dynamic> _contentList =
           await StorageUtil().getJSON(storageHomeContentListKey);
-      ContentListEntities contentList =
-          ContentListEntities.fromJson(_contentList);
 
-      pageIndex = contentList.list.length ~/ 20;
-      totalSize =
-          contentList.list.length % 20 == 0 ? 20 : contentList.list.length % 20;
+      state.contentList.value = ContentListEntities.fromJson(_contentList);
+      state.contentList.update((val) {});
 
-      state.showList.addAll(contentList.list);
+      pageIndex = state.contentList.value.list.length ~/ 20;
+      if (state.contentList.value.totalSize > 0) pageIndex++;
 
       // 个人信息
       // 读取用户信息
       final _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
-      applicationController.state.userInfoMap = _userInfo;
+      applicationController.state.userInfo.value =
+          UserInfoEntities.fromJson(_userInfo);
+      applicationController.state.userInfo.update((val) {});
     } else {
       await _refresh();
       await _getUserInfo();

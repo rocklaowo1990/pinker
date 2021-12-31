@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserInfoEntities {
   UserInfoEntities({
     /// 头像
@@ -73,13 +71,13 @@ class UserInfoEntities {
   });
 
   String avatar;
-  List<Bank> banks;
+  List<_Bank> banks;
   String bannerPic;
   int birthday;
   int blockCount;
   int createDate;
   int diamondBalance;
-  DigitalCurrency digitalCurrency;
+  _DigitalCurrency digitalCurrency;
   String email;
   int fansCount;
   int followCount;
@@ -96,21 +94,16 @@ class UserInfoEntities {
   int watermarkSwitch;
   String watermarkText;
 
-  factory UserInfoEntities.fromRawJson(String str) =>
-      UserInfoEntities.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory UserInfoEntities.fromJson(Map<String, dynamic> json) =>
       UserInfoEntities(
         avatar: json["avatar"],
-        banks: List<Bank>.from(json["banks"].map((x) => Bank.fromJson(x))),
+        banks: List<_Bank>.from(json["banks"].map((x) => _Bank.fromJson(x))),
         bannerPic: json["bannerPic"],
         birthday: json["birthday"],
         blockCount: json["blockCount"],
         createDate: json["createDate"],
         diamondBalance: json["diamondBalance"],
-        digitalCurrency: DigitalCurrency.fromJson(json["digitalCurrency"]),
+        digitalCurrency: _DigitalCurrency.fromJson(json["digitalCurrency"]),
         email: json["email"],
         fansCount: json["fansCount"],
         followCount: json["followCount"],
@@ -153,10 +146,48 @@ class UserInfoEntities {
         "watermarkSwitch": watermarkSwitch,
         "watermarkText": watermarkText,
       };
+
+  static Map<String, dynamic> child = {
+    "avatar": '',
+    "banks": [
+      {
+        "id": 0,
+        "name": '',
+        "cardNumber": '',
+        "bankCode": '',
+        "bankName": '',
+      }
+    ],
+    "bannerPic": '',
+    "birthday": 0,
+    "blockCount": 0,
+    "createDate": 0,
+    "diamondBalance": 0,
+    "digitalCurrency": {
+      "btcBalance": 0,
+      "ethBalance": 0,
+      "usdtBalance": 0,
+    },
+    "email": '',
+    "fansCount": 0,
+    "followCount": 0,
+    "groupName": '',
+    "hiddenCount": 0,
+    "intro": '',
+    "isSubscribe": 0,
+    "nickName": '',
+    "pCoinBalance": 0,
+    "phone": '',
+    "subChatCount": 0,
+    "userId": 0,
+    "userName": '',
+    "watermarkSwitch": 0,
+    "watermarkText": '',
+  };
 }
 
-class Bank {
-  Bank({
+class _Bank {
+  _Bank({
     required this.id,
     required this.name,
     required this.cardNumber,
@@ -170,11 +201,7 @@ class Bank {
   String bankCode;
   String bankName;
 
-  factory Bank.fromRawJson(String str) => Bank.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Bank.fromJson(Map<String, dynamic> json) => Bank(
+  factory _Bank.fromJson(Map<String, dynamic> json) => _Bank(
         id: json["id"],
         name: json["name"],
         cardNumber: json["cardNumber"],
@@ -191,8 +218,8 @@ class Bank {
       };
 }
 
-class DigitalCurrency {
-  DigitalCurrency({
+class _DigitalCurrency {
+  _DigitalCurrency({
     required this.btcBalance,
     required this.ethBalance,
     required this.usdtBalance,
@@ -202,13 +229,8 @@ class DigitalCurrency {
   int ethBalance;
   int usdtBalance;
 
-  factory DigitalCurrency.fromRawJson(String str) =>
-      DigitalCurrency.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory DigitalCurrency.fromJson(Map<String, dynamic> json) =>
-      DigitalCurrency(
+  factory _DigitalCurrency.fromJson(Map<String, dynamic> json) =>
+      _DigitalCurrency(
         btcBalance: json["btcBalance"],
         ethBalance: json["ethBalance"],
         usdtBalance: json["usdtBalance"],

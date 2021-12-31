@@ -2,6 +2,7 @@ import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/utils/utils.dart';
@@ -26,81 +27,23 @@ Widget getImageCount(String count) {
 /// 图片购买和视频购买所展示的信息不太一样
 /// 需要传入参数进行区分
 /// 区分图片和视频的信息，区分好了以后展示
-Widget getContentPayBox(
-  ListElement item,
-  int type,
-  ContentBoxController contentBoxController,
-  MediaViewController? mediaViewController,
-) {
+Widget getContentPayBox(Rx<ContentListEntities> contentList, int index) {
   late Widget mediaType;
   late String url;
   late String mediaInfo;
   late Widget price;
 
   void _onPressed() {
-    contentBoxController.state.canSee = 1;
-    if (mediaViewController != null) {
-      if (item.works.video.url.isNotEmpty) {
-        mediaViewController.fijkPlayer = FijkPlayer();
-        mediaViewController.fijkPlayer!.setDataSource(
-            serverApiUrl + serverPort + item.works.video.url,
-            autoPlay: true);
-        mediaViewController.state.imagesList.clear();
-      } else {
-        for (int i = 4; i < item.works.pics.length; i++) {
-          mediaViewController.state.imagesList.add(item.works.pics[i]);
-        }
-      }
-    }
+    contentList.value.list[index].canSee = 1;
   }
 
-  if (type == 1) {
-    url = item.works.pics[0];
-    mediaType = getImageCount('${item.works.pics.length - 3}');
-    mediaInfo = '图片： ${item.works.pics.length - 3} 张';
-  } else {
-    url = item.works.video.previewsUrls[0];
-    mediaType = Container(
-      height: 20.w,
-      width: 20.w,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.mainBacground50,
-      ),
-      child: Center(
-        child: Icon(
-          Icons.play_arrow,
-          color: AppColors.mainIcon,
-          size: 12.w,
-        ),
-      ),
-    );
-    mediaInfo = '视频：' + getDuration(item.works.video.duration);
-  }
+  url = contentList.value.list[index].works.pics.isNotEmpty
+      ? contentList.value.list[index].works.pics[0]
+      : contentList.value.list[index].works.video.previewsUrls[0];
+  mediaType = getImageCount('000');
+  mediaInfo = '图片： 0 张';
+  price = getSpan('text');
 
-  if (item.works.payPermission.type == 2) {
-    price = getSpan(
-      '需订阅',
-      color: AppColors.thirdText,
-      fontSize: 17,
-    );
-  } else {
-    if (item.works.payPermission.type != 0) {
-      price = Row(
-        children: [
-          SvgPicture.asset(
-            'assets/svg/icon_diamond.svg',
-            height: 13,
-          ),
-          const SizedBox(width: 5),
-          getSpan(
-            '${item.works.payPermission.price}',
-            color: AppColors.thirdText,
-          ),
-        ],
-      );
-    }
-  }
   return getButton(
     onPressed: _onPressed,
     width: double.infinity,

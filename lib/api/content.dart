@@ -4,7 +4,14 @@ import 'package:pinker/global.dart';
 import 'package:pinker/utils/utils.dart';
 
 class ContentApi {
-  /// 作品列表 /////////////////////////////////////////////////
+  /// 作品列表
+  ///
+  /// type：1代表全部
+  ///
+  /// type：2代表最新
+  ///
+  /// type：3代表最热
+
   static Future contentList(data) async {
     var response = await HttpUtil().get(
       '/api/content/contentList',
@@ -35,6 +42,32 @@ class ContentApi {
       queryParameters: data,
       options: Options(headers: {
         'token': Global.token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 添加评论 /////////////////////////////////////////////////
+  static Future commentsAdd(data) async {
+    var response = await HttpUtil().postForm(
+      '/api/content/commentsAdd',
+      data: data,
+      options: Options(headers: {
+        'token': Global.token,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 点赞/取消点赞 /////////////////////////////////////////////////
+  static Future like(data) async {
+    var response = await HttpUtil().postForm(
+      '/api/content/like',
+      data: data,
+      options: Options(headers: {
+        'token': Global.token,
+        'Content-Type': 'application/x-www-form-urlencoded',
       }),
     );
     return ResponseEntity.fromJson(response);

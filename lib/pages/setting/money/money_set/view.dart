@@ -15,12 +15,13 @@ class MoneySetView extends GetView<MoneySetController> {
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan('正在为玩家 ${controller.arguments.playerId} 参数设置'),
+      getSpan('正在为玩家 ${controller.arguments.value.playerId} 参数设置'),
       line: AppColors.line,
       backgroundColor: AppColors.secondBacground,
     );
 
-    Widget _setNumber(String number, int index) {
+    Widget _setNumber(int number,
+        {VoidCallback? subtraction, VoidCallback? addition}) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -31,9 +32,9 @@ class MoneySetView extends GetView<MoneySetController> {
               width: 22.h,
               background: AppColors.line,
               height: 22.h,
-              onPressed: () {},
+              onPressed: subtraction,
               borderRadius: BorderRadius.all(Radius.circular(1000.h))),
-          getSpan('${controller.arguments.ji}'),
+          getSpan('$number'),
           getButton(
               child: Center(
                 child: getSpan('+', fontSize: 17),
@@ -41,7 +42,7 @@ class MoneySetView extends GetView<MoneySetController> {
               width: 22.h,
               background: AppColors.line,
               height: 22.h,
-              onPressed: () {},
+              onPressed: addition,
               borderRadius: BorderRadius.all(Radius.circular(1000.h))),
         ],
       );
@@ -57,7 +58,16 @@ class MoneySetView extends GetView<MoneySetController> {
           getSpan('你拥有的鸡：'),
           SizedBox(
             width: 70.w,
-            child: _setNumber('public', 0),
+            child: Obx(() =>
+                _setNumber(controller.arguments.value.ji, subtraction: () {
+                  controller.arguments.update((val) {
+                    if (val!.ji > 0) val.ji--;
+                  });
+                }, addition: () {
+                  controller.arguments.update((val) {
+                    val!.ji++;
+                  });
+                })),
           ),
         ],
       ),
@@ -85,10 +95,11 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 ${controller.arguments.only_1}'),
+                      getSpan('玩家 ${controller.arguments.value.only_1}'),
                       SizedBox(
                         width: 70.w,
-                        child: _setNumber('payOnly', 0),
+                        child: Obx(() =>
+                            _setNumber(controller.arguments.value.only_1)),
                       ),
                     ],
                   ),
@@ -109,10 +120,11 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 ${controller.arguments.only_2}'),
+                      getSpan('玩家 ${controller.arguments.value.only_2}'),
                       SizedBox(
                         width: 70.w,
-                        child: _setNumber('payOnly', 1),
+                        child: Obx(() =>
+                            _setNumber(controller.arguments.value.only_2)),
                       ),
                     ],
                   ),
@@ -133,10 +145,10 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 ${controller.arguments.only_3}'),
+                      getSpan('玩家 ${controller.arguments.value.only_3}'),
                       SizedBox(
                         width: 70.w,
-                        child: _setNumber('payOnly', 2),
+                        child: _setNumber(controller.arguments.value.only_3),
                       ),
                     ],
                   ),
@@ -172,9 +184,9 @@ class MoneySetView extends GetView<MoneySetController> {
                     children: [
                       getSpan('玩家 1'),
                       SizedBox(
-                        width: 70.w,
-                        child: _setNumber('ma', 0),
-                      ),
+                          width: 70.w,
+                          child: Obx(() =>
+                              _setNumber(controller.arguments.value.ma_1))),
                     ],
                   ),
                 ),
@@ -196,9 +208,9 @@ class MoneySetView extends GetView<MoneySetController> {
                     children: [
                       getSpan('玩家 2'),
                       SizedBox(
-                        width: 70.w,
-                        child: _setNumber('ma', 1),
-                      ),
+                          width: 70.w,
+                          child: Obx(() =>
+                              _setNumber(controller.arguments.value.ma_2))),
                     ],
                   ),
                 ),
@@ -220,9 +232,9 @@ class MoneySetView extends GetView<MoneySetController> {
                     children: [
                       getSpan('玩家 3'),
                       SizedBox(
-                        width: 70.w,
-                        child: _setNumber('ma', 2),
-                      ),
+                          width: 70.w,
+                          child: Obx(() =>
+                              _setNumber(controller.arguments.value.ma_3))),
                     ],
                   ),
                 ),
@@ -244,9 +256,9 @@ class MoneySetView extends GetView<MoneySetController> {
                     children: [
                       getSpan('玩家 4'),
                       SizedBox(
-                        width: 70.w,
-                        child: _setNumber('ma', 3),
-                      ),
+                          width: 70.w,
+                          child: Obx(() =>
+                              _setNumber(controller.arguments.value.ma_4))),
                     ],
                   ),
                 ),

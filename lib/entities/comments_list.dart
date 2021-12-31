@@ -4,13 +4,13 @@ class CommentsListEntities {
     required this.totalSize,
   });
 
-  List<ListElementComments> list;
+  List<_ListElement> list;
   int totalSize;
 
   factory CommentsListEntities.fromJson(Map<String, dynamic> json) =>
       CommentsListEntities(
-        list: List<ListElementComments>.from(
-            json["list"].map((x) => ListElementComments.fromJson(x))),
+        list: List<_ListElement>.from(
+            json["list"].map((x) => _ListElement.fromJson(x))),
         totalSize: json["totalSize"],
       );
 
@@ -18,10 +18,15 @@ class CommentsListEntities {
         "list": List<dynamic>.from(list.map((x) => x.toJson())),
         "totalSize": totalSize,
       };
+
+  static Map<String, dynamic> child = {
+    "list": <_ListElement>[],
+    "totalSize": 0,
+  };
 }
 
-class ListElementComments {
-  ListElementComments({
+class _ListElement {
+  _ListElement({
     required this.cid,
     required this.author,
     required this.createDate,
@@ -33,18 +38,17 @@ class ListElementComments {
   });
 
   int cid;
-  Author author;
+  _Author author;
   int createDate;
   String content;
   int commentCount;
   int likeCount;
   int isLike;
-  Author? replyUser;
+  _Author? replyUser;
 
-  factory ListElementComments.fromJson(Map<String, dynamic> json) =>
-      ListElementComments(
+  factory _ListElement.fromJson(Map<String, dynamic> json) => _ListElement(
         cid: json["cid"],
-        author: Author.fromJson(json["author"]),
+        author: _Author.fromJson(json["author"]),
         createDate: json["createDate"],
         content: json["content"],
         commentCount: json["commentCount"],
@@ -52,7 +56,7 @@ class ListElementComments {
         isLike: json["isLike"],
         replyUser: json["replyUser"] == null || json["replyUser"] == []
             ? null
-            : Author.fromJson(json["replyUser"]),
+            : _Author.fromJson(json["replyUser"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,8 +71,8 @@ class ListElementComments {
       };
 }
 
-class Author {
-  Author({
+class _Author {
+  _Author({
     required this.userId,
     required this.avatar,
     required this.nickName,
@@ -82,7 +86,7 @@ class Author {
   String userName;
   String intro;
 
-  factory Author.fromJson(Map<String, dynamic> json) => Author(
+  factory _Author.fromJson(Map<String, dynamic> json) => _Author(
         userId: json["userId"] ?? json["userid"],
         avatar: json["avatar"],
         nickName: json["nickName"],

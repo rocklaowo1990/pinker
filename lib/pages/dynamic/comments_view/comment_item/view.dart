@@ -5,25 +5,28 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/comments_view/comment_item/library.dart';
-import 'package:pinker/pages/dynamic/comments_view/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget getCommentItem(
-    ListElementComments item, CommentsViewController commentsViewController) {
-  final CommentItemController controller = CommentItemController();
+Widget getCommentList(
+  Rx<CommentsListEntities> commentList,
+  int index, {
+  Rx<ContentListEntities>? contentList,
+  int? contentListIndex,
+  int? contentListType,
+}) {
+  final CommentListController controller = CommentListController();
 
   // 初始化
   // 这种结构的只能在这里初始化
   // 在里面初始化需要在控制器里面加入index变量
-  controller.initState(item);
 
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       getImageBox(
-        item.author.avatar,
+        commentList.value.list[index].author.avatar,
         shape: BoxShape.circle,
         width: 50,
       ),
@@ -32,11 +35,11 @@ Widget getCommentItem(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            getSpan(item.author.nickName),
+            getSpan(commentList.value.list[index].author.nickName),
             Row(
               children: [
                 getSpan(
-                  item.author.userName,
+                  commentList.value.list[index].author.userName,
                   color: AppColors.secondText,
                 ),
                 getButton(
@@ -44,29 +47,28 @@ Widget getCommentItem(
                   height: 26,
                   width: 60,
                   background: Colors.transparent,
-                  onPressed: () {
-                    controller.onComment(item, commentsViewController);
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            item.replyUser != null
+            commentList.value.list[index].replyUser != null
                 ? RichText(
                     text: TextSpan(
-                      text: '@${item.replyUser!.userName}  ',
+                      text:
+                          '@${commentList.value.list[index].replyUser!.userName}  ',
                       style: const TextStyle(
                           color: AppColors.mainColor, fontSize: 15),
                       children: [
                         TextSpan(
-                          text: item.content,
+                          text: commentList.value.list[index].content,
                           style: const TextStyle(
                               color: AppColors.mainText, fontSize: 15),
                         ),
                       ],
                     ),
                   )
-                : getSpan(item.content),
+                : getSpan(commentList.value.list[index].content),
             const SizedBox(height: 16),
           ],
         ),
@@ -75,10 +77,10 @@ Widget getCommentItem(
         width: 60,
         background: Colors.transparent,
         overlayColor: Colors.transparent,
-        onPressed: controller.onLike,
+        onPressed: () {},
         child: Column(
           children: [
-            Obx(() => controller.state.isLike == 0
+            Obx(() => commentList.value.list[index].isLike == 0
                 ? SvgPicture.asset(
                     'assets/svg/icon_like.svg',
                     height: 9.w,
@@ -88,9 +90,9 @@ Widget getCommentItem(
                     height: 9.w,
                   )),
             const SizedBox(height: 4),
-            Obx(() => controller.state.likeCount == 0
+            Obx(() => commentList.value.list[index].likeCount == 0
                 ? getSpan('喜欢')
-                : getSpan('${controller.state.likeCount}')),
+                : getSpan('${commentList.value.list[index].likeCount}')),
           ],
         ),
       ),

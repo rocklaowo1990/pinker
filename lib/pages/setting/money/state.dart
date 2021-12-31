@@ -15,19 +15,19 @@ class MoneySystems {
     required this.ma_4,
   });
 
-  int playerId;
-  int resault;
-  int beBuy;
-  int ji;
+  int playerId = 0;
+  int resault = 0;
+  int beBuy = 0;
+  int ji = 0;
 
-  int only_1;
-  int only_2;
-  int only_3;
+  int only_1 = 0;
+  int only_2 = 0;
+  int only_3 = 0;
 
-  int ma_1;
-  int ma_2;
-  int ma_3;
-  int ma_4;
+  int ma_1 = 0;
+  int ma_2 = 0;
+  int ma_3 = 0;
+  int ma_4 = 0;
 
   factory MoneySystems.fromJson(Map<String, dynamic> json) => MoneySystems(
         playerId: json["playerId"],
@@ -59,7 +59,7 @@ class MoneySystems {
 }
 
 class MoneyState {
-  final Rx<MoneySystems> _player_1 = MoneySystems.fromJson({
+  final player_1 = MoneySystems.fromJson({
     'playerId': 1,
     'resault': 0,
     'beBuy': 0,
@@ -72,11 +72,8 @@ class MoneyState {
     'ma_3': 0,
     'ma_4': 0,
   }).obs;
-  set player_1(MoneySystems value) => _player_1.value = value;
-  MoneySystems get player_1 => _player_1.value;
-
-  final Rx<MoneySystems> _player_2 = MoneySystems.fromJson({
-    'playerId': 1,
+  final player_2 = MoneySystems.fromJson({
+    'playerId': 2,
     'resault': 0,
     'beBuy': 0,
     'ji': 0,
@@ -88,11 +85,8 @@ class MoneyState {
     'ma_3': 0,
     'ma_4': 0,
   }).obs;
-  set player_2(MoneySystems value) => _player_2.value = value;
-  MoneySystems get player_2 => _player_2.value;
-
-  final Rx<MoneySystems> _player_3 = MoneySystems.fromJson({
-    'playerId': 1,
+  final player_3 = MoneySystems.fromJson({
+    'playerId': 3,
     'resault': 0,
     'beBuy': 0,
     'ji': 0,
@@ -104,11 +98,8 @@ class MoneyState {
     'ma_3': 0,
     'ma_4': 0,
   }).obs;
-  set player_3(MoneySystems value) => _player_3.value = value;
-  MoneySystems get player_3 => _player_3.value;
-
-  final Rx<MoneySystems> _player_4 = MoneySystems.fromJson({
-    'playerId': 1,
+  final player_4 = MoneySystems.fromJson({
+    'playerId': 4,
     'resault': 0,
     'beBuy': 0,
     'ji': 0,
@@ -120,8 +111,6 @@ class MoneyState {
     'ma_3': 0,
     'ma_4': 0,
   }).obs;
-  set player_4(MoneySystems value) => _player_4.value = value;
-  MoneySystems get player_4 => _player_4.value;
 
   final RxBool _isReset = false.obs;
   set isReset(value) => _isReset.value = value;
