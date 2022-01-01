@@ -11,7 +11,6 @@ class ContentApi {
   /// type：2代表最新
   ///
   /// type：3代表最热
-
   static Future contentList(data) async {
     var response = await HttpUtil().get(
       '/api/content/contentList',
@@ -35,7 +34,13 @@ class ContentApi {
     return ResponseEntity.fromJson(response);
   }
 
-  /// 评论列表 /////////////////////////////////////////////////
+  /// 评论列表
+  ///
+  /// 'wid':1
+  ///
+  /// 'pageNo':1
+  ///
+  /// 'pageSize':1
   static Future commentsList(data) async {
     var response = await HttpUtil().get(
       '/api/content/commentsList',

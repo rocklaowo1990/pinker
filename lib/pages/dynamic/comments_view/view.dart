@@ -10,17 +10,14 @@ import 'package:pinker/pages/dynamic/comments_view/controller.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Future getCommentsView(
-  Rx<ContentListEntities> contentList,
-  int index, {
-  String? storageKey,
-}) {
+Future getCommentsView(Rx<ContentListEntities> contentList, int index) {
   Widget child = GetBuilder<CommentsViewController>(
     init: CommentsViewController(),
     builder: (controller) {
       // 初始化
       // 这种结构的只能在这里初始化
       // 在里面初始化需要在控制器里面加入index变量
+      controller.init(contentList, index);
 
       Widget loading = Center(
           child: Column(children: [
@@ -58,14 +55,21 @@ Future getCommentsView(
             : getRefresher(
                 controller: controller.refreshController,
                 child: ListView.builder(
+                    controller: controller.scrollController,
+                    itemCount: controller.state.commentList.value.list.length,
                     itemBuilder: (BuildContext buildContext, int index) {
-                  return getCommentList(controller.state.commentList, index);
-                }),
-                onLoading: () {},
+                      return getCommentList(
+                          controller.state.commentList, index);
+                    }),
+                onLoading: () {
+                  controller.onLoading(contentList, index);
+                },
                 isFooter: controller.state.commentList.value.list.length < 20
                     ? false
                     : true,
-                onRefresh: () {},
+                onRefresh: () {
+                  controller.onRefresh(contentList, index);
+                },
               ),
       );
 
@@ -100,7 +104,7 @@ Future getCommentsView(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         getSpan(
-                            '${controller.state.commentList.value.list.length} 条评论'),
+                            '${contentList.value.list[index].commentCount} 条评论'),
                         getButton(
                           child: const Icon(Icons.close,
                               color: AppColors.mainIcon),

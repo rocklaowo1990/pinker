@@ -85,9 +85,11 @@ class HomeView extends GetView<HomeController> {
           : getRefresher(
               controller: controller.refreshController,
               child: ListView.builder(
+                  controller: controller.scrollController,
+                  itemCount: controller.state.contentList.value.list.length,
                   itemBuilder: (BuildContext buildContext, int index) {
-                return getContentList(controller.state.contentList, index);
-              }),
+                    return getContentList(controller.state.contentList, index);
+                  }),
               onLoading: controller.onLoading,
               onRefresh: controller.onRefresh,
             ),

@@ -30,7 +30,7 @@ Widget getContentButton(
   bool _isForward = contentList.value.list[index].isForward == 0 ? false : true;
 
   Future<bool> _onComment(bool? isComment) async {
-    getCommentsView(contentList, index, storageKey: storageKey);
+    getCommentsView(contentList, index);
     return Future<bool>.delayed(const Duration(milliseconds: 50), () {
       return false;
     });
