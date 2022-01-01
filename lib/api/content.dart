@@ -60,7 +60,15 @@ class ContentApi {
     return ResponseEntity.fromJson(response);
   }
 
-  /// 点赞/取消点赞 /////////////////////////////////////////////////
+  /// 点赞/取消点赞
+  ///
+  /// 'wid': '作品ID',
+  ///
+  /// 'cid':'评论ID（否',
+  ///
+  /// 'type':'1作品 2评论',
+  ///
+  /// 'isLike':'1点赞  0取消点赞',
   static Future like(data) async {
     var response = await HttpUtil().postForm(
       '/api/content/like',

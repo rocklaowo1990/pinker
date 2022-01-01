@@ -13,6 +13,8 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = HomeController();
+    controller.onReady();
     // appbar 顶部左侧
     Widget left = Container(
       child: getSpan(

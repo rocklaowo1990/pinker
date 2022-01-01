@@ -13,7 +13,7 @@ import 'package:pinker/widgets/widgets.dart';
 Future getCommentsView(
   Rx<ContentListEntities> contentList,
   int index, {
-  int? type,
+  String? storageKey,
 }) {
   Widget child = GetBuilder<CommentsViewController>(
     init: CommentsViewController(),

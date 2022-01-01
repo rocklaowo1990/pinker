@@ -16,7 +16,7 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getContentList(
   Rx<ContentListEntities> contentList,
   int index, {
-  int? type,
+  String storageKey = storageHomeContentListKey,
 }) {
   // 推文的作者信息
   Widget author = Padding(
@@ -60,7 +60,7 @@ Widget getContentList(
         ),
       ),
       onPressed: () {
-        getMediaView(contentList, index, type: type);
+        getMediaView(contentList, index, storageKey: storageKey);
       },
     );
   }
@@ -156,7 +156,8 @@ Widget getContentList(
                         borderRadius: BorderRadius.all(Radius.circular(4.w))),
                     getButton(
                       onPressed: () {
-                        getMediaView(contentList, index, type: type);
+                        getMediaView(contentList, index,
+                            storageKey: storageKey);
                       },
                       borderRadius: BorderRadius.all(Radius.circular(4.w)),
                       height: 128.h,

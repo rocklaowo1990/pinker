@@ -1,4 +1,3 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/community/hot/library.dart';
@@ -14,7 +13,7 @@ class CommunityController extends GetxController {
   final CommunityState state = CommunityState();
 
   /// 页面控制器
-  final ExtendedPageController pageController = ExtendedPageController();
+  final pageController = PageController();
 
   /// 嵌套路由封装
   GetPageRoute _getPageRoute({
@@ -53,12 +52,12 @@ class CommunityController extends GetxController {
 
   void handleChangedTab(index) {
     state.pageIndex = index;
-    // pageController.animateToPage(
-    //   state.pageIndex,
-    //   duration: const Duration(milliseconds: 300),
-    //   curve: Curves.ease,
-    // );
-    index == 0 ? Get.back(id: 3) : Get.toNamed(AppRoutes.contentHot, id: 3);
+    pageController.animateToPage(
+      state.pageIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
+    // index == 0 ? Get.back(id: 3) : Get.toNamed(AppRoutes.contentHot, id: 3);
   }
 
   void handlePageChanged(index) {

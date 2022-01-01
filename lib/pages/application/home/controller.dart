@@ -19,7 +19,6 @@ class HomeController extends GetxController {
       RefreshController(initialRefresh: false);
 
   final ApplicationController applicationController = Get.find();
-
   final ScrollController scrollController = ScrollController();
 
   int pageIndex = 1;
@@ -117,12 +116,13 @@ class HomeController extends GetxController {
   void onReady() async {
     super.onReady();
     if (Global.isHadUserInfo) {
-      state.isLoading = false;
       Map<String, dynamic> _contentList =
           await StorageUtil().getJSON(storageHomeContentListKey);
 
       state.contentList.value = ContentListEntities.fromJson(_contentList);
       state.contentList.update((val) {});
+
+      state.isLoading = false;
 
       pageIndex = state.contentList.value.list.length ~/ 20;
       if (state.contentList.value.totalSize > 0) pageIndex++;

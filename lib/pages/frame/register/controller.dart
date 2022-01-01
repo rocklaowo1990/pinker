@@ -130,7 +130,6 @@ class RegisterController extends GetxController {
     frameController.dispose();
     textController.dispose();
     focusNode.dispose();
-
     super.dispose();
   }
 

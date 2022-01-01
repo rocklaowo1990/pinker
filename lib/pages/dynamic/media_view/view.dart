@@ -14,7 +14,7 @@ import 'package:pinker/widgets/widgets.dart';
 Future getMediaView(
   Rx<ContentListEntities> contentList,
   int index, {
-  int? type,
+  String storageKey = storageHomeContentListKey,
   int? imagetIndex,
 }) {
   Widget child = GetBuilder<MediaViewController>(
@@ -63,7 +63,7 @@ Future getMediaView(
       // 就是留言、喜欢、转发、分享那些
       Widget contentButton = Container(
         color: Colors.black54,
-        child: getContentButton(contentList, index, type: type),
+        child: getContentButton(contentList, index, storageKey: storageKey),
       );
 
       // 头像信息和订阅组合
