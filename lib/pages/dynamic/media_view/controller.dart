@@ -2,6 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/dynamic/media_view/library.dart';
 
@@ -19,7 +20,8 @@ class MediaViewController extends GetxController {
     state.opacityListen++;
   }
 
-  void handleLeading() {
+  void handleLeading(Rx<ContentListEntities> contentList, int index) {
+    contentList.update((val) {});
     Get.back();
   }
 
@@ -52,6 +54,7 @@ class MediaViewController extends GetxController {
     if (pageController != null) {
       pageController!.dispose();
     }
+
     super.onClose();
   }
 }

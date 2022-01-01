@@ -41,7 +41,9 @@ Future getMediaView(
               child: SvgPicture.asset('assets/svg/icon_back.svg'),
               onPressed: controller.state.opacity == 0.0
                   ? null
-                  : controller.handleLeading,
+                  : () {
+                      controller.handleLeading(contentList, index);
+                    },
             ),
           ));
 
