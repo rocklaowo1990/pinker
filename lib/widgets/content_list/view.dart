@@ -9,14 +9,10 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-/// 0：首页
-/// 1：全部
-/// 2：最新
-/// 3：最热
 Widget getContentList(
   Rx<ContentListEntities> contentList,
   int index, {
-  String storageKey = storageHomeContentListKey,
+  String? storageKey,
 }) {
   // 推文的作者信息
   Widget author = Padding(
@@ -25,7 +21,7 @@ Widget getContentList(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(child: getContentAvatar(contentList, index)),
-        // getContentMore(item),
+        getContentMore(contentList, index),
       ],
     ),
   );
@@ -46,7 +42,7 @@ Widget getContentList(
   }
 
   /// 图像展示
-  Widget _image(String url, int index) {
+  Widget _image(String url, int imagetIndex) {
     return getButton(
       background: AppColors.mainBacground,
       borderRadius: BorderRadius.all(Radius.circular(4.w)),
@@ -60,7 +56,8 @@ Widget getContentList(
         ),
       ),
       onPressed: () {
-        getMediaView(contentList, index, storageKey: storageKey);
+        getMediaView(contentList, index,
+            storageKey: storageKey, imagetIndex: imagetIndex);
       },
     );
   }
@@ -98,7 +95,8 @@ Widget getContentList(
   // 底部哪一条功能按钮的封装方法
   // 留言、喜欢、转发、分享
   // 留言、喜欢、转发、分享 的构造
-  Widget contentInfo = getContentButton(contentList, index);
+  Widget contentInfo =
+      getContentButton(contentList, index, storageKey: storageKey);
 
   // 资源区
   // 1、分成可观看和不可观看

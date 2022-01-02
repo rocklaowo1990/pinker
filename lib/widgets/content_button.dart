@@ -19,8 +19,7 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getContentButton(
   Rx<ContentListEntities> contentList,
   int index, {
-  String storageKey = storageHomeContentListKey,
-  int? cid,
+  String? storageKey,
 }) {
   int _likeCount = contentList.value.list[index].likeCount;
   int _forwardCount = contentList.value.list[index].forwardCount;
@@ -30,7 +29,7 @@ Widget getContentButton(
   bool _isForward = contentList.value.list[index].isForward == 0 ? false : true;
 
   Future<bool> _onComment(bool? isComment) async {
-    getCommentsView(contentList, index);
+    getCommentsView(contentList, index, storageKey: storageKey);
     return Future<bool>.delayed(const Duration(milliseconds: 50), () {
       return false;
     });
@@ -39,8 +38,7 @@ Widget getContentButton(
   Future<bool> _onLike(bool isLike) async {
     Map<String, dynamic> data = {
       'wid': contentList.value.list[index].wid,
-      if (cid != null) 'cid': cid,
-      'type': cid == null ? 1 : 2,
+      'type': 1,
       'isLike': contentList.value.list[index].isLike =
           contentList.value.list[index].isLike == 0 ? 1 : 0,
     };
@@ -49,19 +47,35 @@ Widget getContentButton(
     if (responseEntity.code == 200) {
       contentList.value.list[index].likeCount +=
           contentList.value.list[index].isLike == 0 ? -1 : 1;
-      await StorageUtil().setJSON(storageKey, contentList.value);
+
+      if (storageKey != null) {
+        await StorageUtil().setJSON(storageKey, contentList.value);
+      }
       return contentList.value.list[index].isLike == 0 ? false : true;
     } else {
+      getSnackTop(responseEntity.msg);
       return !isLike;
     }
   }
 
   Future<bool> _onForward(bool isForward) async {
-    return Future<bool>.delayed(const Duration(milliseconds: 50), () {
-      contentList.value.list[index].isForward =
-          contentList.value.list[index].isForward == 0 ? 1 : 0;
+    Map<String, dynamic> data = {
+      'wid': contentList.value.list[index].wid,
+      'isForward': contentList.value.list[index].isForward =
+          contentList.value.list[index].isForward == 0 ? 1 : 0,
+    };
+
+    ResponseEntity responseEntity = await ContentApi.forward(data);
+    if (responseEntity.code == 200) {
+      contentList.value.list[index].forwardCount +=
+          contentList.value.list[index].isForward == 0 ? -1 : 1;
+      if (storageKey != null) {
+        await StorageUtil().setJSON(storageKey, contentList.value);
+      }
       return contentList.value.list[index].isForward == 0 ? false : true;
-    });
+    } else {
+      return !isForward;
+    }
   }
 
   return Row(
@@ -72,18 +86,22 @@ Widget getContentButton(
           LikeButton(
             size: 20.0,
             likeCountPadding: EdgeInsets.only(left: 3.w),
-            likeCount: contentList.value.list[index].commentCount,
+            likeCount: _commentCount,
             likeBuilder: (bool isComment) {
               return SvgPicture.asset(
                 'assets/svg/icon_reply.svg',
               );
             },
             countBuilder: (int? count, bool isLiked, String text) {
-              return count == 0
+              return contentList.value.list[index].commentCount == 0
                   ? getSpan('评论', color: AppColors.secondText)
-                  : getSpan(count! >= 1000
-                      ? (count / 1000.0).toStringAsFixed(1) + 'k'
-                      : text);
+                  : Obx(() => getSpan(
+                      contentList.value.list[index].commentCount >= 1000
+                          ? (contentList.value.list[index].commentCount /
+                                      1000.0)
+                                  .toStringAsFixed(1) +
+                              'k'
+                          : '${contentList.value.list[index].commentCount}'));
             },
             onTap: _onComment,
           ),
@@ -120,6 +138,7 @@ Widget getContentButton(
           ),
           SizedBox(width: 15.w),
           LikeButton(
+            onTap: _onForward,
             size: 18.0,
             likeCountPadding: EdgeInsets.only(left: 3.w),
             bubblesColor: const BubblesColor(

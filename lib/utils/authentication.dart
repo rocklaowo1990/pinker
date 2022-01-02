@@ -18,11 +18,11 @@ Future deleteAuthentication() async {
 
   await StorageUtil().remove(storageHomeContentListKey);
 
-  await StorageUtil().remove(storageNewContentListKey);
-  await StorageUtil().remove(storageIsHadNewContent);
+  // await StorageUtil().remove(storageNewContentListKey);
+  // await StorageUtil().remove(storageIsHadNewContent);
 
-  await StorageUtil().remove(storageHotContentListKey);
-  await StorageUtil().remove(storageIsHadHotContent);
+  // await StorageUtil().remove(storageHotContentListKey);
+  // await StorageUtil().remove(storageIsHadHotContent);
 
   Global.token = null;
   Global.isOfflineLogin = false;

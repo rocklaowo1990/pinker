@@ -33,6 +33,10 @@ class MediaViewController extends GetxController {
     state.isFullScreen = true;
   }
 
+  void init(int imageIndex) {
+    state.pageIndex = imageIndex;
+  }
+
   @override
   void onReady() {
     super.onReady();

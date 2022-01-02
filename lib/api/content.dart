@@ -85,4 +85,21 @@ class ContentApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 点赞/取消点赞
+  ///
+  /// 'wid': '作品ID',
+  ///
+  /// 'isForward':'（1-转发；0-取消转发）',
+  static Future forward(data) async {
+    var response = await HttpUtil().postForm(
+      '/api/content/forward',
+      data: data,
+      options: Options(headers: {
+        'token': Global.token,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

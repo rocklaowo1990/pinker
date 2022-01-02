@@ -6,7 +6,7 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/application/community/new/library.dart';
 
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -52,8 +52,8 @@ class ContentListNewController extends GetxController {
         state.contentList.value.totalSize = contentList.totalSize;
         refreshController.loadComplete();
 
-        await StorageUtil()
-            .setJSON(storageNewContentListKey, state.contentList.value);
+        // await StorageUtil()
+        //     .setJSON(storageNewContentListKey, state.contentList.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -82,8 +82,8 @@ class ContentListNewController extends GetxController {
 
       state.isLoading = false;
 
-      await StorageUtil()
-          .setJSON(storageNewContentListKey, responseEntity.data);
+      // await StorageUtil()
+      //     .setJSON(storageNewContentListKey, responseEntity.data);
     } else {
       getSnackTop(responseEntity.msg);
       state.isLoading = false;

@@ -10,7 +10,11 @@ import 'package:pinker/pages/dynamic/comments_view/controller.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Future getCommentsView(Rx<ContentListEntities> contentList, int index) {
+Future getCommentsView(
+  Rx<ContentListEntities> contentList,
+  int index, {
+  String? storageKey,
+}) {
   Widget child = GetBuilder<CommentsViewController>(
     init: CommentsViewController(),
     builder: (controller) {
@@ -57,9 +61,11 @@ Future getCommentsView(Rx<ContentListEntities> contentList, int index) {
                 child: ListView.builder(
                     controller: controller.scrollController,
                     itemCount: controller.state.commentList.value.list.length,
-                    itemBuilder: (BuildContext buildContext, int index) {
+                    itemBuilder:
+                        (BuildContext buildContext, int indexComments) {
                       return getCommentList(
-                          controller.state.commentList, index);
+                          controller.state.commentList, indexComments,
+                          wid: contentList.value.list[index].wid);
                     }),
                 onLoading: () {
                   controller.onLoading(contentList, index);
@@ -103,8 +109,8 @@ Future getCommentsView(Rx<ContentListEntities> contentList, int index) {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getSpan(
-                            '${contentList.value.list[index].commentCount} 条评论'),
+                        Obx(() => getSpan(
+                            '${contentList.value.list[index].commentCount} 条评论')),
                         getButton(
                           child: const Icon(Icons.close,
                               color: AppColors.mainIcon),
@@ -126,7 +132,7 @@ Future getCommentsView(Rx<ContentListEntities> contentList, int index) {
                         ? Padding(
                             padding: EdgeInsets.only(left: 4.w),
                             child: getButton(
-                                onPressed: () {},
+                                onPressed: controller.handleClearReply,
                                 height: 30,
                                 width: 200,
                                 background: AppColors.line,
@@ -165,7 +171,10 @@ Future getCommentsView(Rx<ContentListEntities> contentList, int index) {
                           child: getSpan('回复'),
                           height: 40,
                           width: 70,
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.handleCommentAdd(contentList, index,
+                                storageKey: storageKey);
+                          },
                         ),
                       ],
                     ),

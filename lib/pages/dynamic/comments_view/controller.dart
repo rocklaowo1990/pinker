@@ -19,8 +19,49 @@ class CommentsViewController extends GetxController {
   final TextEditingController textController = TextEditingController();
 
   int pageIndex = 1;
+  int beUserId = 0;
+  int cid = 0;
 
   void handleMail() {}
+
+  void handleClearReply() {
+    beUserId = 0;
+    cid = 0;
+    state.replyUserName = '';
+    focusNode.unfocus();
+  }
+
+  void handleCommentAdd(
+    Rx<ContentListEntities> contentList,
+    int index, {
+    String? storageKey,
+  }) async {
+    focusNode.unfocus();
+
+    getDialog();
+    Map<String, dynamic> data = {
+      'wid': contentList.value.list[index].wid,
+      'content': textController.text,
+      if (cid != 0) 'cid': cid,
+      if (beUserId != 0) 'beUserId': beUserId,
+    };
+    ResponseEntity responseEntity = await ContentApi.commentsAdd(data);
+    if (responseEntity.code == 200) {
+      _refresh(contentList, index);
+      contentList.update((val) {
+        contentList.value.list[index].commentCount++;
+      });
+
+      if (storageKey != null) {
+        await StorageUtil().setJSON(storageKey, contentList.value);
+      }
+      textController.clear();
+      Get.back();
+      getSnackTop('评论成功', isError: false);
+    } else {
+      getSnackTop(responseEntity.msg);
+    }
+  }
 
   void init(Rx<ContentListEntities> contentList, int index) {
     _refresh(contentList, index);
@@ -38,7 +79,7 @@ class CommentsViewController extends GetxController {
 
   void onLoading(Rx<ContentListEntities> contentList, int index) async {
     await futureMill(300);
-    print(state.commentList.value.totalSize);
+
     if (state.commentList.value.totalSize >= 20) {
       pageIndex++;
       Map<String, dynamic> data = {
@@ -52,13 +93,12 @@ class CommentsViewController extends GetxController {
       if (responseEntity.code == 200) {
         CommentsListEntities _commentList =
             CommentsListEntities.fromJson(responseEntity.data);
-
-        state.commentList.value.list.addAll(_commentList.list);
-        state.commentList.value.totalSize = _commentList.totalSize;
+        state.commentList.update((val) {
+          val!.list.addAll(_commentList.list);
+        });
 
         state.isLoading = false;
-        state.commentList.update((val) {});
-
+        state.commentList.value.totalSize = _commentList.totalSize;
         refreshController.loadComplete();
       } else {
         pageIndex--;

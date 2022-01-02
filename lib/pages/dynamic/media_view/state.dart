@@ -16,7 +16,7 @@ class MediaViewState {
   set imagesList(List<String> value) => _imagesList.value = value;
   RxList<String> get imagesList => _imagesList;
 
-  /// 透明度监听
+  /// 图片下标
   final RxInt _pageIndex = 0.obs;
   set pageIndex(int value) => _pageIndex.value = value;
   int get pageIndex => _pageIndex.value;

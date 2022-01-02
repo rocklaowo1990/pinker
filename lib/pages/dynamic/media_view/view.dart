@@ -14,7 +14,7 @@ import 'package:pinker/widgets/widgets.dart';
 Future getMediaView(
   Rx<ContentListEntities> contentList,
   int index, {
-  String storageKey = storageHomeContentListKey,
+  String? storageKey,
   int? imagetIndex,
 }) {
   Widget child = GetBuilder<MediaViewController>(
@@ -23,6 +23,9 @@ Future getMediaView(
       // 初始化
       // 这种结构的只能在这里初始化
       // 在里面初始化需要在控制器里面加入index变量
+      if (imagetIndex != null) {
+        controller.init(imagetIndex);
+      }
 
       // appBar 右侧的设置按钮
       Widget moreButton = getContentMore(
@@ -121,7 +124,11 @@ Future getMediaView(
               width: double.infinity,
               height: 70,
               child: Center(
-                child: getContentPayBox(contentList, index),
+                child: getContentPayBox(
+                  contentList,
+                  index,
+                  mediaViewController: controller,
+                ),
               ),
             ),
           ),
@@ -156,7 +163,7 @@ Future getMediaView(
       late Widget mediaBox;
       // 这种是直接传的视频地址，表示的是可以直接播放
       // 这种就不用考虑他是不是已经订阅了
-      if (contentList.value.list[index].works.video.url.isNotEmpty) {
+      if (imagetIndex == null) {
         controller.fijkPlayer = FijkPlayer();
         controller.fijkPlayer!.setDataSource(
             serverApiUrl +
@@ -182,8 +189,9 @@ Future getMediaView(
         // 这里就是传入的图片都下标
         // 代表的意思就是媒体可能是图片（包含付费和未付费，也可能是没有付费的视频）
         // 没有付费的视频也是有三张图片的
-      } else if (imagetIndex != null) {
-        controller.pageController = ExtendedPageController(initialPage: index);
+      } else {
+        controller.pageController =
+            ExtendedPageController(initialPage: imagetIndex);
 
         // 这里用来区分到底是图片媒体还是视频媒体
         // 图片不为空，那么就是图片媒体
@@ -293,8 +301,6 @@ Future getMediaView(
         }
         // 这里就是纯文本了
         // 没有任何媒体内容
-      } else {
-        mediaBox = Container();
       }
 
       // 媒体的页面布局
