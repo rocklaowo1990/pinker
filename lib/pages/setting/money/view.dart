@@ -89,21 +89,24 @@ class MoneyView extends GetView<MoneyController> {
                     getSpan('你的单独收支：', color: AppColors.secondText),
                     Row(
                       children: [
-                        Obx(() => getSpan('${player.value.only_1}',
+                        Obx(() => getSpan(
+                            '${player.value.onlyId_1}(${player.value.only_1})',
                             color: player.value.only_1 > 0
                                 ? AppColors.errro
                                 : player.value.only_1 < 0
                                     ? Colors.green
                                     : AppColors.secondText)),
                         getSpan(' , ', color: AppColors.secondText),
-                        Obx(() => getSpan('${player.value.only_2})',
+                        Obx(() => getSpan(
+                            '${player.value.onlyId_2}(${player.value.only_2})',
                             color: player.value.only_2 > 0
                                 ? AppColors.errro
-                                : player.value.only_2 > 0
+                                : player.value.only_2 < 0
                                     ? Colors.green
                                     : AppColors.secondText)),
                         getSpan(' , ', color: AppColors.secondText),
-                        Obx(() => getSpan('${player.value.only_3})',
+                        Obx(() => getSpan(
+                            '${player.value.onlyId_3}(${player.value.only_3})',
                             color: player.value.only_3 > 0
                                 ? AppColors.errro
                                 : player.value.only_3 < 0
@@ -128,21 +131,21 @@ class MoneyView extends GetView<MoneyController> {
                         getSpan(' , ', color: AppColors.secondText),
                         Obx(() => getSpan(
                               '2(${player.value.ma_2})',
-                              color: player.value.ma_1 > 0
+                              color: player.value.ma_2 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),
                         getSpan(' , ', color: AppColors.secondText),
                         Obx(() => getSpan(
                               '3(${player.value.ma_3})',
-                              color: player.value.ma_1 > 0
+                              color: player.value.ma_3 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),
                         getSpan(' , ', color: AppColors.secondText),
                         Obx(() => getSpan(
                               '4(${player.value.ma_4})',
-                              color: player.value.ma_1 > 0
+                              color: player.value.ma_4 > 0
                                   ? AppColors.errro
                                   : AppColors.secondText,
                             )),
@@ -158,27 +161,37 @@ class MoneyView extends GetView<MoneyController> {
     }
 
     /// body 布局
-    Widget body = SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(9.w),
-        child: Column(
-          children: [
-            playerBox(controller.state.player_1),
-            SizedBox(height: 6.h),
-            playerBox(controller.state.player_2),
-            SizedBox(height: 6.h),
-            playerBox(controller.state.player_3),
-            SizedBox(height: 6.h),
-            playerBox(controller.state.player_4),
-            SizedBox(height: 10.h),
-            getButton(
-              child: getSpan('开始结算'),
-              width: double.infinity,
-              height: 22.h,
-              onPressed: controller.handleResault,
-            )
-          ],
-        ),
+    Widget body = Padding(
+      padding: EdgeInsets.all(9.w),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  playerBox(controller.state.player_1),
+                  SizedBox(height: 6.h),
+                  playerBox(controller.state.player_2),
+                  SizedBox(height: 6.h),
+                  playerBox(controller.state.player_3),
+                  SizedBox(height: 6.h),
+                  playerBox(controller.state.player_4),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 9.w),
+          Obx(() => getButton(
+                child: getSpan('开始结算'),
+                background: controller.state.isReset
+                    ? AppColors.secondBacground
+                    : AppColors.mainColor,
+                width: double.infinity,
+                height: 22.h,
+                onPressed:
+                    controller.state.isReset ? null : controller.handleResault,
+              )),
+        ],
       ),
     );
     return Scaffold(

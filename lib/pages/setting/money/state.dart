@@ -9,6 +9,9 @@ class MoneySystems {
     required this.only_1,
     required this.only_2,
     required this.only_3,
+    required this.onlyId_1,
+    required this.onlyId_2,
+    required this.onlyId_3,
     required this.ma_1,
     required this.ma_2,
     required this.ma_3,
@@ -24,6 +27,10 @@ class MoneySystems {
   int only_2 = 0;
   int only_3 = 0;
 
+  int onlyId_1 = 0;
+  int onlyId_2 = 0;
+  int onlyId_3 = 0;
+
   int ma_1 = 0;
   int ma_2 = 0;
   int ma_3 = 0;
@@ -37,6 +44,9 @@ class MoneySystems {
         only_1: json["only_1"],
         only_2: json["only_2"],
         only_3: json["only_3"],
+        onlyId_1: json["onlyId_1"],
+        onlyId_2: json["onlyId_2"],
+        onlyId_3: json["onlyId_3"],
         ma_1: json["ma_1"],
         ma_2: json["ma_2"],
         ma_3: json["ma_3"],
@@ -51,6 +61,9 @@ class MoneySystems {
         'only_1': only_1,
         'only_2': only_2,
         'only_3': only_3,
+        'onlyId_1': onlyId_1,
+        'onlyId_2': onlyId_2,
+        'onlyId_3': onlyId_3,
         'ma_1': ma_1,
         'ma_2': ma_2,
         'ma_3': ma_3,
@@ -67,6 +80,9 @@ class MoneyState {
     'only_1': 0,
     'only_2': 0,
     'only_3': 0,
+    'onlyId_1': 2,
+    'onlyId_2': 3,
+    'onlyId_3': 4,
     'ma_1': 0,
     'ma_2': 0,
     'ma_3': 0,
@@ -80,6 +96,9 @@ class MoneyState {
     'only_1': 0,
     'only_2': 0,
     'only_3': 0,
+    'onlyId_1': 1,
+    'onlyId_2': 3,
+    'onlyId_3': 4,
     'ma_1': 0,
     'ma_2': 0,
     'ma_3': 0,
@@ -93,6 +112,9 @@ class MoneyState {
     'only_1': 0,
     'only_2': 0,
     'only_3': 0,
+    'onlyId_1': 1,
+    'onlyId_2': 2,
+    'onlyId_3': 4,
     'ma_1': 0,
     'ma_2': 0,
     'ma_3': 0,
@@ -106,6 +128,9 @@ class MoneyState {
     'only_1': 0,
     'only_2': 0,
     'only_3': 0,
+    'onlyId_1': 1,
+    'onlyId_2': 2,
+    'onlyId_3': 3,
     'ma_1': 0,
     'ma_2': 0,
     'ma_3': 0,

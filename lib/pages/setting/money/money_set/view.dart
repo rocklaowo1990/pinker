@@ -20,8 +20,14 @@ class MoneySetView extends GetView<MoneySetController> {
       backgroundColor: AppColors.secondBacground,
     );
 
-    Widget _setNumber(int number,
-        {VoidCallback? subtraction, VoidCallback? addition}) {
+    Widget _setNumber(
+      double number, {
+      void Function()? subtraction,
+      void Function()? addition,
+      void Function(double)? onChanged,
+      double? min,
+      double? max,
+    }) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -34,7 +40,15 @@ class MoneySetView extends GetView<MoneySetController> {
               height: 22.h,
               onPressed: subtraction,
               borderRadius: BorderRadius.all(Radius.circular(1000.h))),
-          getSpan('$number'),
+          // getSpan('$number'),
+          Expanded(
+            child: Slider(
+              value: number,
+              onChanged: onChanged,
+              max: max ?? 20.0,
+              min: min ?? 0,
+            ),
+          ),
           getButton(
               child: Center(
                 child: getSpan('+', fontSize: 17),
@@ -55,19 +69,42 @@ class MoneySetView extends GetView<MoneySetController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          getSpan('你拥有的鸡：'),
           SizedBox(
-            width: 70.w,
-            child: Obx(() =>
-                _setNumber(controller.arguments.value.ji, subtraction: () {
-                  controller.arguments.update((val) {
-                    if (val!.ji > 0) val.ji--;
-                  });
-                }, addition: () {
-                  controller.arguments.update((val) {
-                    val!.ji++;
-                  });
-                })),
+            width: 46.w,
+            child: Row(
+              children: [
+                getSpan('鸡（ '),
+                Obx(() => getSpan('${controller.arguments.value.ji}',
+                    color: controller.arguments.value.ji > 0
+                        ? AppColors.errro
+                        : controller.arguments.value.ji < 0
+                            ? Colors.green
+                            : null)),
+                getSpan(' )'),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Obx(() => _setNumber(
+                  controller.arguments.value.ji.toDouble(),
+                  onChanged: (value) {
+                    controller.arguments.update((val) {
+                      val!.ji = value.toInt();
+                    });
+                  },
+                  subtraction: () {
+                    controller.arguments.update((val) {
+                      if (val!.ji > 0) val.ji--;
+                    });
+                  },
+                  addition: () {
+                    controller.arguments.update((val) {
+                      if (val!.ji < 20) val.ji++;
+                    });
+                  },
+                  min: 0,
+                  max: 20,
+                )),
           ),
         ],
       ),
@@ -81,7 +118,7 @@ class MoneySetView extends GetView<MoneySetController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getSpan('你的单独收支：'),
+          getSpan('你的单独冲锋鸡，杠：（ 输入单倍 ）'),
           SizedBox(height: 10.h),
           Row(
             children: [
@@ -95,11 +132,118 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 ${controller.arguments.value.only_1}'),
                       SizedBox(
-                        width: 70.w,
-                        child: Obx(() =>
-                            _setNumber(controller.arguments.value.only_1)),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('${controller.arguments.value.onlyId_1}（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.only_1}',
+                                    color: controller.arguments.value.only_1 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.only_1 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.only_1.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.only_1 = value.toInt();
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_2
+                                          .value.only_1 = -value.toInt();
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1 = -value.toInt();
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1 = -value.toInt();
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1 = -value.toInt();
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.only_1 > -20) val.only_1--;
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_2
+                                          .value.only_1++;
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1++;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1++;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1++;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.only_1 < 20) val.only_1++;
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_2
+                                          .value.only_1--;
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1--;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1--;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_1
+                                          .value.only_1--;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              min: -20,
+                              max: 20,
+                            )),
                       ),
                     ],
                   ),
@@ -120,11 +264,118 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 ${controller.arguments.value.only_2}'),
                       SizedBox(
-                        width: 70.w,
-                        child: Obx(() =>
-                            _setNumber(controller.arguments.value.only_2)),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('${controller.arguments.value.onlyId_2}（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.only_2}',
+                                    color: controller.arguments.value.only_2 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.only_2 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.only_2.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.only_2 = value.toInt();
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_3
+                                          .value.only_1 = -value.toInt();
+                                      controller.moneyController.state.player_3
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_3
+                                          .value.only_2 = -value.toInt();
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_2
+                                          .value.only_2 = -value.toInt();
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_2
+                                          .value.only_3 = -value.toInt();
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.only_2 > -20) val.only_2--;
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_3
+                                          .value.only_1++;
+                                      controller.moneyController.state.player_3
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_3
+                                          .value.only_2++;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_2
+                                          .value.only_2++;
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_2
+                                          .value.only_3++;
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.only_2 < 20) val.only_2++;
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_3
+                                          .value.only_1--;
+                                      controller.moneyController.state.player_3
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_3
+                                          .value.only_2--;
+                                      controller.moneyController.state.player_1
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_2
+                                          .value.only_2--;
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_2
+                                          .value.only_3--;
+                                      controller.moneyController.state.player_2
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              min: -20,
+                              max: 20,
+                            )),
                       ),
                     ],
                   ),
@@ -145,10 +396,118 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 ${controller.arguments.value.only_3}'),
                       SizedBox(
-                        width: 70.w,
-                        child: _setNumber(controller.arguments.value.only_3),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('${controller.arguments.value.onlyId_3}（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.only_3}',
+                                    color: controller.arguments.value.only_3 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.only_3 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.only_3.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.only_3 = value.toInt();
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_4
+                                          .value.only_1 = -value.toInt();
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_4
+                                          .value.only_2 = -value.toInt();
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_4
+                                          .value.only_3 = -value.toInt();
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_3
+                                          .value.only_3 = -value.toInt();
+                                      controller.moneyController.state.player_3
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.only_3 > -20) val.only_3--;
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_4
+                                          .value.only_1++;
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_4
+                                          .value.only_2++;
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_4
+                                          .value.only_3++;
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_3
+                                          .value.only_3++;
+                                      controller.moneyController.state.player_3
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.only_3 < 20) val.only_3++;
+                                  switch (controller.arguments.value.playerId) {
+                                    case 1:
+                                      controller.moneyController.state.player_4
+                                          .value.only_1--;
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    case 2:
+                                      controller.moneyController.state.player_4
+                                          .value.only_2--;
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    case 3:
+                                      controller.moneyController.state.player_4
+                                          .value.only_3--;
+                                      controller.moneyController.state.player_4
+                                          .update((val) {});
+                                      break;
+                                    default:
+                                      controller.moneyController.state.player_3
+                                          .value.only_3--;
+                                      controller.moneyController.state.player_3
+                                          .update((val) {});
+                                  }
+                                });
+                              },
+                              min: -20,
+                              max: 20,
+                            )),
                       ),
                     ],
                   ),
@@ -182,11 +541,44 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 1'),
                       SizedBox(
-                          width: 70.w,
-                          child: Obx(() =>
-                              _setNumber(controller.arguments.value.ma_1))),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('1（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.ma_1}',
+                                    color: controller.arguments.value.ma_1 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.ma_1 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.ma_1.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.ma_1 = value.toInt();
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_1 > 0) val.ma_1--;
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_1 < 10) val.ma_1++;
+                                });
+                              },
+                              min: 0,
+                              max: 10,
+                            )),
+                      ),
                     ],
                   ),
                 ),
@@ -206,11 +598,44 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 2'),
                       SizedBox(
-                          width: 70.w,
-                          child: Obx(() =>
-                              _setNumber(controller.arguments.value.ma_2))),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('2（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.ma_2}',
+                                    color: controller.arguments.value.ma_2 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.ma_2 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.ma_2.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.ma_2 = value.toInt();
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_2 > 0) val.ma_2--;
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_2 < 10) val.ma_2++;
+                                });
+                              },
+                              min: 0,
+                              max: 10,
+                            )),
+                      ),
                     ],
                   ),
                 ),
@@ -230,11 +655,44 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 3'),
                       SizedBox(
-                          width: 70.w,
-                          child: Obx(() =>
-                              _setNumber(controller.arguments.value.ma_3))),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('3（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.ma_3}',
+                                    color: controller.arguments.value.ma_3 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.ma_3 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.ma_3.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.ma_3 = value.toInt();
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_3 > 0) val.ma_3--;
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_3 < 10) val.ma_3++;
+                                });
+                              },
+                              min: 0,
+                              max: 20,
+                            )),
+                      ),
                     ],
                   ),
                 ),
@@ -254,11 +712,44 @@ class MoneySetView extends GetView<MoneySetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getSpan('玩家 4'),
                       SizedBox(
-                          width: 70.w,
-                          child: Obx(() =>
-                              _setNumber(controller.arguments.value.ma_4))),
+                        width: 40.w,
+                        child: Row(
+                          children: [
+                            getSpan('4（ '),
+                            Obx(() =>
+                                getSpan('${controller.arguments.value.ma_4}',
+                                    color: controller.arguments.value.ma_4 > 0
+                                        ? AppColors.errro
+                                        : controller.arguments.value.ma_4 < 0
+                                            ? Colors.green
+                                            : null)),
+                            getSpan(' )'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(() => _setNumber(
+                              controller.arguments.value.ma_4.toDouble(),
+                              onChanged: (value) {
+                                controller.arguments.update((val) {
+                                  val!.ma_4 = value.toInt();
+                                });
+                              },
+                              subtraction: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_4 > 0) val.ma_4--;
+                                });
+                              },
+                              addition: () {
+                                controller.arguments.update((val) {
+                                  if (val!.ma_4 < 10) val.ma_4++;
+                                });
+                              },
+                              min: 0,
+                              max: 20,
+                            )),
+                      ),
                     ],
                   ),
                 ),
