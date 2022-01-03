@@ -29,11 +29,11 @@ class SubscriptionController extends GetxController {
   /// 订阅
   void handleSubscribe(item) async {
     getDialog();
-    Map<String, dynamic> data = {
-      'userId': item['userId'],
-      'groupId': item['freeGroupId'],
-    };
-    ResponseEntity subscribeGroup = await UserApi.subscribeGroup(data);
+
+    ResponseEntity subscribeGroup = await UserApi.subscribeGroup(
+      userId: item['userId'],
+      groupId: item['freeGroupId'],
+    );
 
     if (subscribeGroup.code == 200) {
       await futureMill(200);
@@ -52,13 +52,7 @@ class SubscriptionController extends GetxController {
 
   /// 请求数据
   Future<dynamic> _getList() async {
-    /// 开始请求
-    Map<String, dynamic> data = {
-      'pageNo': '1',
-      'pageSize': '20',
-      'type': '1',
-    };
-    ResponseEntity getUserList = await UserApi.list(data);
+    ResponseEntity getUserList = await UserApi.list(pageNo: 1, type: 1);
 
     if (getUserList.code == 200) {
       state.userList = getUserList.data['list'];

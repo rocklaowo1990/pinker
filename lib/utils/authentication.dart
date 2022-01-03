@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
+import 'package:pinker/api/api.dart';
+import 'package:pinker/entities/entities.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 /// 检查是否有 token
 Future<bool> isAuthenticated() async {
@@ -33,4 +36,21 @@ Future deleteAuthentication() async {
 Future goLoginPage() async {
   await deleteAuthentication();
   Get.offAllNamed(AppRoutes.frame);
+}
+
+Future<void> getUserInfo(
+  Rx<UserInfoEntities> userInfo, {
+  RxBool? isLoading,
+}) async {
+  ResponseEntity _info = await UserApi.info();
+  if (_info.code == 200) {
+    await StorageUtil().setJSON(storageUserInfoKey, _info.data);
+    userInfo.value = UserInfoEntities.fromJson(_info.data);
+    userInfo.update((val) {});
+    await StorageUtil().setBool(storageIsHadUserInfo, true);
+    Global.isHadUserInfo = true;
+  } else {
+    getSnackTop(_info.msg);
+    if (isLoading != null) isLoading.value = false;
+  }
 }

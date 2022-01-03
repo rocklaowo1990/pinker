@@ -5,10 +5,12 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/dynamic/media_view/library.dart';
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/subscribe_sheet.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 图片上展示的数字
@@ -39,21 +41,31 @@ Widget getContentPayBox(
   late String mediaInfo;
   late Widget price;
 
-  void _onPressed() {
-    if (mediaViewController != null) {
-      mediaViewController.fijkPlayer = FijkPlayer();
+  final ApplicationController applicationController = Get.find();
 
-      mediaViewController.fijkPlayer!.setDataSource(
-          serverApiUrl +
-              serverPort +
-              contentList.value.list[index].works.video.url,
-          autoPlay: true);
+  void _onPressed() async {
+    if (contentList.value.list[index].works.payPermission.type == 1) {
+      getSubscribeBox(
+          userInfo: applicationController.state.userInfo,
+          contentList: contentList,
+          index: index,
+          reSault: () {
+            if (mediaViewController != null) {
+              mediaViewController.fijkPlayer = FijkPlayer();
+
+              mediaViewController.fijkPlayer!.setDataSource(
+                  serverApiUrl +
+                      serverPort +
+                      contentList.value.list[index].works.video.url,
+                  autoPlay: true);
+            }
+            contentList.update((val) {
+              if (val != null) {
+                val.list[index].canSee = 1;
+              }
+            });
+          });
     }
-    contentList.update((val) {
-      if (val != null) {
-        val.list[index].canSee = 1;
-      }
-    });
   }
 
   if (contentList.value.list[index].works.pics.isNotEmpty) {

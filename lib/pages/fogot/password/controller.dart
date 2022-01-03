@@ -29,22 +29,19 @@ class ForgotPasswordController extends GetxController {
   void handleNext() async {
     getDialog();
     focusNode.unfocus();
-    Map<String, dynamic> data = forgotController.arguments == null
-        ? {
-            'userId': '${forgotController.forgotInfo.userId}',
-            'code': '${forgotController.publicData['code']}',
-            'newPassword': duMD5(textController.text),
-            'type': '${forgotController.state.verifyType}',
-          }
-        : {
-            'code': '${forgotController.publicData['code']}',
-            'newPassword': duMD5(textController.text),
-            'type': '2', //验证码方式
-          };
 
     ResponseEntity _resetPassword = forgotController.arguments == null
-        ? await UserApi.resetPassword(data)
-        : await UserApi.setPassword(data);
+        ? await UserApi.resetPassword(
+            userId: forgotController.forgotInfo.userId,
+            code: forgotController.publicData['code'],
+            newPassword: duMD5(textController.text),
+            type: forgotController.state.verifyType,
+          )
+        : await UserApi.setPassword(
+            code: forgotController.publicData['code'],
+            newPassword: duMD5(textController.text),
+            type: 2,
+          );
 
     if (_resetPassword.code == 200) {
       if (forgotController.arguments == null) {

@@ -72,10 +72,14 @@ class AccountApi {
   }
 
   /// 注销账号 //////////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> deleteAccount(data) async {
+  static Future<ResponseEntity> deleteAccount(
+      {required String code, required String password}) async {
     var response = await HttpUtil().get(
       '/api/account/deleteAccount',
-      queryParameters: data,
+      queryParameters: {
+        'code': code,
+        'password': password,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'token': Global.token,

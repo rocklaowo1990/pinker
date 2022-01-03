@@ -88,11 +88,11 @@ class SetUserLogoController extends GetxController {
   void _sure() async {
     Get.back();
     getDialog();
-    Map<String, dynamic> data = {
-      'enable': state.enable,
-      'text': textController.text,
-    };
-    ResponseEntity responseEntity = await UserApi.setUserLogo(data);
+
+    ResponseEntity responseEntity = await UserApi.setUserLogo(
+      enable: state.enable,
+      text: textController.text,
+    );
     if (responseEntity.code == 200) {
       await futureMill(500);
       Get.back();

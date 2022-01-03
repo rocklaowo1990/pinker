@@ -97,21 +97,6 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> _getUserInfo() async {
-    ResponseEntity _info = await UserApi.info();
-    if (_info.code == 200) {
-      await StorageUtil().setJSON(storageUserInfoKey, _info.data);
-      applicationController.state.userInfo.value =
-          UserInfoEntities.fromJson(_info.data);
-      applicationController.state.userInfo.update((val) {});
-      await StorageUtil().setBool(storageIsHadUserInfo, true);
-      Global.isHadUserInfo = true;
-    } else {
-      getSnackTop(_info.msg);
-      state.isLoading = false;
-    }
-  }
-
   @override
   void onReady() async {
     super.onReady();
@@ -135,7 +120,10 @@ class HomeController extends GetxController {
       applicationController.state.userInfo.update((val) {});
     } else {
       await _refresh();
-      await _getUserInfo();
+      await getUserInfo(
+        applicationController.state.userInfo,
+        isLoading: state.isLoadingRx,
+      );
     }
   }
 

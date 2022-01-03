@@ -42,13 +42,11 @@ class SetCountListController extends GetxController {
   Future<void> _refresh() async {
     pageIndex = 1;
     totalSize = 0;
-    Map<String, dynamic> data = {
-      'pageNo': 1,
-      'pageSize': 20,
-    };
 
-    ResponseEntity responseEntity =
-        await UserApi.getCountList(arguments.getCountUrl, data);
+    ResponseEntity responseEntity = await UserApi.getCountList(
+      arguments.getCountUrl,
+      pageNo: 1,
+    );
     if (responseEntity.code == 200) {
       _dataList.addAll(responseEntity.data['list']);
       state.showList.clear();
@@ -57,7 +55,20 @@ class SetCountListController extends GetxController {
       state.isLoading = false;
       totalSize = responseEntity.data['totalSize'];
 
-      // applicationController.state.userInfoMap[arguments.countType] = totalSize;
+      if (arguments.dataName == 'isHide') {
+        applicationController.state.userInfo.update((val) {
+          if (val != null) {
+            val.hiddenCount = state.showList.length;
+          }
+        });
+      } else if (arguments.dataName == 'isBlock') {
+        applicationController.state.userInfo.update((val) {
+          if (val != null) {
+            val.blockCount = state.showList.length;
+          }
+        });
+      }
+
       await StorageUtil().setJSON(
           storageUserInfoKey, applicationController.state.userInfo.value);
     } else {
@@ -70,13 +81,11 @@ class SetCountListController extends GetxController {
     await futureMill(300);
     if (totalSize >= 20) {
       pageIndex++;
-      Map<String, dynamic> data = {
-        'pageNo': pageIndex,
-        'pageSize': 20,
-      };
 
-      ResponseEntity responseEntity =
-          await UserApi.getCountList(arguments.getCountUrl, data);
+      ResponseEntity responseEntity = await UserApi.getCountList(
+        arguments.getCountUrl,
+        pageNo: pageIndex,
+      );
 
       if (responseEntity.code == 200) {
         state.showList.addAll(responseEntity.data['list']);
@@ -122,17 +131,28 @@ class SetCountListController extends GetxController {
   void _sure(item) async {
     Get.back();
     getDialog();
-    Map<String, dynamic> data = {
-      'userId': item['userId'],
-      arguments.dataName: 0,
-    };
 
-    ResponseEntity responseEntity =
-        await UserApi.blockHide(arguments.setCountUrl, data);
+    ResponseEntity responseEntity = await UserApi.blockHide(
+      arguments.setCountUrl,
+      userId: item['userId'],
+      dataType: arguments.dataName,
+      dataNumber: 0,
+    );
 
     if (responseEntity.code == 200) {
-      // applicationController.state.userInfoMap[arguments.countType] =
-      //     _dataList.length - 1;
+      if (arguments.dataName == 'isHide') {
+        applicationController.state.userInfo.update((val) {
+          if (val != null) {
+            val.hiddenCount = state.showList.length - 1;
+          }
+        });
+      } else if (arguments.dataName == 'isBlock') {
+        applicationController.state.userInfo.update((val) {
+          if (val != null) {
+            val.blockCount = state.showList.length - 1;
+          }
+        });
+      }
 
       await StorageUtil().setJSON(
           storageUserInfoKey, applicationController.state.userInfo.value);

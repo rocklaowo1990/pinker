@@ -47,13 +47,12 @@ class SetPasswordController extends GetxController {
   void _sure() async {
     Get.back();
     getDialog();
-    Map<String, dynamic> data = {
-      'oldPassword': duMD5(oldController.text),
-      'newPassword': duMD5(newOneController.text),
-      'type': '1',
-    };
 
-    ResponseEntity responseEntity = await UserApi.setPassword(data);
+    ResponseEntity responseEntity = await UserApi.setPassword(
+      oldPassword: duMD5(oldController.text),
+      newPassword: duMD5(newOneController.text),
+      type: 1,
+    );
     if (responseEntity.code == 200) {
       await futureMill(500);
       Get.back();

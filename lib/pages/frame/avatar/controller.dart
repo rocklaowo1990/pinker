@@ -85,14 +85,9 @@ class AvatarController extends GetxController {
         avatarUrl = verifyResource.data['url'];
       }
 
-      /// 准备修改头像
-      Map<String, dynamic> updateUserInfoData = {
-        'avatar': avatarUrl,
-      };
-
       /// 开始修改
       ResponseEntity updateUserInfo = await UserApi.updateUserInfo(
-        updateUserInfoData,
+        avatar: avatarUrl,
       );
 
       /// 修改结果

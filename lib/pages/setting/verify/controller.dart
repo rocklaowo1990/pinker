@@ -23,34 +23,23 @@ class SetVerifyController extends GetxController {
   int? verifyType; //验证码类型（ID专用）
 
   void next() async {
-    /// 准备请求数据
-    Map<String, dynamic> data = {};
-
-    if (arguments['accountType'] == '1') {
-      data = {
-        'mobile': arguments['account'],
-        'areaCode': arguments['areaCode'],
-        'code': codeData,
-        'password': arguments['password'],
-      };
-    } else if (arguments['accountType'] == '2') {
-      data = {
-        'email': arguments['account'],
-        'code': codeData,
-        'password': arguments['password'],
-      };
-    } else {
-      data = {
-        'code': codeData,
-        'password': arguments['password'],
-      };
-    }
-
     ResponseEntity responseEntity = arguments['verifyType'] == 3
-        ? await AccountApi.deleteAccount(data)
+        ? await AccountApi.deleteAccount(
+            code: codeData,
+            password: arguments['password'],
+          )
         : arguments['accountType'] == '1'
-            ? await UserApi.setMobile(data)
-            : await UserApi.setEmail(data);
+            ? await UserApi.setMobile(
+                mobile: arguments['account'],
+                areaCode: arguments['areaCode'],
+                code: codeData,
+                password: arguments['password'],
+              )
+            : await UserApi.setEmail(
+                password: arguments['password'],
+                code: codeData,
+                email: arguments['account'],
+              );
 
     if (responseEntity.code == 200) {
       if (arguments['verifyType'] == 3) {

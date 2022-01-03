@@ -6,7 +6,7 @@ class HomeState {
       ContentListEntities.fromJson(ContentListEntities.child).obs;
 
   /// 正在请求数据
-  final RxBool _isLoading = true.obs;
-  set isLoading(bool value) => _isLoading.value = value;
-  bool get isLoading => _isLoading.value;
+  final RxBool isLoadingRx = true.obs;
+  set isLoading(bool value) => isLoadingRx.value = value;
+  bool get isLoading => isLoadingRx.value;
 }

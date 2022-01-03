@@ -41,10 +41,10 @@ class SetUserNameController extends GetxController {
   void _editUserName() async {
     _cancel();
     getDialog();
-    Map<String, dynamic> data = {
-      'userName': textController.text,
-    };
-    ResponseEntity responseEntity = await UserApi.setUserName(data);
+
+    ResponseEntity responseEntity = await UserApi.setUserName(
+      userName: textController.text,
+    );
 
     if (responseEntity.code == 200) {
       // applicationController.state.userInfoMap['userName'] = textController.text;
