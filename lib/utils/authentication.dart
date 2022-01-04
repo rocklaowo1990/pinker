@@ -38,10 +38,7 @@ Future goLoginPage() async {
   Get.offAllNamed(AppRoutes.frame);
 }
 
-Future<void> getUserInfo(
-  Rx<UserInfoEntities> userInfo, {
-  RxBool? isLoading,
-}) async {
+Future<void> getUserInfo(Rx<UserInfoEntities> userInfo) async {
   ResponseEntity _info = await UserApi.info();
   if (_info.code == 200) {
     await StorageUtil().setJSON(storageUserInfoKey, _info.data);
@@ -51,6 +48,5 @@ Future<void> getUserInfo(
     Global.isHadUserInfo = true;
   } else {
     getSnackTop(_info.msg);
-    if (isLoading != null) isLoading.value = false;
   }
 }

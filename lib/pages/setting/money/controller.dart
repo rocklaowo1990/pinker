@@ -39,37 +39,57 @@ class MoneyController extends GetxController {
         state.player_3.value.ma_4 +
         state.player_4.value.ma_4;
 
-    state.player_1.value.only_1 = state.player_1.value.only_1 >= 0
-        ? state.player_1.value.only_1 *
-            (state.player_1.value.beBuy - state.player_2.value.ma_1 + 1)
-        : state.player_1.value.only_1 *
-            (state.player_2.value.beBuy - state.player_1.value.ma_2 + 1);
-    state.player_2.value.only_1 = -state.player_1.value.only_1;
+    if (state.player_1.value.only_1 >= 0) {
+      state.player_1.value.only_1 += state.player_1.value.only_1 *
+          (state.player_2.value.beBuy -
+              state.player_1.value.ma_2 +
+              state.player_1.value.ma_1);
+    }
 
-    state.player_1.value.only_2 =
-        (state.player_3.value.beBuy - state.player_1.value.ma_3) *
-            (state.player_1.value.ma_1 + 1);
-    state.player_3.value.only_1 = -state.player_1.value.only_2;
+    state.player_2.value.only_1 += state.player_2.value.only_1 >= 0
+        ? state.player_2.value.only_1 * state.player_2.value.ma_2
+        : state.player_2.value.only_1 *
+            (state.player_1.value.beBuy - state.player_2.value.ma_1);
 
-    state.player_1.value.only_3 =
-        (state.player_3.value.beBuy - state.player_1.value.ma_3) *
-            (state.player_1.value.ma_1 + 1);
-    state.player_4.value.only_1 = -state.player_1.value.only_3;
+    state.player_1.value.only_2 += state.player_1.value.only_2 >= 0
+        ? state.player_1.value.only_2 *
+            (state.player_1.value.beBuy - state.player_3.value.ma_1)
+        : state.player_1.value.only_2 *
+            (state.player_3.value.beBuy - state.player_1.value.ma_3);
+    state.player_3.value.only_1 +=
+        state.player_3.value.only_1 * state.player_3.value.ma_3;
 
-    state.player_2.value.only_2 =
-        (state.player_3.value.beBuy - state.player_2.value.ma_3) *
-            (state.player_1.value.ma_2 + 1);
-    state.player_3.value.only_2 = -state.player_2.value.only_2;
+    state.player_1.value.only_3 += state.player_1.value.only_3 >= 0
+        ? state.player_1.value.only_3 *
+            (state.player_1.value.beBuy - state.player_4.value.ma_1)
+        : state.player_1.value.only_3 *
+            (state.player_4.value.beBuy - state.player_1.value.ma_4);
+    state.player_4.value.only_1 +=
+        state.player_4.value.only_1 * state.player_4.value.ma_4;
 
-    state.player_2.value.only_3 =
-        (state.player_4.value.beBuy - state.player_2.value.ma_4) *
-            (state.player_1.value.ma_2 + 1);
-    state.player_4.value.only_2 = -state.player_2.value.only_3;
+    state.player_2.value.only_2 += state.player_2.value.only_2 >= 0
+        ? state.player_2.value.only_2 *
+            (state.player_2.value.beBuy - state.player_3.value.ma_2)
+        : state.player_2.value.only_2 *
+            (state.player_3.value.beBuy - state.player_2.value.ma_3);
+    state.player_3.value.only_2 +=
+        state.player_3.value.only_2 * state.player_3.value.ma_3;
 
-    state.player_3.value.only_3 =
-        (state.player_4.value.beBuy - state.player_3.value.ma_4) *
-            (state.player_3.value.ma_3 + 1);
-    state.player_4.value.only_3 = -state.player_3.value.only_3;
+    state.player_2.value.only_3 += state.player_2.value.only_3 >= 0
+        ? state.player_2.value.only_3 *
+            (state.player_2.value.beBuy - state.player_4.value.ma_2)
+        : state.player_2.value.only_3 *
+            (state.player_4.value.beBuy - state.player_2.value.ma_4);
+    state.player_4.value.only_2 +=
+        state.player_4.value.only_2 * state.player_4.value.ma_4;
+
+    state.player_3.value.only_3 += state.player_3.value.only_3 >= 0
+        ? state.player_3.value.only_3 *
+            (state.player_3.value.beBuy - state.player_4.value.ma_3)
+        : state.player_3.value.only_3 *
+            (state.player_4.value.beBuy - state.player_3.value.ma_4);
+    state.player_4.value.only_3 +=
+        state.player_4.value.only_3 * state.player_4.value.ma_4;
 
     state.player_1.value.resault =
         (state.player_1.value.ji - state.player_2.value.ji) *

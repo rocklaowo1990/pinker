@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/api/content.dart';
 
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
@@ -24,8 +25,8 @@ Future<void> getSubscribeBox({
   required int index,
   required VoidCallback reSault,
 }) async {
-  print(contentList.value.list[index].works.payPermission.groupId);
   int groupId = 0;
+  double groupPrice = 0;
   final amount = 0.0.obs;
   final choose = 0.obs;
   final isLoading = true.obs;
@@ -36,8 +37,26 @@ Future<void> getSubscribeBox({
     userId: contentList.value.list[index].author.userId,
   );
 
+  print(contentList.value.list[index].works.replyPermission.groupId);
+
   if (responseEntity.code == 200) {
     subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
+    for (int i = 0; i < subscribeInfo.groups.length; i++) {
+      print(contentList.value.list[index].works.replyPermission.groupId);
+      print(subscribeInfo.groups[i].groupId);
+
+      if (contentList.value.list[index].works.replyPermission.groupId ==
+          subscribeInfo.groups[i].groupId) {
+        groupPrice = subscribeInfo.groups[i].amount;
+      }
+    }
+
+    for (int i = 0; i < subscribeInfo.groups.length; i++) {
+      if (subscribeInfo.groups[i].amount < groupPrice) {
+        subscribeInfo.groups.remove(subscribeInfo.groups[i]);
+      }
+    }
+
     groupId = subscribeInfo.groups[0].groupId;
     amount.value = subscribeInfo.groups[0].amount;
 
@@ -151,29 +170,51 @@ Future<void> getSubscribeBox({
       height: 25.h,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
-        getDialog();
-        ResponseEntity _responseEntity = await UserApi.subscribeGroup(
-          userId: contentList.value.list[index].author.userId,
-          groupId: groupId,
-        );
-        if (_responseEntity.code == 200) {
-          getUserInfo(userInfo);
-          for (int i = 0; i < contentList.value.list.length; i++) {
-            if (contentList.value.list[index].works.payPermission.type == 1 &&
-                contentList.value.list[index].works.payPermission.price! <=
-                    amount.value) {
-              contentList.value.list[index].canSee = 1;
-            }
-          }
-          contentList.update((val) {});
-          reSault();
+        getDialog(
+          child: DialogChild.alert(
+            title: '是否确认支付',
+            content: '${amount.value} 钻石',
+            onPressedRight: () async {
+              ResponseEntity _responseEntity = await UserApi.subscribeGroup(
+                userId: contentList.value.list[index].author.userId,
+                groupId: groupId,
+              );
 
-          Get.back();
-          Get.back();
-        } else {
-          Get.back();
-          getSnackTop(_responseEntity.msg);
-        }
+              if (_responseEntity.code == 200) {
+                getDialog();
+                getUserInfo(userInfo);
+
+                for (int i = 0; i < contentList.value.list.length; i++) {
+                  if (contentList.value.list[i].author.userId ==
+                      contentList.value.list[index].author.userId) {
+                    ResponseEntity _userinfo = await ContentApi.contentDetail(
+                        wid: contentList.value.list[i].wid);
+                    if (_userinfo.code == 200) {
+                      contentList.update((val) {
+                        val!.list[i] =
+                            ContentDetailElement.fromJson(_userinfo.data);
+                      });
+                    } else {
+                      getSnackTop(_userinfo.msg);
+                    }
+                  }
+                }
+                reSault();
+
+                Get.back();
+                Get.back();
+              } else {
+                Get.back();
+                getSnackTop(_responseEntity.msg);
+              }
+            },
+            leftText: '取消',
+            onPressedLeft: () {
+              Get.back();
+            },
+          ),
+          autoBack: true,
+        );
       });
   Widget body = Obx(
     () => Container(

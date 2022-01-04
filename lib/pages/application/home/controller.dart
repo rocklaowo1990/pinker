@@ -120,10 +120,7 @@ class HomeController extends GetxController {
       applicationController.state.userInfo.update((val) {});
     } else {
       await _refresh();
-      await getUserInfo(
-        applicationController.state.userInfo,
-        isLoading: state.isLoadingRx,
-      );
+      await getUserInfo(applicationController.state.userInfo);
     }
   }
 

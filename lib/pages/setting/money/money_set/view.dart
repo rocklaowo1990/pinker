@@ -564,16 +564,19 @@ class MoneySetView extends GetView<MoneySetController> {
                                 controller.arguments.update((val) {
                                   val!.ma_1 = value.toInt();
                                 });
+                                controller.changeBebuy();
                               },
                               subtraction: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_1 > 0) val.ma_1--;
                                 });
+                                controller.changeBebuy();
                               },
                               addition: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_1 < 10) val.ma_1++;
                                 });
+                                controller.changeBebuy();
                               },
                               min: 0,
                               max: 10,
@@ -621,16 +624,19 @@ class MoneySetView extends GetView<MoneySetController> {
                                 controller.arguments.update((val) {
                                   val!.ma_2 = value.toInt();
                                 });
+                                controller.changeBebuy();
                               },
                               subtraction: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_2 > 0) val.ma_2--;
                                 });
+                                controller.changeBebuy();
                               },
                               addition: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_2 < 10) val.ma_2++;
                                 });
+                                controller.changeBebuy();
                               },
                               min: 0,
                               max: 10,
@@ -678,16 +684,19 @@ class MoneySetView extends GetView<MoneySetController> {
                                 controller.arguments.update((val) {
                                   val!.ma_3 = value.toInt();
                                 });
+                                controller.changeBebuy();
                               },
                               subtraction: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_3 > 0) val.ma_3--;
                                 });
+                                controller.changeBebuy();
                               },
                               addition: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_3 < 10) val.ma_3++;
                                 });
+                                controller.changeBebuy();
                               },
                               min: 0,
                               max: 20,
@@ -735,16 +744,19 @@ class MoneySetView extends GetView<MoneySetController> {
                                 controller.arguments.update((val) {
                                   val!.ma_4 = value.toInt();
                                 });
+                                controller.changeBebuy();
                               },
                               subtraction: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_4 > 0) val.ma_4--;
                                 });
+                                controller.changeBebuy();
                               },
                               addition: () {
                                 controller.arguments.update((val) {
                                   if (val!.ma_4 < 10) val.ma_4++;
                                 });
+                                controller.changeBebuy();
                               },
                               min: 0,
                               max: 20,

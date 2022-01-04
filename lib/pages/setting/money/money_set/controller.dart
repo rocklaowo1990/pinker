@@ -22,4 +22,35 @@ class MoneySetController extends GetxController {
   void handleOnChanged(value) {
     state.isHu = value ? 1 : 0;
   }
+
+  void changeBebuy() {
+    moneyController.state.player_1.value.beBuy =
+        moneyController.state.player_1.value.ma_1 +
+            moneyController.state.player_2.value.ma_1 +
+            moneyController.state.player_3.value.ma_1 +
+            moneyController.state.player_4.value.ma_1;
+
+    moneyController.state.player_2.value.beBuy =
+        moneyController.state.player_1.value.ma_2 +
+            moneyController.state.player_2.value.ma_2 +
+            moneyController.state.player_3.value.ma_2 +
+            moneyController.state.player_4.value.ma_2;
+
+    moneyController.state.player_3.value.beBuy =
+        moneyController.state.player_1.value.ma_3 +
+            moneyController.state.player_2.value.ma_3 +
+            moneyController.state.player_3.value.ma_3 +
+            moneyController.state.player_4.value.ma_3;
+
+    moneyController.state.player_4.value.beBuy =
+        moneyController.state.player_1.value.ma_4 +
+            moneyController.state.player_2.value.ma_4 +
+            moneyController.state.player_3.value.ma_4 +
+            moneyController.state.player_4.value.ma_4;
+
+    moneyController.state.player_1.update((val) {});
+    moneyController.state.player_2.update((val) {});
+    moneyController.state.player_3.update((val) {});
+    moneyController.state.player_4.update((val) {});
+  }
 }

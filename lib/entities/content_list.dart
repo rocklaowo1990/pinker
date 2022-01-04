@@ -4,13 +4,13 @@ class ContentListEntities {
     required this.totalSize,
   });
 
-  List<_ListElement> list;
+  List<ContentDetailElement> list;
   int totalSize;
 
   factory ContentListEntities.fromJson(Map<String, dynamic> json) =>
       ContentListEntities(
-        list: List<_ListElement>.from(
-            json["list"].map((x) => _ListElement.fromJson(x))),
+        list: List<ContentDetailElement>.from(
+            json["list"].map((x) => ContentDetailElement.fromJson(x))),
         totalSize: json["totalSize"],
       );
 
@@ -64,8 +64,8 @@ class ContentListEntities {
   };
 }
 
-class _ListElement {
-  _ListElement({
+class ContentDetailElement {
+  ContentDetailElement({
     required this.wid,
     required this.createDate,
     required this.commentCount,
@@ -101,7 +101,8 @@ class _ListElement {
   int? groupPrice;
   int? subStatus;
 
-  factory _ListElement.fromJson(Map<String, dynamic> json) => _ListElement(
+  factory ContentDetailElement.fromJson(Map<String, dynamic> json) =>
+      ContentDetailElement(
         wid: json["wid"],
         createDate: json["createDate"],
         commentCount: json["commentCount"],

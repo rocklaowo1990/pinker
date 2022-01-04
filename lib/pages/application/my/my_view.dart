@@ -179,7 +179,7 @@ class MyView extends GetView<MyController> {
                 number:
                     '${controller.applicationController.state.userInfo.value.diamondBalance}',
                 buttonText: '购买钻石',
-                onPressed: () {},
+                onPressed: controller.handleDiamond,
               )),
           Container(
             width: double.infinity,
@@ -192,7 +192,7 @@ class MyView extends GetView<MyController> {
                 number:
                     '${controller.applicationController.state.userInfo.value.pCoinBalance}',
                 buttonText: '立即提现',
-                onPressed: () {},
+                onPressed: controller.handleP,
               )),
         ],
       ),
