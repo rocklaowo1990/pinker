@@ -27,17 +27,16 @@ class SubscriptionController extends GetxController {
     Get.offAllNamed(AppRoutes.application);
   }
 
-  /// 订阅
-  void handleSubscribe(int index) async {
-    getDialog(autoBack: true);
-
+  void _sure(int index) async {
+    Get.back();
+    getDialog();
     ResponseEntity subscribeGroup = await UserApi.subscribeGroup(
       userId: state.userList.value.list[index].userId,
       groupId: state.userList.value.list[index].freeGroupId!,
     );
 
     if (subscribeGroup.code == 200) {
-      await futureMill(500);
+      await futureMill(1000);
       Get.back();
       state.userList.update((val) {
         val!.list.remove(val.list[index]);
@@ -51,6 +50,24 @@ class SubscriptionController extends GetxController {
       Get.back();
       getSnackTop(subscribeGroup.msg);
     }
+  }
+
+  /// 订阅
+  void handleSubscribe(int index) async {
+    getDialog(
+      child: DialogChild.alert(
+        title: '订阅',
+        content: '是否确认继续操作',
+        onPressedRight: () {
+          _sure(index);
+        },
+        leftText: '取消',
+        onPressedLeft: () {
+          Get.back();
+        },
+      ),
+      autoBack: true,
+    );
   }
 
   /// 请求数据

@@ -205,7 +205,6 @@ Future<void> getContentPaySheet({
                 if (type == 1 ||
                     contentList.value.list[index].works.payPermission.type ==
                         3) {
-                  print('这里');
                   await onRefreshContentList(
                       userId: contentList.value.list[index].author.userId);
                 } else {
@@ -225,56 +224,82 @@ Future<void> getContentPaySheet({
           autoBack: true,
         );
       });
-  Widget body = Obx(
-    () => Container(
-      height: 203.h,
-      decoration: BoxDecoration(
-          color: AppColors.secondBacground,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.w),
-            topRight: Radius.circular(8.w),
-          )),
-      child: isLoading.value
-          ? Center(
-              child: Column(children: [
-              SizedBox(height: 40.h),
-              SizedBox(
-                  width: 9.w,
-                  height: 9.w,
-                  child: CircularProgressIndicator(
-                      backgroundColor: AppColors.mainIcon,
-                      color: AppColors.mainColor,
-                      strokeWidth: 1.w)),
-              SizedBox(height: 6.h),
-              getSpan('加载中...', color: AppColors.secondText),
-            ]))
-          : Padding(
-              padding: EdgeInsets.all(9.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(height: 4.h),
-                  span,
-                  SizedBox(height: 9.h),
-                  Expanded(child: _payBody()),
-                  SizedBox(height: 9.h),
-                  button,
-                  SizedBox(height: 9.h),
-                  getSpan(
-                    '当前钻石余额：${subscribeInfo.balance}',
-                    color: AppColors.secondText,
-                  )
-                ],
-              ),
-            ),
+
+  /// 头像
+  Widget avatarBox = Container(
+    width: 32.w,
+    height: 32.w,
+    decoration: const BoxDecoration(
+      shape: BoxShape.circle,
+      color: AppColors.thirdIcon,
     ),
+    child: Center(
+      child: contentList.value.list[index].author.avatar.isEmpty ||
+              isInclude(contentList.value.list[index].author.avatar,
+                  'user_default_head.png')
+          ? SvgPicture.asset(
+              'assets/svg/avatar_default.svg',
+              width: 32.w,
+            )
+          : getImageBox(contentList.value.list[index].author.avatar,
+              shape: BoxShape.circle),
+    ),
+  );
+  Widget body = Column(
+    children: [
+      Expanded(
+          child: getButton(
+              width: double.infinity,
+              background: Colors.transparent,
+              overlayColor: Colors.transparent,
+              height: double.infinity,
+              child: const SizedBox(),
+              onPressed: () {
+                Get.back();
+              })),
+      Stack(
+        children: [
+          Column(
+            children: [
+              SizedBox(height: 24.h),
+              Container(
+                decoration: BoxDecoration(
+                    color: AppColors.secondBacground,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8.w),
+                      topRight: Radius.circular(8.w),
+                    )),
+                child: Padding(
+                  padding: EdgeInsets.all(12.w),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 9.h),
+                      span,
+                      SizedBox(height: 9.h),
+                      _payBody(),
+                      SizedBox(height: 9.h),
+                      button,
+                      SizedBox(height: 9.h),
+                      getSpan(
+                        '当前钻石余额：${subscribeInfo.balance}',
+                        color: AppColors.secondText,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Center(child: avatarBox),
+        ],
+      ),
+    ],
   );
 
   /// 返回
   Get.bottomSheet(
-    SingleChildScrollView(
-      child: body,
-    ),
+    body,
+    isScrollControlled: true,
     // backgroundColor: AppColors.dateBox,
     // isDismissible: false, // 用户点击空白区域是否可以返回
   );

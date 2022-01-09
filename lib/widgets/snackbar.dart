@@ -23,7 +23,7 @@ Future getSnackTop(String? msg, {bool? isError}) async {
       top: 8.h,
       bottom: 6.h,
     ),
-    animationDuration: const Duration(milliseconds: 500),
+    animationDuration: const Duration(milliseconds: 300),
     duration: const Duration(milliseconds: 1000),
   );
 }

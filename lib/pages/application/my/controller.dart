@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/wallet.dart';
@@ -45,9 +46,10 @@ class MyController extends GetxController {
     });
   }
 
-  void handleDiamond() async {
+  void _sureDiamond() async {
+    Get.back();
     getDialog();
-    await futureMill(500);
+
     ResponseEntity responseEntity = await WalletApi.testAddMoney(type: 1);
 
     if (responseEntity.code == 200) {
@@ -62,9 +64,24 @@ class MyController extends GetxController {
     }
   }
 
-  void handleP() async {
+  void handleDiamond() async {
+    getDialog(
+      child: DialogChild.alert(
+        title: '测试充值',
+        content: '继续操作将充值 1000 钻石',
+        onPressedRight: _sureDiamond,
+        leftText: '取消',
+        onPressedLeft: () {
+          Get.back();
+        },
+      ),
+      autoBack: true,
+    );
+  }
+
+  void _sureP() async {
+    Get.back();
     getDialog();
-    await futureMill(500);
 
     ResponseEntity responseEntity = await WalletApi.testAddMoney(type: 2);
     if (responseEntity.code == 200) {
@@ -77,6 +94,21 @@ class MyController extends GetxController {
       Get.back();
       getSnackTop(responseEntity.msg);
     }
+  }
+
+  void handleP() async {
+    getDialog(
+      child: DialogChild.alert(
+        title: '测试充值',
+        content: '继续操作将充值 1000 P',
+        onPressedRight: _sureP,
+        leftText: '取消',
+        onPressedLeft: () {
+          Get.back();
+        },
+      ),
+      autoBack: true,
+    );
   }
 
   @override
