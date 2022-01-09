@@ -296,11 +296,5 @@ Widget getContentPayChooiseBox({
     ],
   );
 
-  return !isChooise
-      ? payBox
-      : Stack(
-          children: [
-            payBox,
-          ],
-        );
+  return payBox;
 }
