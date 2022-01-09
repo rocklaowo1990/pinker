@@ -26,26 +26,17 @@ class VerifyController extends GetxController {
 
   /// 请求验证码
   Future<bool> sendCode() async {
-    /// 准备请求数据
-    Map<String, dynamic> data = {};
-
-    if (arguments['accountType'] == '1') {
-      data = {
-        'mobile': arguments['account'],
-        'areaCode': arguments['areaCode'],
-        'entryType': arguments['entryType'],
-      };
-    } else {
-      data = {
-        'email': arguments['account'],
-        'entryType': arguments['entryType'],
-      };
-    }
-
     /// 请求服务器...
     ResponseEntity codeNumber = arguments['accountType'] == '1'
-        ? await CommonApi.sendSms(data)
-        : await CommonApi.sendEmail(data);
+        ? await CommonApi.sendSms(
+            mobile: arguments['account'],
+            areaCode: arguments['areaCode'],
+            entryType: arguments['entryType'],
+          )
+        : await CommonApi.sendEmail(
+            email: arguments['account'],
+            entryType: arguments['entryType'],
+          );
 
     /// 返回数据处理
     if (codeNumber.code == 200) {
@@ -64,13 +55,12 @@ class VerifyController extends GetxController {
 
   /// 验证验证码
   Future<bool> isVerify(String code) async {
-    Map<String, dynamic> data = {
-      'account': arguments['account'],
-      'accountType': arguments['accountType'],
-      'code': code,
-      'entryType': arguments['entryType'],
-    };
-    ResponseEntity checkCode = await CommonApi.checkCode(data); // 弹窗停留时间
+    ResponseEntity checkCode = await CommonApi.checkCode(
+      account: arguments['account'],
+      accountType: arguments['accountType'],
+      code: code,
+      entryType: arguments['entryType'],
+    ); // 弹窗停留时间
 
     if (checkCode.code == 200) {
       arguments['code'] = code;

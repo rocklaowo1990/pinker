@@ -66,6 +66,7 @@ class DialogChild {
   static Widget alert({
     String? title,
     String? content,
+    Widget? contentWidget,
     VoidCallback? onPressedLeft,
     VoidCallback? onPressedRight,
     String? leftText,
@@ -120,11 +121,12 @@ class DialogChild {
       children: [
         getSpan(title, fontSize: 17),
         SizedBox(height: 8.h),
-        getSpan(
-          content,
-          color: AppColors.secondText,
-          textAlign: TextAlign.center,
-        ),
+        contentWidget ??
+            getSpan(
+              content,
+              color: AppColors.secondText,
+              textAlign: TextAlign.center,
+            ),
       ],
     );
 
@@ -159,16 +161,30 @@ class DialogChild {
       ),
     );
 
-    return Padding(
-        padding: EdgeInsets.all(32.w),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(),
-            body,
-            const SizedBox(),
-          ],
-        ));
+    return Stack(
+      children: [
+        getButton(
+            background: Colors.transparent,
+            overlayColor: Colors.transparent,
+            child: const SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            onPressed: () {
+              Get.back();
+            }),
+        Padding(
+            padding: EdgeInsets.all(32.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(),
+                body,
+                const SizedBox(),
+              ],
+            ))
+      ],
+    );
   }
 
   /// 照片裁切 ////////////////////////////////////////////////////////

@@ -83,15 +83,13 @@ Widget getCommentList(
               children: [
                 LikeButton(
                   onTap: (bool isLike) async {
-                    Map<String, dynamic> data = {
-                      'wid': wid,
-                      'cid': commentList.value.list[index].cid,
-                      'type': 2,
-                      'isLike': commentList.value.list[index].isLike =
+                    ResponseEntity responseEntity = await ContentApi.like(
+                      wid: wid,
+                      cid: commentList.value.list[index].cid,
+                      type: 2,
+                      isLike: commentList.value.list[index].isLike =
                           commentList.value.list[index].isLike == 0 ? 1 : 0,
-                    };
-
-                    ResponseEntity responseEntity = await ContentApi.like(data);
+                    );
                     if (responseEntity.code == 200) {
                       commentList.update((val) {
                         commentList.value.list[index].likeCount +=

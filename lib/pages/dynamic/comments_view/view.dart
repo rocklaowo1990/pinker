@@ -153,32 +153,45 @@ Future getCommentsView(
                           )
                         : const SizedBox(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(4.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: getInput(
-                            height: 40,
-                            type: '文明回复，共创美好环境 ~',
-                            controller: controller.textController,
-                            focusNode: controller.focusNode,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        getButton(
-                          child: getSpan('回复'),
-                          height: 40,
-                          width: 70,
-                          onPressed: () {
-                            controller.handleCommentAdd(contentList, index,
-                                storageKey: storageKey);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  Obx(() => Padding(
+                        padding: EdgeInsets.all(4.w),
+                        child: contentList.value.list[index].canReply == 1
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: getInput(
+                                      height: 40,
+                                      type: '文明回复，共创美好环境 ~',
+                                      controller: controller.textController,
+                                      focusNode: controller.focusNode,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  getButton(
+                                    child: getSpan('回复'),
+                                    height: 40,
+                                    width: 70,
+                                    onPressed: () {
+                                      controller.handleCommentAdd(
+                                          contentList, index,
+                                          storageKey: storageKey);
+                                    },
+                                  ),
+                                ],
+                              )
+                            : SizedBox(
+                                height: 40,
+                                width: double.infinity,
+                                child: Center(
+                                  child: getSpan(
+                                    '您没有权限回复这篇推文',
+                                    color: AppColors.secondText,
+                                  ),
+                                ),
+                              ),
+                      )),
                 ],
               ),
             ),

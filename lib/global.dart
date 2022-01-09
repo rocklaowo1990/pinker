@@ -36,7 +36,7 @@ class Global {
   // static bool? isFirstOpen;
 
   /// 是否有用户数据
-  static bool isHadUserInfo = false;
+  // static bool isHadUserInfo = false;
 
   /// 是否离线登录
   static bool isOfflineLogin = false;
@@ -86,10 +86,10 @@ class Global {
     }
 
     // 读取离线用户信息
-    bool? _isHadUserInfo = StorageUtil().getBool(storageIsHadUserInfo);
-    if (_isHadUserInfo != null) {
-      isHadUserInfo = _isHadUserInfo;
-    }
+    // bool? _isHadUserInfo = StorageUtil().getBool(storageIsHadUserInfo);
+    // if (_isHadUserInfo != null) {
+    //   isHadUserInfo = _isHadUserInfo;
+    // }
   }
 
   // 保存用户已打开APP

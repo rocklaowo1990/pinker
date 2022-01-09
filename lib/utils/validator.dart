@@ -40,6 +40,11 @@ bool isChinese(String value) {
   return RegExp(r"[\u4e00-\u9fa5]").hasMatch(value);
 }
 
+/// 匹配中文，英文字母
+bool getGroupName(String value) {
+  return RegExp(r"^[a-zA-Z0-9_\u4e00-\u9fa5]+$").hasMatch(value);
+}
+
 /// 验证码密码：8-16位，至少包含一个字母一个数字，其他不限制
 /// r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$"
 bool isPassword(String value) {
@@ -71,8 +76,23 @@ String getEmailHide(String value) {
 }
 
 /// 时间戳转时间
-DateTime getDateTime(int value) {
-  return DateTime.fromMicrosecondsSinceEpoch(value);
+String getDate(int value) {
+  String valueString = value.toString().substring(0, 13);
+  int valueInt = int.parse(valueString);
+
+  DateTime valueTime = DateTime.fromMillisecondsSinceEpoch(valueInt);
+  String month =
+      valueTime.month < 10 ? '0${valueTime.month}' : '${valueTime.month}';
+  String day = valueTime.day < 10 ? '0${valueTime.day}' : '${valueTime.day}';
+
+  return '${valueTime.year}-$month-$day';
+}
+
+String getResultTime(int value) {
+  DateTime valueTime = DateTime.fromMillisecondsSinceEpoch(value);
+  Duration cha = DateTime.now().difference(valueTime);
+
+  return cha.toString();
 }
 
 /// 时间格式化

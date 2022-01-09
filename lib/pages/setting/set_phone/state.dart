@@ -7,9 +7,9 @@ class SetPhoneState {
   bool get isDissable => _isDissable.value;
 
   /// code
-  final RxString _code = '86'.obs;
-  set code(String value) => _code.value = value;
-  String get code => _code.value;
+  final RxString codeRx = '86'.obs;
+  set code(String value) => codeRx.value = value;
+  String get code => codeRx.value;
 
   /// 接收验证码的手机号码或者邮箱地址
   final RxString _account = ''.obs;

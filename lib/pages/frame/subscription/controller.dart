@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/entities/user_list.dart';
 import 'package:pinker/global.dart';
 
 import 'package:pinker/pages/frame/library.dart';
@@ -27,18 +28,20 @@ class SubscriptionController extends GetxController {
   }
 
   /// 订阅
-  void handleSubscribe(item) async {
-    getDialog();
+  void handleSubscribe(int index) async {
+    getDialog(autoBack: true);
 
     ResponseEntity subscribeGroup = await UserApi.subscribeGroup(
-      userId: item['userId'],
-      groupId: item['freeGroupId'],
+      userId: state.userList.value.list[index].userId,
+      groupId: state.userList.value.list[index].freeGroupId!,
     );
 
     if (subscribeGroup.code == 200) {
-      await futureMill(200);
+      await futureMill(500);
       Get.back();
-      state.userList.remove(item);
+      state.userList.update((val) {
+        val!.list.remove(val.list[index]);
+      });
       getSnackTop(
         '订阅成功',
         isError: false,
@@ -54,8 +57,9 @@ class SubscriptionController extends GetxController {
   Future<dynamic> _getList() async {
     ResponseEntity getUserList = await UserApi.list(pageNo: 1, type: 1);
 
+    UserListEntities userList = UserListEntities.fromJson(getUserList.data);
     if (getUserList.code == 200) {
-      state.userList = getUserList.data['list'];
+      state.userList.value = userList;
     } else {
       getSnackTop(getUserList.msg);
     }

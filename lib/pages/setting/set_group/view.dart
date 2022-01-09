@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/setting/set_group/library.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -28,14 +29,18 @@ class SetGroupView extends GetView<SetGroupController> {
       getSpan('订阅组列表', fontSize: 17),
       backgroundColor: AppColors.secondBacground,
       line: AppColors.line,
-      actions: [settingBox],
+      actions: [
+        Obx(() => controller.state.groupList.length >= 3
+            ? const SizedBox()
+            : settingBox)
+      ],
     );
 
     Widget groupList({
       required String groupName,
       required String groupPic,
-      required int timelen,
-      required int amount,
+      required int createDate,
+      required double amount,
     }) {
       return Container(
         width: double.infinity,
@@ -79,8 +84,8 @@ class SetGroupView extends GetView<SetGroupController> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    getSpan('订阅时长：'),
-                    getSpan('$timelen'),
+                    getSpan('创建时间：'),
+                    getSpan(getDate(createDate)),
                   ],
                 ),
               ],
@@ -139,10 +144,10 @@ class SetGroupView extends GetView<SetGroupController> {
                         padding: EdgeInsets.fromLTRB(10.w, 10.w, 10.w, 0),
                         child: getButton(
                           child: groupList(
-                            groupName: item['groupName'],
-                            groupPic: item['groupPic'],
-                            timelen: item['timelen'],
-                            amount: item['amount'],
+                            groupName: item.groupName,
+                            groupPic: item.groupPic,
+                            createDate: item.createDate,
+                            amount: item.amount,
                           ),
                           onPressed: () {
                             controller.handleEditGroup(item);

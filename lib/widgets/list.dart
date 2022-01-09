@@ -114,7 +114,7 @@ Widget getUserAvatar(
       getSpan(nickName, color: AppColors.mainText),
       SizedBox(height: 2.h),
       SizedBox(
-        width: 60.w,
+        width: double.infinity,
         child: getSpan(
           userName,
           color: AppColors.secondText,
@@ -134,7 +134,7 @@ Widget getUserAvatar(
       children: [
         avatarBox,
         SizedBox(width: 8.w),
-        userNameBox,
+        Expanded(child: userNameBox),
       ],
     ),
   );
@@ -166,7 +166,7 @@ Widget getUserList(
     onPressed: buttonPressed,
     width: 40.w,
     height: 16.w,
-    side: BorderSide(width: 0.5.w, color: AppColors.mainColor),
+    borderSide: BorderSide(width: 0.5.w, color: AppColors.mainColor),
     background: Colors.transparent,
   );
 

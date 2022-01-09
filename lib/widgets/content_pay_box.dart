@@ -10,7 +10,6 @@ import 'package:pinker/pages/dynamic/media_view/library.dart';
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
-import 'package:pinker/widgets/subscribe_sheet.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 图片上展示的数字
@@ -65,6 +64,30 @@ Widget getContentPayBox(
               }
             });
           });
+    } else if (contentList.value.list[index].works.payPermission.type == 2 ||
+        contentList.value.list[index].works.payPermission.type == 3 ||
+        contentList.value.list[index].works.payPermission.type == 4) {
+      getContentPaySheet(
+        userInfo: applicationController.state.userInfo,
+        contentList: contentList,
+        index: index,
+        reSault: () {
+          if (mediaViewController != null) {
+            mediaViewController.fijkPlayer = FijkPlayer();
+
+            mediaViewController.fijkPlayer!.setDataSource(
+                serverApiUrl +
+                    serverPort +
+                    contentList.value.list[index].works.video.url,
+                autoPlay: true);
+          }
+          contentList.update((val) {
+            if (val != null) {
+              val.list[index].canSee = 1;
+            }
+          });
+        },
+      );
     }
   }
 

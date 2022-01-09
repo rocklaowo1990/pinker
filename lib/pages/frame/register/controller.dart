@@ -28,14 +28,18 @@ class RegisterController extends GetxController {
   void onReady() {
     super.onReady();
     focusNode.requestFocus();
-    textController.addListener(_textListener);
+    textController.addListener(_listener);
+
+    debounce(state.codeRx, (String value) {
+      _listener();
+    }, time: const Duration(milliseconds: 100));
 
     /// 节流
     debounce(
       state.timeChangeRx,
       (DateTime date) {
         state.showTime = state.timeChange;
-        _textListener();
+        _listener();
       },
       time: const Duration(milliseconds: 200),
     );
@@ -142,48 +146,27 @@ class RegisterController extends GetxController {
     Get.back();
     getDialog();
 
-    /// 准备检测账号是否重复
-    Map<String, dynamic> data = {
-      'account': textController.text,
-      'accountType': state.isPhone ? '1' : '2',
-    };
-
-    ResponseEntity responseEntity = await AccountApi.checkAccount(data);
+    ResponseEntity responseEntity = await AccountApi.checkAccount(
+      account: textController.text,
+      accountType: state.isPhone ? 1 : 2,
+      areaCode: state.code,
+    );
 
     if (responseEntity.code == 200) {
-      if (responseEntity.data['status'] == 0) {
-        // 把注册数据传到下一页
-        // String bornYear = state.showTime.year.toString();
+      Map<String, dynamic> arguments = {
+        'account': textController.text,
+        'areaCode': state.code,
+        'entryType': 1,
+        'birthday': state.showTime.microsecondsSinceEpoch,
+        'accountType': state.isPhone ? 1 : 2,
+      };
 
-        // String bornMonth = state.showTime.month.toString();
-        // if (bornMonth.length == 1) bornMonth = '0$bornMonth';
+      frameController.state.pageIndex++;
+      await futureMill(500);
 
-        // String bornDay = state.showTime.day.toString();
-        // if (bornDay.length == 1) bornDay = '0$bornDay';
+      Get.back();
 
-        // String birthday = bornYear + bornMonth + bornDay;
-
-        Map<String, dynamic> arguments = {
-          'account': textController.text,
-          'areaCode': state.code,
-          'entryType': '1',
-          'birthday': state.showTime.microsecondsSinceEpoch,
-          'accountType': state.isPhone ? '1' : '2',
-        };
-
-        frameController.state.pageIndex++;
-        await futureMill(500);
-
-        Get.back();
-
-        Get.toNamed(AppRoutes.verify, id: 1, arguments: arguments);
-      } else {
-        await futureMill(500);
-
-        Get.back();
-        getSnackTop(Lang.registerAllready.tr);
-        focusNode.requestFocus();
-      }
+      Get.toNamed(AppRoutes.verify, id: 1, arguments: arguments);
     } else {
       Get.back();
       getSnackTop(responseEntity.msg);
@@ -191,7 +174,7 @@ class RegisterController extends GetxController {
   }
 
   /// 输入框文本监听
-  void _textListener() {
+  void _listener() {
     /// 输入框为空时
     if (textController.text.isEmpty) {
       state.isAccountPass = true;

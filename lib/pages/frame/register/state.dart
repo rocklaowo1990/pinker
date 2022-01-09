@@ -27,7 +27,7 @@ class RegisterState {
   DateTime get showTime => _showTime.value;
 
   /// 区号
-  final RxString _code = '86'.obs;
-  set code(String value) => _code.value = value;
-  String get code => _code.value;
+  final RxString codeRx = '86'.obs;
+  set code(String value) => codeRx.value = value;
+  String get code => codeRx.value;
 }

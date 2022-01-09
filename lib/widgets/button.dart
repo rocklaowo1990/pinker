@@ -34,7 +34,7 @@ Widget getButton({
   EdgeInsetsGeometry padding = EdgeInsets.zero,
 
   /// 边框
-  BorderSide? side,
+  BorderSide? borderSide,
 }) {
   return SizedBox(
     width: width,
@@ -59,7 +59,7 @@ Widget getButton({
           ),
         ),
 
-        side: side == null ? null : MaterialStateProperty.all(side),
+        side: borderSide == null ? null : MaterialStateProperty.all(borderSide),
 
         /// 清空按钮的padding
         padding: MaterialStateProperty.all(padding),

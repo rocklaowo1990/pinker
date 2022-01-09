@@ -23,7 +23,7 @@ class ContentListEntities {
     "list": [
       {
         "wid": 0,
-        "createDate": 0,
+        "createDate": 1641542124036,
         "commentCount": 0,
         "forwardCount": 0,
         "likeCount": 0,
@@ -40,10 +40,11 @@ class ContentListEntities {
         "works": {
           "replyPermission": {
             "type": 0,
-            "groupId": 0,
+            "isLimitFree": 0,
           },
           "payPermission": {
             "type": 0,
+            "isLimitFree": 0,
           },
           "content": '',
           "pics": [],
@@ -265,21 +266,25 @@ class _PayPermission {
     required this.type,
     this.groupId,
     this.price,
+    required this.isLimitFree,
   });
 
   int type;
   int? groupId;
   int? price;
+  int isLimitFree;
 
   factory _PayPermission.fromJson(Map<String, dynamic> json) => _PayPermission(
         type: json["type"],
         groupId: json["groupId"],
         price: json["price"],
+        isLimitFree: json["isLimitFree"],
       );
 
   Map<String, dynamic> toJson() => {
         "type": type,
         "groupId": groupId,
         "price": price,
+        "isLimitFree": isLimitFree,
       };
 }

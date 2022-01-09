@@ -76,7 +76,7 @@ class UserInfoEntities {
   int birthday;
   int blockCount;
   int createDate;
-  int diamondBalance;
+  String diamondBalance;
   _DigitalCurrency digitalCurrency;
   String email;
   int fansCount;
@@ -86,7 +86,7 @@ class UserInfoEntities {
   String intro;
   int isSubscribe;
   String nickName;
-  int pCoinBalance;
+  String pCoinBalance;
   String phone;
   int subChatCount;
   int userId;
@@ -162,7 +162,7 @@ class UserInfoEntities {
     "birthday": 0,
     "blockCount": 0,
     "createDate": 0,
-    "diamondBalance": 0,
+    "diamondBalance": '0.00',
     "digitalCurrency": {
       "btcBalance": 0,
       "ethBalance": 0,
@@ -176,7 +176,7 @@ class UserInfoEntities {
     "intro": '',
     "isSubscribe": 0,
     "nickName": '',
-    "pCoinBalance": 0,
+    "pCoinBalance": '0.00',
     "phone": '',
     "subChatCount": 0,
     "userId": 0,

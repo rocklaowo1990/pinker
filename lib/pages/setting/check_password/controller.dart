@@ -40,12 +40,10 @@ class CheckPasswordController extends GetxController {
     getDialog();
     focusNode.unfocus();
 
-    Map<String, dynamic> data = {
-      'password': duMD5(textController.text),
-      'type': '1',
-    };
-
-    ResponseEntity responseEntity = await AccountApi.checkPassword(data);
+    ResponseEntity responseEntity = await AccountApi.checkPassword(
+      password: duMD5(textController.text),
+      type: 1,
+    );
     if (responseEntity.code == 200) {
       String data = duMD5(textController.text);
       await futureMill(500);

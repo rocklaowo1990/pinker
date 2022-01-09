@@ -9,7 +9,7 @@ import 'package:pinker/pages/setting/library.dart';
 import 'package:pinker/pages/setting/verify/library.dart';
 
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class SetVerifyController extends GetxController {
@@ -28,7 +28,7 @@ class SetVerifyController extends GetxController {
             code: codeData,
             password: arguments['password'],
           )
-        : arguments['accountType'] == '1'
+        : arguments['accountType'] == 1
             ? await UserApi.setMobile(
                 mobile: arguments['account'],
                 areaCode: arguments['areaCode'],
@@ -45,13 +45,14 @@ class SetVerifyController extends GetxController {
       if (arguments['verifyType'] == 3) {
         goLoginPage();
       } else {
-        // arguments['accountType'] == '1'
-        //     ? applicationController.state.userInfoMap['phone'] =
-        //         arguments['account']
-        //     : applicationController.state.userInfoMap['email'] =
-        //         arguments['account'];
-        await StorageUtil().setJSON(
-            storageUserInfoKey, applicationController.state.userInfo.value);
+        applicationController.state.userInfo.update((val) {
+          arguments['accountType'] == 1
+              ? val!.phone = arguments['account']
+              : val!.email = arguments['account'];
+        });
+
+        // await StorageUtil().setJSON(
+        //     storageUserInfoKey, applicationController.state.userInfo.value);
 
         Get.back(); // 返回更换手机号码
         Get.back(); // 返回验证密码
@@ -66,38 +67,32 @@ class SetVerifyController extends GetxController {
 
   /// 请求验证码
   Future<bool> sendCode() async {
-    /// 准备请求数据
-    Map<String, dynamic> data = {};
-
-    if (arguments['accountType'] == '1') {
-      data = {
-        'mobile': arguments['account'],
-        'areaCode': arguments['areaCode'],
-        'entryType': arguments['entryType'],
-      };
-    } else if (arguments['accountType'] == '2') {
-      data = {
-        'email': arguments['account'],
-        'entryType': arguments['entryType'],
-      };
-    } else {
-      data = {
-        'userId': arguments['userId'],
-        'verifyType': arguments['verifyType'],
-      };
-    }
-
     /// 请求服务器...
     ResponseEntity codeNumber = arguments['verifyType'] == 3
-        ? await CommonApi.sendSmsByType(data)
-        : arguments['accountType'] == '1'
-            ? await CommonApi.sendSms(data)
-            : await CommonApi.sendEmail(data);
+        ? await CommonApi.sendSmsByType(
+            userId: arguments['userId'],
+            verifyType: arguments['verifyType'],
+          )
+        : arguments['accountType'] == 1
+            ? await CommonApi.sendSms(
+                mobile: arguments['account'],
+                areaCode: arguments['areaCode'],
+                entryType: arguments['entryType'],
+              )
+            : await CommonApi.sendEmail(
+                email: arguments['account'],
+                entryType: arguments['entryType'],
+              );
 
     /// 返回数据处理
     if (codeNumber.code == 200) {
-      if (codeNumber.data['account'] != null) {
-        state.account = codeNumber.data['account'];
+      if (codeNumber.data['status'] == 1) {
+        state.account =
+            '尾号 ${getLastTwo(applicationController.state.userInfo.value.phone)} 的手机';
+        verifyType = codeNumber.data['status'];
+      } else if (codeNumber.data['status'] == 2) {
+        state.account =
+            '尾号 ${getEmailHide(applicationController.state.userInfo.value.email)} 的邮箱';
         verifyType = codeNumber.data['status'];
       }
       getSnackTop(
@@ -115,21 +110,15 @@ class SetVerifyController extends GetxController {
 
   /// 验证验证码
   Future<bool> isVerify(String code) async {
-    Map<String, dynamic> data = arguments['verifyType'] == 3
-        ? {
-            'code': code,
-            'verifyType': verifyType,
-            'userId': arguments['userId'],
-          }
-        : {
-            'account': arguments['account'],
-            'accountType': arguments['accountType'],
-            'code': code,
-            'entryType': arguments['entryType'],
-          };
     ResponseEntity checkCode = arguments['verifyType'] == 3
-        ? await CommonApi.checkCodeByType(data)
-        : await CommonApi.checkCode(data); // 弹窗停留时间
+        ? await CommonApi.checkCodeByType(
+            code: code, verifyType: verifyType!, userId: arguments['userId'])
+        : await CommonApi.checkCode(
+            code: code,
+            account: arguments['account'],
+            accountType: arguments['accountType'],
+            entryType: arguments['entryType'],
+          ); // 弹窗停留时间
 
     if (checkCode.code == 200) {
       arguments['code'] = code;

@@ -65,8 +65,8 @@ class SetEmailController extends GetxController {
       'account': textController.text,
       'areaCode': state.code,
       'password': arguments,
-      'entryType': '1',
-      'accountType': '2',
+      'entryType': 1,
+      'accountType': 2,
     };
     Get.toNamed(
       AppRoutes.set + AppRoutes.checkPassword + AppRoutes.setVerify,

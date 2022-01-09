@@ -6,7 +6,6 @@ import 'package:pinker/api/api.dart';
 
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/comments_view/view.dart';
-import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:like_button/like_button.dart';
@@ -16,11 +15,7 @@ import 'package:pinker/widgets/widgets.dart';
 /// 底部哪一条功能按钮的封装方法
 /// 留言、喜欢、转发、分享
 /// 留言、喜欢、转发、分享 的构造
-Widget getContentButton(
-  Rx<ContentListEntities> contentList,
-  int index, {
-  String? storageKey,
-}) {
+Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
   int _likeCount = contentList.value.list[index].likeCount;
   int _forwardCount = contentList.value.list[index].forwardCount;
   int _commentCount = contentList.value.list[index].commentCount;
@@ -29,28 +24,23 @@ Widget getContentButton(
   bool _isForward = contentList.value.list[index].isForward == 0 ? false : true;
 
   Future<bool> _onComment(bool? isComment) async {
-    getCommentsView(contentList, index, storageKey: storageKey);
+    getCommentsView(contentList, index);
     return Future<bool>.delayed(const Duration(milliseconds: 50), () {
       return false;
     });
   }
 
   Future<bool> _onLike(bool isLike) async {
-    Map<String, dynamic> data = {
-      'wid': contentList.value.list[index].wid,
-      'type': 1,
-      'isLike': contentList.value.list[index].isLike =
+    ResponseEntity responseEntity = await ContentApi.like(
+      wid: contentList.value.list[index].wid,
+      type: 1,
+      isLike: contentList.value.list[index].isLike =
           contentList.value.list[index].isLike == 0 ? 1 : 0,
-    };
-
-    ResponseEntity responseEntity = await ContentApi.like(data);
+    );
     if (responseEntity.code == 200) {
       contentList.value.list[index].likeCount +=
           contentList.value.list[index].isLike == 0 ? -1 : 1;
 
-      if (storageKey != null) {
-        await StorageUtil().setJSON(storageKey, contentList.value);
-      }
       return contentList.value.list[index].isLike == 0 ? false : true;
     } else {
       getSnackTop(responseEntity.msg);
@@ -59,19 +49,15 @@ Widget getContentButton(
   }
 
   Future<bool> _onForward(bool isForward) async {
-    Map<String, dynamic> data = {
-      'wid': contentList.value.list[index].wid,
-      'isForward': contentList.value.list[index].isForward =
+    ResponseEntity responseEntity = await ContentApi.forward(
+      wid: contentList.value.list[index].wid,
+      isForward: contentList.value.list[index].isForward =
           contentList.value.list[index].isForward == 0 ? 1 : 0,
-    };
-
-    ResponseEntity responseEntity = await ContentApi.forward(data);
+    );
     if (responseEntity.code == 200) {
       contentList.value.list[index].forwardCount +=
           contentList.value.list[index].isForward == 0 ? -1 : 1;
-      if (storageKey != null) {
-        await StorageUtil().setJSON(storageKey, contentList.value);
-      }
+
       return contentList.value.list[index].isForward == 0 ? false : true;
     } else {
       return !isForward;
@@ -93,15 +79,18 @@ Widget getContentButton(
               );
             },
             countBuilder: (int? count, bool isLiked, String text) {
-              return contentList.value.list[index].commentCount == 0
-                  ? getSpan('评论', color: AppColors.secondText)
-                  : Obx(() => getSpan(
-                      contentList.value.list[index].commentCount >= 1000
+              return Obx(() => getSpan(
+                  contentList.value.list[index].commentCount == 0
+                      ? '评论'
+                      : contentList.value.list[index].commentCount >= 1000
                           ? (contentList.value.list[index].commentCount /
                                       1000.0)
                                   .toStringAsFixed(1) +
                               'k'
-                          : '${contentList.value.list[index].commentCount}'));
+                          : '${contentList.value.list[index].commentCount}',
+                  color: contentList.value.list[index].commentCount == 0
+                      ? AppColors.secondText
+                      : null));
             },
             onTap: _onComment,
           ),

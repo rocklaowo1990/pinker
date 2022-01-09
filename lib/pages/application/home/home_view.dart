@@ -80,16 +80,19 @@ class HomeView extends GetView<HomeController> {
 
     // 整体布局
     Widget _body = Obx(
-      () => controller.state.contentList.value.list.isEmpty
+      () => controller
+              .applicationController.state.contentListHome.value.list.isEmpty
           ? noData
           : getRefresher(
               controller: controller.refreshController,
               child: ListView.builder(
                   controller: controller.scrollController,
-                  itemCount: controller.state.contentList.value.list.length,
+                  itemCount: controller.applicationController.state
+                      .contentListHome.value.list.length,
                   itemBuilder: (BuildContext buildContext, int index) {
-                    return getContentList(controller.state.contentList, index,
-                        storageKey: storageHomeContentListKey);
+                    return getContentListView(
+                        controller.applicationController.state.contentListHome,
+                        index);
                   }),
               onLoading: controller.onLoading,
               onRefresh: controller.onRefresh,
@@ -97,7 +100,11 @@ class HomeView extends GetView<HomeController> {
     );
 
     /// body
-    Widget body = Obx(() => controller.state.isLoading ? loading : _body);
+    Widget body = Obx(() => controller.applicationController.state
+                .contentListHome.value.list.length <=
+            1
+        ? loading
+        : _body);
 
     /// 页面
     return Scaffold(

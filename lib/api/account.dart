@@ -17,10 +17,18 @@ class AccountApi {
   }
 
   /// 检查账号是否重复 ////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> checkAccount(data) async {
+  static Future<ResponseEntity> checkAccount({
+    required String account,
+    required int accountType,
+    String? areaCode,
+  }) async {
     var response = await HttpUtil().get(
-      '/api/account/checkAccountExist',
-      queryParameters: data,
+      '/api/common/checkAccount',
+      queryParameters: {
+        'account': account,
+        'accountType': accountType,
+        'areaCode': areaCode,
+      },
     );
     return ResponseEntity.fromJson(response);
   }
@@ -59,10 +67,16 @@ class AccountApi {
   }
 
   /// 验证密码 //////////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> checkPassword(data) async {
+  static Future<ResponseEntity> checkPassword({
+    required int type,
+    required String password,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/account/CheckPassword',
-      data: data,
+      data: {
+        'type': type,
+        'password': password,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'token': Global.token,
@@ -72,8 +86,10 @@ class AccountApi {
   }
 
   /// 注销账号 //////////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> deleteAccount(
-      {required String code, required String password}) async {
+  static Future<ResponseEntity> deleteAccount({
+    required String code,
+    required String password,
+  }) async {
     var response = await HttpUtil().get(
       '/api/account/deleteAccount',
       queryParameters: {

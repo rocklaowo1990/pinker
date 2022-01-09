@@ -16,7 +16,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan(controller.arguments == 1 ? '添加订阅组' : '订阅组信息', fontSize: 17),
+      getSpan(controller.arguments == null ? '添加订阅组' : '订阅组信息', fontSize: 17),
       backgroundColor: AppColors.secondBacground,
       line: AppColors.line,
     );
@@ -34,8 +34,8 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
           ),
           child: Center(
               child: Obx(() => controller.state.image == 0
-                  ? controller.arguments != 1
-                      ? getImageBox(controller.arguments['groupPic'],
+                  ? controller.arguments != null
+                      ? getImageBox(controller.arguments!.groupPic,
                           shape: BoxShape.circle, width: 60.w, height: 60.w)
                       : SvgPicture.asset(
                           'assets/svg/avatar_default.svg',

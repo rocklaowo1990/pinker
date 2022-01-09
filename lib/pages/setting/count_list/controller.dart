@@ -6,7 +6,6 @@ import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/setting/count_list/library.dart';
 
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
 
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -68,9 +67,6 @@ class SetCountListController extends GetxController {
           }
         });
       }
-
-      await StorageUtil().setJSON(
-          storageUserInfoKey, applicationController.state.userInfo.value);
     } else {
       getSnackTop(responseEntity.msg);
       state.isLoading = false;
@@ -97,8 +93,8 @@ class SetCountListController extends GetxController {
 
         // applicationController.state.userInfoMap[arguments.countType] =
         //     totalSize;
-        await StorageUtil().setJSON(
-            storageUserInfoKey, applicationController.state.userInfo.value);
+        // await StorageUtil().setJSON(
+        //     storageUserInfoKey, applicationController.state.userInfo.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -154,8 +150,8 @@ class SetCountListController extends GetxController {
         });
       }
 
-      await StorageUtil().setJSON(
-          storageUserInfoKey, applicationController.state.userInfo.value);
+      // await StorageUtil().setJSON(
+      //     storageUserInfoKey, applicationController.state.userInfo.value);
       await futureMill(500);
 
       Get.back();

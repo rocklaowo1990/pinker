@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -68,7 +69,7 @@ Future getMediaView(
       // 就是留言、喜欢、转发、分享那些
       Widget contentButton = Container(
         color: Colors.black54,
-        child: getContentButton(contentList, index, storageKey: storageKey),
+        child: getContentButton(contentList, index),
       );
 
       // 头像信息和订阅组合
@@ -87,9 +88,34 @@ Future getMediaView(
                 Obx(() => contentList.value.list[index].subStatus == 0
                     ? getButton(
                         child: getSpan('订阅'),
-                        onPressed: () {},
+                        onPressed: () {
+                          final ApplicationController applicationController =
+                              Get.find();
+                          getSubscribeBox(
+                            userInfo: applicationController.state.userInfo,
+                            contentList: contentList,
+                            index: index,
+                            reSault: () {
+                              if (controller.fijkPlayer != null) {
+                                controller.fijkPlayer = FijkPlayer();
+
+                                controller.fijkPlayer!.setDataSource(
+                                    serverApiUrl +
+                                        serverPort +
+                                        contentList
+                                            .value.list[index].works.video.url,
+                                    autoPlay: true);
+                              }
+                              contentList.update((val) {
+                                if (val != null) {
+                                  val.list[index].canSee = 1;
+                                }
+                              });
+                            },
+                          );
+                        },
                         padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6),
-                        side: BorderSide(
+                        borderSide: BorderSide(
                             width: 0.5.w, color: AppColors.mainColor),
                         background: Colors.transparent,
                       )

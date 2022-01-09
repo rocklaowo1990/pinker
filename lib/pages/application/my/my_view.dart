@@ -136,7 +136,7 @@ class MyView extends GetView<MyController> {
       required VoidCallback onPressed,
     }) {
       return Padding(
-        padding: EdgeInsets.all(8.w),
+        padding: EdgeInsets.all(9.w),
         child: Column(
           children: [
             Row(
@@ -146,15 +146,15 @@ class MyView extends GetView<MyController> {
                 getSpan(title),
               ],
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 6.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getSpan(number, fontSize: 40, fontWeight: FontWeight.w300),
+                getSpan(number, fontSize: 36, fontWeight: FontWeight.w300),
                 getButton(
                   child: getSpan(buttonText),
                   onPressed: onPressed,
-                  width: 55.w,
+                  width: 42.w,
                   height: 18.h,
                 ),
               ],
@@ -176,9 +176,9 @@ class MyView extends GetView<MyController> {
           Obx(() => _walletChild(
                 title: '钻石账户',
                 svg: 'assets/svg/icon_diamond.svg',
-                number:
-                    '${controller.applicationController.state.userInfo.value.diamondBalance}',
-                buttonText: '购买钻石',
+                number: controller
+                    .applicationController.state.userInfo.value.diamondBalance,
+                buttonText: '充值',
                 onPressed: controller.handleDiamond,
               )),
           Container(
@@ -189,9 +189,9 @@ class MyView extends GetView<MyController> {
           Obx(() => _walletChild(
                 title: 'P币账户',
                 svg: 'assets/svg/icon_diamond.svg',
-                number:
-                    '${controller.applicationController.state.userInfo.value.pCoinBalance}',
-                buttonText: '立即提现',
+                number: controller
+                    .applicationController.state.userInfo.value.pCoinBalance,
+                buttonText: '提现',
                 onPressed: controller.handleP,
               )),
         ],
@@ -225,7 +225,7 @@ class MyView extends GetView<MyController> {
         borderRadius: BorderRadius.all(
           Radius.circular(8.w),
         ),
-        padding: EdgeInsets.all(8.w),
+        padding: EdgeInsets.all(9.w),
       );
     }
 
@@ -322,7 +322,7 @@ class MyView extends GetView<MyController> {
           color: AppColors.mainBacground,
           image: DecorationImage(
             image: AssetImage(
-              'assets/images/tp_1@3x.png',
+              'assets/images/my_bac.png',
             ),
             alignment: Alignment.topCenter,
           ),

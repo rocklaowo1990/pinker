@@ -7,7 +7,7 @@ import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/setting/set_user_name/library.dart';
 
 import 'package:pinker/utils/utils.dart';
-import 'package:pinker/values/values.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class SetUserNameController extends GetxController {
@@ -38,7 +38,7 @@ class SetUserNameController extends GetxController {
     Get.back();
   }
 
-  void _editUserName() async {
+  void _sure() async {
     _cancel();
     getDialog();
 
@@ -47,11 +47,12 @@ class SetUserNameController extends GetxController {
     );
 
     if (responseEntity.code == 200) {
-      // applicationController.state.userInfoMap['userName'] = textController.text;
+      applicationController.state.userInfo.update((val) {
+        val!.userName = textController.text;
+      });
 
-      var _userInfo = await StorageUtil().getJSON(storageUserInfoKey);
-      _userInfo['userName'] = textController.text;
-      await StorageUtil().setJSON(storageUserInfoKey, _userInfo);
+      // await StorageUtil().setJSON(
+      //     storageUserInfoKey, applicationController.state.userInfo.value);
 
       await futureMill(500);
       Get.back();
@@ -69,7 +70,7 @@ class SetUserNameController extends GetxController {
     getDialog(
       child: DialogChild.alert(
         onPressedLeft: _cancel,
-        onPressedRight: _editUserName,
+        onPressedRight: _sure,
         title: '修改用户名',
         content: '是否确认将用户名更换为${textController.text}',
         leftText: '取消',

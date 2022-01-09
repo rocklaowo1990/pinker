@@ -8,8 +8,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/api/subscribe_group.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/entities/group_list.dart';
 
 import 'package:pinker/pages/setting/set_group/group_info/library.dart';
+import 'package:pinker/pages/setting/set_group/library.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/sheet.dart';
@@ -18,7 +20,7 @@ import 'package:pinker/widgets/widgets.dart';
 class SetGroupInfoController extends GetxController {
   final state = SetGroupInfoState();
 
-  final arguments = Get.arguments;
+  final GroupInfoEntities? arguments = Get.arguments;
 
   final GlobalKey<CropState> cropKey = GlobalKey<CropState>();
   late File avatarFile;
@@ -94,36 +96,31 @@ class SetGroupInfoController extends GetxController {
       }
     }
 
-    /// 准备修改分组信息
-    Map<String, dynamic> data = arguments != 1
-        ? {
-            'groupId': arguments['groupId'],
-            'groupName': textEditingGroupName.text != arguments['groupName']
-                ? textEditingGroupName.text
-                : arguments['groupName'],
-            'groupPic': state.image > 0 ? avatarUrl : arguments['groupPic'],
-            'amount': textEditingPrice.text != arguments['amount']
-                ? textEditingPrice.text
-                : arguments['amount'],
-            'timeLen': arguments['timelen'],
-          }
-        : {
-            'groupName': textEditingGroupName.text,
-            'groupPic': avatarUrl,
-            'amount': textEditingPrice.text,
-            'timeLen': '30',
-          };
-
     /// 开始修改
-    ResponseEntity updateGroupInfo = arguments != 1
-        ? await SubscribeGroupApi.update(data)
-        : await SubscribeGroupApi.create(data);
+    ResponseEntity updateGroupInfo = arguments != null
+        ? await SubscribeGroupApi.update(
+            groupId: arguments!.groupId,
+            groupName: textEditingGroupName.text != arguments!.groupName
+                ? textEditingGroupName.text
+                : arguments!.groupName,
+            groupPic: state.image > 0 ? avatarUrl : arguments!.groupPic,
+            amount: double.parse(textEditingPrice.text) != arguments!.amount
+                ? double.parse(textEditingPrice.text)
+                : arguments!.amount,
+          )
+        : await SubscribeGroupApi.create(
+            groupName: textEditingGroupName.text,
+            groupPic: avatarUrl,
+            amount: textEditingPrice.text,
+          );
 
     /// 修改结果
     if (updateGroupInfo.code == 200) {
+      final SetGroupController setGroupController = Get.find();
+      setGroupController.response();
       await futureMill(500);
       Get.back();
-      Get.back(result: 1);
+      Get.back();
       getSnackTop('操作成功', isError: false);
     } else {
       await futureMill(500);
@@ -139,7 +136,7 @@ class SetGroupInfoController extends GetxController {
       child: DialogChild.alert(
         onPressedLeft: _cancel,
         onPressedRight: _sure,
-        title: arguments != 1 ? '修改订阅组' : '添加订阅组',
+        title: arguments != null ? '修改订阅组' : '添加订阅组',
         content: '是否确认继续操作',
         leftText: '取消',
       ),
@@ -199,17 +196,20 @@ class SetGroupInfoController extends GetxController {
 
   @override
   void onInit() {
-    if (arguments != 1) {
-      textEditingGroupName.text = arguments['groupName'];
-      textEditingPrice.text = '${arguments['amount']}';
+    if (arguments != null) {
+      textEditingGroupName.text = arguments!.groupName;
+      textEditingPrice.text = arguments!.amount.toString();
     }
     super.onInit();
   }
 
   void _linstenerEdit() {
-    if (textEditingGroupName.text == arguments['groupName'] &&
-        textEditingPrice.text == '${arguments['amount']}' &&
+    if (arguments != null &&
+        textEditingGroupName.text == arguments!.groupName &&
+        double.parse(textEditingPrice.text) == arguments!.amount &&
         state.image <= 0) {
+      state.isDissable = true;
+    } else if (!getGroupName(textEditingGroupName.text)) {
       state.isDissable = true;
     } else if (textEditingGroupName.text.length <= 2 ||
         textEditingGroupName.text.length > 7 ||
@@ -228,6 +228,8 @@ class SetGroupInfoController extends GetxController {
       state.isDissable = true;
     } else if (state.image <= 0) {
       state.isDissable = true;
+    } else if (!getGroupName(textEditingGroupName.text)) {
+      state.isDissable = true;
     } else {
       state.isDissable = false;
     }
@@ -236,7 +238,7 @@ class SetGroupInfoController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (arguments != 1) {
+    if (arguments != null) {
       textEditingGroupName.addListener(() {
         _linstenerEdit();
       });

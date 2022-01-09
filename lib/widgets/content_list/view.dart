@@ -9,11 +9,7 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Widget getContentList(
-  Rx<ContentListEntities> contentList,
-  int index, {
-  String? storageKey,
-}) {
+Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   // 推文的作者信息
   Widget author = Padding(
     padding: EdgeInsets.fromLTRB(9.w, 10.w, 0, 0),
@@ -56,8 +52,7 @@ Widget getContentList(
         ),
       ),
       onPressed: () {
-        getMediaView(contentList, index,
-            storageKey: storageKey, imagetIndex: imagetIndex);
+        getMediaView(contentList, index, imagetIndex: imagetIndex);
       },
     );
   }
@@ -95,8 +90,7 @@ Widget getContentList(
   // 底部哪一条功能按钮的封装方法
   // 留言、喜欢、转发、分享
   // 留言、喜欢、转发、分享 的构造
-  Widget contentInfo =
-      getContentButton(contentList, index, storageKey: storageKey);
+  Widget contentInfo = getContentButton(contentList, index);
 
   // 资源区
   // 1、分成可观看和不可观看
@@ -154,8 +148,7 @@ Widget getContentList(
                         borderRadius: BorderRadius.all(Radius.circular(4.w))),
                     getButton(
                       onPressed: () {
-                        getMediaView(contentList, index,
-                            storageKey: storageKey);
+                        getMediaView(contentList, index);
                       },
                       borderRadius: BorderRadius.all(Radius.circular(4.w)),
                       height: 128.h,
@@ -229,6 +222,16 @@ Widget getContentList(
   // body：也就是整个推文的组装了，包含在一个小部件里
   return Container(
     color: AppColors.secondBacground,
-    child: body,
+    child: contentList.value.list[index].works.payPermission.isLimitFree == 0
+        ? body
+        : Stack(
+            children: [
+              body,
+              Image.asset(
+                'assets/images/xian.png',
+                height: 24.h,
+              )
+            ],
+          ),
   );
 }

@@ -49,7 +49,7 @@ class CommentsViewController extends GetxController {
     if (responseEntity.code == 200) {
       _refresh(contentList, index);
       contentList.update((val) {
-        contentList.value.list[index].commentCount++;
+        val!.list[index].commentCount++;
       });
 
       if (storageKey != null) {
@@ -57,7 +57,6 @@ class CommentsViewController extends GetxController {
       }
       textController.clear();
       Get.back();
-      getSnackTop('评论成功', isError: false);
     } else {
       getSnackTop(responseEntity.msg);
     }

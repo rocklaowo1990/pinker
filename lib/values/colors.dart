@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   /// 主色
   static const Color mainColor = Color(0xff0c7dff);
+  static const Color mainColor20 = Color(0x200c7dff);
 
   /// 主要Icon
   static const Color mainIcon = Color(0xffffffff);

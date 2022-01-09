@@ -37,6 +37,7 @@ class ForgotInfoController extends GetxController {
       Get.back();
       getSnackTop('信息不匹配，请重新输入');
       textController.clear();
+      focusNode.requestFocus();
     }
   }
 

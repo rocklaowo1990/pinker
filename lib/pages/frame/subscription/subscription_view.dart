@@ -27,13 +27,18 @@ class SubscriptionView extends GetView<SubscriptionController> {
     );
 
     Widget middle = Obx(() => Column(
-          children: controller.state.userList
-              .map((item) => getUserList(
-                      item['avatar'], item['userName'], item['nickName'],
-                      buttonPressed: () {
-                    controller.handleSubscribe(item);
-                  }))
-              .toList(),
+          children: [
+            for (int index = 0;
+                index < controller.state.userList.value.list.length;
+                index++)
+              getUserList(
+                  controller.state.userList.value.list[index].avatar,
+                  controller.state.userList.value.list[index].userName,
+                  controller.state.userList.value.list[index].nickName,
+                  buttonPressed: () {
+                controller.handleSubscribe(index);
+              })
+          ],
         ));
 
     /// 底部

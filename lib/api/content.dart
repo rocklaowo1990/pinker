@@ -11,10 +11,19 @@ class ContentApi {
   /// type：2代表最新
   ///
   /// type：3代表最热
-  static Future contentList(data) async {
+  static Future contentList({
+    required int pageNo,
+    required int type,
+    String? keywords,
+  }) async {
     var response = await HttpUtil().get(
       '/api/content/contentList',
-      queryParameters: data,
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': 20,
+        'type': type,
+        'keywords': keywords,
+      },
       options: Options(headers: {
         'token': Global.token,
       }),
@@ -37,10 +46,13 @@ class ContentApi {
   }
 
   /// 作品列表：首页 /////////////////////////////////////////////////
-  static Future homeContentList(data) async {
+  static Future homeContentList({required int pageNo}) async {
     var response = await HttpUtil().get(
       '/api/content/homeContentList',
-      queryParameters: data,
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': 20,
+      },
       options: Options(headers: {
         'token': Global.token,
       }),
@@ -88,10 +100,20 @@ class ContentApi {
   /// 'type':'1作品 2评论',
   ///
   /// 'isLike':'1点赞  0取消点赞',
-  static Future like(data) async {
+  static Future like({
+    required int wid,
+    int? cid,
+    required int type,
+    required int isLike,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/content/like',
-      data: data,
+      data: {
+        'wid': wid,
+        'cid': cid,
+        'type': type,
+        'isLike': isLike,
+      },
       options: Options(headers: {
         'token': Global.token,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -105,10 +127,35 @@ class ContentApi {
   /// 'wid': '作品ID',
   ///
   /// 'isForward':'（1-转发；0-取消转发）',
-  static Future forward(data) async {
+  static Future forward({
+    required int wid,
+    required int isForward,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/content/forward',
-      data: data,
+      data: {
+        'wid': wid,
+        'isForward': isForward,
+      },
+      options: Options(headers: {
+        'token': Global.token,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 支付作品
+  static Future payment({
+    required int wid,
+    int? type,
+  }) async {
+    var response = await HttpUtil().postForm(
+      '/api/content/payment',
+      data: {
+        'wid': wid,
+        if (type != null) 'type': type,
+      },
       options: Options(headers: {
         'token': Global.token,
         'Content-Type': 'application/x-www-form-urlencoded',

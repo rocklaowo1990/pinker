@@ -12,5 +12,22 @@ class ApplicationState {
   set pageIndex(int value) => _pageIndex.value = value;
   int get pageIndex => _pageIndex.value;
 
+  /// 个人信息
   final userInfo = UserInfoEntities.fromJson(UserInfoEntities.child).obs;
+
+  /// 推文列表-首页
+  final contentListHome =
+      ContentListEntities.fromJson(ContentListEntities.child).obs;
+
+  /// 推文列表-最新
+  final contentListNew =
+      ContentListEntities.fromJson(ContentListEntities.child).obs;
+
+  /// 推文列表-最热
+  final contentListHot =
+      ContentListEntities.fromJson(ContentListEntities.child).obs;
+
+  /// 推文列表-限免
+  final contentListFree =
+      ContentListEntities.fromJson(ContentListEntities.child).obs;
 }

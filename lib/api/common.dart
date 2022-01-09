@@ -5,11 +5,19 @@ import 'package:pinker/utils/utils.dart';
 
 class CommonApi {
   /// 注册获取验证码：手机
-  static Future sendSms(data) async {
+  static Future sendSms({
+    required String mobile,
+    required String areaCode,
+    required int entryType,
+  }) async {
     int timestamp = DateTime.now().millisecondsSinceEpoch;
     var response = await HttpUtil().postForm(
       '/api/common/sendSms',
-      data: data,
+      data: {
+        'mobile': mobile,
+        'areaCode': areaCode,
+        'entryType': entryType,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'platform': Global.platform,
@@ -24,11 +32,17 @@ class CommonApi {
   }
 
   /// 注册获取验证码：邮箱
-  static Future sendEmail(data) async {
+  static Future sendEmail({
+    required String email,
+    required int entryType,
+  }) async {
     int timestamp = DateTime.now().millisecondsSinceEpoch;
     var response = await HttpUtil().postForm(
       '/api/common/sendEmail',
-      data: data,
+      data: {
+        'email': email,
+        'entryType': entryType,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'platform': Global.platform,
@@ -43,11 +57,17 @@ class CommonApi {
   }
 
   /// 发送验证码(userid)
-  static Future sendSmsByType(data) async {
+  static Future sendSmsByType({
+    required int userId,
+    required int verifyType,
+  }) async {
     int timestamp = DateTime.now().millisecondsSinceEpoch;
     var response = await HttpUtil().postForm(
       '/api/common/sendSmsByType',
-      data: data,
+      data: {
+        'userId': userId,
+        'verifyType': verifyType,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'platform': Global.platform,
@@ -62,10 +82,14 @@ class CommonApi {
   }
 
   /// 发送验证码(userid)
-  static Future checkCodeByType(data) async {
+  static Future checkCodeByType({
+    required String code,
+    required int userId,
+    required int verifyType,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/common/checkCodeByType',
-      data: data,
+      data: {'userId': userId, 'verifyType': verifyType, 'code': code},
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
@@ -74,10 +98,20 @@ class CommonApi {
   }
 
   /// 验证验证码：注册
-  static Future checkCode(data) async {
+  static Future checkCode({
+    required String code,
+    required int accountType,
+    required int entryType,
+    required String account,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/common/checkCode',
-      data: data,
+      data: {
+        'code': code,
+        'accountType': accountType,
+        'entryType': entryType,
+        'account': account,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),

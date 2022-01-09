@@ -48,17 +48,20 @@ class ContentListNewView extends StatelessWidget {
 
           // 整体布局
           Widget _body = Obx(
-            () => controller.state.contentList.value.list.isEmpty
+            () => controller.applicationController.state.contentListNew.value
+                    .list.isEmpty
                 ? noData
                 : getRefresher(
                     controller: controller.refreshController,
                     child: ListView.builder(
                         controller: controller.scrollController,
-                        itemCount:
-                            controller.state.contentList.value.list.length,
+                        itemCount: controller.applicationController.state
+                            .contentListNew.value.list.length,
                         itemBuilder: (BuildContext buildContext, int index) {
-                          return getContentList(
-                              controller.state.contentList, index);
+                          return getContentListView(
+                              controller
+                                  .applicationController.state.contentListNew,
+                              index);
                         }),
                     onLoading: controller.onLoading,
                     onRefresh: controller.onRefresh,
@@ -66,7 +69,11 @@ class ContentListNewView extends StatelessWidget {
           );
 
           /// body
-          Widget body = Obx(() => controller.state.isLoading ? loading : _body);
+          Widget body = Obx(() => controller.applicationController.state
+                      .contentListNew.value.list.length <=
+                  1
+              ? loading
+              : _body);
 
           return Scaffold(
             body: body,

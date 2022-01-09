@@ -24,14 +24,11 @@ class ForgotVerifyController extends GetxController {
 
   /// 请求验证码
   Future<bool> sendCode() async {
-    /// 准备请求数据
-    Map<String, dynamic> data = {
-      'userId': forgotController.forgotInfo.userId,
-      'verifyType': forgotController.state.verifyType,
-    };
-
     /// 请求服务器...
-    ResponseEntity codeNumber = await CommonApi.sendSmsByType(data);
+    ResponseEntity codeNumber = await CommonApi.sendSmsByType(
+      userId: forgotController.forgotInfo.userId,
+      verifyType: forgotController.state.verifyType,
+    );
 
     /// 返回数据处理
     if (codeNumber.code == 200) {
@@ -50,13 +47,11 @@ class ForgotVerifyController extends GetxController {
 
   /// 验证验证码
   Future<bool> isVerify(String code) async {
-    Map<String, dynamic> data = {
-      'code': code,
-      'verifyType': forgotController.state.verifyType,
-      'userId': forgotController.forgotInfo.userId,
-    };
-
-    ResponseEntity checkCode = await CommonApi.checkCodeByType(data); // 弹窗停留时间
+    ResponseEntity checkCode = await CommonApi.checkCodeByType(
+      code: code,
+      verifyType: forgotController.state.verifyType,
+      userId: forgotController.forgotInfo.userId,
+    ); // 弹窗停留时间
 
     if (checkCode.code == 200) {
       forgotController.publicData['code'] = code;

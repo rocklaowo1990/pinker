@@ -4,6 +4,7 @@ import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/application/community/hot/library.dart';
+import 'package:pinker/pages/application/controller.dart';
 
 import 'package:pinker/utils/utils.dart';
 
@@ -15,13 +16,18 @@ class ContentListHotController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
+  final ApplicationController applicationController = Get.find();
   int pageIndex = 1;
 
   void onRefresh() async {
     refreshController.resetNoData();
-
+    pageIndex = 1;
     await futureMill(300);
-    _refresh();
+    await getContentList(
+      listRx: applicationController.state.contentListHot,
+      pageNo: pageIndex,
+      type: 3,
+    );
     await futureMill(300);
 
     refreshController.refreshCompleted();
@@ -29,30 +35,28 @@ class ContentListHotController extends GetxController {
 
   void onLoading() async {
     await futureMill(300);
-    if (state.contentList.value.totalSize >= 20) {
+    if (applicationController.state.contentListHot.value.totalSize >= 20) {
       pageIndex++;
-      Map<String, dynamic> data = {
-        'pageNo': pageIndex,
-        'pageSize': 20,
-        'type': 3,
-      };
 
-      ResponseEntity responseEntity = await ContentApi.contentList(data);
+      ResponseEntity responseEntity = await ContentApi.contentList(
+        pageNo: pageIndex,
+        type: 3,
+      );
 
       if (responseEntity.code == 200) {
         ContentListEntities contentList =
             ContentListEntities.fromJson(responseEntity.data);
 
-        state.contentList.update((val) {
+        applicationController.state.contentListHot.update((val) {
           val!.list.addAll(contentList.list);
         });
 
-        state.isLoading = false;
-        state.contentList.value.totalSize = contentList.totalSize;
+        applicationController.state.contentListHot.value.totalSize =
+            contentList.totalSize;
         refreshController.loadComplete();
 
         // await StorageUtil()
-        //     .setJSON(storageHotContentListKey, state.contentList.value);
+        //     .setJSON(storageHotContentListKey, applicationController.state.contentList.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -61,37 +65,5 @@ class ContentListHotController extends GetxController {
     } else {
       refreshController.loadNoData();
     }
-  }
-
-  Future<void> _refresh() async {
-    pageIndex = 1;
-
-    Map<String, dynamic> data = {
-      'pageNo': 1,
-      'pageSize': 20,
-      'type': 3,
-    };
-
-    ResponseEntity responseEntity = await ContentApi.contentList(data);
-    if (responseEntity.code == 200) {
-      state.contentList.value =
-          ContentListEntities.fromJson(responseEntity.data);
-
-      state.contentList.update((val) {});
-
-      state.isLoading = false;
-
-      // await StorageUtil()
-      //     .setJSON(storageHotContentListKey, responseEntity.data);
-    } else {
-      getSnackTop(responseEntity.msg);
-      state.isLoading = false;
-    }
-  }
-
-  @override
-  void onReady() async {
-    super.onReady();
-    _refresh();
   }
 }

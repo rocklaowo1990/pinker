@@ -8,6 +8,7 @@ import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/application/my/library.dart';
 import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -108,7 +109,7 @@ class ApplicationController extends GetxController {
 
   /// 页面加载时
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
 
     interval(
@@ -122,5 +123,10 @@ class ApplicationController extends GetxController {
       },
       time: const Duration(milliseconds: 100),
     );
+
+    await getHomeContentList(state.contentListHome);
+    await getHomeContentList(state.contentListHot);
+    await getHomeContentList(state.contentListNew);
+    await getUserInfo(state.userInfo);
   }
 }

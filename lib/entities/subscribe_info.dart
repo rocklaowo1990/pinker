@@ -5,9 +5,9 @@ class SubscribeInfoEntities {
     required this.balance,
   });
 
-  final List<_Group> groups;
-  final _SubGroupList? subGroupList;
-  final double balance;
+  List<_Group> groups;
+  _SubGroupList? subGroupList;
+  String balance;
 
   factory SubscribeInfoEntities.fromJson(Map<String, dynamic> json) =>
       SubscribeInfoEntities(
@@ -16,7 +16,7 @@ class SubscribeInfoEntities {
         subGroupList: json["subGroupList"] == null
             ? null
             : _SubGroupList.fromJson(json["subGroupList"]),
-        balance: json["balance"].toDouble(),
+        balance: json["balance"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class SubscribeInfoEntities {
     "groups": [
       {
         "groupId": 0,
-        "amount": 0.0,
+        "amount": '0.00',
         "groupName": '',
         "timeLen": 0,
         "groupPic": '',
@@ -43,7 +43,7 @@ class SubscribeInfoEntities {
       "userName": '',
       "groupPic": '',
     },
-    "balance": 0.0,
+    "balance": '0.00',
   };
 }
 
@@ -56,15 +56,15 @@ class _Group {
     required this.groupPic,
   });
 
-  final int groupId;
-  final double amount;
-  final String groupName;
-  final int timeLen;
-  final String groupPic;
+  int groupId;
+  String amount;
+  String groupName;
+  int timeLen;
+  String groupPic;
 
   factory _Group.fromJson(Map<String, dynamic> json) => _Group(
         groupId: json["groupId"],
-        amount: json["amount"].toDouble(),
+        amount: json["amount"],
         groupName: json["groupName"],
         timeLen: json["timeLen"],
         groupPic: json["groupPic"],
@@ -90,13 +90,13 @@ class _SubGroupList {
     required this.groupPic,
   });
 
-  final int groupId;
-  final String groupName;
-  final int endDate;
-  final String nickName;
-  final String avatar;
-  final String userName;
-  final String groupPic;
+  int groupId;
+  String groupName;
+  int endDate;
+  String nickName;
+  String avatar;
+  String userName;
+  String groupPic;
 
   factory _SubGroupList.fromJson(Map<String, dynamic> json) => _SubGroupList(
         groupId: json["groupId"],

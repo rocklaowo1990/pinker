@@ -15,8 +15,8 @@ class SetVerifyView extends GetView<SetVerifyController> {
     AppBar appBar = getAppBar(
       Obx(() => getSpan(
             controller.state.account.isEmpty
-                ? '验证码'
-                : '验证 ${controller.state.account}',
+                ? '输入验证码'
+                : '验证${controller.state.account}',
             fontSize: 17,
           )),
       line: AppColors.line,

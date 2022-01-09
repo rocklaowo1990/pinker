@@ -47,7 +47,9 @@ class MyController extends GetxController {
 
   void handleDiamond() async {
     getDialog();
+    await futureMill(500);
     ResponseEntity responseEntity = await WalletApi.testAddMoney(type: 1);
+
     if (responseEntity.code == 200) {
       await futureMill(500);
       Get.back();
@@ -62,6 +64,8 @@ class MyController extends GetxController {
 
   void handleP() async {
     getDialog();
+    await futureMill(500);
+
     ResponseEntity responseEntity = await WalletApi.testAddMoney(type: 2);
     if (responseEntity.code == 200) {
       await futureMill(500);

@@ -17,27 +17,47 @@ class SubscribeGroupApi {
   }
 
   /// 修改分组信息 //////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> update(data) async {
+  static Future<ResponseEntity> update({
+    required int groupId,
+    required String groupName,
+    required String groupPic,
+    required double amount,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/subscribeGroup/update',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'token': Global.token,
       }),
-      data: data,
+      data: {
+        'groupId': groupId,
+        'groupName': groupName,
+        'groupPic': groupPic,
+        'amount': amount,
+        'timeLen': 30,
+      },
     );
     return ResponseEntity.fromJson(response);
   }
 
   /// 修改分组信息 //////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> create(data) async {
+  static Future<ResponseEntity> create({
+    required String groupName,
+    required String groupPic,
+    required String amount,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/subscribeGroup/create',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'token': Global.token,
       }),
-      data: data,
+      data: {
+        'groupName': groupName,
+        'groupPic': groupPic,
+        'amount': amount,
+        'timeLen': 30,
+      },
     );
     return ResponseEntity.fromJson(response);
   }

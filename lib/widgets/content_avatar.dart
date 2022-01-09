@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinker/api/content.dart';
 import 'package:pinker/entities/entities.dart';
+
 import 'package:pinker/utils/validator.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -15,7 +19,7 @@ Widget getContentAvatar(Rx<ContentListEntities> contentList, int index) {
   return getUserAvatar(
     contentList.value.list[index].author.avatar,
     contentList.value.list[index].author.nickName,
-    '${contentList.value.list[index].author.userName} · ${getDateTime(contentList.value.list[index].createDate)}',
+    '${contentList.value.list[index].author.userName} · ${getDate(contentList.value.list[index].createDate)}',
     onPressed: _onPressed,
   );
 }
@@ -29,7 +33,11 @@ Widget getContentMore(
   double? height,
   int? type,
 }) {
-  void _onPressed() {}
+  void _onPressed() async {
+    ResponseEntity responseEntity =
+        await ContentApi.contentDetail(wid: contentList.value.list[index].wid);
+    log(responseEntity.data.toString());
+  }
 
   return Center(
     child: getButton(
