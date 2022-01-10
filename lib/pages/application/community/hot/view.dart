@@ -69,11 +69,10 @@ class ContentListHotView extends StatelessWidget {
           );
 
           /// body
-          Widget body = Obx(() => controller.applicationController.state
-                      .contentListHot.value.list.length <=
-                  1
-              ? loading
-              : _body);
+          Widget body = Obx(() =>
+              controller.applicationController.state.isLoading
+                  ? loading
+                  : _body);
 
           return Scaffold(
             body: body,

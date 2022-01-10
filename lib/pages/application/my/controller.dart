@@ -1,4 +1,3 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/wallet.dart';
@@ -55,8 +54,8 @@ class MyController extends GetxController {
     if (responseEntity.code == 200) {
       await futureMill(500);
       Get.back();
-      getSnackTop('充值成功', isError: false);
-      getUserInfo(applicationController.state.userInfo);
+
+      getUserInfo();
     } else {
       await futureMill(500);
       Get.back();
@@ -87,8 +86,8 @@ class MyController extends GetxController {
     if (responseEntity.code == 200) {
       await futureMill(500);
       Get.back();
-      getSnackTop('充值成功', isError: false);
-      getUserInfo(applicationController.state.userInfo);
+
+      getUserInfo();
     } else {
       await futureMill(500);
       Get.back();

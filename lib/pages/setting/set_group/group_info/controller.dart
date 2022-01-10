@@ -121,7 +121,6 @@ class SetGroupInfoController extends GetxController {
       await futureMill(500);
       Get.back();
       Get.back();
-      getSnackTop('操作成功', isError: false);
     } else {
       await futureMill(500);
       Get.back();
@@ -204,7 +203,9 @@ class SetGroupInfoController extends GetxController {
   }
 
   void _linstenerEdit() {
-    if (arguments != null &&
+    if (textEditingPrice.text.isEmpty) {
+      state.isDissable = true;
+    } else if (arguments != null &&
         textEditingGroupName.text == arguments!.groupName &&
         double.parse(textEditingPrice.text) == arguments!.amount &&
         state.image <= 0) {

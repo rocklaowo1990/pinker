@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/entities/subscribe_info.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/values/values.dart';
@@ -17,7 +19,17 @@ Future getMediaView(
   int index, {
   String? storageKey,
   int? imagetIndex,
-}) {
+}) async {
+  List groups = [];
+  ResponseEntity responseEntity = await UserApi.oneSubscribeInfo(
+    userId: contentList.value.list[index].author.userId,
+  );
+
+  if (responseEntity.code == 200) {
+    var subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
+    groups.addAll(subscribeInfo.groups);
+  }
+
   Widget child = GetBuilder<MediaViewController>(
     init: MediaViewController(),
     builder: (controller) {
@@ -85,43 +97,45 @@ Future getMediaView(
                 Expanded(
                   child: getContentAvatar(contentList, index),
                 ),
-                Obx(() => contentList.value.list[index].subStatus == 0
+                Obx(() => contentList.value.list[index].subStatus == 1
                     ? getButton(
-                        child: getSpan('订阅'),
-                        onPressed: () {
-                          final ApplicationController applicationController =
-                              Get.find();
-                          getSubscribeBox(
-                            userInfo: applicationController.state.userInfo,
-                            contentList: contentList,
-                            index: index,
-                            reSault: () {
-                              if (controller.fijkPlayer != null) {
-                                controller.fijkPlayer = FijkPlayer();
-
-                                controller.fijkPlayer!.setDataSource(
-                                    serverApiUrl +
-                                        serverPort +
-                                        contentList
-                                            .value.list[index].works.video.url,
-                                    autoPlay: true);
-                              }
-                              contentList.update((val) {
-                                if (val != null) {
-                                  val.list[index].canSee = 1;
-                                }
-                              });
-                            },
-                          );
-                        },
-                        padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6),
-                        borderSide: BorderSide(
-                            width: 0.5.w, color: AppColors.mainColor),
-                        background: Colors.transparent,
-                      )
-                    : getButton(
                         child: getSpan('已订阅'),
-                        padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6)))
+                        padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6))
+                    : groups.isEmpty
+                        ? const SizedBox()
+                        : getButton(
+                            child: getSpan('订阅'),
+                            onPressed: () {
+                              final ApplicationController
+                                  applicationController = Get.find();
+                              getSubscribeBox(
+                                userInfo: applicationController.state.userInfo,
+                                contentList: contentList,
+                                index: index,
+                                reSault: () {
+                                  if (controller.fijkPlayer != null) {
+                                    controller.fijkPlayer = FijkPlayer();
+
+                                    controller.fijkPlayer!.setDataSource(
+                                        serverApiUrl +
+                                            serverPort +
+                                            contentList.value.list[index].works
+                                                .video.url,
+                                        autoPlay: true);
+                                  }
+                                  contentList.update((val) {
+                                    if (val != null) {
+                                      val.list[index].canSee = 1;
+                                    }
+                                  });
+                                },
+                              );
+                            },
+                            padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6),
+                            borderSide: BorderSide(
+                                width: 0.5.w, color: AppColors.mainColor),
+                            background: Colors.transparent,
+                          ))
               ],
             ),
             if (contentList.value.list[index].works.content.isNotEmpty)

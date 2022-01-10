@@ -259,7 +259,7 @@ class UserApi {
   /// dataNumber :  1-隐藏用户；0-取消隐藏用户
   static Future<ResponseEntity> hide({
     required int userId,
-    required int dataNumber,
+    required int isHide,
   }) async {
     // 请求
     var response = await HttpUtil().postForm(
@@ -270,7 +270,7 @@ class UserApi {
       }),
       data: {
         'userId': userId,
-        'idHide': dataNumber,
+        'isHide': isHide,
       },
     );
     return ResponseEntity.fromJson(response);
@@ -281,7 +281,7 @@ class UserApi {
   /// dataNumber :  1-屏蔽户；0-取消屏蔽用户
   static Future<ResponseEntity> block({
     required int userId,
-    required int dataNumber,
+    required int isBlock,
   }) async {
     // 请求
     var response = await HttpUtil().postForm(
@@ -292,7 +292,7 @@ class UserApi {
       }),
       data: {
         'userId': userId,
-        'isBlock': dataNumber,
+        'isBlock': isBlock,
       },
     );
     return ResponseEntity.fromJson(response);

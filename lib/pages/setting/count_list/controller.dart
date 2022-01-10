@@ -23,6 +23,8 @@ class SetCountListController extends GetxController {
 
   final SetCountListEntities arguments = Get.arguments;
 
+  SnackbarStatus? snackbarStatus;
+
   /// 用来保存所有的列表，暂存
   /// 可用于搜索
   final List _dataList = [];
@@ -136,28 +138,12 @@ class SetCountListController extends GetxController {
     );
 
     if (responseEntity.code == 200) {
-      if (arguments.dataName == 'isHide') {
-        applicationController.state.userInfo.update((val) {
-          if (val != null) {
-            val.hiddenCount = state.showList.length - 1;
-          }
-        });
-      } else if (arguments.dataName == 'isBlock') {
-        applicationController.state.userInfo.update((val) {
-          if (val != null) {
-            val.blockCount = state.showList.length - 1;
-          }
-        });
-      }
-
-      // await StorageUtil().setJSON(
-      //     storageUserInfoKey, applicationController.state.userInfo.value);
+      await getContentListAll();
       await futureMill(500);
 
       Get.back();
       state.showList.remove(item);
       _dataList.remove(item);
-      getSnackTop('操作成功', isError: false);
     } else {
       await futureMill(500);
       Get.back();

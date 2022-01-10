@@ -30,4 +30,9 @@ class ApplicationState {
   /// 推文列表-限免
   final contentListFree =
       ContentListEntities.fromJson(ContentListEntities.child).obs;
+
+  /// 加载中
+  final RxBool _isLoading = true.obs;
+  set isLoading(bool value) => _isLoading.value = value;
+  bool get isLoading => _isLoading.value;
 }

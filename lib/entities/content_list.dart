@@ -20,47 +20,7 @@ class ContentListEntities {
       };
 
   static Map<String, dynamic> child = {
-    "list": [
-      {
-        "wid": 0,
-        "createDate": 1641542124036,
-        "commentCount": 0,
-        "forwardCount": 0,
-        "likeCount": 0,
-        "shareCount": 0,
-        "isLike": 0,
-        "viewCount": 0,
-        "author": {
-          "userId": 0,
-          "avatar": '',
-          "nickName": '',
-          "userName": '',
-          "intro": '',
-        },
-        "works": {
-          "replyPermission": {
-            "type": 0,
-            "isLimitFree": 0,
-          },
-          "payPermission": {
-            "type": 0,
-            "isLimitFree": 0,
-          },
-          "content": '',
-          "pics": [],
-          "video": {
-            "snapshot_url": '',
-            "url": '',
-            "format": '',
-            "duration": 0,
-            "previews_urls": [],
-          },
-        },
-        "canSee": 0,
-        "isForward": 0,
-        "canReply": 0,
-      }
-    ],
+    "list": <ContentDetailElement>[],
     "totalSize": 0,
   };
 }

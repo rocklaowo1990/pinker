@@ -60,7 +60,7 @@ class ForgotPasswordController extends GetxController {
         Get.back(); // 关闭弹窗
         Get.back(); //返回密码设置页面
         Get.back(); //返回设置首页
-        getSnackTop('密码修改成功', isError: false);
+        getSnackTop('密码修改成功', isError: false, time: 500);
       }
     } else {
       await futureMill(500);

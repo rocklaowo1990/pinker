@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/values/values.dart';
+import 'package:pinker/widgets/widgets.dart';
 
 class ApplicationView extends GetView<ApplicationController> {
   const ApplicationView({Key? key}) : super(key: key);
@@ -40,11 +41,35 @@ class ApplicationView extends GetView<ApplicationController> {
       onGenerateRoute: controller.onGenerateRoute,
     );
 
+    Widget floatButton = Obx(() => controller.state.pageIndex == 0
+        ? getButton(
+            child: const Icon(
+              Icons.add,
+              color: AppColors.mainIcon,
+            ),
+            width: 30.w,
+            height: 30.w,
+            onPressed: () {
+              getDialog(
+                child: DialogChild.alert(
+                  title: '提示',
+                  content: '功能制作中...',
+                  leftText: '确认',
+                  onPressedLeft: () {
+                    Get.back();
+                  },
+                ),
+              );
+            },
+          )
+        : const SizedBox());
+
     /// 页面
     return Scaffold(
       backgroundColor: AppColors.mainBacground,
       body: body,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatButton,
     );
   }
 }

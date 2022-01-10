@@ -370,7 +370,6 @@ class MyView extends GetView<MyController> {
 
     /// 页面
     return Scaffold(
-      backgroundColor: AppColors.mainBacground,
       body: body,
     );
   }

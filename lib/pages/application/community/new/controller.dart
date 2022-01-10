@@ -28,7 +28,7 @@ class ContentListNewController extends GetxController {
     await getContentList(
       listRx: applicationController.state.contentListNew,
       pageNo: pageIndex,
-      type: 3,
+      type: 2,
     );
     await futureMill(300);
 

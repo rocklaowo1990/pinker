@@ -100,11 +100,8 @@ class HomeView extends GetView<HomeController> {
     );
 
     /// body
-    Widget body = Obx(() => controller.applicationController.state
-                .contentListHome.value.list.length <=
-            1
-        ? loading
-        : _body);
+    Widget body = Obx(() =>
+        controller.applicationController.state.isLoading ? loading : _body);
 
     /// 页面
     return Scaffold(

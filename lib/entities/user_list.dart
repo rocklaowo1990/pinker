@@ -20,22 +20,7 @@ class UserListEntities {
       };
 
   static Map<String, dynamic> child = {
-    "list": [
-      {
-        "userId": 0,
-        "nickName": '',
-        "avatar": '',
-        "intro": '',
-        "isSubscribe": 0,
-        "userName": '',
-        "groupCount": 0,
-        "subedGroupId": 0,
-        "subedGroupName": '',
-        "groupPic": '',
-        "freeGroupId": 0,
-        "freeGroupName": '',
-      }
-    ],
+    "list": <_UerInfo>[],
     "totalSize": 0,
   };
 }

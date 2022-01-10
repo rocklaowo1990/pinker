@@ -61,11 +61,15 @@ Future<void> getSubscribeBox({
 
   /// 头像
   Widget avatarBox = Container(
-    width: 32.w,
-    height: 32.w,
-    decoration: const BoxDecoration(
+    width: 30.w,
+    height: 30.w,
+    decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
+      border: Border.all(
+        color: AppColors.secondBacground,
+        width: 2,
+      ),
     ),
     child: Center(
       child: contentList.value.list[index].author.avatar.isEmpty ||
@@ -107,7 +111,7 @@ Future<void> getSubscribeBox({
               },
               margin: subscribeInfo.groups.length > 1 &&
                       itemIndex != subscribeInfo.groups.length - 1
-                  ? 5.w
+                  ? 8.w
                   : null))
       ]),
     ),
@@ -118,6 +122,8 @@ Future<void> getSubscribeBox({
       height: 25.h,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
+        Get.back();
+        await futureMill(200);
         getDialog(
           child: DialogChild.alert(
             title: '是否确认支付',
@@ -141,10 +147,8 @@ Future<void> getSubscribeBox({
               );
 
               if (_responseEntity.code == 200) {
-                await getUserInfo(userInfo);
+                await getUserInfo();
                 await futureMill(500);
-                Get.back();
-
                 Get.back();
 
                 reSault();
@@ -183,7 +187,7 @@ Future<void> getSubscribeBox({
         children: [
           Column(
             children: [
-              SizedBox(height: 24.h),
+              SizedBox(height: 20.h),
               Container(
                 decoration: BoxDecoration(
                     color: AppColors.secondBacground,
@@ -262,7 +266,7 @@ Widget getContentPayChooiseBox({
   Widget pay = getButton(
     onPressed: isChooise == true ? null : onPressed,
     borderSide: isChooise == true
-        ? const BorderSide(color: AppColors.mainColor, width: 1.6)
+        ? const BorderSide(color: AppColors.mainColor, width: 1)
         : null,
     borderRadius: BorderRadius.all(Radius.circular(4.w)),
     background:

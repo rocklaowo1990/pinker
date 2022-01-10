@@ -112,6 +112,8 @@ class ApplicationController extends GetxController {
   void onReady() async {
     super.onReady();
 
+    await getContentListAll();
+
     interval(
       state.rxInt,
       (int value) {
@@ -123,10 +125,5 @@ class ApplicationController extends GetxController {
       },
       time: const Duration(milliseconds: 100),
     );
-
-    await getHomeContentList(state.contentListHome);
-    await getHomeContentList(state.contentListHot);
-    await getHomeContentList(state.contentListNew);
-    await getUserInfo(state.userInfo);
   }
 }

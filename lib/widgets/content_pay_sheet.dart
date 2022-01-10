@@ -8,6 +8,7 @@ import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/entities/subscribe_info.dart';
 import 'package:pinker/utils/utils.dart';
+import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -72,9 +73,7 @@ Future<void> getContentPaySheet({
                 choose.value = 0;
                 type = 1;
               })),
-          SizedBox(width: 4.w),
-          getSpan('或'),
-          SizedBox(width: 4.w),
+          SizedBox(width: 8.w),
           Obx(() => getContentPayChooiseBox(
               title: '单独购买',
               groupName: '这条推文',
@@ -103,9 +102,7 @@ Future<void> getContentPaySheet({
             amount: subscribeInfo.groups[0].amount,
             isChooise: true,
           ),
-          SizedBox(width: 4.w),
-          getSpan('且'),
-          SizedBox(width: 4.w),
+          SizedBox(width: 8.w),
           getContentPayChooiseBox(
             title: '单独购买',
             groupName: '这条推文',
@@ -169,6 +166,8 @@ Future<void> getContentPaySheet({
       height: 25.h,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
+        Get.back();
+        await futureMill(200);
         getDialog(
           child: DialogChild.alert(
             title: '是否确认支付',
@@ -194,9 +193,8 @@ Future<void> getContentPaySheet({
                         : null,
               );
               if (payment.code == 200) {
-                await getUserInfo(userInfo);
+                await getUserInfo();
                 await futureMill(500);
-                Get.back();
                 Get.back();
 
                 reSault();
@@ -227,11 +225,15 @@ Future<void> getContentPaySheet({
 
   /// 头像
   Widget avatarBox = Container(
-    width: 32.w,
-    height: 32.w,
-    decoration: const BoxDecoration(
+    width: 30.w,
+    height: 30.w,
+    decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
+      border: Border.all(
+        color: AppColors.secondBacground,
+        width: 2,
+      ),
     ),
     child: Center(
       child: contentList.value.list[index].author.avatar.isEmpty ||
@@ -261,7 +263,7 @@ Future<void> getContentPaySheet({
         children: [
           Column(
             children: [
-              SizedBox(height: 24.h),
+              SizedBox(height: 20.h),
               Container(
                 decoration: BoxDecoration(
                     color: AppColors.secondBacground,

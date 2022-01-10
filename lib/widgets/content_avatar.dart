@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pinker/api/content.dart';
+
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/utils/validator.dart';
@@ -34,9 +32,10 @@ Widget getContentMore(
   int? type,
 }) {
   void _onPressed() async {
-    ResponseEntity responseEntity =
-        await ContentApi.contentDetail(wid: contentList.value.list[index].wid);
-    log(responseEntity.data.toString());
+    getContentMoreSheet(
+      contentList: contentList,
+      index: index,
+    );
   }
 
   return Center(

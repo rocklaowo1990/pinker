@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
-
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/pages/application/home/library.dart';
-import 'package:pinker/pages/application/library.dart';
+import 'package:pinker/pages/application/controller.dart';
 
 import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomeController extends GetxController {
-  final HomeState state = HomeState();
+class ContentListFreeController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
-
-  final ApplicationController applicationController = Get.find();
   final ScrollController scrollController = ScrollController();
-
+  final ApplicationController applicationController = Get.find();
   int pageIndex = 1;
-
-  void handleMail() {}
 
   void onRefresh() async {
     refreshController.resetNoData();
     pageIndex = 1;
-
     await futureMill(300);
-    getHomeContentList();
+    await getContentList(
+      listRx: applicationController.state.contentListFree,
+      pageNo: pageIndex,
+      type: 3,
+    );
     await futureMill(300);
 
     refreshController.refreshCompleted();
@@ -36,27 +33,28 @@ class HomeController extends GetxController {
 
   void onLoading() async {
     await futureMill(300);
-    if (applicationController.state.contentListHome.value.totalSize >= 20) {
+    if (applicationController.state.contentListFree.value.totalSize >= 20) {
       pageIndex++;
 
-      ResponseEntity responseEntity = await ContentApi.homeContentList(
+      ResponseEntity responseEntity = await ContentApi.contentList(
         pageNo: pageIndex,
+        type: 3,
       );
 
       if (responseEntity.code == 200) {
         ContentListEntities contentList =
             ContentListEntities.fromJson(responseEntity.data);
 
-        applicationController.state.contentListHome.update((val) {
+        applicationController.state.contentListFree.update((val) {
           val!.list.addAll(contentList.list);
         });
 
-        applicationController.state.contentListHome.value.totalSize =
+        applicationController.state.contentListFree.value.totalSize =
             contentList.totalSize;
         refreshController.loadComplete();
 
         // await StorageUtil()
-        //     .setJSON(storageHomeContentListKey, state.contentList.value);
+        //     .setJSON(storageHotContentListKey, applicationController.state.contentList.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -65,21 +63,5 @@ class HomeController extends GetxController {
     } else {
       refreshController.loadNoData();
     }
-  }
-
-  @override
-  void onReady() async {
-    super.onReady();
-    if (applicationController.state.contentListHome.value.list.isEmpty) {
-      await getHomeContentList();
-      await getUserInfo();
-    }
-  }
-
-  @override
-  void dispose() {
-    refreshController.dispose();
-    scrollController.dispose();
-    super.dispose();
   }
 }

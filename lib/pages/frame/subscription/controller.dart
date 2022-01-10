@@ -36,7 +36,7 @@ class SubscriptionController extends GetxController {
     );
 
     if (subscribeGroup.code == 200) {
-      await futureMill(1000);
+      await futureMill(500);
       Get.back();
       state.userList.update((val) {
         val!.list.remove(val.list[index]);

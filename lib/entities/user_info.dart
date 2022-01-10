@@ -149,15 +149,7 @@ class UserInfoEntities {
 
   static Map<String, dynamic> child = {
     "avatar": '',
-    "banks": [
-      {
-        "id": 0,
-        "name": '',
-        "cardNumber": '',
-        "bankCode": '',
-        "bankName": '',
-      }
-    ],
+    "banks": <_Bank>[],
     "bannerPic": '',
     "birthday": 0,
     "blockCount": 0,

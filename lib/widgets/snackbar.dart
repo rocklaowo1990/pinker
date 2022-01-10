@@ -5,7 +5,11 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 顶部弹窗封装
-Future getSnackTop(String? msg, {bool? isError}) async {
+Future getSnackTop(
+  String? msg, {
+  bool? isError,
+  int? time,
+}) async {
   isError ??= true;
   Get.snackbar(
     msg ?? '',
@@ -24,6 +28,6 @@ Future getSnackTop(String? msg, {bool? isError}) async {
       bottom: 6.h,
     ),
     animationDuration: const Duration(milliseconds: 300),
-    duration: const Duration(milliseconds: 1000),
+    duration: Duration(milliseconds: time ?? 1000),
   );
 }

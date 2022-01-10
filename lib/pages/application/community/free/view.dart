@@ -3,18 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:pinker/pages/application/community/new/controller.dart';
+import 'package:pinker/pages/application/community/free/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-class ContentListNewView extends StatelessWidget {
-  const ContentListNewView({Key? key}) : super(key: key);
+class ContentListFreeView extends StatelessWidget {
+  const ContentListFreeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ContentListNewController>(
-        init: ContentListNewController(),
+    return GetBuilder<ContentListFreeController>(
+        init: ContentListFreeController(),
         builder: (controller) {
 // loading时显示转圈圈
           Widget loading = Center(
@@ -48,7 +48,7 @@ class ContentListNewView extends StatelessWidget {
 
           // 整体布局
           Widget _body = Obx(
-            () => controller.applicationController.state.contentListNew.value
+            () => controller.applicationController.state.contentListFree.value
                     .list.isEmpty
                 ? noData
                 : getRefresher(
@@ -56,11 +56,11 @@ class ContentListNewView extends StatelessWidget {
                     child: ListView.builder(
                         controller: controller.scrollController,
                         itemCount: controller.applicationController.state
-                            .contentListNew.value.list.length,
+                            .contentListFree.value.list.length,
                         itemBuilder: (BuildContext buildContext, int index) {
                           return getContentListView(
                               controller
-                                  .applicationController.state.contentListNew,
+                                  .applicationController.state.contentListFree,
                               index);
                         }),
                     onLoading: controller.onLoading,

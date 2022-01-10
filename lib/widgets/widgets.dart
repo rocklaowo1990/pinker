@@ -20,3 +20,4 @@ export 'content_pay_box.dart';
 export 'video_controller.dart';
 export 'subscribe_sheet.dart';
 export 'content_pay_sheet.dart';
+export 'content_more_sheet.dart';

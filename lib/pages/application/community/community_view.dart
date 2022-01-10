@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/pages/application/community/free/library.dart';
 import 'package:pinker/pages/application/community/hot/library.dart';
 
 import 'package:pinker/pages/application/community/library.dart';
@@ -48,9 +49,11 @@ class CommunityView extends GetView<CommunityController> {
 
     Widget left = Row(
       children: [
-        _leftChild('最新', 0),
+        _leftChild('限免', 0),
         SizedBox(width: 16.w),
-        _leftChild('最热', 1),
+        _leftChild('最新', 1),
+        SizedBox(width: 16.w),
+        _leftChild('最热', 2),
       ],
     );
 
@@ -74,31 +77,12 @@ class CommunityView extends GetView<CommunityController> {
     Widget body = PageView(
       controller: controller.pageController,
       children: const [
+        ContentListFreeView(),
         ContentListNewView(),
         ContentListHotView(),
       ],
       onPageChanged: controller.handlePageChanged,
     );
-
-    // Widget body = ExtendedImageGesturePageView.builder(
-    //   itemBuilder: (BuildContext context, int _index) {
-    //     if (_index == 0) {
-    //       return const ContentListNewView();
-    //     } else {
-    //       return const ContentListHotView();
-    //     }
-    //   },
-    //   itemCount: 2,
-    //   controller: controller.pageController,
-    //   onPageChanged: controller.handleChangedTab,
-    // );
-
-    /// body
-    // Widget body = Navigator(
-    //   key: Get.nestedKey(3),
-    //   initialRoute: AppRoutes.contentNew,
-    //   onGenerateRoute: controller.onGenerateRoute,
-    // );
 
     /// 页面
     return Scaffold(
