@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/application/community/free/library.dart';
 
 import 'package:pinker/pages/application/controller.dart';
 
@@ -15,7 +16,18 @@ class ContentListFreeController extends GetxController {
       RefreshController(initialRefresh: false);
   final ScrollController scrollController = ScrollController();
   final ApplicationController applicationController = Get.find();
+  final state = ContentListFreeState();
   int pageIndex = 1;
+
+  void handleNoData() async {
+    applicationController.state.isLoadingFree = true;
+    await getContentList(
+      listRx: applicationController.state.contentListFree,
+      pageNo: 1,
+      type: 6,
+    );
+    applicationController.state.isLoadingFree = false;
+  }
 
   void onRefresh() async {
     refreshController.resetNoData();
@@ -24,7 +36,7 @@ class ContentListFreeController extends GetxController {
     await getContentList(
       listRx: applicationController.state.contentListFree,
       pageNo: pageIndex,
-      type: 3,
+      type: 6,
     );
     await futureMill(300);
 
@@ -38,7 +50,7 @@ class ContentListFreeController extends GetxController {
 
       ResponseEntity responseEntity = await ContentApi.contentList(
         pageNo: pageIndex,
-        type: 3,
+        type: 6,
       );
 
       if (responseEntity.code == 200) {
@@ -52,9 +64,6 @@ class ContentListFreeController extends GetxController {
         applicationController.state.contentListFree.value.totalSize =
             contentList.totalSize;
         refreshController.loadComplete();
-
-        // await StorageUtil()
-        //     .setJSON(storageHotContentListKey, applicationController.state.contentList.value);
       } else {
         pageIndex--;
         refreshController.loadFailed();
@@ -62,6 +71,22 @@ class ContentListFreeController extends GetxController {
       }
     } else {
       refreshController.loadNoData();
+    }
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+
+    if (applicationController.state.contentListFree.value.list.isEmpty) {
+      await getContentList(
+        listRx: applicationController.state.contentListFree,
+        type: 6,
+        pageNo: 1,
+      );
+      applicationController.state.isLoadingFree = false;
+    } else {
+      applicationController.state.isLoadingFree = false;
     }
   }
 }

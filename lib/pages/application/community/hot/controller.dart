@@ -19,6 +19,16 @@ class ContentListHotController extends GetxController {
   final ApplicationController applicationController = Get.find();
   int pageIndex = 1;
 
+  void handleNoData() async {
+    state.isLoading = true;
+    await getContentList(
+      listRx: applicationController.state.contentListHot,
+      pageNo: 1,
+      type: 3,
+    );
+    state.isLoading = false;
+  }
+
   void onRefresh() async {
     refreshController.resetNoData();
     pageIndex = 1;
@@ -64,6 +74,22 @@ class ContentListHotController extends GetxController {
       }
     } else {
       refreshController.loadNoData();
+    }
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+
+    if (applicationController.state.contentListHot.value.list.isEmpty) {
+      await getContentList(
+        listRx: applicationController.state.contentListHot,
+        type: 3,
+        pageNo: 1,
+      );
+      state.isLoading = false;
+    } else {
+      state.isLoading = false;
     }
   }
 }

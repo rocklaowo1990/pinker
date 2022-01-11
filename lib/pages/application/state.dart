@@ -31,8 +31,13 @@ class ApplicationState {
   final contentListFree =
       ContentListEntities.fromJson(ContentListEntities.child).obs;
 
-  /// 加载中
-  final RxBool _isLoading = true.obs;
-  set isLoading(bool value) => _isLoading.value = value;
-  bool get isLoading => _isLoading.value;
+  /// 加载中--首页
+  final RxBool _isLoadingHome = true.obs;
+  set isLoadingHome(bool value) => _isLoadingHome.value = value;
+  bool get isLoadingHome => _isLoadingHome.value;
+
+  /// 加载中--限免
+  final RxBool _isLoadingFree = true.obs;
+  set isLoadingFree(bool value) => _isLoadingFree.value = value;
+  bool get isLoadingFree => _isLoadingFree.value;
 }

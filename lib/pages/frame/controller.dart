@@ -36,6 +36,7 @@ class FrameController extends GetxController {
       transition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(milliseconds: 300),
       binding: binding,
+      popGesture: false,
     );
   }
 

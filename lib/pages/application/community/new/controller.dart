@@ -68,4 +68,29 @@ class ContentListNewController extends GetxController {
       refreshController.loadNoData();
     }
   }
+
+  void handleNoData() async {
+    state.isLoading = true;
+    await getContentList(
+      listRx: applicationController.state.contentListNew,
+      pageNo: 1,
+      type: 2,
+    );
+    state.isLoading = false;
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
+    if (applicationController.state.contentListNew.value.list.isEmpty) {
+      await getContentList(
+        listRx: applicationController.state.contentListNew,
+        type: 2,
+        pageNo: 1,
+      );
+      state.isLoading = false;
+    } else {
+      state.isLoading = false;
+    }
+  }
 }

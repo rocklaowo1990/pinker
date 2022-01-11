@@ -117,18 +117,23 @@ Widget getContentPayBox(
   }
   price = contentList.value.list[index].works.payPermission.type == 1
       ? getSpan('需订阅', color: AppColors.thirdText)
-      : Row(
-          children: [
-            SvgPicture.asset(
-              'assets/svg/icon_diamond.svg',
-              height: 15,
-            ),
-            SizedBox(width: 3.w),
-            getSpan(
-                '${contentList.value.list[index].works.payPermission.price}',
-                color: AppColors.thirdText),
-          ],
-        );
+      : contentList.value.list[index].works.payPermission.type == 2
+          ? getSpan('订阅或付费', color: AppColors.thirdText)
+          : contentList.value.list[index].works.payPermission.type == 3 &&
+                  contentList.value.list[index].subStatus == 0
+              ? getSpan('订阅且付费', color: AppColors.thirdText)
+              : Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svg/icon_diamond.svg',
+                      height: 15,
+                    ),
+                    SizedBox(width: 3.w),
+                    getSpan(
+                        '${contentList.value.list[index].works.payPermission.price}',
+                        color: AppColors.thirdText),
+                  ],
+                );
 
   return getButton(
     onPressed: _onPressed,

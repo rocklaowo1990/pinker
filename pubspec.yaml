@@ -84,6 +84,9 @@ dependencies:
   # 点赞
   like_button: ^2.0.4
 
+  # 轮播图
+  card_swiper: ^2.0.1
+
 
   
 

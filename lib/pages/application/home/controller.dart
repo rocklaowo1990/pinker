@@ -23,12 +23,18 @@ class HomeController extends GetxController {
 
   void handleMail() {}
 
+  void handleNoData() async {
+    applicationController.state.isLoadingHome = true;
+    await getHomeContentList();
+    applicationController.state.isLoadingHome = false;
+  }
+
   void onRefresh() async {
     refreshController.resetNoData();
     pageIndex = 1;
 
     await futureMill(300);
-    getHomeContentList();
+    await getHomeContentList();
     await futureMill(300);
 
     refreshController.refreshCompleted();
@@ -72,7 +78,9 @@ class HomeController extends GetxController {
     super.onReady();
     if (applicationController.state.contentListHome.value.list.isEmpty) {
       await getHomeContentList();
-      await getUserInfo();
+      applicationController.state.isLoadingHome = false;
+    } else {
+      applicationController.state.isLoadingHome = false;
     }
   }
 

@@ -33,16 +33,24 @@ class ContentListNewView extends StatelessWidget {
 
           // 没有数据的时候，显示暂无数据
           Widget noData = Center(
-            child: Column(
-              children: [
-                SizedBox(height: 40.h),
-                SvgPicture.asset(
-                  'assets/svg/error_4.svg',
-                  width: 55.w,
-                ),
-                SizedBox(height: 6.h),
-                getSpan('暂无数据', color: AppColors.secondText),
-              ],
+            child: getButton(
+              width: double.infinity,
+              background: Colors.transparent,
+              overlayColor: Colors.transparent,
+              onPressed: controller.handleNoData,
+              child: Column(
+                children: [
+                  SizedBox(height: 40.h),
+                  SvgPicture.asset(
+                    'assets/svg/error_4.svg',
+                    width: 55.w,
+                  ),
+                  SizedBox(height: 6.h),
+                  getSpan('暂无数据', color: AppColors.secondText),
+                  SizedBox(height: 2.h),
+                  getSpan('轻触屏幕重试', color: AppColors.secondText),
+                ],
+              ),
             ),
           );
 
@@ -69,10 +77,7 @@ class ContentListNewView extends StatelessWidget {
           );
 
           /// body
-          Widget body = Obx(() =>
-              controller.applicationController.state.isLoading
-                  ? loading
-                  : _body);
+          Widget body = Obx(() => controller.state.isLoading ? loading : _body);
 
           return Scaffold(
             body: body,

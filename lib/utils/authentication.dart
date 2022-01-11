@@ -64,8 +64,6 @@ Future<void> getHomeContentList() async {
   } else {
     getSnackTop(responseEntity.msg);
   }
-
-  applicationController.state.isLoading = false;
 }
 
 /// 重新请求推文列表
@@ -76,8 +74,6 @@ Future<void> getContentList({
   required int type,
   required int pageNo,
 }) async {
-  final ApplicationController applicationController = Get.find();
-
   ResponseEntity responseEntity = await ContentApi.contentList(
     pageNo: pageNo,
     type: type,
@@ -88,7 +84,6 @@ Future<void> getContentList({
   } else {
     getSnackTop(responseEntity.msg);
   }
-  applicationController.state.isLoading = false;
 }
 
 /// 这里是屏蔽或者隐藏用户后，用来刷新推文列表

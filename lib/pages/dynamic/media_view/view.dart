@@ -20,14 +20,15 @@ Future getMediaView(
   String? storageKey,
   int? imagetIndex,
 }) async {
-  List groups = [];
+  final subscribeInfo =
+      SubscribeInfoEntities.fromJson(SubscribeInfoEntities.child).obs;
   ResponseEntity responseEntity = await UserApi.oneSubscribeInfo(
     userId: contentList.value.list[index].author.userId,
   );
 
   if (responseEntity.code == 200) {
-    var subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
-    groups.addAll(subscribeInfo.groups);
+    subscribeInfo.value = SubscribeInfoEntities.fromJson(responseEntity.data);
+    subscribeInfo.update((val) {});
   }
 
   Widget child = GetBuilder<MediaViewController>(
@@ -97,11 +98,11 @@ Future getMediaView(
                 Expanded(
                   child: getContentAvatar(contentList, index),
                 ),
-                Obx(() => contentList.value.list[index].subStatus == 1
+                Obx(() => subscribeInfo.value.subGroupList != null
                     ? getButton(
                         child: getSpan('已订阅'),
                         padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6))
-                    : groups.isEmpty
+                    : subscribeInfo.value.groups.isEmpty
                         ? const SizedBox()
                         : getButton(
                             child: getSpan('订阅'),
