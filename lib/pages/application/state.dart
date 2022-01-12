@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/entities/user_list.dart';
 
 class ApplicationState {
   /// 防抖监听
@@ -30,6 +31,10 @@ class ApplicationState {
   /// 推文列表-限免
   final contentListFree =
       ContentListEntities.fromJson(ContentListEntities.child).obs;
+
+  /// 推荐用户列表
+  final recommendUserList =
+      UserListEntities.fromJson(UserListEntities.child).obs;
 
   /// 加载中--首页
   final RxBool _isLoadingHome = true.obs;

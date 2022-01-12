@@ -140,7 +140,7 @@ Widget getUserAvatar(
   );
 }
 
-/// 用户列表
+/// 用户列表-无简介
 Widget getUserList(
   String avatar,
   String userName,
@@ -151,6 +151,7 @@ Widget getUserList(
   Widget? button,
   EdgeInsetsGeometry? padding,
   BoxBorder? border,
+  String? intro,
 }) {
   /// 左侧组合
   Widget leftBox = getUserAvatar(
@@ -170,6 +171,11 @@ Widget getUserList(
     background: Colors.transparent,
   );
 
+  Widget body = Row(children: [
+    Expanded(child: leftBox),
+    button ?? buttonBox,
+  ]);
+
   ///
   return Container(
     width: double.infinity,
@@ -178,11 +184,17 @@ Widget getUserList(
       border: border ??
           Border(top: BorderSide(width: 0.5.w, color: AppColors.line)),
     ),
-    child: Row(
-      children: [
-        Expanded(child: leftBox),
-        button ?? buttonBox,
-      ],
-    ),
+    child: intro != null && intro.isNotEmpty
+        ? Column(
+            children: [
+              body,
+              SizedBox(height: 8.h),
+              SizedBox(
+                width: double.infinity,
+                child: getSpan(intro, color: AppColors.secondText),
+              ),
+            ],
+          )
+        : body,
   );
 }

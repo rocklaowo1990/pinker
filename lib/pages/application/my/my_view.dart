@@ -204,7 +204,7 @@ class MyView extends StatelessWidget {
           );
 
           /// 正在订阅模块的封装
-          Widget _subscription({
+          Widget _userListBox({
             required String title,
             required String svg,
             required String number,
@@ -237,17 +237,17 @@ class MyView extends StatelessWidget {
           /// 正在订阅模块组装
           Widget subscription = Row(children: [
             Expanded(
-              child: Obx(() => _subscription(
+              child: Obx(() => _userListBox(
                     title: '订阅的用户',
                     svg: 'assets/svg/icon_person_add.svg',
                     number:
                         '${controller.applicationController.state.userInfo.value.followCount}',
-                    onPressed: () {},
+                    onPressed: controller.handleSubscribeList,
                   )),
             ),
             SizedBox(width: 5.h),
             Expanded(
-              child: Obx(() => _subscription(
+              child: Obx(() => _userListBox(
                     title: '订阅的群聊',
                     svg: 'assets/svg/icon_person_team.svg',
                     number:

@@ -31,6 +31,10 @@ class MyController extends GetxController {
     Get.toNamed(AppRoutes.set);
   }
 
+  void handleSubscribeList() {
+    Get.toNamed(AppRoutes.subscribeList);
+  }
+
   void handleSetting() {
     Get.toNamed(AppRoutes.set, arguments: applicationController);
   }

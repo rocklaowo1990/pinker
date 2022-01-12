@@ -49,4 +49,10 @@ class AppRoutes {
   /// 社区
   static const contentNew = '/contentNew';
   static const contentHot = '/contentHot';
+
+  /// 我的订阅列表页面
+  static const subscribeList = '/subscribeList';
+
+  /// 推荐订阅
+  static const recommendUserList = '/recommendUserList';
 }

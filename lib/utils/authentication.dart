@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/entities/user_list.dart';
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -61,6 +62,25 @@ Future<void> getHomeContentList() async {
     applicationController.state.contentListHome.value =
         ContentListEntities.fromJson(responseEntity.data);
     applicationController.state.contentListHome.update((val) {});
+  } else {
+    getSnackTop(responseEntity.msg);
+  }
+}
+
+/// 刷新首页的其他数据
+///
+/// 包括banner，金刚区，活动，和推荐列表
+///
+/// 重新请求会刷新
+Future<void> getHomeData(int pageNo) async {
+  final ApplicationController applicationController = Get.find();
+
+  ResponseEntity responseEntity = await UserApi.list(type: 2, pageNo: pageNo);
+
+  if (responseEntity.code == 200) {
+    applicationController.state.recommendUserList.value =
+        UserListEntities.fromJson(responseEntity.data);
+    applicationController.state.recommendUserList.update((val) {});
   } else {
     getSnackTop(responseEntity.msg);
   }

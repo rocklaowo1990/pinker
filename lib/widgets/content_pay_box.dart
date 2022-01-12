@@ -45,9 +45,9 @@ Widget getContentPayBox(
   void _onPressed() async {
     if (contentList.value.list[index].works.payPermission.type == 1) {
       getSubscribeBox(
-          userInfo: applicationController.state.userInfo,
-          contentList: contentList,
-          index: index,
+          userId: contentList.value.list[index].author.userId,
+          userName: contentList.value.list[index].author.userName,
+          avatar: contentList.value.list[index].author.avatar,
           reSault: () {
             if (mediaViewController != null) {
               mediaViewController.fijkPlayer = FijkPlayer();

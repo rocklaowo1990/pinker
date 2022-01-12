@@ -25,15 +25,7 @@ class SubscribeInfoEntities {
         "balance": balance,
       };
   static Map<String, dynamic> child = {
-    "groups": [
-      {
-        "groupId": 0,
-        "amount": '0.00',
-        "groupName": '',
-        "timeLen": 0,
-        "groupPic": '',
-      }
-    ],
+    "groups": <_Group>[],
     "subGroupList": {
       "groupId": 0,
       "groupName": '',
@@ -42,6 +34,7 @@ class SubscribeInfoEntities {
       "avatar": '',
       "userName": '',
       "groupPic": '',
+      "amount": '',
     },
     "balance": '0.00',
   };
@@ -88,6 +81,7 @@ class _SubGroupList {
     required this.avatar,
     required this.userName,
     required this.groupPic,
+    required this.amount,
   });
 
   int groupId;
@@ -97,6 +91,7 @@ class _SubGroupList {
   String avatar;
   String userName;
   String groupPic;
+  String amount;
 
   factory _SubGroupList.fromJson(Map<String, dynamic> json) => _SubGroupList(
         groupId: json["groupId"],
@@ -106,6 +101,7 @@ class _SubGroupList {
         avatar: json["avatar"],
         userName: json["userName"],
         groupPic: json["groupPic"],
+        amount: json["amount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -116,5 +112,6 @@ class _SubGroupList {
         "avatar": avatar,
         "userName": userName,
         "groupPic": groupPic,
+        "amount": amount,
       };
 }

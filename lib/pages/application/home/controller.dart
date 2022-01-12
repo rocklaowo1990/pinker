@@ -6,6 +6,7 @@ import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/pages/application/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -19,7 +20,7 @@ class HomeController extends GetxController {
   final ApplicationController applicationController = Get.find();
   final ScrollController scrollController = ScrollController();
 
-  int pageIndex = 1;
+  int pageNo = 1;
 
   void handleMail() {}
 
@@ -31,7 +32,7 @@ class HomeController extends GetxController {
 
   void onRefresh() async {
     refreshController.resetNoData();
-    pageIndex = 1;
+    pageNo = 1;
 
     await futureMill(300);
     await getHomeContentList();
@@ -43,10 +44,10 @@ class HomeController extends GetxController {
   void onLoading() async {
     await futureMill(300);
     if (applicationController.state.contentListHome.value.totalSize >= 20) {
-      pageIndex++;
+      pageNo++;
 
       ResponseEntity responseEntity = await ContentApi.homeContentList(
-        pageNo: pageIndex,
+        pageNo: pageNo,
       );
 
       if (responseEntity.code == 200) {
@@ -64,7 +65,7 @@ class HomeController extends GetxController {
         // await StorageUtil()
         //     .setJSON(storageHomeContentListKey, state.contentList.value);
       } else {
-        pageIndex--;
+        pageNo--;
         refreshController.loadFailed();
         getSnackTop(responseEntity.msg);
       }
@@ -73,11 +74,28 @@ class HomeController extends GetxController {
     }
   }
 
+  void handSubscribeinfo(item) async {
+    applicationController.state.recommendUserList.update((val) {
+      val!.list.remove(item);
+    });
+
+    await getContentListAll();
+
+    if (applicationController.state.recommendUserList.value.list.length <= 4) {
+      await getHomeData(1);
+    }
+  }
+
+  void handleRemmondMore() {
+    Get.toNamed(AppRoutes.recommendUserList);
+  }
+
   @override
   void onReady() async {
     super.onReady();
-    if (applicationController.state.contentListHome.value.list.isEmpty) {
+    if (applicationController.state.recommendUserList.value.list.isEmpty) {
       await getHomeContentList();
+      await getHomeData(1);
       applicationController.state.isLoadingHome = false;
     } else {
       applicationController.state.isLoadingHome = false;

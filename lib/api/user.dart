@@ -18,13 +18,13 @@ class UserApi {
     var response = await HttpUtil().get(
       '/api/user/list',
       queryParameters: {
-        if (pageNo != null) 'pageNo': pageNo,
+        'pageNo': pageNo,
         'pageSize': 20,
         'type': type,
-        if (wid != null) 'wid': wid,
-        if (userId != null) 'userId': userId,
-        if (cid != null) 'cid': cid,
-        if (keywords != null) 'keywords': keywords,
+        'wid': wid,
+        'userId': userId,
+        'cid': cid,
+        'keywords': keywords,
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -375,6 +375,24 @@ class UserApi {
       data: {
         'userId': userId,
         'groupId': groupId,
+      },
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
+  /// 查看我的订阅列表
+  static Future<ResponseEntity> subscribeList({
+    required int pageNo,
+  }) async {
+    var response = await HttpUtil().get(
+      '/api/user/subscribeList',
+      options: Options(headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': Global.token,
+      }),
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': 20,
       },
     );
     return ResponseEntity.fromJson(response);

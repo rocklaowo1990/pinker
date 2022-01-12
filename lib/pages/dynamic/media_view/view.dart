@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/entities/subscribe_info.dart';
-import 'package:pinker/pages/application/library.dart';
+
 import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -107,12 +107,13 @@ Future getMediaView(
                         : getButton(
                             child: getSpan('订阅'),
                             onPressed: () {
-                              final ApplicationController
-                                  applicationController = Get.find();
                               getSubscribeBox(
-                                userInfo: applicationController.state.userInfo,
-                                contentList: contentList,
-                                index: index,
+                                userId:
+                                    contentList.value.list[index].author.userId,
+                                userName: contentList
+                                    .value.list[index].author.userName,
+                                avatar:
+                                    contentList.value.list[index].author.avatar,
                                 reSault: () {
                                   if (controller.fijkPlayer != null) {
                                     controller.fijkPlayer = FijkPlayer();

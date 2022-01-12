@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/recommend_user_list/binding.dart';
+import 'package:pinker/pages/recommend_user_list/view.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
 import 'package:pinker/pages/setting/count_list/binding.dart';
 import 'package:pinker/pages/setting/count_list/library.dart';
@@ -25,6 +27,7 @@ import 'package:pinker/pages/setting/set_user_logo/library.dart';
 
 import 'package:pinker/pages/setting/set_user_name/library.dart';
 import 'package:pinker/pages/setting/verify/library.dart';
+import 'package:pinker/pages/subscribe_list/library.dart';
 
 import 'package:pinker/pages/unknown/library.dart';
 
@@ -45,6 +48,20 @@ class AppPages {
       name: AppRoutes.application,
       page: () => const ApplicationView(),
       binding: ApplicationBinding(),
+    ),
+
+    /// 我的订阅列表
+    GetPage(
+      name: AppRoutes.subscribeList,
+      page: () => const SubscribeListView(),
+      binding: SubscribeListBinding(),
+    ),
+
+    /// 推荐订阅
+    GetPage(
+      name: AppRoutes.recommendUserList,
+      page: () => const RecommendUserListView(),
+      binding: RecommendUserListBinding(),
     ),
 
     /// 初始页面框架，包含登陆，注册，初始

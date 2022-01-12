@@ -18,13 +18,12 @@ import 'package:pinker/widgets/widgets.dart';
 ///
 /// 然后走订阅付费流程
 Future<void> getSubscribeBox({
-  required Rx<UserInfoEntities> userInfo,
-  required Rx<ContentListEntities> contentList,
-  required int index,
+  required int userId,
+  required String avatar,
+  required String userName,
   required VoidCallback reSault,
 }) async {
   int groupId = 0;
-  String groupPrice = '0.00';
   final amount = '0.00'.obs;
   final choose = 0.obs;
   final isLoading = true.obs;
@@ -32,21 +31,14 @@ Future<void> getSubscribeBox({
       SubscribeInfoEntities.fromJson(SubscribeInfoEntities.child);
 
   ResponseEntity responseEntity = await UserApi.oneSubscribeInfo(
-    userId: contentList.value.list[index].author.userId,
+    userId: userId,
   );
 
   if (responseEntity.code == 200) {
     subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
-    for (int i = 0; i < subscribeInfo.groups.length; i++) {
-      if (contentList.value.list[index].works.payPermission.groupId ==
-          subscribeInfo.groups[i].groupId) {
-        groupPrice = subscribeInfo.groups[i].amount;
-      }
-    }
 
     for (int i = 0; i < subscribeInfo.groups.length; i++) {
-      if (double.parse(subscribeInfo.groups[i].amount) <
-          double.parse(groupPrice)) {
+      if (double.parse(subscribeInfo.groups[i].amount) < 0) {
         subscribeInfo.groups.remove(subscribeInfo.groups[i]);
       }
     }
@@ -72,21 +64,12 @@ Future<void> getSubscribeBox({
       ),
     ),
     child: Center(
-      child: contentList.value.list[index].author.avatar.isEmpty ||
-              isInclude(contentList.value.list[index].author.avatar,
-                  'user_default_head.png')
-          ? SvgPicture.asset(
-              'assets/svg/avatar_default.svg',
-              width: 32.w,
-            )
-          : getImageBox(contentList.value.list[index].author.avatar,
-              shape: BoxShape.circle),
+      child: getImageBox(avatar, shape: BoxShape.circle),
     ),
   );
 
   /// 文字部分
-  Widget span =
-      getSpan('请选择 ${contentList.value.list[index].author.userName} 的订阅方式');
+  Widget span = getSpan('请选择 $userName 的订阅方式');
 
   Widget payBody = Padding(
     padding: EdgeInsets.fromLTRB(0, 4.h, 0, 4.h),
@@ -142,7 +125,7 @@ Future<void> getSubscribeBox({
               Get.back();
               getDialog();
               ResponseEntity _responseEntity = await UserApi.subscribeGroup(
-                userId: contentList.value.list[index].author.userId,
+                userId: userId,
                 groupId: groupId,
               );
 
@@ -153,8 +136,7 @@ Future<void> getSubscribeBox({
 
                 reSault();
 
-                await onRefreshContentList(
-                    userId: contentList.value.list[index].author.userId);
+                await onRefreshContentList(userId: userId);
 
                 getSnackTop(getDate(_responseEntity.data['endDate']).toString(),
                     isError: false);
