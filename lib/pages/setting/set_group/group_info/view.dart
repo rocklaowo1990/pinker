@@ -18,7 +18,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
     AppBar appBar = getAppBar(
       getSpan(controller.arguments == null ? '添加订阅组' : '订阅组信息', fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      line: AppColors.line,
+      lineColor: AppColors.line,
     );
 
     /// 中间部分

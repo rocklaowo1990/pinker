@@ -15,7 +15,7 @@ AppBar getAppBar(
   Widget? leading,
   List<Widget>? actions,
   Color? backgroundColor,
-  Color? line,
+  Color? lineColor,
   Widget? bottom,
   double? bottomHeight,
 }) {
@@ -33,7 +33,7 @@ AppBar getAppBar(
     backgroundColor: backgroundColor ?? Colors.transparent,
     foregroundColor: AppColors.mainText,
     elevation: 0,
-    bottom: bottom == null && line == null
+    bottom: bottom == null && lineColor == null
         ? null
         : PreferredSize(
             child: Column(
@@ -43,16 +43,16 @@ AppBar getAppBar(
                     height: bottomHeight ?? 0,
                     child: bottom,
                   ),
-                if (line != null)
+                if (lineColor != null)
                   Container(
                     height: 0.8,
-                    color: line,
+                    color: lineColor,
                   ),
               ],
             ),
             preferredSize: Size.fromHeight(bottom == null
                 ? 0.8
-                : line == null
+                : lineColor == null
                     ? bottomHeight ?? 0
                     : bottomHeight == null
                         ? 0.8

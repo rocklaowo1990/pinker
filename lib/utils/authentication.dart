@@ -18,6 +18,7 @@ Future<bool> isAuthenticated() async {
 /// 删除缓存 token
 Future deleteAuthentication() async {
   await StorageUtil().remove(storageUserTokenKey);
+
   // await StorageUtil().remove(storageUserInfoKey);
   // await StorageUtil().remove(storageIsHadUserInfo);
   // await StorageUtil().remove(storageHomeContentListKey);
@@ -25,9 +26,10 @@ Future deleteAuthentication() async {
   // await StorageUtil().remove(storageIsHadNewContent);
   // await StorageUtil().remove(storageHotContentListKey);
   // await StorageUtil().remove(storageIsHadHotContent);
+  // Global.isHadUserInfo = false;
+
   Global.token = null;
   Global.isOfflineLogin = false;
-  // Global.isHadUserInfo = false;
 }
 
 /// 重新登录
@@ -72,7 +74,7 @@ Future<void> getHomeContentList() async {
 /// 包括banner，金刚区，活动，和推荐列表
 ///
 /// 重新请求会刷新
-Future<void> getHomeData(int pageNo) async {
+Future<void> getRecommendList(int pageNo) async {
   final ApplicationController applicationController = Get.find();
 
   ResponseEntity responseEntity = await UserApi.list(type: 2, pageNo: pageNo);
@@ -89,15 +91,13 @@ Future<void> getHomeData(int pageNo) async {
 /// 重新请求推文列表
 ///
 /// 可用于下拉刷新
-Future<void> getContentList({
-  required Rx<ContentListEntities> listRx,
-  required int type,
-  required int pageNo,
-}) async {
+Future<void> getContentList(
+    {required Rx<ContentListEntities> listRx,
+    required int type,
+    required int pageNo,
+    String? keywords}) async {
   ResponseEntity responseEntity = await ContentApi.contentList(
-    pageNo: pageNo,
-    type: type,
-  );
+      pageNo: pageNo, type: type, keywords: keywords);
   if (responseEntity.code == 200) {
     listRx.value = ContentListEntities.fromJson(responseEntity.data);
     listRx.update((val) {});
@@ -109,55 +109,31 @@ Future<void> getContentList({
 /// 这里是屏蔽或者隐藏用户后，用来刷新推文列表
 ///
 /// 刷新首页，最新，最热，限免，和用户信息
-Future<void> onHideContentList({
+void onHideContentList({
   required int userId,
-}) async {
+}) {
   final ApplicationController applicationController = Get.find();
-  await getUserInfo();
 
-  for (int i = 0;
-      i < applicationController.state.contentListHome.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListHome.value.list[i].author.userId ==
-        userId) {
-      applicationController.state.contentListHome.update((val) {
-        val!.list.remove(val.list[i]);
-      });
-    }
+  applicationController.state.contentListHome.update((val) {
+    val!.list.removeWhere((element) => element.author.userId == userId);
+  });
+
+  if (applicationController.state.contentListHot.value.list.isNotEmpty) {
+    applicationController.state.contentListHot.update((val) {
+      val!.list.removeWhere((element) => element.author.userId == userId);
+    });
   }
-  for (int i = 0;
-      i < applicationController.state.contentListNew.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListNew.value.list[i].author.userId ==
-        userId) {
-      applicationController.state.contentListNew.update((val) {
-        val!.list.remove(val.list[i]);
-      });
-    }
+
+  if (applicationController.state.contentListNew.value.list.isNotEmpty) {
+    applicationController.state.contentListNew.update((val) {
+      val!.list.removeWhere((element) => element.author.userId == userId);
+    });
   }
-  for (int i = 0;
-      i < applicationController.state.contentListHot.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListHot.value.list[i].author.userId ==
-        userId) {
-      applicationController.state.contentListHot.update((val) {
-        val!.list.remove(val.list[i]);
-      });
-    }
-  }
-  for (int i = 0;
-      i < applicationController.state.contentListFree.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListFree.value.list[i].author.userId ==
-        userId) {
-      applicationController.state.contentListFree.update((val) {
-        val!.list.remove(val.list[i]);
-      });
-    }
+
+  if (applicationController.state.contentListFree.value.list.isNotEmpty) {
+    applicationController.state.contentListFree.update((val) {
+      val!.list.removeWhere((element) => element.author.userId == userId);
+    });
   }
 }
 
@@ -168,80 +144,35 @@ Future<void> onRefreshContentList({
   required int userId,
 }) async {
   final ApplicationController applicationController = Get.find();
-  for (int i = 0;
-      i < applicationController.state.contentListHome.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListHome.value.list[i].author.userId ==
-        userId) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListHome.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListHome.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
+
+  Future<void> _r(Rx<ContentListEntities> rx) async {
+    if (rx.value.list.isNotEmpty) {
+      for (int i = 0; i < rx.value.list.length; i++) {
+        if (rx.value.list[i].author.userId == userId) {
+          ResponseEntity _userinfo = await ContentApi.contentDetail(
+            wid: rx.value.list[i].wid,
+          );
+          if (_userinfo.code == 200) {
+            rx.update((val) {
+              val!.list[i] = ContentDetailElement.fromJson(
+                _userinfo.data,
+              );
+            });
+          } else {
+            getSnackTop(_userinfo.msg);
+          }
+        }
       }
     }
   }
 
-  for (int i = 0;
-      i < applicationController.state.contentListHot.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListHot.value.list[i].author.userId ==
-        userId) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListHot.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListHot.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
-      }
-    }
-  }
-
-  for (int i = 0;
-      i < applicationController.state.contentListNew.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListNew.value.list[i].author.userId ==
-        userId) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListNew.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListNew.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
-      }
-    }
-  }
-
-  for (int i = 0;
-      i < applicationController.state.contentListFree.value.list.length;
-      i++) {
-    if (applicationController
-            .state.contentListFree.value.list[i].author.userId ==
-        userId) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListFree.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListFree.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
-      }
-    }
-  }
+  await _r(applicationController.state.contentListHome);
+  await _r(applicationController.state.contentListHot);
+  await _r(applicationController.state.contentListNew);
+  await _r(applicationController.state.contentListFree);
 }
 
-/// 重置推文列表
+/// 重置推文列表-全部刷新
 ///
 /// 重置用户数据
 Future<void> getContentListAll() async {
@@ -249,92 +180,62 @@ Future<void> getContentListAll() async {
 
   await getHomeContentList();
 
-  await getContentList(
-    listRx: applicationController.state.contentListNew,
-    type: 2,
-    pageNo: 1,
-  );
+  if (applicationController.state.contentListHome.value.list.isNotEmpty) {
+    await getContentList(
+      listRx: applicationController.state.contentListNew,
+      type: 2,
+      pageNo: 1,
+    );
+  }
 
-  await getContentList(
-    listRx: applicationController.state.contentListHot,
-    type: 3,
-    pageNo: 1,
-  );
+  if (applicationController.state.contentListHot.value.list.isNotEmpty) {
+    await getContentList(
+      listRx: applicationController.state.contentListHot,
+      type: 3,
+      pageNo: 1,
+    );
+  }
 
-  await getContentList(
-    listRx: applicationController.state.contentListFree,
-    type: 6,
-    pageNo: 1,
-  );
+  if (applicationController.state.contentListFree.value.list.isNotEmpty) {
+    await getContentList(
+      listRx: applicationController.state.contentListFree,
+      type: 6,
+      pageNo: 1,
+    );
+  }
 
   await getUserInfo();
 }
 
-/// 重置推文列表
+/// 重置推文列表-单独
 ///
 /// 重置用户数据
 Future<void> getContentOnly({
   required int wid,
 }) async {
   final ApplicationController applicationController = Get.find();
-  for (int i = 0;
-      i < applicationController.state.contentListHome.value.list.length;
-      i++) {
-    if (applicationController.state.contentListHome.value.list[i].wid == wid) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListHome.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListHome.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
+
+  Future<void> _r(Rx<ContentListEntities> rx) async {
+    if (rx.value.list.isNotEmpty) {
+      for (int i = 0; i < rx.value.list.length; i++) {
+        if (rx.value.list[i].wid == wid) {
+          ResponseEntity _userinfo = await ContentApi.contentDetail(wid: wid);
+          if (_userinfo.code == 200) {
+            rx.update((val) {
+              val!.list[i] = ContentDetailElement.fromJson(
+                _userinfo.data,
+              );
+            });
+          } else {
+            getSnackTop(_userinfo.msg);
+          }
+        }
       }
     }
   }
-  for (int i = 0;
-      i < applicationController.state.contentListHot.value.list.length;
-      i++) {
-    if (applicationController.state.contentListHot.value.list[i].wid == wid) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListHot.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListHot.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
-      }
-    }
-  }
-  for (int i = 0;
-      i < applicationController.state.contentListNew.value.list.length;
-      i++) {
-    if (applicationController.state.contentListNew.value.list[i].wid == wid) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListNew.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListNew.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
-      }
-    }
-  }
-  for (int i = 0;
-      i < applicationController.state.contentListFree.value.list.length;
-      i++) {
-    if (applicationController.state.contentListFree.value.list[i].wid == wid) {
-      ResponseEntity _userinfo = await ContentApi.contentDetail(
-          wid: applicationController.state.contentListFree.value.list[i].wid);
-      if (_userinfo.code == 200) {
-        applicationController.state.contentListFree.update((val) {
-          val!.list[i] = ContentDetailElement.fromJson(_userinfo.data);
-        });
-      } else {
-        getSnackTop(_userinfo.msg);
-      }
-    }
-  }
+
+  await _r(applicationController.state.contentListHome);
+  await _r(applicationController.state.contentListHot);
+  await _r(applicationController.state.contentListNew);
+  await _r(applicationController.state.contentListFree);
 }

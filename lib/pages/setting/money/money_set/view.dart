@@ -16,7 +16,7 @@ class MoneySetView extends GetView<MoneySetController> {
     /// appBar
     AppBar appBar = getAppBar(
       getSpan('正在为玩家 ${controller.arguments.value.playerId} 参数设置'),
-      line: AppColors.line,
+      lineColor: AppColors.line,
       backgroundColor: AppColors.secondBacground,
     );
 

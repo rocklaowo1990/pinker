@@ -152,6 +152,7 @@ Widget getUserList(
   EdgeInsetsGeometry? padding,
   BoxBorder? border,
   String? intro,
+  Color? color,
 }) {
   /// 左侧组合
   Widget leftBox = getUserAvatar(
@@ -181,6 +182,7 @@ Widget getUserList(
     width: double.infinity,
     padding: padding ?? EdgeInsets.all(8.w),
     decoration: BoxDecoration(
+      color: color,
       border: border ??
           Border(top: BorderSide(width: 0.5.w, color: AppColors.line)),
     ),

@@ -15,7 +15,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
     AppBar appBar = getAppBar(
       getSpan('注销账号', fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      line: AppColors.line,
+      lineColor: AppColors.line,
     );
 
     // 按钮

@@ -19,7 +19,7 @@ class SetVerifyView extends GetView<SetVerifyController> {
                 : '验证${controller.state.account}',
             fontSize: 17,
           )),
-      line: AppColors.line,
+      lineColor: AppColors.line,
       backgroundColor: AppColors.mainBacground,
     );
 

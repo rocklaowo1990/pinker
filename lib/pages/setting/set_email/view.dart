@@ -17,7 +17,7 @@ class SetEmailView extends GetView<SetEmailController> {
     AppBar appBar = getAppBar(
       getSpan('更改邮箱地址', fontSize: 17),
       backgroundColor: AppColors.mainBacground,
-      line: AppColors.line,
+      lineColor: AppColors.line,
     );
 
     /// 底部

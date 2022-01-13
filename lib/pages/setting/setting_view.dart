@@ -22,7 +22,7 @@ class SettingView extends GetView<SettingController> {
     AppBar appBar = getAppBar(
       getSpan(Lang.setTitle.tr, fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      line: AppColors.line,
+      lineColor: AppColors.line,
     );
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////

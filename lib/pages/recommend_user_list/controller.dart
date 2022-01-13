@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/subscribe_list.dart';
+
 import 'package:pinker/entities/user_list.dart';
 import 'package:pinker/pages/application/library.dart';
 
@@ -53,7 +53,7 @@ class RecommendUserListController extends GetxController {
 
   Future<void> _refresh() async {
     pageNo = 1;
-    getHomeData(pageNo);
+    getRecommendList(pageNo);
   }
 
   void onRefresh() async {
@@ -69,8 +69,9 @@ class RecommendUserListController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+    await futureMill(300);
 
-    await getHomeData(pageNo);
+    await getRecommendList(pageNo);
     state.isLoading = false;
   }
 }

@@ -21,44 +21,46 @@ class CommunityView extends StatelessWidget {
         init: CommunityController(),
         builder: (controller) {
           Widget _leftChild(String title, int index) {
-            return Obx(
-              () => GestureDetector(
-                onTap: () {
-                  controller.handleChangedTab(index);
-                },
-                child: Container(
-                  child: getSpan(
-                    title,
-                    fontSize: 17,
-                    color: controller.state.pageIndex == index
-                        ? AppColors.mainColor
-                        : AppColors.secondIcon,
-                    fontWeight: controller.state.pageIndex == index
-                        ? FontWeight.w600
-                        : null,
+            return Obx(() => Container(
+                  width: 24.w,
+                  child: Center(
+                    child: getSpan(
+                      title,
+                      fontSize: 17,
+                      color: controller.state.pageIndex == index
+                          ? AppColors.mainColor
+                          : AppColors.secondIcon,
+                      fontWeight: controller.state.pageIndex == index
+                          ? FontWeight.w600
+                          : null,
+                    ),
                   ),
-                  padding: const EdgeInsets.only(bottom: 14, top: 14),
-                  decoration: BoxDecoration(
-                    border: controller.state.pageIndex == index
-                        ? Border(
-                            bottom: BorderSide(
-                                width: 1.6.w, color: AppColors.mainColor),
-                          )
-                        : null,
-                  ),
-                ),
-              ),
-            );
+                  padding: const EdgeInsets.only(bottom: 15, top: 15),
+                ));
           }
 
-          Widget left = Row(
-            children: [
-              _leftChild('限免', 0),
-              SizedBox(width: 16.w),
-              _leftChild('最新', 1),
-              SizedBox(width: 16.w),
-              _leftChild('最热', 2),
-            ],
+          Widget left = SizedBox(
+            width: 99.w,
+            child: TabBar(
+              indicatorPadding: EdgeInsets.zero,
+              labelPadding: EdgeInsets.zero,
+              indicatorWeight: 1.w,
+              // isScrollable: true,
+              tabs: [
+                _leftChild('限免', 0),
+                _leftChild('最新', 1),
+                _leftChild('最热', 2),
+              ],
+              overlayColor:
+                  MaterialStateProperty.all(Colors.transparent), //点击的时候原点的颜色
+              labelColor: Colors.transparent,
+              // indicatorColor: Colors.transparent,
+              unselectedLabelColor: Colors.transparent,
+              automaticIndicatorColorAdjustment: false,
+
+              onTap: controller.handleChangedTab,
+              controller: controller.tabController,
+            ),
           );
 
           Widget right = getButton(
@@ -68,7 +70,7 @@ class CommunityView extends StatelessWidget {
             background: Colors.transparent,
             width: 33.h,
             height: 33.h,
-            onPressed: () {},
+            onPressed: controller.handleSearch,
           );
 
           /// AppBar

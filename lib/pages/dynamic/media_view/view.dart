@@ -42,12 +42,12 @@ Future getMediaView(
       }
 
       // appBar 右侧的设置按钮
-      Widget moreButton = getContentMore(
-        contentList,
-        index,
-        width: 20.w,
-        height: 20.w,
-      );
+      // Widget moreButton = getContentMore(
+      //   contentList,
+      //   index,
+      //   width: 20.w,
+      //   height: 20.w,
+      // );
 
       // appBar 左侧的返回按钮
       Widget leading = Obx(() => Center(
@@ -72,10 +72,10 @@ Future getMediaView(
                 '${controller.state.pageIndex + 1}/${controller.state.imagesList.length}')),
         leading: leading,
         backgroundColor: Colors.black54,
-        actions: [
-          moreButton,
-          SizedBox(width: 4.w),
-        ],
+        // actions: [
+        //   moreButton,
+        //   SizedBox(width: 4.w),
+        // ],
       );
 
       // 底部信息

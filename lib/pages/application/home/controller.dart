@@ -12,7 +12,8 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final HomeState state = HomeState();
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -20,9 +21,15 @@ class HomeController extends GetxController {
   final ApplicationController applicationController = Get.find();
   final ScrollController scrollController = ScrollController();
 
+  late TabController tabController;
+
   int pageNo = 1;
 
   void handleMail() {}
+
+  void handleChangedTab(index) {
+    // index == 0 ? Get.back(id: 3) : Get.toNamed(AppRoutes.contentHot, id: 3);
+  }
 
   void handleNoData() async {
     applicationController.state.isLoadingHome = true;
@@ -82,7 +89,7 @@ class HomeController extends GetxController {
     await getContentListAll();
 
     if (applicationController.state.recommendUserList.value.list.length <= 4) {
-      await getHomeData(1);
+      await getRecommendList(1);
     }
   }
 
@@ -95,7 +102,7 @@ class HomeController extends GetxController {
     super.onReady();
     if (applicationController.state.recommendUserList.value.list.isEmpty) {
       await getHomeContentList();
-      await getHomeData(1);
+      await getRecommendList(1);
       applicationController.state.isLoadingHome = false;
     } else {
       applicationController.state.isLoadingHome = false;
@@ -103,9 +110,8 @@ class HomeController extends GetxController {
   }
 
   @override
-  void dispose() {
-    refreshController.dispose();
-    scrollController.dispose();
-    super.dispose();
+  void onInit() {
+    super.onInit();
+    tabController = TabController(length: 1, vsync: this);
   }
 }

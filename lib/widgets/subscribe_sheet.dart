@@ -101,7 +101,7 @@ Future<void> getSubscribeBox({
   );
 
   Widget button = getButton(
-      width: double.infinity,
+      width: 120.w,
       height: 25.h,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
@@ -171,6 +171,7 @@ Future<void> getSubscribeBox({
             children: [
               SizedBox(height: 20.h),
               Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
                     color: AppColors.secondBacground,
                     borderRadius: BorderRadius.only(

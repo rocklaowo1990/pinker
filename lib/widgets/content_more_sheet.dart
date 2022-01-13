@@ -40,9 +40,10 @@ Future<void> getContentMoreSheet({
             );
 
             if (responseEntity.code == 200) {
-              await onHideContentList(
+              await getUserInfo();
+              onHideContentList(
                   userId: contentList.value.list[index].author.userId);
-              await futureMill(500);
+
               Get.back();
             } else {
               await futureMill(500);
@@ -84,8 +85,10 @@ Future<void> getContentMoreSheet({
             );
 
             if (responseEntity.code == 200) {
-              await onHideContentList(
-                  userId: contentList.value.list[index].author.userId);
+              await getUserInfo();
+              onHideContentList(
+                userId: contentList.value.list[index].author.userId,
+              );
               Get.back();
             } else {
               await futureMill(500);
@@ -139,7 +142,12 @@ Future<void> getContentMoreSheet({
         child: Column(
           children: [
             SizedBox(height: 8.w),
-            getSpan('请选择对他的操作', color: AppColors.secondText),
+            Row(
+              children: [
+                SizedBox(width: 10.w),
+                getSpan('请选择对他的操作', color: AppColors.secondText),
+              ],
+            ),
             SizedBox(height: 8.w),
             Container(height: 1, color: AppColors.line),
             block,

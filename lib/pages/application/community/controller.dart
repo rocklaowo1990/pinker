@@ -1,54 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pinker/pages/application/community/hot/library.dart';
 
 import 'package:pinker/pages/application/community/library.dart';
+import 'package:pinker/pages/application/community/search/library.dart';
+import 'package:pinker/widgets/widgets.dart';
 
-import 'package:pinker/pages/application/community/new/library.dart';
-
-import 'package:pinker/routes/app_pages.dart';
-
-class CommunityController extends GetxController {
+class CommunityController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   /// 响应式成员
   final CommunityState state = CommunityState();
 
+  late TabController tabController;
+
   /// 页面控制器
   final pageController = PageController();
-
-  /// 嵌套路由封装
-  GetPageRoute _getPageRoute({
-    required RouteSettings settings,
-    required Widget page,
-    Bindings? binding,
-  }) {
-    return GetPageRoute(
-      settings: settings,
-      page: () => page,
-      transition: Transition.rightToLeftWithFade,
-      transitionDuration: const Duration(milliseconds: 300),
-      binding: binding,
-      // popGesture: true,
-    );
-  }
-
-  /// 嵌套路由设置
-  Route? onGenerateRoute(RouteSettings settings) {
-    Get.routing.args = settings.arguments;
-    if (settings.name == AppRoutes.contentNew) {
-      return _getPageRoute(
-        page: const ContentListNewView(),
-        settings: settings,
-        binding: ContentListNewBinding(),
-      );
-    } else if (settings.name == AppRoutes.contentHot) {
-      return _getPageRoute(
-        page: const ContentListHotView(),
-        settings: settings,
-        binding: ContentListHotBinding(),
-      );
-    }
-    return null;
-  }
 
   void handleChangedTab(index) {
     state.pageIndex = index;
@@ -62,12 +27,16 @@ class CommunityController extends GetxController {
 
   void handlePageChanged(index) {
     state.pageIndex = index;
+    tabController.animateTo(index);
+  }
+
+  void handleSearch() {
+    getDialog(child: const SearchView());
   }
 
   @override
-  void dispose() {
-    pageController.dispose();
-
-    super.dispose();
+  void onInit() {
+    super.onInit();
+    tabController = TabController(length: 3, vsync: this);
   }
 }

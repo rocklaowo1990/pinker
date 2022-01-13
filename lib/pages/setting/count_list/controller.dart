@@ -139,8 +139,6 @@ class SetCountListController extends GetxController {
 
     if (responseEntity.code == 200) {
       await getContentListAll();
-      await futureMill(500);
-
       Get.back();
       state.showList.remove(item);
       _dataList.remove(item);

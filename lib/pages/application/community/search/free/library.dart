@@ -1,4 +1,4 @@
-library community_hot;
+library search_free;
 
 export 'controller.dart';
 export 'state.dart';

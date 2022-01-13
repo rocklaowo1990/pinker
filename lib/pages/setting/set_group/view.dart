@@ -28,7 +28,7 @@ class SetGroupView extends GetView<SetGroupController> {
     AppBar appBar = getAppBar(
       getSpan('订阅组列表', fontSize: 17),
       backgroundColor: AppColors.secondBacground,
-      line: AppColors.line,
+      lineColor: AppColors.line,
       actions: [
         Obx(() => controller.state.groupList.length >= 3
             ? const SizedBox()

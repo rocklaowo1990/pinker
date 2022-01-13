@@ -58,6 +58,10 @@ class SubscribeListView extends GetView<SubscribeListController> {
                         item.nickName,
                         intro: item.intro,
                         button: const SizedBox(),
+                        color: AppColors.secondBacground,
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 0.5.w, color: AppColors.line)),
                       ),
                     )
                     .toList(),
@@ -78,8 +82,12 @@ class SubscribeListView extends GetView<SubscribeListController> {
     Widget body = Obx(() => controller.state.isLoading ? loading : _body);
 
     return Scaffold(
-      appBar: getAppBar(Obx(() => getSpan(
-          '您正在订阅的用户（ ${controller.state.subscribeList.value.totalSize} 人）'))),
+      appBar: getAppBar(
+        Obx(() => getSpan(
+            '您正在订阅的用户（ ${controller.state.subscribeList.value.totalSize} 人）')),
+        backgroundColor: AppColors.secondBacground,
+        lineColor: AppColors.line,
+      ),
       body: body,
       backgroundColor: AppColors.mainBacground,
     );

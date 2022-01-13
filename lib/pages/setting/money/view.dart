@@ -15,7 +15,7 @@ class MoneyView extends GetView<MoneyController> {
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar = getAppBar(getSpan('麻将结算系统'),
-        line: AppColors.line,
+        lineColor: AppColors.line,
         backgroundColor: AppColors.secondBacground,
         actions: [
           getButton(

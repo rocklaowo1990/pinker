@@ -85,7 +85,7 @@ class SubscribeListController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-
+    await futureMill(300);
     ResponseEntity responseEntity = await UserApi.subscribeList(pageNo: pageNo);
 
     if (responseEntity.code == 200) {

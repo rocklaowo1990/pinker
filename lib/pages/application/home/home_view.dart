@@ -20,19 +20,41 @@ class HomeView extends StatelessWidget {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) {
-        // appbar 顶部左侧
-        Widget left = Container(
-          child: getSpan(
-            '首页',
-            fontSize: 17,
-            color: AppColors.mainColor,
-            fontWeight: FontWeight.w600,
-          ),
-          padding: const EdgeInsets.only(top: 14, bottom: 14),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1.6.w, color: AppColors.mainColor),
-            ),
+        Widget _leftChild(String title, int index) {
+          return Obx(() => Container(
+                width: 24.w,
+                child: Center(
+                  child: getSpan(
+                    title,
+                    fontSize: 17,
+                    color: controller.state.pageIndex == index
+                        ? AppColors.mainColor
+                        : AppColors.secondIcon,
+                    fontWeight: controller.state.pageIndex == index
+                        ? FontWeight.w600
+                        : null,
+                  ),
+                ),
+                padding: const EdgeInsets.only(bottom: 15, top: 15),
+              ));
+        }
+
+        Widget left = SizedBox(
+          width: 33.w,
+          child: TabBar(
+            labelPadding: EdgeInsets.zero,
+            indicatorPadding: EdgeInsets.zero,
+            indicatorWeight: 1.w,
+
+            tabs: [
+              _leftChild('首页', 0),
+            ],
+            onTap: controller.handleChangedTab,
+            controller: controller.tabController,
+            labelColor: Colors.transparent,
+            // indicatorColor: Colors.transparent,
+            unselectedLabelColor: Colors.transparent,
+            automaticIndicatorColorAdjustment: false,
           ),
         );
 
@@ -87,6 +109,7 @@ class HomeView extends StatelessWidget {
                 child: getSpan('寻找值得订阅的用户'),
                 height: 26.h,
                 width: 100.w,
+                onPressed: controller.handleRemmondMore,
               )
             ],
           ),

@@ -60,13 +60,20 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
                         item.userName,
                         item.nickName,
                         intro: item.intro,
+                        color: AppColors.secondBacground,
+                        border: Border(
+                          bottom: BorderSide(
+                            width: 0.5.w,
+                            color: AppColors.line,
+                          ),
+                        ),
                         buttonPressed: () {
                           getSubscribeBox(
                             userId: item.userId,
                             avatar: item.avatar,
                             userName: item.nickName,
                             reSault: () {
-                              getHomeData(1);
+                              getRecommendList(1);
                             },
                           );
                         },
@@ -87,7 +94,11 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
     Widget body = Obx(() => controller.state.isLoading ? loading : _body);
 
     return Scaffold(
-      appBar: getAppBar(getSpan('推荐订阅')),
+      appBar: getAppBar(
+        getSpan('推荐订阅'),
+        backgroundColor: AppColors.secondBacground,
+        lineColor: AppColors.line,
+      ),
       body: body,
       backgroundColor: AppColors.mainBacground,
     );
