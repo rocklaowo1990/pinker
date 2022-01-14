@@ -26,7 +26,7 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
         color: AppColors.secondBacground,
       ),
       child: Center(
-        child: getImageBox(
+        child: getNetworkImageBox(
           controller.forgotController.forgotInfo.avatar,
           shape: BoxShape.circle,
         ),

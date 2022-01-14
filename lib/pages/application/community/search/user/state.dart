@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class ContentListSearchFreeState {
+class ContentListSearchUserState {
   /// 加载中
   final RxBool _isLoading = false.obs;
   set isLoading(bool value) => _isLoading.value = value;

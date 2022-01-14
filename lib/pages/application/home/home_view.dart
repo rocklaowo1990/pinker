@@ -21,26 +21,21 @@ class HomeView extends StatelessWidget {
       init: HomeController(),
       builder: (controller) {
         Widget _leftChild(String title, int index) {
-          return Obx(() => Container(
-                width: 24.w,
-                child: Center(
-                  child: getSpan(
-                    title,
-                    fontSize: 17,
-                    color: controller.state.pageIndex == index
-                        ? AppColors.mainColor
-                        : AppColors.secondIcon,
-                    fontWeight: controller.state.pageIndex == index
-                        ? FontWeight.w600
-                        : null,
-                  ),
-                ),
-                padding: const EdgeInsets.only(bottom: 15, top: 15),
+          return Obx(() => getSpan(
+                title,
+                fontSize: 17,
+                color: controller.state.pageIndex == index
+                    ? AppColors.mainColor
+                    : AppColors.secondIcon,
+                fontWeight: controller.state.pageIndex == index
+                    ? FontWeight.w600
+                    : null,
               ));
         }
 
         Widget left = SizedBox(
           width: 33.w,
+          height: 56,
           child: TabBar(
             labelPadding: EdgeInsets.zero,
             indicatorPadding: EdgeInsets.zero,
@@ -49,7 +44,7 @@ class HomeView extends StatelessWidget {
             tabs: [
               _leftChild('首页', 0),
             ],
-            onTap: controller.handleChangedTab,
+            // onTap: controller.handleChangedTab,
             controller: controller.tabController,
             labelColor: Colors.transparent,
             // indicatorColor: Colors.transparent,

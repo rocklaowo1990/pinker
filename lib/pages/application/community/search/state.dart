@@ -39,4 +39,9 @@ class SearchState {
   /// 用户列表
   final recommendUserSearchList =
       UserListEntities.fromJson(UserListEntities.child).obs;
+
+  /// 页面控制器
+  final RxInt _pageIndex = 0.obs;
+  set pageIndex(int value) => _pageIndex.value = value;
+  int get pageIndex => _pageIndex.value;
 }

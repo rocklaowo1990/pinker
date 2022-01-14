@@ -73,10 +73,12 @@ AppBar getAppBar(
 /// 一般用在首页
 AppBar getMainBar({required Widget left, required Widget right}) {
   return AppBar(
-    title: left,
+    // title: left,
     actions: [
+      left,
+      const Spacer(),
       right,
-      const SizedBox(),
+      // const SizedBox(),
     ],
     backgroundColor: AppColors.secondBacground,
     elevation: 0.5.w,

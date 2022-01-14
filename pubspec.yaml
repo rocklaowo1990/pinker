@@ -40,19 +40,17 @@ dependencies:
 
 
   # flutter 屏幕适配方案
-  flutter_screenutil: ^5.0.1
+  flutter_screenutil: ^5.0.4
 
   # get 框架
   get: ^4.6.1
 
   # 本地储存
-  shared_preferences: ^2.0.10
+  shared_preferences: ^2.0.12
 
   # http 请求
   dio: ^4.0.4
-  # 缓存
-  cookie_jar: ^3.0.1 
-  dio_cookie_manager: ^2.0.0
+  
 
   # 加密安全 SHA
   crypto: ^3.0.1
@@ -70,13 +68,16 @@ dependencies:
   image_crop: ^0.4.0
 
   # SVG
-  flutter_svg: ^1.0.0
+  flutter_svg: ^1.0.1
 
   # 视频播放器
   fijkplayer: ^0.10.1
 
-  # 图片缩放组建
-  extended_image: ^6.0.1
+  # 网络图片缓存
+  cached_network_image: ^3.2.0
+
+  # 图片查看器
+  photo_view: ^0.13.0
 
   # 上下拉刷新
   pull_to_refresh: ^2.0.0
@@ -86,6 +87,7 @@ dependencies:
 
   # 轮播图
   card_swiper: ^2.0.1
+
 
 
   

@@ -65,7 +65,7 @@ class MyView extends StatelessWidget {
                           onPressed: () {},
                           width: 18.w,
                           height: 18.w,
-                          child: getImageBox(
+                          child: getNetworkImageBox(
                             controller.applicationController.state.userInfo
                                 .value.avatar,
                             shape: BoxShape.circle,
@@ -99,7 +99,7 @@ class MyView extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Obx(() => getImageBox(
+                  Obx(() => getNetworkImageBox(
                         controller
                             .applicationController.state.userInfo.value.avatar,
                         shape: BoxShape.circle,

@@ -28,7 +28,7 @@ Widget getCommentList(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getImageBox(
+          getNetworkImageBox(
             commentList.value.list[index].author.avatar,
             shape: BoxShape.circle,
             width: 50,

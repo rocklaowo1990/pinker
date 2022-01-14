@@ -243,7 +243,7 @@ Future<void> getContentPaySheet({
               'assets/svg/avatar_default.svg',
               width: 32.w,
             )
-          : getImageBox(contentList.value.list[index].author.avatar,
+          : getNetworkImageBox(contentList.value.list[index].author.avatar,
               shape: BoxShape.circle),
     ),
   );

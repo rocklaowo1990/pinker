@@ -21,26 +21,21 @@ class CommunityView extends StatelessWidget {
         init: CommunityController(),
         builder: (controller) {
           Widget _leftChild(String title, int index) {
-            return Obx(() => Container(
-                  width: 24.w,
-                  child: Center(
-                    child: getSpan(
-                      title,
-                      fontSize: 17,
-                      color: controller.state.pageIndex == index
-                          ? AppColors.mainColor
-                          : AppColors.secondIcon,
-                      fontWeight: controller.state.pageIndex == index
-                          ? FontWeight.w600
-                          : null,
-                    ),
-                  ),
-                  padding: const EdgeInsets.only(bottom: 15, top: 15),
+            return Obx(() => getSpan(
+                  title,
+                  fontSize: 17,
+                  color: controller.state.pageIndex == index
+                      ? AppColors.mainColor
+                      : AppColors.secondIcon,
+                  fontWeight: controller.state.pageIndex == index
+                      ? FontWeight.w600
+                      : null,
                 ));
           }
 
           Widget left = SizedBox(
             width: 99.w,
+            height: 56,
             child: TabBar(
               indicatorPadding: EdgeInsets.zero,
               labelPadding: EdgeInsets.zero,

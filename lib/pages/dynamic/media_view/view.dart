@@ -1,11 +1,12 @@
 import 'dart:ui';
 
-import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/entities/subscribe_info.dart';
@@ -228,13 +229,10 @@ Future getMediaView(
                       return const SizedBox();
                     },
             ));
-        // 这里就是传入的图片都下标
+        // 这里就是传入的图片下标
         // 代表的意思就是媒体可能是图片（包含付费和未付费，也可能是没有付费的视频）
         // 没有付费的视频也是有三张图片的
       } else {
-        controller.pageController =
-            ExtendedPageController(initialPage: imagetIndex);
-
         // 这里用来区分到底是图片媒体还是视频媒体
         // 图片不为空，那么就是图片媒体
         if (contentList.value.list[index].works.pics.isNotEmpty) {
@@ -251,43 +249,39 @@ Future getMediaView(
           }
           // 下面这里开始就是媒体的组成部分
           // 用的组件是可以缩放的图片工具
-          mediaBox = Obx(() => contentList.value.list[index].canSee == 0
-              ? ExtendedImageGesturePageView.builder(
-                  itemBuilder: (BuildContext context, int _index) {
-                    if (_index >= 3) {
-                      return Stack(
-                        children: [
-                          Center(
-                            child: getImageBox(
-                                controller.state.imagesList[_index],
-                                mode: ExtendedImageMode.gesture),
-                          ),
-                          Container(color: AppColors.mainBacground50),
-                          filterBox(1),
-                        ],
+          mediaBox = Obx(
+            () => contentList.value.list[index].canSee == 0
+                ? PhotoViewGallery.builder(
+                    builder: (BuildContext context, int _index) {
+                      return PhotoViewGalleryPageOptions(
+                        imageProvider: getNetworkImageProvider(
+                          controller.state.imagesList[_index],
+                        ),
+                        initialScale: PhotoViewComputedScale.covered,
+                        // heroAttributes:
+                        //     PhotoViewHeroAttributes(tag: galleryItems[index].id),
                       );
-                    } else {
-                      return Center(
-                        child: getImageBox(controller.state.imagesList[_index],
-                            mode: ExtendedImageMode.gesture),
+                    },
+                    pageController: controller.pageController,
+                    itemCount: controller.state.imagesList.length,
+                    onPageChanged: controller.handleOnPageChanged,
+                  )
+                : PhotoViewGallery.builder(
+                    builder: (BuildContext context, int _index) {
+                      return PhotoViewGalleryPageOptions(
+                        imageProvider: getNetworkImageProvider(
+                          controller.state.imagesList[_index],
+                        ),
+                        initialScale: PhotoViewComputedScale.covered,
+                        // heroAttributes:
+                        //     PhotoViewHeroAttributes(tag: galleryItems[index].id),
                       );
-                    }
-                  },
-                  itemCount: controller.state.imagesList.length,
-                  controller: controller.pageController,
-                  onPageChanged: controller.handleOnPageChanged,
-                )
-              : ExtendedImageGesturePageView.builder(
-                  itemBuilder: (BuildContext context, int _index) {
-                    return Center(
-                      child: getImageBox(controller.state.imagesList[_index],
-                          mode: ExtendedImageMode.gesture),
-                    );
-                  },
-                  itemCount: controller.state.imagesList.length,
-                  controller: controller.pageController,
-                  onPageChanged: controller.handleOnPageChanged,
-                ));
+                    },
+                    pageController: controller.pageController,
+                    itemCount: controller.state.imagesList.length,
+                    onPageChanged: controller.handleOnPageChanged,
+                  ),
+          );
           // 这里开始就是视频区域
           // 视频不可观看的时候，是有三张预览图
           // 第四章是视频的封面
@@ -300,29 +294,19 @@ Future getMediaView(
               .add(contentList.value.list[index].works.video.snapshotUrl);
 
           mediaBox = Obx(() => contentList.value.list[index].canSee == 0
-              ? ExtendedImageGesturePageView.builder(
-                  itemBuilder: (BuildContext context, int _index) {
-                    if (_index < 3) {
-                      return Center(
-                        child: getImageBox(controller.state.imagesList[_index],
-                            mode: ExtendedImageMode.gesture),
-                      );
-                    } else {
-                      return Stack(
-                        children: [
-                          Center(
-                            child: getImageBox(
-                                controller.state.imagesList[_index],
-                                mode: ExtendedImageMode.gesture),
-                          ),
-                          Container(color: AppColors.mainBacground50),
-                          filterBox(2),
-                        ],
-                      );
-                    }
+              ? PhotoViewGallery.builder(
+                  builder: (BuildContext context, int _index) {
+                    return PhotoViewGalleryPageOptions(
+                      imageProvider: getNetworkImageProvider(
+                        controller.state.imagesList[_index],
+                      ),
+                      initialScale: PhotoViewComputedScale.covered,
+                      // heroAttributes:
+                      //     PhotoViewHeroAttributes(tag: galleryItems[index].id),
+                    );
                   },
+                  pageController: controller.pageController,
                   itemCount: controller.state.imagesList.length,
-                  controller: controller.pageController,
                   onPageChanged: controller.handleOnPageChanged,
                 )
               : Obx(() => FijkView(

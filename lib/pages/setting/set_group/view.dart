@@ -102,7 +102,7 @@ class SetGroupView extends GetView<SetGroupController> {
                       shape: BoxShape.circle,
                       color: AppColors.secondBacground,
                     ),
-                    child: getImageBox(groupPic, shape: BoxShape.circle),
+                    child: getNetworkImageBox(groupPic, shape: BoxShape.circle),
                   ),
                 ),
                 SvgPicture.asset(

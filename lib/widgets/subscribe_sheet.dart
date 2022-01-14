@@ -37,14 +37,16 @@ Future<void> getSubscribeBox({
   if (responseEntity.code == 200) {
     subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
 
-    for (int i = 0; i < subscribeInfo.groups.length; i++) {
-      if (double.parse(subscribeInfo.groups[i].amount) < 0) {
-        subscribeInfo.groups.remove(subscribeInfo.groups[i]);
+    if (subscribeInfo.groups.isNotEmpty) {
+      for (int i = 0; i < subscribeInfo.groups.length; i++) {
+        if (double.parse(subscribeInfo.groups[i].amount) < 0) {
+          subscribeInfo.groups.remove(subscribeInfo.groups[i]);
+        }
       }
-    }
 
-    groupId = subscribeInfo.groups[0].groupId;
-    amount.value = subscribeInfo.groups[0].amount;
+      groupId = subscribeInfo.groups[0].groupId;
+      amount.value = subscribeInfo.groups[0].amount;
+    }
 
     isLoading.value = false;
   } else {
@@ -64,7 +66,7 @@ Future<void> getSubscribeBox({
       ),
     ),
     child: Center(
-      child: getImageBox(avatar, shape: BoxShape.circle),
+      child: getNetworkImageBox(avatar, shape: BoxShape.circle),
     ),
   );
 
@@ -180,21 +182,32 @@ Future<void> getSubscribeBox({
                     )),
                 child: Padding(
                   padding: EdgeInsets.all(12.w),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 9.h),
-                      span,
-                      SizedBox(height: 9.h),
-                      payBody,
-                      SizedBox(height: 9.h),
-                      button,
-                      SizedBox(height: 9.h),
-                      getSpan(
-                        '当前钻石余额：${subscribeInfo.balance}',
-                        color: AppColors.secondText,
-                      )
-                    ],
-                  ),
+                  child: subscribeInfo.groups.isNotEmpty
+                      ? Column(
+                          children: [
+                            SizedBox(height: 9.h),
+                            span,
+                            SizedBox(height: 9.h),
+                            payBody,
+                            SizedBox(height: 9.h),
+                            button,
+                            SizedBox(height: 9.h),
+                            getSpan(
+                              '当前钻石余额：${subscribeInfo.balance}',
+                              color: AppColors.secondText,
+                            )
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            SizedBox(height: 20.h),
+                            getSpan(
+                              '$userName 暂时还没有任何可以订阅的分组',
+                              color: AppColors.secondText,
+                            ),
+                            SizedBox(height: 11.h),
+                          ],
+                        ),
                 ),
               ),
             ],
@@ -234,7 +247,7 @@ Widget getContentPayChooiseBox({
             color: AppColors.thirdIcon,
           ),
           child: Center(
-            child: getImageBox(
+            child: getNetworkImageBox(
               avatar,
               shape: BoxShape.circle,
             ),

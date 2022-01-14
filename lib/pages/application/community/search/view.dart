@@ -4,8 +4,13 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/community/search/free/library.dart';
+import 'package:pinker/pages/application/community/search/hot/library.dart';
 
 import 'package:pinker/pages/application/community/search/library.dart';
+import 'package:pinker/pages/application/community/search/new/library.dart';
+import 'package:pinker/pages/application/community/search/photo/library.dart';
+import 'package:pinker/pages/application/community/search/user/library.dart';
+import 'package:pinker/pages/application/community/search/video/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -18,6 +23,18 @@ class SearchView extends StatelessWidget {
     return GetBuilder<SearchController>(
         init: SearchController(),
         builder: (controller) {
+          Widget _leftChild(String title, int index) {
+            return Obx(() => getSpan(
+                  title,
+                  color: controller.state.pageIndex == index
+                      ? AppColors.mainColor
+                      : AppColors.secondIcon,
+                  fontWeight: controller.state.pageIndex == index
+                      ? FontWeight.w600
+                      : null,
+                ));
+          }
+
           Widget tabBar = SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -25,14 +42,15 @@ class SearchView extends StatelessWidget {
               height: 48,
               color: AppColors.secondBacground,
               child: TabBar(
+                onTap: controller.handleChangedTab,
                 controller: controller.tabController,
                 tabs: [
-                  getSpan('最新', color: AppColors.mainColor),
-                  getSpan('最热', color: AppColors.secondText),
-                  getSpan('用户', color: AppColors.secondText),
-                  getSpan('照片', color: AppColors.secondText),
-                  getSpan('视频', color: AppColors.secondText),
-                  getSpan('限免', color: AppColors.secondText),
+                  _leftChild('最新', 0),
+                  // _leftChild('最热', 1),
+                  _leftChild('用户', 1),
+                  _leftChild('照片', 2),
+                  _leftChild('视频', 3),
+                  // _leftChild('限免', 5),
                 ],
               ),
             ),
@@ -40,9 +58,14 @@ class SearchView extends StatelessWidget {
           Widget pages = PageView(
             controller: controller.pageController,
             children: const [
-              ContentListSearchFreeView(),
+              ContentListSearchNewView(),
+              // ContentListSearchHotView(),
+              ContentListSearchUserView(),
+              ContentListSearchPhotoView(),
+              ContentListSearchVideoView(),
+              // ContentListSearchFreeView(),
             ],
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const NeverScrollableScrollPhysics(),
             onPageChanged: controller.handlePageChanged,
           );
 
@@ -70,10 +93,49 @@ class SearchView extends StatelessWidget {
                               color: AppColors.secondText),
                         ],
                       )
-                    : getSpan('有搜索记录的写在这里', color: AppColors.secondText),
-          );
+                    : MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: ListView(
+                          children: [
+                            getButtonList(
+                                title: '最新搜索记录',
+                                iconRight: const Icon(
+                                  Icons.close,
+                                  color: AppColors.mainIcon,
+                                  size: 20,
+                                ),
+                                onPressed: () {}),
+                            Container(
+                              width: double.infinity,
+                              height: 0.5.w,
+                              color: AppColors.line,
+                            ),
+                            for (int i = 0;
+                                i < controller.state.textData.length;
+                                i++)
+                              Column(
+                                children: [
+                                  getButtonList(
+                                    title: controller.state.textData[i],
+                                    onPressed: () {
+                                      controller.textController.text =
+                                          controller.state.textData[i];
 
-          /// body
+                                      controller.handleSearch();
+                                    },
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 0.5.w,
+                                    color: AppColors.line,
+                                  ),
+                                ],
+                              )
+                          ],
+                        ),
+                      ),
+          );
 
           Widget scaffold = Column(
             children: [
@@ -103,7 +165,8 @@ class SearchView extends StatelessWidget {
                       ),
                     ),
                     Obx(
-                      () => controller.state.isShowSearch
+                      () => controller.state.isShowSearch &&
+                              !controller.state.isSearchEnd
                           ? Row(
                               children: [
                                 SizedBox(width: 8.w),

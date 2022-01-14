@@ -42,7 +42,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
     return getButton(
       background: AppColors.mainBacground,
       borderRadius: BorderRadius.all(Radius.circular(4.w)),
-      child: getImageBox(
+      child: getNetworkImageBox(
         url,
         height: 60.h,
         width: double.infinity,
@@ -140,7 +140,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
                     : SizedBox(height: 8.h),
                 Stack(
                   children: [
-                    getImageBox(
+                    getNetworkImageBox(
                         contentList.value.list[index].works.video.snapshotUrl,
                         width: double.infinity,
                         height: 128.h,

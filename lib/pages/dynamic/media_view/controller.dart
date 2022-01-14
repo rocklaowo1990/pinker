@@ -1,5 +1,5 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
@@ -9,7 +9,7 @@ import 'package:pinker/pages/dynamic/media_view/library.dart';
 class MediaViewController extends GetxController {
   final MediaViewState state = MediaViewState();
   FijkPlayer? fijkPlayer;
-  ExtendedPageController? pageController;
+  PageController pageController = PageController();
 
   int pageIndex = 0;
   void handleOnPageChanged(value) {
@@ -34,13 +34,13 @@ class MediaViewController extends GetxController {
   }
 
   void init(int imageIndex) {
-    state.pageIndex = imageIndex;
+    if (fijkPlayer == null) state.pageIndex = imageIndex;
   }
 
   @override
   void onReady() {
     super.onReady();
-
+    if (fijkPlayer == null) pageController.jumpToPage(state.pageIndex);
     debounce(
       state.opacityListenRx,
       (int value) {
@@ -48,17 +48,5 @@ class MediaViewController extends GetxController {
       },
       time: const Duration(milliseconds: 100),
     );
-  }
-
-  @override
-  void onClose() {
-    if (fijkPlayer != null) {
-      fijkPlayer!.release();
-    }
-    if (pageController != null) {
-      pageController!.dispose();
-    }
-
-    super.onClose();
   }
 }

@@ -97,7 +97,10 @@ Future<void> getContentList(
     required int pageNo,
     String? keywords}) async {
   ResponseEntity responseEntity = await ContentApi.contentList(
-      pageNo: pageNo, type: type, keywords: keywords);
+    pageNo: pageNo,
+    type: type,
+    keywords: keywords,
+  );
   if (responseEntity.code == 200) {
     listRx.value = ContentListEntities.fromJson(responseEntity.data);
     listRx.update((val) {});

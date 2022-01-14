@@ -26,7 +26,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         color: AppColors.secondBacground,
       ),
       child: Center(
-          child: getImageBox(
+          child: getNetworkImageBox(
         controller.forgotController.forgotInfo.avatar,
         shape: BoxShape.circle,
       )),

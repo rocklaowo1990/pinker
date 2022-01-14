@@ -149,7 +149,7 @@ Widget getContentPayBox(
             children: [
               Stack(
                 children: [
-                  getImageBox(url,
+                  getNetworkImageBox(url,
                       width: 32.h,
                       height: 32.h,
                       shape: BoxShape.rectangle,
