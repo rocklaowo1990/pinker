@@ -338,8 +338,6 @@ class UserApi {
 
   /// 查看针对某个用户的订阅信息
   ///
-  /// 这里是操作屏蔽和隐藏
-  ///
   /// 'userId':被查看的用户ID
   static Future<ResponseEntity> oneSubscribeInfo({
     required int userId,
