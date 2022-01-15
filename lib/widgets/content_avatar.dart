@@ -35,6 +35,7 @@ Widget getContentMore(
     // ResponseEntity responseEntity = await UserApi.oneSubscribeInfo(
     //     userId: contentList.value.list[index].author.userId);
     // print(responseEntity.data);
+    // print(contentList.value.list[index].canSee);
     getContentMoreSheet(
       contentList: contentList,
       index: index,

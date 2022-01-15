@@ -15,7 +15,7 @@ import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/routes/app_pages.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
-import 'package:pinker/widgets/sheet.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class AvatarController extends GetxController {

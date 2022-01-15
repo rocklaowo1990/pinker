@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/user_list.dart';
+
 import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/routes/app_pages.dart';
@@ -69,12 +69,39 @@ Future<void> getHomeContentList() async {
   }
 }
 
+/// 刷新首页的推文列表
+///
+/// 这里是重置
+///
+/// 重新请求首页的推文列表
+Future<void> getHomeData() async {
+  final ApplicationController applicationController = Get.find();
+
+  ResponseEntity responseEntity = await HomeApi.activityList(pageNo: 1);
+  if (responseEntity.code == 200) {
+    applicationController.state.homeActivity.value =
+        HomeActivityList.fromJson(responseEntity.data);
+    applicationController.state.homeActivity.update((val) {});
+  } else {
+    getSnackTop(responseEntity.msg);
+  }
+
+  ResponseEntity responseEntityTwo = await HomeApi.config();
+  if (responseEntityTwo.code == 200) {
+    applicationController.state.homeSwiperKing.value =
+        HomeSwiperKing.fromJson(responseEntityTwo.data);
+    applicationController.state.homeSwiperKing.update((val) {});
+  } else {
+    getSnackTop(responseEntityTwo.msg);
+  }
+}
+
 /// 刷新首页的其他数据
 ///
 /// 包括banner，金刚区，活动，和推荐列表
 ///
 /// 重新请求会刷新
-Future<void> getRecommendList(int pageNo) async {
+Future<void> getRecommendList({required int pageNo}) async {
   final ApplicationController applicationController = Get.find();
 
   ResponseEntity responseEntity = await UserApi.list(type: 2, pageNo: pageNo);

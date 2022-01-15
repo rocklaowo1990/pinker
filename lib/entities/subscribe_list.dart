@@ -14,7 +14,7 @@ class SubscribeListEntities {
       );
 
   Map<String, dynamic> toJson() => {
-        "list": List<Map<String, dynamic>>.from(list.map((x) => x.toJson())),
+        "list": List<_List>.from(list.map((x) => x.toJson())),
         "totalSize": totalSize,
       };
   static Map<String, dynamic> child = {

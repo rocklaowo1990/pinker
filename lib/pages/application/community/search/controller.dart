@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/user_list.dart';
 
 import 'package:pinker/pages/application/community/search/library.dart';
 import 'package:pinker/utils/authentication.dart';

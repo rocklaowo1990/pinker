@@ -6,41 +6,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
+
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:pinker/api/api.dart';
+
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/subscribe_info.dart';
 
 import 'package:pinker/pages/dynamic/dynamic.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
-Future getMediaView(
+Future<Widget?> getMediaView(
   Rx<ContentListEntities> contentList,
   int index, {
   String? storageKey,
-  int? imagetIndex,
-}) async {
-  final subscribeInfo =
-      SubscribeInfoEntities.fromJson(SubscribeInfoEntities.child).obs;
-  ResponseEntity responseEntity = await UserApi.oneSubscribeInfo(
-    userId: contentList.value.list[index].author.userId,
-  );
-
-  if (responseEntity.code == 200) {
-    subscribeInfo.value = SubscribeInfoEntities.fromJson(responseEntity.data);
-    subscribeInfo.update((val) {});
-  }
-
+  int? imageIndex,
+}) {
   Widget child = GetBuilder<MediaViewController>(
     init: MediaViewController(),
     builder: (controller) {
       // 初始化
       // 这种结构的只能在这里初始化
       // 在里面初始化需要在控制器里面加入index变量
-      if (imagetIndex != null) {
-        controller.init(imagetIndex);
-      }
+
+      controller.init(contentList, index, imageIndex: imageIndex);
 
       // appBar 右侧的设置按钮
       // Widget moreButton = getContentMore(
@@ -99,46 +87,53 @@ Future getMediaView(
                 Expanded(
                   child: getContentAvatar(contentList, index),
                 ),
-                Obx(() => subscribeInfo.value.subGroupList != null
+                Obx(() => controller.state.isLoading
                     ? getButton(
-                        child: getSpan('已订阅'),
-                        padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6))
-                    : subscribeInfo.value.groups.isEmpty
-                        ? const SizedBox()
-                        : getButton(
-                            child: getSpan('订阅'),
-                            onPressed: () {
-                              getSubscribeBox(
-                                userId:
-                                    contentList.value.list[index].author.userId,
-                                userName: contentList
-                                    .value.list[index].author.userName,
-                                avatar:
-                                    contentList.value.list[index].author.avatar,
-                                reSault: () {
-                                  if (controller.fijkPlayer != null) {
-                                    controller.fijkPlayer = FijkPlayer();
-
-                                    controller.fijkPlayer!.setDataSource(
-                                        serverApiUrl +
-                                            serverPort +
-                                            contentList.value.list[index].works
-                                                .video.url,
-                                        autoPlay: true);
-                                  }
-                                  contentList.update((val) {
-                                    if (val != null) {
-                                      val.list[index].canSee = 1;
-                                    }
-                                  });
+                        width: 70,
+                        borderSide: BorderSide(
+                          width: 0.5.w,
+                          color: AppColors.mainColor,
+                        ),
+                        background: Colors.transparent,
+                        child: const Center(
+                          child: SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              backgroundColor: AppColors.mainIcon,
+                              color: AppColors.mainColor,
+                              strokeWidth: 1,
+                            ),
+                          ),
+                        ),
+                      )
+                    : controller.state.subscribeInfo.value.subGroupList != null
+                        ? getButton(
+                            width: 70,
+                            child: getSpan('已订阅'),
+                          )
+                        : controller.state.subscribeInfo.value.groups.isEmpty
+                            ? const SizedBox()
+                            : getButton(
+                                child: getSpan('订阅'),
+                                onPressed: () {
+                                  getSubscribeBox(
+                                    userId: contentList
+                                        .value.list[index].author.userId,
+                                    userName: contentList
+                                        .value.list[index].author.userName,
+                                    avatar: contentList
+                                        .value.list[index].author.avatar,
+                                    reSault: () {
+                                      controller.handlePay(contentList, index);
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            padding: EdgeInsets.fromLTRB(10.w, 6, 10.w, 6),
-                            borderSide: BorderSide(
-                                width: 0.5.w, color: AppColors.mainColor),
-                            background: Colors.transparent,
-                          ))
+                                width: 70,
+                                borderSide: BorderSide(
+                                    width: 0.5.w, color: AppColors.mainColor),
+                                background: Colors.transparent,
+                              ))
               ],
             ),
             if (contentList.value.list[index].works.content.isNotEmpty)
@@ -155,7 +150,7 @@ Future getMediaView(
         ),
       );
 
-      Widget filterBox(int type) {
+      Widget _filterBox({void Function()? reSault}) {
         return BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: 8.0,
@@ -170,7 +165,7 @@ Future getMediaView(
                 child: getContentPayBox(
                   contentList,
                   index,
-                  mediaViewController: controller,
+                  reSault: reSault,
                 ),
               ),
             ),
@@ -200,13 +195,14 @@ Future getMediaView(
               ],
             )),
       );
+
       // 底层
       // 用来装媒体的
       // 媒体部分比较重要，包含购买和是否可阅读等权限
       late Widget mediaBox;
       // 这种是直接传的视频地址，表示的是可以直接播放
       // 这种就不用考虑他是不是已经订阅了
-      if (imagetIndex == null) {
+      if (imageIndex == null) {
         controller.fijkPlayer = FijkPlayer();
         controller.fijkPlayer!.setDataSource(
             serverApiUrl +
@@ -238,10 +234,8 @@ Future getMediaView(
         if (contentList.value.list[index].works.pics.isNotEmpty) {
           // 如果没有权限查看的话，最多展示四张图
           if (contentList.value.list[index].canSee == 0) {
-            for (int i = 0; i < 4; i++) {
-              controller.state.imagesList
-                  .add(contentList.value.list[index].works.pics[i]);
-            }
+            controller.state.imagesList
+                .addAll(contentList.value.list[index].works.pics.sublist(0, 4));
             // 如果有权限查看，那么就展示所有的图片
           } else {
             controller.state.imagesList
@@ -250,37 +244,35 @@ Future getMediaView(
           // 下面这里开始就是媒体的组成部分
           // 用的组件是可以缩放的图片工具
           mediaBox = Obx(
-            () => contentList.value.list[index].canSee == 0
-                ? PhotoViewGallery.builder(
-                    builder: (BuildContext context, int _index) {
-                      return PhotoViewGalleryPageOptions(
-                        imageProvider: getNetworkImageProvider(
-                          controller.state.imagesList[_index],
-                        ),
-                        initialScale: PhotoViewComputedScale.covered,
-                        // heroAttributes:
-                        //     PhotoViewHeroAttributes(tag: galleryItems[index].id),
-                      );
-                    },
-                    pageController: controller.pageController,
-                    itemCount: controller.state.imagesList.length,
-                    onPageChanged: controller.handleOnPageChanged,
-                  )
-                : PhotoViewGallery.builder(
-                    builder: (BuildContext context, int _index) {
-                      return PhotoViewGalleryPageOptions(
-                        imageProvider: getNetworkImageProvider(
-                          controller.state.imagesList[_index],
-                        ),
-                        initialScale: PhotoViewComputedScale.covered,
-                        // heroAttributes:
-                        //     PhotoViewHeroAttributes(tag: galleryItems[index].id),
-                      );
-                    },
-                    pageController: controller.pageController,
-                    itemCount: controller.state.imagesList.length,
-                    onPageChanged: controller.handleOnPageChanged,
-                  ),
+            () => PhotoViewGallery.builder(
+              builder: (BuildContext context, int _index) {
+                Widget _getNetworkImageBox = getNetworkImageBox(
+                  controller.state.imagesList[_index],
+                );
+
+                return PhotoViewGalleryPageOptions.customChild(
+                  minScale: PhotoViewComputedScale.contained,
+                  maxScale: PhotoViewComputedScale.covered * 2,
+                  initialScale: PhotoViewComputedScale.covered,
+                  child: Obx(() =>
+                      contentList.value.list[index].canSee == 0 && _index == 3
+                          ? Stack(
+                              children: [
+                                _getNetworkImageBox,
+                                _filterBox(
+                                  reSault: () {
+                                    controller.handlePay(contentList, index);
+                                  },
+                                ),
+                              ],
+                            )
+                          : _getNetworkImageBox),
+                );
+              },
+              pageController: controller.pageController,
+              itemCount: controller.state.imagesList.length,
+              onPageChanged: controller.handleOnPageChanged,
+            ),
           );
           // 这里开始就是视频区域
           // 视频不可观看的时候，是有三张预览图
@@ -296,14 +288,22 @@ Future getMediaView(
           mediaBox = Obx(() => contentList.value.list[index].canSee == 0
               ? PhotoViewGallery.builder(
                   builder: (BuildContext context, int _index) {
-                    return PhotoViewGalleryPageOptions(
-                      imageProvider: getNetworkImageProvider(
-                        controller.state.imagesList[_index],
-                      ),
-                      initialScale: PhotoViewComputedScale.covered,
-                      // heroAttributes:
-                      //     PhotoViewHeroAttributes(tag: galleryItems[index].id),
+                    Widget _getNetworkImageBox = getNetworkImageBox(
+                      controller.state.imagesList[_index],
                     );
+                    return PhotoViewGalleryPageOptions.customChild(
+                        child: _index == 3
+                            ? Stack(
+                                children: [
+                                  _getNetworkImageBox,
+                                  _filterBox(
+                                    reSault: () {
+                                      controller.handlePay(contentList, index);
+                                    },
+                                  ),
+                                ],
+                              )
+                            : _getNetworkImageBox);
                   },
                   pageController: controller.pageController,
                   itemCount: controller.state.imagesList.length,

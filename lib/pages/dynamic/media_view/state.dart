@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pinker/entities/entities.dart';
 
 class MediaViewState {
   /// 透明度监听
@@ -30,4 +31,12 @@ class MediaViewState {
   final RxBool _isShowVideoController = false.obs;
   set isShowVideoController(bool value) => _isShowVideoController.value = value;
   bool get isShowVideoController => _isShowVideoController.value;
+
+  final subscribeInfo =
+      SubscribeInfoEntities.fromJson(SubscribeInfoEntities.child).obs;
+
+  /// 正在请求数据
+  final RxBool _isLoading = true.obs;
+  set isLoading(bool value) => _isLoading.value = value;
+  bool get isLoading => _isLoading.value;
 }

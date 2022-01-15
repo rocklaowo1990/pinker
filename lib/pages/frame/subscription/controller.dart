@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/user_list.dart';
+
 import 'package:pinker/global.dart';
 
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/subscription/state.dart';
-
 import 'package:pinker/routes/app_pages.dart';
+
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/widgets/widgets.dart';
@@ -30,25 +30,21 @@ class SubscriptionController extends GetxController {
   void _sure(int index) async {
     Get.back();
     getDialog();
-    ResponseEntity subscribeGroup = await UserApi.subscribeGroup(
+    ResponseEntity responseEntity = await UserApi.subscribeGroup(
       userId: state.userList.value.list[index].userId,
       groupId: state.userList.value.list[index].freeGroupId!,
     );
 
-    if (subscribeGroup.code == 200) {
+    if (responseEntity.code == 200) {
       await futureMill(500);
       Get.back();
       state.userList.update((val) {
         val!.list.remove(val.list[index]);
       });
-      getSnackTop(
-        '订阅成功',
-        isError: false,
-      );
     } else {
       await futureMill(200);
       Get.back();
-      getSnackTop(subscribeGroup.msg);
+      getSnackTop(responseEntity.msg);
     }
   }
 
@@ -71,14 +67,19 @@ class SubscriptionController extends GetxController {
   }
 
   /// 请求数据
-  Future<dynamic> _getList() async {
-    ResponseEntity getUserList = await UserApi.list(pageNo: 1, type: 1);
+  Future<void> _getList() async {
+    ResponseEntity responseEntity = await UserApi.list(
+      type: 1,
+      pageNo: 1,
+    );
+    if (responseEntity.code == 200) {
+      UserListEntities _userList =
+          UserListEntities.fromJson(responseEntity.data);
 
-    UserListEntities userList = UserListEntities.fromJson(getUserList.data);
-    if (getUserList.code == 200) {
-      state.userList.value = userList;
+      state.userList.value = _userList;
+      state.userList.update((val) {});
     } else {
-      getSnackTop(getUserList.msg);
+      getSnackTop(responseEntity.msg);
     }
   }
 
@@ -86,11 +87,5 @@ class SubscriptionController extends GetxController {
   void onReady() async {
     super.onReady();
     await _getList();
-  }
-
-  @override
-  void dispose() {
-    frameController.dispose();
-    super.dispose();
   }
 }

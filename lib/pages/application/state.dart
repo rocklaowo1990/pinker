@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/user_list.dart';
 
 class ApplicationState {
   /// 防抖监听
@@ -19,6 +18,12 @@ class ApplicationState {
   /// 推文列表-首页
   final contentListHome =
       ContentListEntities.fromJson(ContentListEntities.child).obs;
+
+  /// 首页金刚区和轮播图
+  final homeSwiperKing = HomeSwiperKing.fromJson(HomeSwiperKing.child).obs;
+
+  /// 活动列表
+  final homeActivity = HomeActivityList.fromJson(HomeActivityList.child).obs;
 
   /// 推文列表-最新
   final contentListNew =

@@ -42,6 +42,7 @@ class HomeController extends GetxController
     pageNo = 1;
 
     await futureMill(300);
+    await getHomeData();
     await getHomeContentList();
     await futureMill(300);
 
@@ -89,7 +90,7 @@ class HomeController extends GetxController
     await getContentListAll();
 
     if (applicationController.state.recommendUserList.value.list.length <= 4) {
-      await getRecommendList(1);
+      await getRecommendList(pageNo: 1);
     }
   }
 
@@ -100,9 +101,11 @@ class HomeController extends GetxController
   @override
   void onReady() async {
     super.onReady();
+
     if (applicationController.state.recommendUserList.value.list.isEmpty) {
+      await getHomeData();
       await getHomeContentList();
-      await getRecommendList(1);
+      await getRecommendList(pageNo: 1);
       applicationController.state.isLoadingHome = false;
     } else {
       applicationController.state.isLoadingHome = false;

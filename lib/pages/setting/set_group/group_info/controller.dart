@@ -6,15 +6,14 @@ import 'package:get/get.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pinker/api/api.dart';
-import 'package:pinker/api/subscribe_group.dart';
+
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/group_list.dart';
 
 import 'package:pinker/pages/setting/set_group/group_info/library.dart';
 import 'package:pinker/pages/setting/set_group/library.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
-import 'package:pinker/widgets/sheet.dart';
+
 import 'package:pinker/widgets/widgets.dart';
 
 class SetGroupInfoController extends GetxController {

@@ -72,8 +72,9 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
                             userId: item.userId,
                             avatar: item.avatar,
                             userName: item.nickName,
-                            reSault: () {
-                              getRecommendList(1);
+                            reSault: () async {
+                              await getRecommendList(pageNo: 1);
+                              await getContentListAll();
                             },
                           );
                         },

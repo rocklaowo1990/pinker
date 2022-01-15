@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/user_list.dart';
 
 class SearchState {
   /// 是否现实搜索按钮

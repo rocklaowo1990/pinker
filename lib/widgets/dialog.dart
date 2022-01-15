@@ -11,7 +11,7 @@ import 'package:pinker/widgets/widgets.dart';
 
 /// 中间弹出窗：默认是loading
 /// 中间弹出通用
-Future<dynamic> getDialog({
+Future<Widget?> getDialog({
   Widget? child,
   bool autoBack = false,
   double? width,

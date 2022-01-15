@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/user_list.dart';
 
 import 'package:pinker/pages/application/community/search/library.dart';
 
@@ -47,7 +46,7 @@ class ContentListSearchUserController extends GetxController {
     await getContentListAll();
 
     if (searchController.state.recommendUserSearchList.value.list.length <= 4) {
-      await getRecommendList(1);
+      await getRecommendList(pageNo: 1);
     }
   }
 

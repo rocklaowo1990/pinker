@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:pinker/pages/application/community/search/free/library.dart';
-import 'package:pinker/pages/application/community/search/hot/library.dart';
 
 import 'package:pinker/pages/application/community/search/library.dart';
 import 'package:pinker/pages/application/community/search/new/library.dart';

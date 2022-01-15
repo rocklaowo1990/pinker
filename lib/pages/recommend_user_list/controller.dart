@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/entities/user_list.dart';
 import 'package:pinker/pages/application/library.dart';
 
 import 'package:pinker/pages/subscribe_list/library.dart';
@@ -53,7 +52,7 @@ class RecommendUserListController extends GetxController {
 
   Future<void> _refresh() async {
     pageNo = 1;
-    getRecommendList(pageNo);
+    getRecommendList(pageNo: pageNo);
   }
 
   void onRefresh() async {
@@ -71,7 +70,7 @@ class RecommendUserListController extends GetxController {
     super.onReady();
     await futureMill(300);
 
-    await getRecommendList(pageNo);
+    await getRecommendList(pageNo: pageNo);
     state.isLoading = false;
   }
 }

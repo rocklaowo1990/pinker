@@ -1,4 +1,3 @@
-import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/application/library.dart';
-import 'package:pinker/pages/dynamic/media_view/library.dart';
+
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
@@ -33,7 +32,7 @@ Widget getImageCount(String count) {
 Widget getContentPayBox(
   Rx<ContentListEntities> contentList,
   int index, {
-  MediaViewController? mediaViewController,
+  void Function()? reSault,
 }) {
   late Widget mediaType;
   late String url;
@@ -49,20 +48,14 @@ Widget getContentPayBox(
           userName: contentList.value.list[index].author.userName,
           avatar: contentList.value.list[index].author.avatar,
           reSault: () {
-            if (mediaViewController != null) {
-              mediaViewController.fijkPlayer = FijkPlayer();
-
-              mediaViewController.fijkPlayer!.setDataSource(
-                  serverApiUrl +
-                      serverPort +
-                      contentList.value.list[index].works.video.url,
-                  autoPlay: true);
-            }
             contentList.update((val) {
               if (val != null) {
                 val.list[index].canSee = 1;
               }
             });
+            if (reSault != null) {
+              reSault();
+            }
           });
     } else if (contentList.value.list[index].works.payPermission.type == 2 ||
         contentList.value.list[index].works.payPermission.type == 3 ||
@@ -72,20 +65,15 @@ Widget getContentPayBox(
         contentList: contentList,
         index: index,
         reSault: () {
-          if (mediaViewController != null) {
-            mediaViewController.fijkPlayer = FijkPlayer();
-
-            mediaViewController.fijkPlayer!.setDataSource(
-                serverApiUrl +
-                    serverPort +
-                    contentList.value.list[index].works.video.url,
-                autoPlay: true);
-          }
           contentList.update((val) {
             if (val != null) {
               val.list[index].canSee = 1;
             }
           });
+
+          if (reSault != null) {
+            reSault();
+          }
         },
       );
     }

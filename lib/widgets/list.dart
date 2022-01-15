@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pinker/api/api.dart';
-import 'package:pinker/entities/response.dart';
-import 'package:pinker/entities/subscribe_info.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';

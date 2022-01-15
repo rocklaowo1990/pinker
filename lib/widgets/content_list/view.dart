@@ -52,7 +52,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
         ),
       ),
       onPressed: () {
-        getMediaView(contentList, index, imagetIndex: imagetIndex);
+        getMediaView(contentList, index, imageIndex: imagetIndex);
       },
     );
   }

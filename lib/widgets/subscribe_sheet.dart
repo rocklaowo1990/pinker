@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/subscribe_info.dart';
+
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
@@ -139,6 +139,7 @@ Future<void> getSubscribeBox({
                 reSault();
 
                 await onRefreshContentList(userId: userId);
+                // await getContentListAll();
 
                 getSnackTop(getDate(_responseEntity.data['endDate']).toString(),
                     isError: false);

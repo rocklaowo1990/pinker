@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:card_swiper/card_swiper.dart';
 
 import 'package:get/get.dart';
@@ -20,55 +20,55 @@ class HomeView extends StatelessWidget {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) {
-        Widget _leftChild(String title, int index) {
-          return Obx(() => getSpan(
-                title,
-                fontSize: 17,
-                color: controller.state.pageIndex == index
-                    ? AppColors.mainColor
-                    : AppColors.secondIcon,
-                fontWeight: controller.state.pageIndex == index
-                    ? FontWeight.w600
-                    : null,
-              ));
-        }
+        // Widget _leftChild(String title, int index) {
+        //   return Obx(() => getSpan(
+        //         title,
+        //         fontSize: 17,
+        //         color: controller.state.pageIndex == index
+        //             ? AppColors.mainColor
+        //             : AppColors.secondIcon,
+        //         fontWeight: controller.state.pageIndex == index
+        //             ? FontWeight.w600
+        //             : null,
+        //       ));
+        // }
 
-        Widget left = SizedBox(
-          width: 33.w,
-          height: 56,
-          child: TabBar(
-            labelPadding: EdgeInsets.zero,
-            indicatorPadding: EdgeInsets.zero,
-            indicatorWeight: 1.w,
+        // Widget left = SizedBox(
+        //   width: 33.w,
+        //   height: 56,
+        //   child: TabBar(
+        //     labelPadding: EdgeInsets.zero,
+        //     indicatorPadding: EdgeInsets.zero,
+        //     indicatorWeight: 1.w,
 
-            tabs: [
-              _leftChild('首页', 0),
-            ],
-            // onTap: controller.handleChangedTab,
-            controller: controller.tabController,
-            labelColor: Colors.transparent,
-            // indicatorColor: Colors.transparent,
-            unselectedLabelColor: Colors.transparent,
-            automaticIndicatorColorAdjustment: false,
-          ),
-        );
+        //     tabs: [
+        //       _leftChild('首页', 0),
+        //     ],
+        //     // onTap: controller.handleChangedTab,
+        //     controller: controller.tabController,
+        //     labelColor: Colors.transparent,
+        //     // indicatorColor: Colors.transparent,
+        //     unselectedLabelColor: Colors.transparent,
+        //     automaticIndicatorColorAdjustment: false,
+        //   ),
+        // );
 
-        // appbar 右侧按钮
-        Widget right = getButton(
-          child: SvgPicture.asset(
-            'assets/svg/icon_mail_3.svg',
-          ),
-          background: Colors.transparent,
-          width: 33.h,
-          height: 33.h,
-          onPressed: controller.handleMail,
-        );
+        // // appbar 右侧按钮
+        // Widget right = getButton(
+        //   child: SvgPicture.asset(
+        //     'assets/svg/icon_mail_3.svg',
+        //   ),
+        //   background: Colors.transparent,
+        //   width: 33.h,
+        //   height: 33.h,
+        //   onPressed: controller.handleMail,
+        // );
 
         /// AppBar
-        AppBar appBar = getMainBar(
-          left: left,
-          right: right,
-        );
+        // AppBar appBar = getMainBar(
+        //   left: left,
+        //   right: right,
+        // );
 
         // loading时显示转圈圈
         Widget loading = Center(
@@ -103,7 +103,7 @@ class HomeView extends StatelessWidget {
               getButton(
                 child: getSpan('寻找值得订阅的用户'),
                 height: 26.h,
-                width: 100.w,
+                width: 70.w,
                 onPressed: controller.handleRemmondMore,
               )
             ],
@@ -111,27 +111,36 @@ class HomeView extends StatelessWidget {
         );
 
         Widget swiper = SizedBox(
-          height: 125.h,
+          height: 90.h,
           width: double.infinity,
-          child: Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: AppColors.thirdIcon,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8.w),
+          // color: AppColors.secondBacground,
+          child: Obx(
+            () => Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.thirdIcon,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8.w),
+                    ),
                   ),
-                ),
-              );
-            },
-            itemCount: 3,
-            viewportFraction: 0.8,
-            scale: 0.9,
-            pagination: const SwiperPagination(),
+                );
+              },
+              itemCount: controller.applicationController.state.homeSwiperKing
+                  .value.carousel.length,
+              viewportFraction: 0.85,
+              scale: 0.9,
+              pagination: const SwiperPagination(
+                builder: SwiperPagination.dots,
+              ),
+            ),
           ),
         );
 
-        Widget _warp() {
+        Widget _warp(
+          String url,
+          String text,
+        ) {
           return getButton(
             background: Colors.transparent,
             overlayColor: Colors.transparent,
@@ -139,37 +148,47 @@ class HomeView extends StatelessWidget {
             width: 187.5.w / 4,
             child: Column(
               children: [
-                Container(
+                getNetworkImageBox(
+                  url,
                   width: 32.w,
                   height: 32.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.thirdIcon,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.w),
-                    ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.w),
                   ),
                 ),
                 SizedBox(height: 8.h),
-                getSpan('标题文字'),
+                getSpan(text),
               ],
             ),
           );
         }
 
-        Widget _activity() {
+        Widget _activity({
+          required String name,
+          required String avatar,
+          required int joinCount,
+          required int endDate,
+        }) {
+          DateTime end = DateTime.fromMillisecondsSinceEpoch(endDate);
           return Container(
-            padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 0),
-            color: AppColors.secondBacground,
+            padding: EdgeInsets.all(9.w),
+            decoration: BoxDecoration(
+              color: AppColors.secondBacground,
+              border: Border(
+                top: BorderSide(
+                  width: 0.5.w,
+                  color: AppColors.line,
+                ),
+              ),
+            ),
             child: Row(
               children: [
-                Container(
+                getNetworkImageBox(
+                  avatar,
                   width: 75.w,
                   height: 55.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.thirdIcon,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.w),
-                    ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.w),
                   ),
                 ),
                 SizedBox(width: 8.w),
@@ -179,7 +198,7 @@ class HomeView extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: getSpan(
-                          '这里是文件的表体这里是文件的表体这里是文件的表体这里是文件的表体',
+                          name,
                           fontSize: 17,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -188,12 +207,13 @@ class HomeView extends StatelessWidget {
                       SizedBox(height: 3.w),
                       SizedBox(
                         width: double.infinity,
-                        child: getSpan('1777 人参与', color: AppColors.mainColor),
+                        child: getSpan('$joinCount 人参与',
+                            color: AppColors.mainColor),
                       ),
                       SizedBox(height: 2.w),
                       SizedBox(
                         width: double.infinity,
-                        child: getSpan('活动时间：截止到9月1日',
+                        child: getSpan('活动时间：截止到${end.month}月${end.day}日',
                             color: AppColors.secondText),
                       ),
                       // SizedBox(
@@ -209,34 +229,41 @@ class HomeView extends StatelessWidget {
           );
         }
 
-        Widget activity = Column(
-          children: [
-            _activity(),
-            _activity(),
-            _activity(),
-            Container(
-              height: 9.w,
-              width: double.infinity,
-              color: AppColors.secondBacground,
-            ),
-          ],
+        Widget activity = Obx(
+          () => Column(
+            children:
+                controller.applicationController.state.homeActivity.value.list
+                    .map(
+                      (e) => _activity(
+                        name: e.name,
+                        avatar: e.avatar,
+                        endDate: e.endDate,
+                        joinCount: e.joinCount,
+                      ),
+                    )
+                    .toList(),
+          ),
         );
 
-        Widget warp = Container(
-          color: AppColors.secondBacground,
-          padding: EdgeInsets.fromLTRB(0, 10.h, 0, 10.h),
-          child: Wrap(
-            runSpacing: 16.h,
-            children: [
-              _warp(),
-              _warp(),
-              _warp(),
-              _warp(),
-              _warp(),
-              _warp(),
-              _warp(),
-              _warp(),
-            ],
+        Widget warp = Obx(
+          () => Container(
+            color: AppColors.secondBacground,
+            padding: EdgeInsets.fromLTRB(0, 10.h, 0, 10.h),
+            child: Wrap(
+              runSpacing: 16.h,
+              children: controller.applicationController.state.homeSwiperKing
+                          .value.category.length <=
+                      8
+                  ? controller
+                      .applicationController.state.homeSwiperKing.value.category
+                      .map((e) => _warp(e.pic, e.name))
+                      .toList()
+                  : controller
+                      .applicationController.state.homeSwiperKing.value.category
+                      .sublist(0, 8)
+                      .map((e) => _warp(e.pic, e.name))
+                      .toList(),
+            ),
           ),
         );
 
@@ -308,18 +335,42 @@ class HomeView extends StatelessWidget {
               )
             : const SizedBox());
 
+        Widget fixedBox = Column(
+          children: [
+            SizedBox(
+              height: 10.h,
+            ),
+            swiper,
+            SizedBox(
+              height: 10.h,
+            ),
+            getButtonList(title: '热门分类', iconRight: const SizedBox()),
+            Container(
+              width: double.infinity,
+              height: 0.8.w,
+              color: AppColors.line,
+            ),
+            warp,
+            Container(
+              width: double.infinity,
+              height: 0.8.w,
+              color: AppColors.line,
+            ),
+            getButtonList(
+                title: '查看更多', onPressed: controller.handleRemmondMore),
+            SizedBox(height: 10.h),
+            getButtonList(title: '精彩活动', iconRight: const SizedBox()),
+            activity,
+            remmondBox,
+            SizedBox(height: 10.h),
+          ],
+        );
+
         Widget noData = getRefresher(
           controller: controller.refreshController,
           child: ListView(
             children: [
-              SizedBox(height: 10.h),
-              swiper,
-              SizedBox(height: 10.h),
-              warp,
-              SizedBox(height: 10.h),
-              activity,
-              remmondBox,
-              SizedBox(height: 10.h),
+              fixedBox,
               noDataList,
             ],
           ),
@@ -336,14 +387,7 @@ class HomeView extends StatelessWidget {
                   controller: controller.refreshController,
                   child: ListView(
                     children: [
-                      SizedBox(height: 10.h),
-                      swiper,
-                      SizedBox(height: 10.h),
-                      warp,
-                      SizedBox(height: 10.h),
-                      activity,
-                      remmondBox,
-                      SizedBox(height: 10.h),
+                      fixedBox,
                       for (int index = 0;
                           index <
                               controller.applicationController.state
@@ -362,15 +406,22 @@ class HomeView extends StatelessWidget {
         );
 
         /// body
-        Widget body = Obx(() =>
-            controller.applicationController.state.isLoadingHome
+        Widget body =
+            Obx(() => controller.applicationController.state.isLoadingHome
                 ? loading
-                : _body);
+                : Column(
+                    children: [
+                      const SizedBox(height: 22),
+                      Expanded(
+                        child: _body,
+                      ),
+                    ],
+                  ));
 
         /// 页面
         return Scaffold(
           backgroundColor: AppColors.mainBacground,
-          appBar: appBar,
+          // appBar: appBar,
           body: body,
         );
       },

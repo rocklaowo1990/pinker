@@ -15,7 +15,7 @@ class UserListEntities {
       );
 
   Map<String, dynamic> toJson() => {
-        "list": List<dynamic>.from(list.map((x) => x.toJson())),
+        "list": List<_UerInfo>.from(list.map((x) => x.toJson())),
         "totalSize": totalSize,
       };
 

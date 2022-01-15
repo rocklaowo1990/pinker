@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:pinker/api/content.dart';
 import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/subscribe_info.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';
