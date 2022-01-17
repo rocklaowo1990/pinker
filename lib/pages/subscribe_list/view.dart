@@ -43,39 +43,113 @@ class SubscribeListView extends GetView<SubscribeListController> {
       ),
     );
 
+    Widget _list({
+      required String avatar,
+      required String title,
+      required String secondTitle,
+      required int amount,
+      required int endDate,
+    }) {
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(9.w),
+        decoration: BoxDecoration(
+            color: AppColors.secondBacground,
+            border: Border(
+                bottom: BorderSide(color: AppColors.line, width: 0.5.w))),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: getUserAvatar(avatar, title, secondTitle),
+                ),
+                getButton(
+                  width: 40.w,
+                  child: getSpan('续费'),
+                )
+              ],
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              children: [
+                getSpan('订阅价格：', color: AppColors.secondText),
+                const Spacer(),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svg/icon_diamond.svg',
+                      height: 15,
+                    ),
+                    SizedBox(width: 3.w),
+                    getSpan('$amount'),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: 4.h),
+            Row(
+              children: [
+                getSpan('自动续费：', color: AppColors.secondText),
+                const Spacer(),
+                SizedBox(
+                  height: 20,
+                  width: 30,
+                  child: Obx(
+                    () => Switch(
+                      value: controller.state.enable == 0 ? false : true,
+                      onChanged: controller.handleOnChanged,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 4.h),
+            Row(
+              children: [
+                getSpan('到期时间：', color: AppColors.secondText),
+                const Spacer(),
+                getSpan(
+                    '${DateTime.fromMillisecondsSinceEpoch(endDate).year}-${DateTime.fromMillisecondsSinceEpoch(endDate).month}-${DateTime.fromMillisecondsSinceEpoch(endDate).day}'),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget haveData = getRefresher(
+      controller: controller.refreshController,
+      child: Obx(
+        () => ListView(
+          children: controller.state.subscribeList.value.list
+              .map(
+                (item) => _list(
+                  avatar: item.avatar,
+                  title: item.nickName,
+                  secondTitle: item.userName,
+                  amount: item.amount,
+                  endDate: item.endDate,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+      onLoading: () {
+        controller.onLoading();
+      },
+      isFooter:
+          controller.state.subscribeList.value.totalSize < 20 ? false : true,
+      onRefresh: () {
+        controller.onRefresh();
+      },
+    );
+
     // 整体布局
     Widget _body = Obx(
       () => controller.state.subscribeList.value.list.isEmpty
           ? SingleChildScrollView(child: noData)
-          : getRefresher(
-              controller: controller.refreshController,
-              child: ListView(
-                children: controller.state.subscribeList.value.list
-                    .map(
-                      (item) => getUserList(
-                        item.avatar,
-                        item.userName,
-                        item.nickName,
-                        intro: item.intro,
-                        button: const SizedBox(),
-                        color: AppColors.secondBacground,
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 0.5.w, color: AppColors.line)),
-                      ),
-                    )
-                    .toList(),
-              ),
-              onLoading: () {
-                controller.onLoading();
-              },
-              isFooter: controller.state.subscribeList.value.totalSize < 20
-                  ? false
-                  : true,
-              onRefresh: () {
-                controller.onRefresh();
-              },
-            ),
+          : haveData,
     );
 
     /// body

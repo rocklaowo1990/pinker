@@ -14,8 +14,12 @@ class SubscribeListController extends GetxController {
   final ScrollController scrollController = ScrollController();
   final SubscribeListState state = SubscribeListState();
 
+  // final int arguments = Get.arguments;
+
   int pageNo = 1;
   int totalSize = 0;
+
+  void handleOnChanged(v) {}
 
   void onLoading() async {
     await futureMill(300);
@@ -85,7 +89,7 @@ class SubscribeListController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await futureMill(300);
+
     ResponseEntity responseEntity = await UserApi.subscribeList(pageNo: pageNo);
 
     if (responseEntity.code == 200) {

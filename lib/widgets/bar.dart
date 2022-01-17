@@ -91,6 +91,11 @@ AppBar getMainBar({required Widget left, required Widget right}) {
   );
 }
 
+PreferredSize getNobar = const PreferredSize(
+  child: SizedBox(),
+  preferredSize: Size.fromHeight(0),
+);
+
 /// appBar
 /// 顶部带搜索的appbar
 AppBar getSearchBar({

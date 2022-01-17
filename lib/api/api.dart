@@ -1,6 +1,7 @@
 library api;
 
 export 'account.dart';
+export 'chat.dart';
 export 'common.dart';
 export 'content.dart';
 export 'home.dart';

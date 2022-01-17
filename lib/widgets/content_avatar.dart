@@ -36,6 +36,10 @@ Widget getContentMore(
     //     userId: contentList.value.list[index].author.userId);
     // print(responseEntity.data);
     // print(contentList.value.list[index].canSee);
+
+    // ResponseEntity responseEntity =
+    //     await ContentApi.contentDetail(wid: contentList.value.list[index].wid);
+    // print(responseEntity.data);
     getContentMoreSheet(
       contentList: contentList,
       index: index,

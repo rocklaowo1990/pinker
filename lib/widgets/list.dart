@@ -194,7 +194,12 @@ Widget getUserList(
               SizedBox(height: 8.h),
               SizedBox(
                 width: double.infinity,
-                child: getSpan(intro, color: AppColors.secondText),
+                child: getSpan(
+                  '个人简介：$intro',
+                  color: AppColors.secondText,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           )

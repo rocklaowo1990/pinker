@@ -20,38 +20,38 @@ class HomeView extends StatelessWidget {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) {
-        // Widget _leftChild(String title, int index) {
-        //   return Obx(() => getSpan(
-        //         title,
-        //         fontSize: 17,
-        //         color: controller.state.pageIndex == index
-        //             ? AppColors.mainColor
-        //             : AppColors.secondIcon,
-        //         fontWeight: controller.state.pageIndex == index
-        //             ? FontWeight.w600
-        //             : null,
-        //       ));
-        // }
+        Widget _leftChild(String title, int index) {
+          return Obx(() => getSpan(
+                title,
+                fontSize: 17,
+                color: controller.state.pageIndex == index
+                    ? AppColors.mainColor
+                    : AppColors.secondIcon,
+                fontWeight: controller.state.pageIndex == index
+                    ? FontWeight.w600
+                    : null,
+              ));
+        }
 
-        // Widget left = SizedBox(
-        //   width: 33.w,
-        //   height: 56,
-        //   child: TabBar(
-        //     labelPadding: EdgeInsets.zero,
-        //     indicatorPadding: EdgeInsets.zero,
-        //     indicatorWeight: 1.w,
+        Widget left = SizedBox(
+          width: 33.w,
+          height: 56,
+          child: TabBar(
+            labelPadding: EdgeInsets.zero,
+            indicatorPadding: EdgeInsets.zero,
+            indicatorWeight: 1.w,
 
-        //     tabs: [
-        //       _leftChild('首页', 0),
-        //     ],
-        //     // onTap: controller.handleChangedTab,
-        //     controller: controller.tabController,
-        //     labelColor: Colors.transparent,
-        //     // indicatorColor: Colors.transparent,
-        //     unselectedLabelColor: Colors.transparent,
-        //     automaticIndicatorColorAdjustment: false,
-        //   ),
-        // );
+            tabs: [
+              _leftChild('首页', 0),
+            ],
+            // onTap: controller.handleChangedTab,
+            controller: controller.tabController,
+            labelColor: Colors.transparent,
+            // indicatorColor: Colors.transparent,
+            unselectedLabelColor: Colors.transparent,
+            automaticIndicatorColorAdjustment: false,
+          ),
+        );
 
         // // appbar 右侧按钮
         // Widget right = getButton(
@@ -64,11 +64,11 @@ class HomeView extends StatelessWidget {
         //   onPressed: controller.handleMail,
         // );
 
-        /// AppBar
-        // AppBar appBar = getMainBar(
-        //   left: left,
-        //   right: right,
-        // );
+        // AppBar
+        AppBar appBar = getMainBar(
+          left: left,
+          right: const SizedBox(),
+        );
 
         // loading时显示转圈圈
         Widget loading = Center(
@@ -406,22 +406,16 @@ class HomeView extends StatelessWidget {
         );
 
         /// body
-        Widget body =
-            Obx(() => controller.applicationController.state.isLoadingHome
-                ? loading
-                : Column(
-                    children: [
-                      const SizedBox(height: 22),
-                      Expanded(
-                        child: _body,
-                      ),
-                    ],
-                  ));
+        Widget body = Obx(
+          () => controller.applicationController.state.isLoadingHome
+              ? loading
+              : _body,
+        );
 
         /// 页面
         return Scaffold(
           backgroundColor: AppColors.mainBacground,
-          // appBar: appBar,
+          appBar: appBar,
           body: body,
         );
       },
