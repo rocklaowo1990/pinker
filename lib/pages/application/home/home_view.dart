@@ -6,6 +6,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/home/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/values/colors.dart';
 
@@ -285,6 +286,12 @@ class HomeView extends StatelessWidget {
                             item.userName,
                             item.nickName,
                             intro: item.intro,
+                            avatarPressed: () {
+                              Get.toNamed(
+                                AppRoutes.personal,
+                                arguments: item.userId,
+                              );
+                            },
                             buttonPressed: () {
                               getSubscribeBox(
                                 userId: item.userId,

@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/my/library.dart';
+import 'package:pinker/values/colors.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyView extends StatelessWidget {
   const MyView({Key? key}) : super(key: key);
@@ -319,34 +321,42 @@ class MyView extends StatelessWidget {
           );
 
           /// body
-          Widget bodyChild = SingleChildScrollView(
-            controller: controller.scrollController,
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: AppColors.mainBacground,
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/my_bac.png',
+          Widget bodyChild = getRefresher(
+            controller: controller.refreshController,
+            child: SingleChildScrollView(
+              controller: controller.scrollController,
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: AppColors.mainBacground,
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/my_bac.png',
+                    ),
+                    alignment: Alignment.topCenter,
                   ),
-                  alignment: Alignment.topCenter,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 44.w),
+                      userInfo,
+                      SizedBox(height: 12.w),
+                      wallet,
+                      SizedBox(height: 5.h),
+                      subscription,
+                      SizedBox(height: 5.h),
+                      buttons,
+                    ],
+                  ),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.all(8.w),
-                child: Column(
-                  children: [
-                    SizedBox(height: 44.w),
-                    userInfo,
-                    SizedBox(height: 12.w),
-                    wallet,
-                    SizedBox(height: 5.h),
-                    subscription,
-                    SizedBox(height: 5.h),
-                    buttons,
-                  ],
-                ),
-              ),
+            ),
+            isFooter: false,
+            onRefresh: controller.onRefresh,
+            header: const WaterDropMaterialHeader(
+              backgroundColor: AppColors.thirdText,
             ),
           );
 

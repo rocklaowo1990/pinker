@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/personal/library.dart';
 import 'package:pinker/pages/recommend_user_list/binding.dart';
 import 'package:pinker/pages/recommend_user_list/view.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
@@ -76,6 +77,13 @@ class AppPages {
       name: AppRoutes.codeList,
       page: () => const CodeListView(),
       binding: CodeListBinding(),
+    ),
+
+    /// 区号选择
+    GetPage(
+      name: AppRoutes.personal,
+      page: () => const PersonalView(),
+      binding: PersonalBinding(),
     ),
 
     /// 设置页面

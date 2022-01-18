@@ -395,4 +395,21 @@ class UserApi {
     );
     return ResponseEntity.fromJson(response);
   }
+
+  /// 用户主页
+  static Future<ResponseEntity> home({
+    required int userId,
+  }) async {
+    var response = await HttpUtil().get(
+      '/api/user/home',
+      options: Options(headers: {
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'token': Global.token,
+      }),
+      queryParameters: {
+        'userId': userId,
+      },
+    );
+    return ResponseEntity.fromJson(response);
+  }
 }

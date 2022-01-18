@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/pages/recommend_user_list/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/utils/utils.dart';
 
@@ -67,6 +68,12 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
                             color: AppColors.line,
                           ),
                         ),
+                        avatarPressed: () {
+                          Get.toNamed(
+                            AppRoutes.personal,
+                            arguments: item.userId,
+                          );
+                        },
                         buttonPressed: () {
                           getSubscribeBox(
                             userId: item.userId,

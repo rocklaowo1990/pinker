@@ -32,7 +32,7 @@ AppBar getAppBar(
     title: title,
     backgroundColor: backgroundColor ?? Colors.transparent,
     foregroundColor: AppColors.mainText,
-    elevation: 0,
+    elevation: 0.0,
     bottom: bottom == null && lineColor == null
         ? null
         : PreferredSize(

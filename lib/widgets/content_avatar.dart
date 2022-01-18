@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/utils/validator.dart';
 import 'package:pinker/values/values.dart';
@@ -12,7 +13,12 @@ import 'package:pinker/widgets/widgets.dart';
 /// 这里分开也是因为不仅一个地方调用该事件
 /// 本部分也包含点击事件
 Widget getContentAvatar(Rx<ContentListEntities> contentList, int index) {
-  void _onPressed() {}
+  void _onPressed() {
+    Get.toNamed(
+      AppRoutes.personal,
+      arguments: contentList.value.list[index].author.userId,
+    );
+  }
 
   return getUserAvatar(
     contentList.value.list[index].author.avatar,
