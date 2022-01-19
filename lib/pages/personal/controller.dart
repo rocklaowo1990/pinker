@@ -15,6 +15,7 @@ class PersonalController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final PersonalState state = PersonalState();
   final RefreshController refreshController = RefreshController();
+  final ScrollController scrollController = ScrollController();
 
   final ApplicationController applicationController = Get.find();
 
@@ -70,6 +71,16 @@ class PersonalController extends GetxController
     }
   }
 
+  void handleChangedTab(index) {
+    state.pageIndex = index;
+    pageController.animateToPage(
+      state.pageIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.ease,
+    );
+    // index == 0 ? Get.back(id: 3) : Get.toNamed(AppRoutes.contentHot, id: 3);
+  }
+
   void handlePageChanged(index) {
     state.pageIndex = index;
     tabController.animateTo(index);
@@ -82,6 +93,11 @@ class PersonalController extends GetxController
     if (responseEntity.code == 200) {
       state.intro.value = PersonalEntities.fromJson(responseEntity.data);
     }
+
+    scrollController.addListener(() {
+      if (scrollController.offset >= 50) state.opacity = 1;
+      if (scrollController.offset < 50) state.opacity = 0;
+    });
   }
 
   @override

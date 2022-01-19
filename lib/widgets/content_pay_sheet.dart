@@ -206,8 +206,9 @@ Future<void> getContentPaySheet({
                   await onRefreshContentList(
                       userId: contentList.value.list[index].author.userId);
                 } else {
-                  await onRefreshContentList(
-                      userId: contentList.value.list[index].wid);
+                  await getContentOnly(
+                    wid: contentList.value.list[index].wid,
+                  );
                 }
               } else {
                 Get.back();

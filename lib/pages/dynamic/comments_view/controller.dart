@@ -19,8 +19,8 @@ class CommentsViewController extends GetxController {
   final TextEditingController textController = TextEditingController();
 
   int pageIndex = 1;
-  int beUserId = 0;
-  int cid = 0;
+  int? beUserId;
+  int? cid;
 
   void handleMail() {}
 
@@ -39,13 +39,13 @@ class CommentsViewController extends GetxController {
     focusNode.unfocus();
 
     getDialog();
-    Map<String, dynamic> data = {
-      'wid': contentList.value.list[index].wid,
-      'content': textController.text,
-      if (cid != 0) 'cid': cid,
-      if (beUserId != 0) 'beUserId': beUserId,
-    };
-    ResponseEntity responseEntity = await ContentApi.commentsAdd(data);
+
+    ResponseEntity responseEntity = await ContentApi.commentsAdd(
+      wid: contentList.value.list[index].wid,
+      content: textController.text,
+      cid: cid,
+      beUserId: beUserId,
+    );
     if (responseEntity.code == 200) {
       _refresh(contentList, index);
       contentList.update((val) {
@@ -57,6 +57,7 @@ class CommentsViewController extends GetxController {
       }
       textController.clear();
       Get.back();
+      getContentOnly(wid: contentList.value.list[index].wid);
     } else {
       getSnackTop(responseEntity.msg);
     }

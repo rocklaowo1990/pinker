@@ -6,6 +6,7 @@ import 'package:pinker/api/api.dart';
 
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/comments_view/view.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:like_button/like_button.dart';
@@ -41,6 +42,8 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
       contentList.value.list[index].likeCount +=
           contentList.value.list[index].isLike == 0 ? -1 : 1;
 
+      getContentOnly(wid: contentList.value.list[index].wid);
+
       return contentList.value.list[index].isLike == 0 ? false : true;
     } else {
       getSnackTop(responseEntity.msg);
@@ -57,6 +60,8 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
     if (responseEntity.code == 200) {
       contentList.value.list[index].forwardCount +=
           contentList.value.list[index].isForward == 0 ? -1 : 1;
+
+      getContentOnly(wid: contentList.value.list[index].wid);
 
       return contentList.value.list[index].isForward == 0 ? false : true;
     } else {

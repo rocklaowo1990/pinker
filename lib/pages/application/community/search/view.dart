@@ -65,6 +65,7 @@ class SearchView extends StatelessWidget {
             ],
             // physics: const NeverScrollableScrollPhysics(),
             onPageChanged: controller.handlePageChanged,
+            allowImplicitScrolling: true,
           );
 
           Widget searchEndBox = Column(

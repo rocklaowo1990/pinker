@@ -31,9 +31,29 @@ class ContentApi {
     return ResponseEntity.fromJson(response);
   }
 
+  /// 个人的作品列表
+  static Future userHomeContentList({
+    int? pageNo,
+    required int type,
+    int? userId,
+  }) async {
+    var response = await HttpUtil().get(
+      '/api/content/userHomeContentList',
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': 20,
+        'type': type,
+        'userId': userId,
+      },
+      options: Options(headers: {
+        'token': Global.token,
+      }),
+    );
+    return ResponseEntity.fromJson(response);
+  }
+
   /// 作品详情
   ///
-
   static Future contentDetail({required int wid}) async {
     var response = await HttpUtil().get(
       '/api/content/contentDetail',
@@ -79,10 +99,19 @@ class ContentApi {
   }
 
   /// 添加评论 /////////////////////////////////////////////////
-  static Future commentsAdd(data) async {
+  static Future commentsAdd(
+      {required int wid,
+      int? cid,
+      required String content,
+      int? beUserId}) async {
     var response = await HttpUtil().postForm(
       '/api/content/commentsAdd',
-      data: data,
+      data: {
+        'wid': wid,
+        'cid': cid,
+        'content': content,
+        'beUserId': beUserId,
+      },
       options: Options(headers: {
         'token': Global.token,
         'Content-Type': 'application/x-www-form-urlencoded',

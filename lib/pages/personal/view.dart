@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/pages/personal/all/view.dart';
+import 'package:pinker/pages/personal/free/library.dart';
 
 import 'package:pinker/pages/personal/library.dart';
 
@@ -11,14 +13,12 @@ import 'package:pinker/values/colors.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PersonalView extends StatelessWidget {
   const PersonalView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return GetBuilder<PersonalController>(
       init: PersonalController(),
       builder: (controller) {
@@ -29,21 +29,39 @@ class PersonalView extends StatelessWidget {
         /// 往上拖的时候，到达一定位置会显示头像，以及带背景的appbar
         Widget appBar = SizedBox(
           height: 44.h,
-          child: getAppBar(
-            const SizedBox(),
-            backgroundColor: Colors.transparent,
-            leading: Center(
-              child: getButton(
-                height: 16.w,
-                width: 16.w,
-                background: AppColors.mainBacground50,
-                child: SvgPicture.asset(
-                  'assets/svg/icon_back.svg',
-                  height: 8.w,
+          child: Obx(
+            () => getAppBar(
+              controller.state.opacity == 1
+                  ? getSpan(controller.state.intro.value.nickName)
+                  : const SizedBox(),
+              backgroundColor: Colors.transparent,
+              flexibleSpace: controller.state.opacity == 1
+                  ? controller.state.intro.value.bannerPic.isNotEmpty
+                      ? getNetworkImageBox(
+                          controller.state.intro.value.bannerPic,
+                          width: double.infinity,
+                          height: 80.h,
+                        )
+                      : Image.asset(
+                          'assets/images/personal_banner.png',
+                          fit: BoxFit.cover,
+                          width: Get.width,
+                          height: 44.h,
+                        )
+                  : null,
+              leading: Center(
+                child: getButton(
+                  height: 16.w,
+                  width: 16.w,
+                  background: AppColors.mainBacground50,
+                  child: SvgPicture.asset(
+                    'assets/svg/icon_back.svg',
+                    height: 8.w,
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
                 ),
-                onPressed: () {
-                  Get.back();
-                },
               ),
             ),
           ),
@@ -68,9 +86,17 @@ class PersonalView extends StatelessWidget {
                 : Container(
                     width: 40.w,
                     height: 40.w,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.line,
+                      border: Border.all(
+                        color: AppColors.secondBacground,
+                        width: 3.w,
+                      ),
+                    ),
+                    child: SvgPicture.asset(
+                      'assets/svg/avatar_default.svg',
+                      width: 40.w,
                     ),
                   ),
           ),
@@ -90,10 +116,6 @@ class PersonalView extends StatelessWidget {
                       controller.state.intro.value.bannerPic,
                       width: double.infinity,
                       height: 80.h,
-                      border: Border.all(
-                        color: AppColors.mainBacground,
-                        width: 2.w,
-                      ),
                     ),
             ),
             avatar,
@@ -140,11 +162,14 @@ class PersonalView extends StatelessWidget {
         Widget intro = Padding(
           padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 8.h),
           child: Obx(
-            () => getSpan(
-              controller.state.intro.value.intro.isEmpty
-                  ? '个人简介：这个家伙很懒，什么也没留下～'
-                  : '个人简介：${controller.state.intro.value.intro}',
-              color: AppColors.secondText,
+            () => SizedBox(
+              width: double.infinity,
+              child: getSpan(
+                controller.state.intro.value.intro.isEmpty
+                    ? '个人简介：这个家伙很懒，什么也没留下～'
+                    : '个人简介：${controller.state.intro.value.intro}',
+                color: AppColors.secondText,
+              ),
             ),
           ),
         );
@@ -219,7 +244,6 @@ class PersonalView extends StatelessWidget {
         }
 
         Widget tabBar = Container(
-          width: 33.w,
           height: 56,
           decoration: BoxDecoration(
             border: Border(
@@ -231,7 +255,6 @@ class PersonalView extends StatelessWidget {
             labelPadding: EdgeInsets.zero,
             indicatorPadding: EdgeInsets.zero,
             indicatorWeight: 1.w,
-
             tabs: [
               _tabBar('作品', 0),
               _tabBar('限免', 1),
@@ -239,7 +262,7 @@ class PersonalView extends StatelessWidget {
               _tabBar('转发', 3),
               _tabBar('喜欢', 4),
             ],
-            // onTap: controller.handleChangedTab,
+            onTap: controller.handleChangedTab,
             controller: controller.tabController,
             labelColor: Colors.transparent,
             // indicatorColor: Colors.transparent,
@@ -248,53 +271,134 @@ class PersonalView extends StatelessWidget {
           ),
         );
 
-        Widget pageView = SizedBox(
-          width: double.infinity,
-          height: Get.height - 44.h - 33.w,
-          child: PageView(
-            controller: controller.pageController,
-            children: <Widget>[
-              Container(
-                height: 5000,
-                width: double.infinity,
-                color: AppColors.mainColor,
-              ),
-              Container(
-                height: 5000,
-                width: double.infinity,
-                color: AppColors.mainColor,
-              ),
-              Container(
-                height: 5000,
-                width: double.infinity,
-                color: AppColors.mainColor,
-              ),
-              Container(
-                height: 5000,
-                width: double.infinity,
-                color: AppColors.mainColor,
-              ),
-              Container(
-                height: 5000,
-                width: double.infinity,
-                color: AppColors.mainColor,
-              ),
-            ],
-            onPageChanged: controller.handlePageChanged,
-          ),
+        Widget pageView = PageView(
+          children: [
+            personalAllView(),
+            personalFreeView(),
+          ],
+
+          // physics: const NeverScrollableScrollPhysics(),
+          onPageChanged: controller.handlePageChanged,
+          allowImplicitScrolling: true,
+          controller: controller.pageController,
+
+          // itemBuilder: (context, index) {
+          //   late final Rx<ContentListEntities> contentList;
+
+          //   switch (index) {
+          //     case 0:
+          //       contentList = controller.state.personalAll;
+          //       break;
+          //     case 1:
+          //       contentList = controller.state.personalFree;
+          //       break;
+          //     case 2:
+          //       contentList = controller.state.personalReply;
+          //       break;
+          //     case 3:
+          //       contentList = controller.state.personalForward;
+          //       break;
+          //     default:
+          //       contentList = controller.state.personalLike;
+          //       break;
+          //   }
+
+          //   return MediaQuery.removePadding(
+          //     removeTop: true,
+          //     context: context,
+          //     child: Obx(
+          //       () => controller.state.isLoading
+          //           ? loading
+          //           : contentList.value.list.isEmpty
+          //               ? noData
+          //               : getRefresher(
+          //                   controller: controller.refreshController,
+          //                   child: ListView(
+          //                     children: contentList.value.list
+          //                         .asMap()
+          //                         .keys
+          //                         .map(
+          //                           (e) => getContentListView(
+          //                             contentList,
+          //                             e,
+          //                           ),
+          //                         )
+          //                         .toList(),
+          //                   ),
+          //                   onLoading: () {
+          //                     controller.onLoading();
+          //                   },
+          //                   isFooter: contentList.value.list.length < 20
+          //                       ? false
+          //                       : true,
+          //                   onRefresh: () {
+          //                     controller.onRefresh();
+          //                   },
+          //                 ),
+          //     ),
+          //   );
+          // },
+          // itemCount: 5,
+          // controller: controller.pageController,
+          // allowImplicitScrolling: true,
+          // onPageChanged: controller.handlePageChanged,
         );
 
         /// 主体组成
-        Widget body = getRefresher(
-          controller: controller.refreshController,
-          child: ListView(
-            children: [banner, nameBox, intro, date, count, tabBar, pageView],
-          ),
-          onLoading: controller.onLoading,
-          onRefresh: controller.onRefresh,
-          header: const WaterDropMaterialHeader(
-            backgroundColor: AppColors.mainColor,
-          ),
+        // Widget body = getRefresher(
+        //   controller: controller.refreshController,
+        //   scrollController: controller.scrollController,
+        //   child: CustomScrollView(
+        //     controller: controller.scrollController,
+        //     slivers: [
+        //       SliverList(
+        //         delegate: SliverChildListDelegate(
+        //           [
+        //             banner,
+        //             nameBox,
+        //             intro,
+        //             date,
+        //             count,
+        //             tabBar,
+        //           ],
+        //         ),
+        //       ),
+        //       SliverFillViewport(
+        //         delegate: SliverChildBuilderDelegate(
+        //           (context, index) {
+        //             return pageView;
+        //           },
+        //           childCount: 1,
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        //   onLoading: controller.onLoading,
+        //   onRefresh: controller.onRefresh,
+        //   header: const WaterDropMaterialHeader(
+        //     backgroundColor: AppColors.mainColor,
+        //   ),
+        //   isFooter: false,
+        // );
+        Widget body = NestedScrollView(
+          controller: controller.scrollController,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    banner,
+                    nameBox,
+                    intro,
+                    date,
+                    count,
+                    tabBar,
+                  ],
+                ),
+              ),
+            ];
+          },
+          body: pageView,
         );
 
         /// 页面

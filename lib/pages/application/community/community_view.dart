@@ -83,6 +83,7 @@ class CommunityView extends StatelessWidget {
               ContentListHotView(),
             ],
             onPageChanged: controller.handlePageChanged,
+            allowImplicitScrolling: true,
           );
 
           /// 页面

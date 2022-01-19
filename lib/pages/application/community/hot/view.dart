@@ -16,7 +16,7 @@ class ContentListHotView extends StatelessWidget {
     return GetBuilder<ContentListHotController>(
         init: ContentListHotController(),
         builder: (controller) {
-// loading时显示转圈圈
+          // loading时显示转圈圈
           Widget loading = Center(
               child: Column(children: [
             SizedBox(height: 40.h),

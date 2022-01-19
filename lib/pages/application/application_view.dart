@@ -96,6 +96,7 @@ class ApplicationView extends GetView<ApplicationController> {
       ],
       physics: const NeverScrollableScrollPhysics(),
       onPageChanged: controller.handlePageChanged,
+      allowImplicitScrolling: true,
     );
 
     // /// body

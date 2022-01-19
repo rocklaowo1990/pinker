@@ -10,15 +10,14 @@ import 'package:pinker/widgets/widgets.dart';
 
 /// appBar
 /// 普通的appBar
-AppBar getAppBar(
-  Widget title, {
-  Widget? leading,
-  List<Widget>? actions,
-  Color? backgroundColor,
-  Color? lineColor,
-  Widget? bottom,
-  double? bottomHeight,
-}) {
+AppBar getAppBar(Widget title,
+    {Widget? leading,
+    List<Widget>? actions,
+    Color? backgroundColor,
+    Color? lineColor,
+    Widget? bottom,
+    double? bottomHeight,
+    Widget? flexibleSpace}) {
   /// appBar 左侧的返回按钮
   Widget leadingDefault = getButton(
     child: SvgPicture.asset('assets/svg/icon_back.svg'),
@@ -33,6 +32,7 @@ AppBar getAppBar(
     backgroundColor: backgroundColor ?? Colors.transparent,
     foregroundColor: AppColors.mainText,
     elevation: 0.0,
+    flexibleSpace: flexibleSpace,
     bottom: bottom == null && lineColor == null
         ? null
         : PreferredSize(

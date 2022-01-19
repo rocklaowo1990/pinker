@@ -16,7 +16,7 @@ class ContentListFreeView extends StatelessWidget {
     return GetBuilder<ContentListFreeController>(
         init: ContentListFreeController(),
         builder: (controller) {
-// loading时显示转圈圈
+          // loading时显示转圈圈
           Widget loading = Center(
               child: Column(children: [
             SizedBox(height: 40.h),
@@ -62,15 +62,16 @@ class ContentListFreeView extends StatelessWidget {
                 : getRefresher(
                     controller: controller.refreshController,
                     child: ListView.builder(
-                        controller: controller.scrollController,
-                        itemCount: controller.applicationController.state
-                            .contentListFree.value.list.length,
-                        itemBuilder: (BuildContext buildContext, int index) {
-                          return getContentListView(
-                              controller
-                                  .applicationController.state.contentListFree,
-                              index);
-                        }),
+                      controller: controller.scrollController,
+                      itemCount: controller.applicationController.state
+                          .contentListFree.value.list.length,
+                      itemBuilder: (BuildContext buildContext, int index) {
+                        return getContentListView(
+                            controller
+                                .applicationController.state.contentListFree,
+                            index);
+                      },
+                    ),
                     onLoading: controller.onLoading,
                     onRefresh: controller.onRefresh,
                   ),
