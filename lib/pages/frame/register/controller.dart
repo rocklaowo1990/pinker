@@ -48,7 +48,7 @@ class RegisterController extends GetxController {
   /// 下一步按钮，点击事件
   void handleNext() async {
     focusNode.unfocus();
-    String number = '';
+    late String number;
 
     if (state.isPhone) {
       number = getLastTwo(textController.text);

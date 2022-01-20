@@ -92,6 +92,8 @@ class PersonalController extends GetxController
     ResponseEntity responseEntity = await UserApi.home(userId: arguments);
     if (responseEntity.code == 200) {
       state.intro.value = PersonalEntities.fromJson(responseEntity.data);
+    } else {
+      getSnackTop(responseEntity.msg);
     }
 
     scrollController.addListener(() {

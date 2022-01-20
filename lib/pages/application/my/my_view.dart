@@ -64,7 +64,7 @@ class MyView extends StatelessWidget {
                     () => Opacity(
                         opacity: controller.state.opacity,
                         child: getButton(
-                          onPressed: () {},
+                          onPressed: controller.handlePersonal,
                           width: 18.w,
                           height: 18.w,
                           child: getNetworkImageBox(
@@ -96,41 +96,46 @@ class MyView extends StatelessWidget {
           );
 
           /// 用户信息模块：点击去个人主页
-          Widget userInfo = Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Obx(() => getNetworkImageBox(
-                        controller
-                            .applicationController.state.userInfo.value.avatar,
-                        shape: BoxShape.circle,
-                        width: 30.w,
-                        height: 30.w,
-                      )),
-                  SizedBox(width: 6.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(() => getSpan(
+          Widget userInfo = getButton(
+            background: Colors.transparent,
+            overlayColor: Colors.transparent,
+            onPressed: controller.handlePersonal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Obx(() => getNetworkImageBox(
                           controller.applicationController.state.userInfo.value
-                              .nickName,
-                          fontSize: 17)),
-                      Obx(() => getSpan(
-                          '@${controller.applicationController.state.userInfo.value.userName}')),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  getSpan('个人主页'),
-                  SvgPicture.asset(
-                    'assets/svg/icon_right.svg',
-                  )
-                ],
-              ),
-            ],
+                              .avatar,
+                          shape: BoxShape.circle,
+                          width: 30.w,
+                          height: 30.w,
+                        )),
+                    SizedBox(width: 6.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Obx(() => getSpan(
+                            controller.applicationController.state.userInfo
+                                .value.nickName,
+                            fontSize: 17)),
+                        Obx(() => getSpan(
+                            '@${controller.applicationController.state.userInfo.value.userName}')),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    getSpan('个人主页'),
+                    SvgPicture.asset(
+                      'assets/svg/icon_right.svg',
+                    )
+                  ],
+                ),
+              ],
+            ),
           );
 
           /// 钱包模块的封装
@@ -323,8 +328,8 @@ class MyView extends StatelessWidget {
           /// body
           Widget bodyChild = getRefresher(
             controller: controller.refreshController,
+            scrollController: controller.scrollController,
             child: SingleChildScrollView(
-              controller: controller.scrollController,
               child: Container(
                 width: double.infinity,
                 decoration: const BoxDecoration(

@@ -24,15 +24,18 @@ class PasswordController extends GetxController {
     passwordFocusNode.unfocus();
     getDialog();
 
-    /// 准备注册请求数据
-    var data = arguments;
-    data['password'] = duMD5(passwordController.text);
-
     /// 交互：弹出loading窗口
     // passwordFocusNode.unfocus();
 
     /// 开始请求
-    ResponseEntity registerAccount = await AccountApi.registerAccount(data);
+    ResponseEntity registerAccount = await AccountApi.register(
+      account: arguments['account'],
+      accountType: arguments['accountType'],
+      birthday: arguments['birthday'],
+      code: arguments['code'],
+      password: duMD5(passwordController.text),
+      areaCode: arguments['areaCode'],
+    );
     await Future.delayed(const Duration(milliseconds: 200));
 
     if (registerAccount.code == 200) {

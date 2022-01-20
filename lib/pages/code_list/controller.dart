@@ -46,8 +46,8 @@ class CodeListController extends GetxController {
         if (value.isNotEmpty) {
           state.showList.clear();
           for (int i = 0; i < codeList.length; i++) {
-            if (isInclude(codeList[i]['area_code'], value) ||
-                isInclude(codeList[i]['op_name'], value) ||
+            if (isInclude(codeList[i]['areaCode'], value) ||
+                isInclude(codeList[i]['opName'], value) ||
                 isInclude(codeList[i]['country'], value.toUpperCase())) {
               state.showList.add(codeList[i]);
             }
@@ -65,7 +65,7 @@ class CodeListController extends GetxController {
 
   /// 列表选择事件
   void handleChooise(item) {
-    Get.back(result: item['area_code']);
+    Get.back(result: item['areaCode']);
   }
 
   @override

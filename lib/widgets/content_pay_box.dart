@@ -42,41 +42,22 @@ Widget getContentPayBox(
   final ApplicationController applicationController = Get.find();
 
   void _onPressed() async {
-    if (contentList.value.list[index].works.payPermission.type == 1) {
-      getSubscribeBox(
-          userId: contentList.value.list[index].author.userId,
-          userName: contentList.value.list[index].author.userName,
-          avatar: contentList.value.list[index].author.avatar,
-          reSault: () {
-            contentList.update((val) {
-              if (val != null) {
-                val.list[index].canSee = 1;
-              }
-            });
-            if (reSault != null) {
-              reSault();
-            }
-          });
-    } else if (contentList.value.list[index].works.payPermission.type == 2 ||
-        contentList.value.list[index].works.payPermission.type == 3 ||
-        contentList.value.list[index].works.payPermission.type == 4) {
-      getContentPaySheet(
-        userInfo: applicationController.state.userInfo,
-        contentList: contentList,
-        index: index,
-        reSault: () {
-          contentList.update((val) {
-            if (val != null) {
-              val.list[index].canSee = 1;
-            }
-          });
-
-          if (reSault != null) {
-            reSault();
+    getContentPaySheet(
+      userInfo: applicationController.state.userInfo,
+      contentList: contentList,
+      index: index,
+      reSault: () {
+        contentList.update((val) {
+          if (val != null) {
+            val.list[index].canSee = 1;
           }
-        },
-      );
-    }
+        });
+
+        if (reSault != null) {
+          reSault();
+        }
+      },
+    );
   }
 
   if (contentList.value.list[index].works.pics.isNotEmpty) {

@@ -74,15 +74,12 @@ class LoginController extends GetxController {
       return '3';
     }
 
-    /// 准备请求数据
-    Map<String, dynamic> data = {
-      'account': userCountController.text,
-      'password': duMD5(userPasswordController.text),
-      'accountType': _accoutnType(),
-    };
-
     /// 请求服务器...
-    ResponseEntity login = await AccountApi.login(data);
+    ResponseEntity login = await AccountApi.login(
+      account: userCountController.text,
+      password: duMD5(userPasswordController.text),
+      accountType: _accoutnType(),
+    );
 
     /// 返回数据处理
     if (login.code == 200) {

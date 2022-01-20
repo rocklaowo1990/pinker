@@ -39,6 +39,13 @@ class MyController extends GetxController {
     Get.toNamed(AppRoutes.set, arguments: applicationController);
   }
 
+  void handlePersonal() {
+    Get.toNamed(
+      AppRoutes.personal,
+      arguments: applicationController.state.userInfo.value.userId,
+    );
+  }
+
   @override
   void onReady() async {
     super.onReady();

@@ -6,6 +6,7 @@ export 'forgot_info.dart';
 export 'group_list.dart';
 export 'home_data.dart';
 export 'response.dart';
+export 'register.dart';
 export 'set_count_list.dart';
 export 'subscribe_info.dart';
 export 'user_info.dart';

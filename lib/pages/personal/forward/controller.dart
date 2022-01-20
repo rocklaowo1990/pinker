@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
+import 'package:pinker/pages/personal/forward/library.dart';
 
-import 'package:pinker/pages/personal/free/library.dart';
 import 'package:pinker/pages/personal/library.dart';
 
 import 'package:pinker/utils/utils.dart';
@@ -10,17 +10,17 @@ import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class PersonalFreeController extends GetxController {
+class PersonalForwardController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
   final PersonalController personalController = Get.find();
-  final state = PersonalFreeState();
+  final state = PersonalForwardState();
   int pageIndex = 1;
 
   void handleNoData() async {
     state.isLoading = true;
-    await _getPersonalContent(2, personalController.state.personalFree);
+    await _getPersonalContent(4, personalController.state.personalForward);
 
     state.isLoading = false;
   }
@@ -29,7 +29,7 @@ class PersonalFreeController extends GetxController {
     refreshController.resetNoData();
     pageIndex = 1;
     await futureMill(300);
-    await _getPersonalContent(2, personalController.state.personalFree);
+    await _getPersonalContent(4, personalController.state.personalForward);
 
     await futureMill(300);
 
@@ -38,23 +38,23 @@ class PersonalFreeController extends GetxController {
 
   void onLoading() async {
     await futureMill(300);
-    if (personalController.state.personalFree.value.totalSize >= 20) {
+    if (personalController.state.personalForward.value.totalSize >= 20) {
       pageIndex++;
 
       ResponseEntity responseEntity = await ContentApi.userHomeContentList(
         pageNo: pageIndex,
-        type: 2,
+        type: 4,
       );
 
       if (responseEntity.code == 200) {
         ContentListEntities contentList =
             ContentListEntities.fromJson(responseEntity.data);
 
-        personalController.state.personalFree.update((val) {
+        personalController.state.personalForward.update((val) {
           val!.list.addAll(contentList.list);
         });
 
-        personalController.state.personalFree.value.totalSize =
+        personalController.state.personalForward.value.totalSize =
             contentList.totalSize;
         refreshController.loadComplete();
       } else {
@@ -86,8 +86,8 @@ class PersonalFreeController extends GetxController {
   void onReady() async {
     super.onReady();
 
-    if (personalController.state.personalFree.value.list.isEmpty) {
-      await _getPersonalContent(2, personalController.state.personalFree);
+    if (personalController.state.personalForward.value.list.isEmpty) {
+      await _getPersonalContent(4, personalController.state.personalForward);
       state.isLoading = false;
     } else {
       state.isLoading = false;

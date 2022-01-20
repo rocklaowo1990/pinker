@@ -18,7 +18,7 @@ class CommentsViewController extends GetxController {
   final FocusNode focusNode = FocusNode();
   final TextEditingController textController = TextEditingController();
 
-  int pageIndex = 1;
+  int pageNo = 1;
   int? beUserId;
   int? cid;
 
@@ -81,14 +81,12 @@ class CommentsViewController extends GetxController {
     await futureMill(300);
 
     if (state.commentList.value.totalSize >= 20) {
-      pageIndex++;
-      Map<String, dynamic> data = {
-        'wid': contentList.value.list[index].wid,
-        'pageNo': pageIndex,
-        'pageSize': 20,
-      };
+      pageNo++;
 
-      ResponseEntity responseEntity = await ContentApi.commentsList(data);
+      ResponseEntity responseEntity = await ContentApi.commentsList(
+        wid: contentList.value.list[index].wid,
+        pageNo: pageNo,
+      );
 
       if (responseEntity.code == 200) {
         CommentsListEntities _commentList =
@@ -101,7 +99,7 @@ class CommentsViewController extends GetxController {
         state.commentList.value.totalSize = _commentList.totalSize;
         refreshController.loadComplete();
       } else {
-        pageIndex--;
+        pageNo--;
         refreshController.loadFailed();
         getSnackTop(responseEntity.msg);
       }
@@ -111,15 +109,12 @@ class CommentsViewController extends GetxController {
   }
 
   Future<void> _refresh(Rx<ContentListEntities> contentList, int index) async {
-    pageIndex = 1;
+    pageNo = 1;
 
-    Map<String, dynamic> data = {
-      'wid': contentList.value.list[index].wid,
-      'pageNo': pageIndex,
-      'pageSize': 20,
-    };
-
-    ResponseEntity responseEntity = await ContentApi.commentsList(data);
+    ResponseEntity responseEntity = await ContentApi.commentsList(
+      wid: contentList.value.list[index].wid,
+      pageNo: pageNo,
+    );
     if (responseEntity.code == 200) {
       CommentsListEntities commentList =
           CommentsListEntities.fromJson(responseEntity.data);

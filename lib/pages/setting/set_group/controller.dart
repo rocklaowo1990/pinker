@@ -21,7 +21,9 @@ class SetGroupController extends GetxController {
   }
 
   void response() async {
-    ResponseEntity responseEntity = await SubscribeGroupApi.list();
+    ResponseEntity responseEntity = await SubscribeGroupApi.list(
+      pageNo: 1,
+    );
     if (responseEntity.code == 200) {
       GroupListEntities groupListEntities =
           GroupListEntities.fromJson(responseEntity.data);

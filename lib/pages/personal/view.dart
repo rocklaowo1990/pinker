@@ -4,10 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pinker/api/api.dart';
+import 'package:pinker/entities/entities.dart';
+import 'package:pinker/entities/personal.dart';
 import 'package:pinker/pages/personal/all/view.dart';
+import 'package:pinker/pages/personal/forward/view.dart';
 import 'package:pinker/pages/personal/free/library.dart';
 
 import 'package:pinker/pages/personal/library.dart';
+import 'package:pinker/pages/personal/like/view.dart';
+import 'package:pinker/pages/personal/reply/view.dart';
 
 import 'package:pinker/values/colors.dart';
 
@@ -122,6 +128,92 @@ class PersonalView extends StatelessWidget {
           ],
         );
 
+        Widget otherButton = Row(
+          children: [
+            getButton(
+              child: getSpan('打赏'),
+              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
+            ),
+            SizedBox(width: 4.w),
+            getButton(
+              child: getSpan('私信'),
+              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
+            ),
+            SizedBox(width: 4.w),
+            Obx(
+              () => getButton(
+                child: getSpan(
+                  controller.state.intro.value.isSubscribe == 0 ? '订阅' : '已订阅',
+                ),
+                padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
+                onPressed: controller.state.intro.value.isSubscribe == 0
+                    ? () {
+                        getSubscribeBox(
+                          userId: controller.state.intro.value.userId,
+                          avatar: controller.state.intro.value.avatar,
+                          userName: controller.state.intro.value.userName,
+                          reSault: () async {
+                            ResponseEntity responseEntity = await UserApi.home(
+                                userId: controller.arguments);
+                            if (responseEntity.code == 200) {
+                              controller.state.intro.value =
+                                  PersonalEntities.fromJson(
+                                      responseEntity.data);
+                            } else {
+                              getSnackTop(responseEntity.msg);
+                            }
+
+                            Future<void> _getPersonalContent(
+                                int type, Rx<ContentListEntities> rx) async {
+                              ResponseEntity responseEntity =
+                                  await ContentApi.userHomeContentList(
+                                pageNo: 1,
+                                type: type,
+                                userId: controller.arguments,
+                              );
+
+                              if (responseEntity.code == 200) {
+                                rx.value = ContentListEntities.fromJson(
+                                    responseEntity.data);
+                                rx.update((val) {});
+                              } else {
+                                getSnackTop(responseEntity.msg);
+                              }
+                            }
+
+                            await _getPersonalContent(
+                                1, controller.state.personalAll);
+                            await _getPersonalContent(
+                                2, controller.state.personalFree);
+                            await _getPersonalContent(
+                                3, controller.state.personalReply);
+                            await _getPersonalContent(
+                                4, controller.state.personalForward);
+                            await _getPersonalContent(
+                                5, controller.state.personalLike);
+                          },
+                        );
+                      }
+                    : null,
+              ),
+            ),
+          ],
+        );
+
+        Widget myButton = Row(
+          children: [
+            getButton(
+              child: getSpan('打赏列表'),
+              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
+            ),
+            SizedBox(width: 4.w),
+            getButton(
+              child: getSpan('个人资料'),
+              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
+            ),
+          ],
+        );
+
         Widget nameBox = Padding(
           padding: EdgeInsets.fromLTRB(9.w, 4.h, 9.w, 8.h),
           child: Row(
@@ -146,15 +238,13 @@ class PersonalView extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  getButton(child: getSpan('打赏')),
-                  SizedBox(width: 3.w),
-                  getButton(child: getSpan('私信')),
-                  SizedBox(width: 3.w),
-                  getButton(child: getSpan('订阅')),
-                ],
-              )
+              Obx(
+                () => controller.state.intro.value.userId ==
+                        controller
+                            .applicationController.state.userInfo.value.userId
+                    ? myButton
+                    : otherButton,
+              ),
             ],
           ),
         );
@@ -275,6 +365,9 @@ class PersonalView extends StatelessWidget {
           children: [
             personalAllView(),
             personalFreeView(),
+            personalReplyView(),
+            personalForwardView(),
+            personalLikeView(),
           ],
 
           // physics: const NeverScrollableScrollPhysics(),

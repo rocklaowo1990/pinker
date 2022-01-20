@@ -31,7 +31,8 @@ Widget getCommentList(
           getNetworkImageBox(
             commentList.value.list[index].author.avatar,
             shape: BoxShape.circle,
-            width: 50,
+            width: 28.w,
+            height: 28.w,
           ),
           SizedBox(width: 9.w),
           Expanded(

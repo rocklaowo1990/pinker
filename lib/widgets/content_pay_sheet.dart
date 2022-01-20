@@ -36,16 +36,12 @@ Future<void> getContentPaySheet({
 
   if (responseEntity.code == 200) {
     subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
-
     for (int i = 0; i < subscribeInfo.groups.length; i++) {
       if (contentList.value.list[index].works.payPermission.groupId !=
           subscribeInfo.groups[i].groupId) {
         subscribeInfo.groups.remove(subscribeInfo.groups[i]);
-      } else {
-        amount.value = subscribeInfo.groups[i].amount;
       }
     }
-
     isLoading.value = false;
   } else {
     getSnackTop(responseEntity.msg);
@@ -55,102 +51,118 @@ Future<void> getContentPaySheet({
   Widget span =
       getSpan('${contentList.value.list[index].author.userName} 设置了查看权限您需要');
 
-  Widget _orAnd(int type) {
-    if (type == 1) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Obx(() => getContentPayChooiseBox(
-              title:
-                  subscribeInfo.subGroupList == null ? '订阅 TA 的' : '升级到 TA 的',
-              avatar: subscribeInfo.groups[0].groupPic,
-              groupName: subscribeInfo.groups[0].groupName,
-              timeLength: '(30天)',
-              amount: subscribeInfo.groups[0].amount,
-              isChooise: choose.value == 0 ? true : false,
-              onPressed: () {
-                amount.value = subscribeInfo.groups[0].amount;
-                choose.value = 0;
-                type = 1;
-              })),
-          SizedBox(width: 8.w),
-          Obx(() => getContentPayChooiseBox(
-              title: '单独购买',
-              groupName: '这条推文',
-              timeLength: '(永久)',
-              amount: contentList.value.list[index].works.payPermission.price!
-                  .toStringAsFixed(2),
-              isChooise: choose.value == 1 ? true : false,
-              onPressed: () {
-                amount.value = contentList
-                    .value.list[index].works.payPermission.price!
-                    .toStringAsFixed(2);
-                choose.value = 1;
-                type = 2;
-              })),
-        ],
-      );
-    } else {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          getContentPayChooiseBox(
+  Widget _orAnd(int _type) {
+    final _typeRx = 0.obs;
+    _typeRx.value = _type;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Obx(
+          () => getContentPayChooiseBox(
             title: subscribeInfo.subGroupList == null ? '订阅 TA 的' : '升级到 TA 的',
             avatar: subscribeInfo.groups[0].groupPic,
             groupName: subscribeInfo.groups[0].groupName,
             timeLength: '(30天)',
             amount: subscribeInfo.groups[0].amount,
-            isChooise: true,
+            isChooise: _typeRx.value == 1
+                ? true
+                : choose.value == 0
+                    ? true
+                    : false,
+            onPressed: _typeRx.value == 1
+                ? null
+                : () {
+                    amount.value = subscribeInfo.groups[0].amount;
+                    choose.value = 0;
+                    type = 1;
+                  },
           ),
-          SizedBox(width: 8.w),
-          getContentPayChooiseBox(
+        ),
+        SizedBox(width: 8.w),
+        Obx(
+          () => getContentPayChooiseBox(
             title: '单独购买',
             groupName: '这条推文',
             timeLength: '(永久)',
             amount: contentList.value.list[index].works.payPermission.price!
                 .toStringAsFixed(2),
-            isChooise: true,
+            isChooise: _typeRx.value == 1
+                ? true
+                : choose.value == 1
+                    ? true
+                    : false,
+            onPressed: _typeRx.value == 1
+                ? null
+                : () {
+                    amount.value = contentList
+                        .value.list[index].works.payPermission.price!
+                        .toStringAsFixed(2);
+                    choose.value = 1;
+                    type = 2;
+                  },
           ),
-        ],
-      );
-    }
+        ),
+      ],
+    );
   }
-
-  Widget only = Obx(() => getContentPayChooiseBox(
-      title: '单独购买',
-      groupName: '这条推文',
-      timeLength: '(永久)',
-      amount: contentList.value.list[index].works.payPermission.price!
-          .toStringAsFixed(2),
-      isChooise: true,
-      onPressed: () {
-        amount.value = contentList.value.list[index].works.payPermission.price!
-            .toStringAsFixed(2);
-        choose.value = 1;
-      }));
 
   /// 分组
   Widget _payBody() {
     late Widget body;
     if (contentList.value.list[index].works.payPermission.type == 2) {
       amount.value = subscribeInfo.groups[0].amount;
-
-      body = _orAnd(1);
+      body = _orAnd(0);
     } else if (contentList.value.list[index].works.payPermission.type == 3) {
       if (subscribeInfo.groups.isEmpty) {
-        body = only;
         amount.value = contentList.value.list[index].works.payPermission.price!
             .toStringAsFixed(2);
+        body = getContentPayChooiseBox(
+          title: '单独购买',
+          groupName: '这条推文',
+          timeLength: '(永久)',
+          amount: contentList.value.list[index].works.payPermission.price!
+              .toStringAsFixed(2),
+          isChooise: true,
+          onPressed: () {
+            amount.value = contentList
+                .value.list[index].works.payPermission.price!
+                .toStringAsFixed(2);
+            choose.value = 1;
+          },
+        );
       } else {
         var _amount = contentList.value.list[index].works.payPermission.price! +
             double.parse(subscribeInfo.groups[0].amount);
         amount.value = _amount.toStringAsFixed(2);
-        body = _orAnd(2);
+        body = _orAnd(1);
       }
+    } else if (contentList.value.list[index].works.payPermission.type == 1) {
+      amount.value = subscribeInfo.groups[0].amount;
+      body = getContentPayChooiseBox(
+        title: subscribeInfo.subGroupList == null ? '订阅 TA 的' : '升级到 TA 的',
+        avatar: subscribeInfo.groups[0].groupPic,
+        groupName: subscribeInfo.groups[0].groupName,
+        timeLength: '(30天)',
+        amount: subscribeInfo.groups[0].amount,
+        isChooise: true,
+      );
     } else {
       amount.value = contentList.value.list[index].works.payPermission.price!
           .toStringAsFixed(2);
-      body = only;
+      body = getContentPayChooiseBox(
+        title: '单独购买',
+        groupName: '这条推文',
+        timeLength: '(永久)',
+        amount: contentList.value.list[index].works.payPermission.price!
+            .toStringAsFixed(2),
+        isChooise: true,
+        onPressed: () {
+          amount.value = contentList
+              .value.list[index].works.payPermission.price!
+              .toStringAsFixed(2);
+          choose.value = 1;
+        },
+      );
     }
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 4.h, 0, 4.h),
@@ -194,19 +206,22 @@ Future<void> getContentPaySheet({
               );
               if (payment.code == 200) {
                 await getUserInfo();
-                await futureMill(500);
+
                 Get.back();
 
                 reSault();
+
                 getSnackTop('购买成功', isError: false);
 
                 if (type == 1 ||
                     contentList.value.list[index].works.payPermission.type ==
-                        3) {
-                  await onRefreshContentList(
+                        3 ||
+                    contentList.value.list[index].works.payPermission.type ==
+                        1) {
+                  onRefreshContentList(
                       userId: contentList.value.list[index].author.userId);
                 } else {
-                  await getContentOnly(
+                  getContentOnly(
                     wid: contentList.value.list[index].wid,
                   );
                 }

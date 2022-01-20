@@ -5,13 +5,20 @@ import 'package:pinker/utils/utils.dart';
 
 class SubscribeGroupApi {
   /// 分组列表 /////////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> list({Map<String, dynamic>? data}) async {
+  static Future<ResponseEntity> list({
+    required int pageNo,
+    int? userId,
+  }) async {
     var response = await HttpUtil().get(
       '/api/subscribeGroup/list',
       options: Options(headers: {
         'token': Global.token,
       }),
-      queryParameters: data,
+      queryParameters: {
+        'pageNo': pageNo,
+        'pageSize': 20,
+        'userId': userId,
+      },
     );
     return ResponseEntity.fromJson(response);
   }

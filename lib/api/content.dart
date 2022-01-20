@@ -87,10 +87,17 @@ class ContentApi {
   /// 'pageNo':1
   ///
   /// 'pageSize':1
-  static Future commentsList(data) async {
+  static Future commentsList({
+    required int wid,
+    required int pageNo,
+  }) async {
     var response = await HttpUtil().get(
       '/api/content/commentsList',
-      queryParameters: data,
+      queryParameters: {
+        'wid': wid,
+        'pageNo': pageNo,
+        'pageSize': 20,
+      },
       options: Options(headers: {
         'token': Global.token,
       }),

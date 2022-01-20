@@ -69,11 +69,11 @@ class CodeListView extends GetView<CodeListController> {
                                   controller.handleChooise(item);
                                 },
                                 title: Get.locale == const Locale('zh', 'CN')
-                                    ? '+${item['area_code']}      ${item['op_name']}'
-                                    : '+${item['area_code']}      ${item['country']}',
+                                    ? '+${item['areaCode']}      ${item['opName']}'
+                                    : '+${item['areaCode']}      ${item['country']}',
                                 iconRight: Icon(Icons.check_circle,
                                     size: 9.w,
-                                    color: '${item['area_code']}' ==
+                                    color: '${item['areaCode']}' ==
                                             controller.arguments
                                         ? AppColors.mainColor
                                         : AppColors.thirdIcon)))

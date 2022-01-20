@@ -104,7 +104,7 @@ class HomeView extends StatelessWidget {
               getButton(
                 child: getSpan('寻找值得订阅的用户'),
                 height: 26.h,
-                width: 70.w,
+                padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
                 onPressed: controller.handleRemmondMore,
               )
             ],

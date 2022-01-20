@@ -5,10 +5,20 @@ import 'package:pinker/utils/utils.dart';
 
 class AccountApi {
   /// 登陆API ///////////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> login(data) async {
+  static Future<ResponseEntity> login({
+    required String account,
+    required String password,
+    required String accountType,
+    int? pushId,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/account/login',
-      data: data,
+      data: {
+        'account': account,
+        'password': password,
+        'accountType': accountType,
+        'pushId': pushId,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
@@ -34,10 +44,28 @@ class AccountApi {
   }
 
   /// 注册账号 //////////////////////////////////////////////////////////////////
-  static Future<ResponseEntity> registerAccount(data) async {
+  static Future<ResponseEntity> register({
+    required String account,
+    required int accountType,
+    required int birthday,
+    required String code,
+    required String password,
+    String? inviteCode,
+    required String areaCode,
+    int? pushId,
+  }) async {
     var response = await HttpUtil().postForm(
       '/api/account/register',
-      data: data,
+      data: {
+        'account': account,
+        'accountType': accountType,
+        'birthday': birthday,
+        'code': code,
+        'password': password,
+        'inviteCode': inviteCode,
+        'areaCode': areaCode,
+        'pushId': pushId,
+      },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       }),

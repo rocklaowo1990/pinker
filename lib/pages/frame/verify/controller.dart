@@ -79,11 +79,4 @@ class VerifyController extends GetxController {
     super.onReady();
     sendCode();
   }
-
-  @override
-  void dispose() {
-    frameController.dispose();
-
-    super.dispose();
-  }
 }
