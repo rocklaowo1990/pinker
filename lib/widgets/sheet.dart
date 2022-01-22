@@ -22,7 +22,7 @@ Future getImage(VoidCallback handleCamera, VoidCallback handleGallery) async {
         ),
         Container(
           color: AppColors.mainBacground,
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(40.w),
           child: Column(
             children: [
               _button(1, handleCamera),
@@ -39,8 +39,9 @@ Future getImage(VoidCallback handleCamera, VoidCallback handleGallery) async {
 Widget _button(int index, VoidCallback onPressed) {
   return getButton(
     child: getSpan(index == 1 ? '拍照' : '从相册里选取'),
-    width: double.infinity,
-    padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
+    width: Get.width,
+    // padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
+    height: 40.h,
     background: index == 1 ? AppColors.mainColor : AppColors.secondBacground,
     onPressed: onPressed,
   );

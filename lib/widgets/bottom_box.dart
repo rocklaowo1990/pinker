@@ -12,27 +12,27 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getBottomBox({
   Widget? leftWidget,
   Widget? rightWidget,
+  String? rightText,
+  void Function()? onPressed,
 }) {
   /// 左侧初始化
-  Widget left = SizedBox(
-    width: 10.w,
-    height: 10.h,
-  );
+  Widget left = const SizedBox();
 
   /// 右侧按钮初始化
   Widget right = getButton(
     child: getSpan(
-      Lang.sure.tr,
+      rightText ?? Lang.sure.tr,
       color: AppColors.mainText,
     ),
-    padding: EdgeInsets.only(left: 12.w, right: 12.w),
+    padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 8.h),
+    onPressed: onPressed,
   );
 
   /// 底部 bottom 布局
   return Container(
-    padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 2.5.w, bottom: 2.5.w),
+    padding: EdgeInsets.fromLTRB(10.w, 5.w, 10.w, 5.w),
     width: double.infinity,
-    height: 25.h,
+    height: 40.h,
     color: AppColors.secondBacground,
     child: Row(
       children: [

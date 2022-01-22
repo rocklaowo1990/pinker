@@ -22,10 +22,9 @@ Future getDateBox({
     //   '未年满18周岁禁止注册和使用本产品',
     //   color: AppColors.secondText,
     // ),
-    rightWidget: getButton(
+    rightWidget: getButtonSheet(
       child: getSpan(Lang.sure.tr),
       onPressed: onPressed,
-      padding: EdgeInsets.only(left: 15.w, right: 15.w),
     ),
   );
 
@@ -44,7 +43,7 @@ Future getDateBox({
 
   /// 组合
   var body = SizedBox(
-    height: 160.h,
+    height: 260.h,
     child: Column(
       children: [
         title,
@@ -56,7 +55,7 @@ Future getDateBox({
   /// 返回
   Get.bottomSheet(
     body,
-    backgroundColor: AppColors.dateBox,
+    backgroundColor: AppColors.mainText,
     // isDismissible: false, 用户点击空白区域是否可以返回
   );
 }

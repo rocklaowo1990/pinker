@@ -16,13 +16,9 @@ class SubscriptionView extends GetView<SubscriptionController> {
     /// 标题部分组合
     Widget top = Column(
       children: [
-        getSpan('推荐订阅', fontSize: 26),
-        SizedBox(height: 8.h),
-        getSpan(
-          '当你关注某人后，你会在自己的主页看到他们的推文',
-          color: AppColors.secondText,
-          textAlign: TextAlign.center,
-        ),
+        getTitle('推荐订阅'),
+        SizedBox(height: 20.h),
+        getSpanSecond('当你关注某人后，你会在自己的主页看到他们的推文'),
       ],
     );
 
@@ -43,9 +39,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
 
     /// 底部
     Widget bottom = getBottomBox(
-      rightWidget: getButton(
-        width: 40.w,
-        height: 18.h,
+      rightWidget: getButtonSheet(
         child: getSpan(Lang.next.tr),
         onPressed: controller.handleNext,
       ),
@@ -57,9 +51,9 @@ class SubscriptionView extends GetView<SubscriptionController> {
         Expanded(
           child: ListView(
             children: [
-              SizedBox(height: 8.h),
+              SizedBox(height: 10.h),
               top,
-              SizedBox(height: 16.h),
+              SizedBox(height: 20.h),
               middle,
             ],
           ),

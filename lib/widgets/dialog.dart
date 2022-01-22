@@ -41,20 +41,20 @@ class DialogChild {
   }) {
     return Center(
       child: Container(
-        width: width ?? 40.w,
-        height: height ?? 40.w,
+        width: width ?? 80.w,
+        height: height ?? 80.w,
         decoration: BoxDecoration(
           color: AppColors.secondBacground,
           borderRadius: BorderRadius.circular(8.w),
         ),
         child: Center(
           child: SizedBox(
-            width: 9.w,
-            height: 9.w,
+            width: 16.w,
+            height: 16.w,
             child: CircularProgressIndicator(
               backgroundColor: AppColors.mainIcon,
               color: AppColors.mainColor,
-              strokeWidth: 1.w,
+              strokeWidth: 1.5.w,
             ),
           ),
         ),
@@ -77,7 +77,7 @@ class DialogChild {
       children: [
         Expanded(
           child: getButton(
-            height: 22.w,
+            height: 40.h,
             child: Text(leftText ?? Lang.edit.tr),
             width: double.infinity,
             background: Colors.transparent,
@@ -96,13 +96,13 @@ class DialogChild {
         if (onPressedRight != null)
           Container(
             width: 0.5.w,
-            height: 22.w,
+            height: 40.h,
             color: AppColors.line,
           ),
         if (onPressedRight != null)
           Expanded(
             child: getButton(
-              height: 22.w,
+              height: 40.h,
               child: Text(rightText ?? Lang.sure.tr),
               width: double.infinity,
               background: Colors.transparent,
@@ -119,8 +119,8 @@ class DialogChild {
     /// 内容区
     Widget contentBox = Column(
       children: [
-        getSpan(title, fontSize: 17),
-        SizedBox(height: 8.h),
+        getSpanTitle(title ?? ''),
+        SizedBox(height: 20.h),
         contentWidget ??
             getSpan(
               content,
@@ -142,10 +142,10 @@ class DialogChild {
         children: [
           Padding(
             padding: EdgeInsets.only(
-              left: 10.w,
-              right: 10.w,
-              top: 15.w,
-              bottom: 15.w,
+              left: 24.w,
+              right: 24.w,
+              top: 24.h,
+              bottom: 24.h,
             ),
             child: contentBox,
           ),
@@ -174,15 +174,16 @@ class DialogChild {
               Get.back();
             }),
         Padding(
-            padding: EdgeInsets.all(32.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(),
-                body,
-                const SizedBox(),
-              ],
-            ))
+          padding: EdgeInsets.all(64.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(),
+              body,
+              const SizedBox(),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -208,32 +209,36 @@ class DialogChild {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           SizedBox(
-            width: 187.5.w,
-            height: 406.h,
+            width: double.infinity,
+            height: double.infinity,
             child: _buildCropImage(),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 20.h),
+            padding: EdgeInsets.all(20.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                getButton(
-                    width: 40.w,
-                    height: 18.h,
-                    child: getSpan(Lang.cancel.tr),
-                    onPressed: () {
-                      Get.back();
-                    },
-                    background: AppColors.secondBacground),
-                SizedBox(width: 10.w),
-                getButton(
-                  width: 40.w,
-                  height: 18.h,
-                  child: getSpan(Lang.sure.tr),
-                  onPressed: onPressed ??
-                      () {
+                Expanded(
+                  child: getButton(
+                      width: Get.width,
+                      height: 40.h,
+                      child: getSpan(Lang.cancel.tr),
+                      onPressed: () {
                         Get.back();
                       },
+                      background: AppColors.secondBacground),
+                ),
+                SizedBox(width: 10.w),
+                Expanded(
+                  child: getButton(
+                    width: Get.width,
+                    height: 40.h,
+                    child: getSpan(Lang.sure.tr),
+                    onPressed: onPressed ??
+                        () {
+                          Get.back();
+                        },
+                  ),
                 ),
               ],
             ),

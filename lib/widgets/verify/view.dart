@@ -16,11 +16,7 @@ Widget getVerifyView({
     init: WidgetsVerifyController(),
     builder: (controller) {
       /// 标题
-      Widget title = getSpan(
-        Lang.codeTile.tr,
-        fontSize: 26,
-        textAlign: TextAlign.center,
-      );
+      Widget title = getTitle(Lang.codeTile.tr);
 
       /// 副标题
       Widget secndTitle = getSpan(
@@ -47,15 +43,15 @@ Widget getVerifyView({
 
       Widget _codeChild(int index) {
         return Container(
-          width: 20.w,
-          height: 20.w,
+          width: 40.w,
+          height: 40.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(2.w)),
             border: Border.all(
               color: controller.state.codeList.length >= index
                   ? AppColors.mainColor
                   : AppColors.thirdIcon,
-              width: 0.8.w,
+              width: 1.w,
             ),
           ),
           child: Center(
@@ -66,13 +62,13 @@ Widget getVerifyView({
                     alwaysIncludeSemantics: true,
                     onEnd: controller.handleOnEnd,
                     child: Container(
-                        width: 1.w, height: 10.w, color: AppColors.mainColor),
+                        width: 1.5.w, height: 16.h, color: AppColors.mainColor),
                   )
                 : controller.state.codeList.length < index
                     ? null
                     : getSpan(
                         controller.state.codeList[index],
-                        fontSize: 26,
+                        fontSize: 20.sp,
                         color: AppColors.mainColor,
                       ),
           ),
@@ -100,11 +96,8 @@ Widget getVerifyView({
       /// 重新发送验证码
       Widget resendButton = Obx(() => getButton(
             child: time.value <= 0
-                ? getSpan(Lang.codeResend.tr, color: AppColors.mainColor)
-                : getSpan(
-                    '${Lang.codeResend.tr} ( ${time.value} )',
-                    color: AppColors.secondText,
-                  ),
+                ? getSpanMain(Lang.codeResend.tr)
+                : getSpanSecond('${Lang.codeResend.tr} ( ${time.value} )'),
             padding: EdgeInsets.only(left: 10.w, right: 10.w),
             background: Colors.transparent,
             onPressed: time.value <= 0 ? resendCode : null,
@@ -120,11 +113,11 @@ Widget getVerifyView({
                 child: Column(
                   children: [
                     title,
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 20.h),
                     secndTitle,
                     SizedBox(height: 32.h),
                     codeShow,
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 32.h),
                     resendButton,
                   ],
                 ),

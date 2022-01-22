@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     /// 填入设计稿中设备的屏幕尺寸,单位dp
     return ScreenUtilInit(
-      designSize: const Size(187.5, 406),
+      designSize: Size(Get.width, Get.height),
       builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
 

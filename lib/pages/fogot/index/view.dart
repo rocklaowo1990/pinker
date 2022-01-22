@@ -12,7 +12,7 @@ class ForgotIndexView extends GetView<ForgotIndexController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan('找到您的账号', fontSize: 26);
+    Widget title = getTitle('找到您的账号');
 
     /// 账号输入框
     Widget userCount = getInput(
@@ -25,8 +25,7 @@ class ForgotIndexView extends GetView<ForgotIndexController> {
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.next.tr),
           onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
@@ -41,11 +40,11 @@ class ForgotIndexView extends GetView<ForgotIndexController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: EdgeInsets.all(20.w),
           child: Column(
             children: [
               title,
-              SizedBox(height: 16.w),
+              SizedBox(height: 20.h),
               userCount,
             ],
           ),

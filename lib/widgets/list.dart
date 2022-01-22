@@ -15,12 +15,13 @@ Widget getButtonList({
   VoidCallback? onPressed,
   double? height,
   EdgeInsetsGeometry? padding,
+  BorderSide? borderSide,
 }) {
   /// 左边初始化
   Widget left = Row(
     children: [
       icon ?? const SizedBox(),
-      SizedBox(width: 8.w),
+      SizedBox(width: 16.w),
       getSpan(title),
     ],
   );
@@ -29,10 +30,10 @@ Widget getButtonList({
   Widget right = Row(
     children: [
       secondTitle ?? const SizedBox(),
-      SizedBox(width: 4.w),
+      SizedBox(width: 10.w),
       SvgPicture.asset(
         'assets/svg/icon_right.svg',
-        height: 7.h,
+        width: 12.w,
         color: AppColors.secondIcon,
       ),
     ],
@@ -45,7 +46,10 @@ Widget getButtonList({
 
   /// 右边没有传入文字的时候
   if (secondTitle == null) {
-    right = SvgPicture.asset('assets/svg/icon_right.svg', height: 10.h);
+    right = SvgPicture.asset(
+      'assets/svg/icon_right.svg',
+      width: 12.w,
+    );
   }
 
   /// 右侧图标如果有传入新的 widge
@@ -74,8 +78,9 @@ Widget getButtonList({
     borderRadius: BorderRadius.zero,
     background: AppColors.secondBacground,
     height: height,
-    padding: padding ?? EdgeInsets.all(9.w),
+    padding: padding ?? EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 16.w),
     onPressed: onPressed,
+    borderSide: borderSide,
   );
 }
 
@@ -91,8 +96,8 @@ Widget getUserAvatar(
 }) {
   /// 头像
   Widget avatarBox = Container(
-    width: 26.w,
-    height: 26.w,
+    width: 50.w,
+    height: 50.w,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
@@ -101,7 +106,7 @@ Widget getUserAvatar(
       child: avatar.isEmpty || isInclude(avatar, 'user_default_head.png')
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
-              width: 32.w,
+              width: 50.w,
             )
           : getNetworkImageBox(avatar, shape: BoxShape.circle),
     ),
@@ -112,8 +117,8 @@ Widget getUserAvatar(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      getSpan(nickName, color: AppColors.mainText),
-      SizedBox(height: 2.h),
+      getSpan(nickName),
+      SizedBox(height: 5.h),
       SizedBox(
         width: double.infinity,
         child: getSpan(
@@ -131,10 +136,11 @@ Widget getUserAvatar(
     onPressed: onPressed,
     overlayColor: Colors.transparent,
     background: Colors.transparent,
+    // padding: EdgeInsets.fromLTRB(0.w, 10.h, 0.w, 10.h),
     child: Row(
       children: [
         avatarBox,
-        SizedBox(width: 8.w),
+        SizedBox(width: 16.w),
         Expanded(child: userNameBox),
       ],
     ),
@@ -164,13 +170,9 @@ Widget getUserList(
   );
 
   /// 按钮
-  Widget buttonBox = getButton(
+  Widget buttonBox = getButtonSheetOutline(
     child: getSpan(buttonText ?? '订阅'),
     onPressed: buttonPressed,
-    width: 40.w,
-    height: 16.w,
-    borderSide: BorderSide(width: 0.5.w, color: AppColors.mainColor),
-    background: Colors.transparent,
   );
 
   Widget body = Row(children: [
@@ -181,7 +183,7 @@ Widget getUserList(
   ///
   return Container(
     width: double.infinity,
-    padding: padding ?? EdgeInsets.all(8.w),
+    padding: padding ?? EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 20.h),
     decoration: BoxDecoration(
       color: color,
       border: border ??

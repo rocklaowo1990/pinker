@@ -16,13 +16,9 @@ class AvatarView extends GetView<AvatarController> {
     /// 标题部分组合
     Widget top = Column(
       children: [
-        getSpan('挑选一个个人的资料图片', fontSize: 26),
-        SizedBox(height: 8.h),
-        getSpan(
-          '有最爱的自拍？赶紧上传吧',
-          color: AppColors.secondText,
-          textAlign: TextAlign.center,
-        ),
+        getTitle('挑选一个个人的资料图片'),
+        SizedBox(height: 20.h),
+        getSpanSecond('有最爱的自拍？赶紧上传吧'),
       ],
     );
 
@@ -31,8 +27,8 @@ class AvatarView extends GetView<AvatarController> {
       alignment: AlignmentDirectional.bottomEnd,
       children: [
         Container(
-          width: 80.w,
-          height: 80.w,
+          width: 128.w,
+          height: 128.w,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.secondBacground,
@@ -42,10 +38,10 @@ class AvatarView extends GetView<AvatarController> {
               () => controller.state.image == 0
                   ? SvgPicture.asset(
                       'assets/svg/avatar_default.svg',
-                      width: 80.w,
+                      width: 128.w,
                     )
                   : CircleAvatar(
-                      radius: 80.w,
+                      radius: 128.w,
                       backgroundImage: FileImage(controller.avatarFile),
                     ),
             ),
@@ -56,8 +52,8 @@ class AvatarView extends GetView<AvatarController> {
           background: Colors.transparent,
           overlayColor: Colors.transparent,
           child: Container(
-            width: 24.w,
-            height: 24.w,
+            width: 40.w,
+            height: 40.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(width: 1.w, color: AppColors.mainColor),
@@ -66,7 +62,7 @@ class AvatarView extends GetView<AvatarController> {
             child: Center(
               child: Icon(
                 Icons.photo_camera,
-                size: 12.w,
+                size: 16.w,
                 color: AppColors.mainColor,
               ),
             ),
@@ -78,10 +74,8 @@ class AvatarView extends GetView<AvatarController> {
     Widget bottom = Column(
       children: [
         Obx(
-          () => getButton(
-            padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
+          () => getButtonMain(
             child: getSpan(Lang.next.tr),
-            width: double.infinity,
             background: controller.state.image <= 0
                 ? AppColors.buttonDisable
                 : AppColors.mainColor,
@@ -89,11 +83,11 @@ class AvatarView extends GetView<AvatarController> {
                 controller.state.image <= 0 ? null : controller.handleNext,
           ),
         ),
-        SizedBox(height: 4.h),
+        SizedBox(height: 10.h),
         getButton(
-          padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
-          child: getSpan('暂时跳过', color: AppColors.mainColor),
-          width: double.infinity,
+          height: 40.h,
+          child: getSpanMain('暂时跳过'),
+          width: Get.width,
           background: Colors.transparent,
           onPressed: controller.handleNotNow,
         ),
@@ -101,20 +95,15 @@ class AvatarView extends GetView<AvatarController> {
     );
 
     /// body布局
-    Widget body = SingleChildScrollView(
-      child: SizedBox(
-        height: 406.h - 40.h,
-        child: Padding(
-          padding: EdgeInsets.all(20.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              top,
-              middle,
-              bottom,
-            ],
-          ),
-        ),
+    Widget body = Padding(
+      padding: EdgeInsets.all(40.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          top,
+          middle,
+          bottom,
+        ],
       ),
     );
 

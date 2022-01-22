@@ -102,38 +102,40 @@ Widget getInput({
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-          prefixIcon: prefixIcon,
-          suffixIcon: textObs.value.isEmpty
-              ? null
-              : getButton(
-                  child: Icon(
-                    suffixIcon.value,
-                    color: AppColors.inputHint,
-                    size: 9.sp,
-                  ),
-                  onPressed: onPressed,
-                  background: AppColors.inputFiled,
-                  width: 26.w,
+        prefixIcon: prefixIcon,
+        suffixIcon: textObs.value.isEmpty
+            ? null
+            : getButton(
+                child: Icon(
+                  suffixIcon.value,
+                  color: AppColors.inputHint,
+                  size: 16.sp,
                 ),
-          contentPadding: contentPadding ??
-              EdgeInsets.only(
-                left: 10.w,
+                onPressed: onPressed,
+                background: AppColors.inputFiled,
+                width: 20.w,
+                height: 20.w,
               ),
-          filled: true,
-          fillColor: AppColors.inputFiled,
-          border: OutlineInputBorder(
-            borderRadius: borderRadius ??
-                BorderRadius.all(
-                  Radius.circular(187.5.w),
-                ),
-            borderSide: BorderSide.none,
-          ),
-          hintText: type,
-          hintStyle: const TextStyle(
-            color: AppColors.secondText,
-            fontSize: 15,
-          )),
-      style: const TextStyle(color: AppColors.mainText, fontSize: 15),
+        contentPadding: contentPadding ??
+            EdgeInsets.only(
+              left: 20.w,
+            ),
+        filled: true,
+        fillColor: AppColors.inputFiled,
+        border: OutlineInputBorder(
+          borderRadius: borderRadius ??
+              BorderRadius.all(
+                Radius.circular(Get.width),
+              ),
+          borderSide: BorderSide.none,
+        ),
+        hintText: type,
+        hintStyle: TextStyle(
+          color: AppColors.secondText,
+          fontSize: 14.sp,
+        ),
+      ),
+      style: TextStyle(color: AppColors.mainText, fontSize: 14.sp),
       obscureText: isPassword.value,
       onChanged: onChanged,
     );
@@ -144,20 +146,22 @@ Widget getInput({
       child: textField,
     ),
     width: width,
-    height: height,
+    height: height ?? 40.h,
   );
 }
 
 Widget getSearchInput(
   TextEditingController controller,
-  FocusNode focusNode,
-) {
+  FocusNode focusNode, {
+  BorderRadius? borderRadius,
+}) {
   return getInput(
     height: 40,
-    contentPadding: EdgeInsets.only(left: 8.w),
+    contentPadding: EdgeInsets.only(left: 20.w),
     type: Lang.inputSearch.tr,
     controller: controller,
     focusNode: focusNode,
+    borderRadius: borderRadius,
     prefixIcon: SizedBox(
       width: 10.h,
       height: 10.h,

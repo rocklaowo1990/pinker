@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,7 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(Lang.registerTitle.tr, fontSize: 26);
+    Widget title = getTitle(Lang.registerTitle.tr);
 
     /// 账号输入框
     Widget userRegister = Obx(() => getInput(
@@ -25,13 +24,10 @@ class RegisterView extends GetView<RegisterController> {
           focusNode: controller.focusNode,
           prefixIcon: controller.state.isPhone
               ? getButton(
-                  child: getSpan(
-                    '+${controller.state.code}',
-                    color: AppColors.mainColor,
-                  ),
+                  child: getSpanMain('+${controller.state.code}'),
                   background: Colors.transparent,
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 10.w, right: 5.w),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
                   onPressed: controller.handleGoCodeList,
                 )
               : null,
@@ -40,74 +36,90 @@ class RegisterView extends GetView<RegisterController> {
     /// 生日输入框
     Widget userBirth = Obx(
       () => getButton(
-        padding: EdgeInsets.only(left: 10.w, top: 8.h, bottom: 8.h),
+        height: 40.h,
+        padding: EdgeInsets.only(left: 20.w),
         onPressed: controller.birthChoice,
         child: getSpan(
             '${controller.state.showTime.year}-${controller.state.showTime.month}-${controller.state.showTime.day}'),
         alignment: Alignment.centerLeft,
         background: AppColors.inputFiled,
-        width: double.infinity,
+        width: Get.width,
       ),
     );
 
-    /// 单选按钮默认状态
-    Widget dialogDefault = Icon(
-      Icons.check_circle,
-      size: 8.w,
-      color: AppColors.mainColor,
-    );
+    // // 服务条款 和 隐私政策富文本
+    // Widget richText = RichText(
+    //   text: TextSpan(
+    //     text: Lang.registerAgreen_1.tr,
+    //     style: secondStyle,
+    //     children: [
+    //       TextSpan(
+    //         text: Lang.registerService.tr,
+    //         style: mainStyle,
+    //         recognizer: TapGestureRecognizer()
+    //           ..onTap = controller.handleGoService,
+    //       ),
+    //       TextSpan(text: Lang.registerAgreen_2.tr, style: secondStyle),
+    //       TextSpan(
+    //         text: Lang.registerPrivacy.tr,
+    //         style: mainStyle,
+    //         recognizer: TapGestureRecognizer()
+    //           ..onTap = controller.handleGoPrivacy,
+    //       ),
+    //     ],
+    //   ),
+    // );
 
-    /// 单选按钮选中状态
-    Widget dialogChooise = Container(
-      width: 8.w,
-      height: 8.w,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          width: 0.8.w,
-          color: AppColors.thirdIcon,
-        ),
-      ),
-    );
+    // /// 同意服务条款
+    // Widget agreen = getButton(
+    //   overlayColor: Colors.transparent,
+    //   onPressed: controller.handleAgreen,
+    //   width: double.infinity,
+    //   alignment: Alignment.centerLeft,
+    //   background: Colors.transparent,
+    //   child: Row(
+    //     children: [
+    //       Obx(() => getCheckIcon(isChooise: controller.state.isChooise)),
+    //       SizedBox(width: 8.w),
+    //       getButton(
+    //           child: richText,
+    //           height: 20.h,
+    //           onPressed: () {
+    //             print('object');
+    //           })
+    //     ],
+    //   ),
+    // );
 
-    /// 服务条款 和 隐私政策富文本
-    Widget richText = RichText(
-      text: TextSpan(
-        text: Lang.registerAgreen_1.tr,
-        style: const TextStyle(color: AppColors.secondText, fontSize: 15),
-        children: [
-          TextSpan(
-            text: Lang.registerService.tr,
-            style: const TextStyle(color: AppColors.mainColor, fontSize: 15),
-            recognizer: TapGestureRecognizer()
-              ..onTap = controller.handleGoService,
-          ),
-          TextSpan(
-            text: Lang.registerAgreen_2.tr,
-            style: const TextStyle(color: AppColors.secondText, fontSize: 15),
-          ),
-          TextSpan(
-            text: Lang.registerPrivacy.tr,
-            style: const TextStyle(color: AppColors.mainColor, fontSize: 15),
-            recognizer: TapGestureRecognizer()
-              ..onTap = controller.handleGoPrivacy,
-          ),
-        ],
-      ),
-    );
-
-    /// 同意服务条款
-    Widget agreen = getButton(
-      overlayColor: Colors.transparent,
-      onPressed: controller.handleAgreen,
+    Widget agreen = SizedBox(
       width: double.infinity,
-      alignment: Alignment.centerLeft,
-      background: Colors.transparent,
-      child: Row(
+      child: Wrap(
+        runSpacing: 8.h,
         children: [
-          Obx(() => controller.state.isChooise ? dialogDefault : dialogChooise),
-          SizedBox(width: 4.w),
-          Expanded(child: richText, flex: 1),
+          getButtonTransparent(
+            child:
+                Obx(() => getCheckIcon(isChooise: controller.state.isChooise)),
+            onPressed: controller.handleAgreen,
+          ),
+          SizedBox(width: 10.w),
+          getButtonTransparent(
+            child: getSpanSecond(Lang.registerAgreen_1.tr),
+            onPressed: controller.handleAgreen,
+          ),
+          getButtonTransparent(
+            child: getSpanMain(
+              Lang.registerService.tr,
+            ),
+            onPressed: () {},
+          ),
+          getButtonTransparent(
+            child: getSpanSecond(Lang.registerAgreen_2.tr),
+            onPressed: controller.handleAgreen,
+          ),
+          getButtonTransparent(
+            child: getSpanMain(Lang.registerPrivacy.tr),
+            onPressed: () {},
+          ),
         ],
       ),
     );
@@ -127,8 +139,7 @@ class RegisterView extends GetView<RegisterController> {
         background: Colors.transparent,
       ),
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.next.tr),
           onPressed:
               !controller.state.isAccountPass && controller.state.isChooise
@@ -161,14 +172,12 @@ class RegisterView extends GetView<RegisterController> {
                   userRegister,
                   SizedBox(height: 4.h),
                   userBirth,
-                  SizedBox(height: 4.h),
-                  agreen,
                   SizedBox(height: 16.h),
+                  agreen,
                 ],
               ),
             ),
           ),
-          flex: 1,
         ),
         bottom,
       ],

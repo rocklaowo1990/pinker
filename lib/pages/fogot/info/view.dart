@@ -15,35 +15,23 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan('认证您的个人信息', fontSize: 26);
+    Widget title = getTitle('认证您的个人信息');
 
     /// 头像
-    Widget avatar = Container(
-      width: 40.w,
-      height: 40.w,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.secondBacground,
-      ),
-      child: Center(
-        child: getNetworkImageBox(
-          controller.forgotController.forgotInfo.avatar,
-          shape: BoxShape.circle,
-        ),
-      ),
+    Widget avatar = getNetworkImageBox(
+      controller.forgotController.forgotInfo.avatar,
+      shape: BoxShape.circle,
+      width: 60.w,
+      height: 60.w,
     );
 
     /// 昵称
-    Widget nickName = getSpan(
-      controller.forgotController.forgotInfo.nickName,
-      fontSize: 17,
-    );
+    Widget nickName =
+        getSpanTitle(controller.forgotController.forgotInfo.nickName);
 
     /// 用户名
-    Widget userName = getSpan(
-      '@${controller.forgotController.forgotInfo.userName}',
-      color: AppColors.secondText,
-    );
+    Widget userName =
+        getSpanSecond('@${controller.forgotController.forgotInfo.userName}');
 
     /// 账号输入框
     Widget userCount = getInput(
@@ -56,8 +44,7 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.next.tr),
           onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
@@ -73,17 +60,17 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(16.w),
+              padding: EdgeInsets.all(20.w),
               child: Column(
                 children: [
                   title,
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 20.h),
                   avatar,
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 20.h),
                   nickName,
-                  SizedBox(height: 1.h),
+                  SizedBox(height: 4.h),
                   userName,
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 20.h),
                   userCount,
                 ],
               ),

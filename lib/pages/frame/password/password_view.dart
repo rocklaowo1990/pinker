@@ -15,21 +15,13 @@ class PasswordView extends GetView<PasswordController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(Lang.passwordTitle.tr, fontSize: 26);
+    Widget title = getTitle(Lang.passwordTitle.tr);
 
     /// 副标题1
-    Widget secndTitle = getSpan(
-      Lang.passwordSecondTitle.tr,
-      color: AppColors.secondText,
-      textAlign: TextAlign.center,
-    );
+    Widget secndTitle = getSpanSecond(Lang.passwordSecondTitle.tr);
 
     /// 副标题2
-    Widget thirdTitle = getSpan(
-      Lang.passwordThirdTitle.tr,
-      color: AppColors.secondText,
-      textAlign: TextAlign.center,
-    );
+    Widget thirdTitle = getSpanSecond(Lang.passwordThirdTitle.tr);
 
     /// 密码输入框
     Widget userPassword = getInput(
@@ -41,8 +33,7 @@ class PasswordView extends GetView<PasswordController> {
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.next.tr),
           onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
@@ -65,9 +56,9 @@ class PasswordView extends GetView<PasswordController> {
           child: Column(
             children: [
               title,
-              SizedBox(height: 8.h),
+              SizedBox(height: 20.h),
               secndTitle,
-              SizedBox(height: 1.h),
+              SizedBox(height: 4.h),
               thirdTitle,
               SizedBox(height: 30.h),
               userPassword,

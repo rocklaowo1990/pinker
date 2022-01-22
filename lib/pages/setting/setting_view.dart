@@ -19,16 +19,15 @@ class SettingView extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan(Lang.setTitle.tr, fontSize: 17),
-      backgroundColor: AppColors.secondBacground,
-      lineColor: AppColors.line,
-    );
+    AppBar appBar = getDefaultBar(Lang.setTitle.tr);
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
     /// 语言
     Widget langList = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_about.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_about.svg',
+        height: 16.h,
+      ),
       title: Lang.setLang.tr,
       secondTitle: Obx(() => getSpan(
           controller.state.language == const Locale('zh', 'CN')
@@ -56,12 +55,15 @@ class SettingView extends GetView<SettingController> {
       onPressed: controller.handleSignOut,
       borderRadius: const BorderRadius.all(Radius.zero),
       background: AppColors.secondBacground,
-      padding: EdgeInsets.all(9.w),
+      padding: EdgeInsets.all(16.w),
     );
 
     /// 用户名
     Widget setUserName = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_user_name.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_user_name.svg',
+        height: 16.h,
+      ),
       title: '用户名',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
@@ -74,7 +76,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 手机
     Widget setUserPhone = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_phone.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_phone.svg',
+        height: 16.h,
+      ),
       title: '手机',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
@@ -91,7 +96,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 电子邮件
     Widget setUserEmail = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_email.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_email.svg',
+        height: 16.h,
+      ),
       title: '电子邮箱',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
@@ -108,7 +116,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 修改密码
     Widget setPassword = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_password.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_password.svg',
+        height: 16.h,
+      ),
       title: '密码',
       secondTitle: getSpan(
         '点击修改',
@@ -119,7 +130,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 已屏蔽列表
     Widget blockCount = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_shield_list.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_shield_list.svg',
+        height: 16.h,
+      ),
       title: '已屏蔽列表',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
@@ -132,7 +146,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 已隐藏列表
     Widget hiddenCount = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_hide_list.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_hide_list.svg',
+        height: 16.h,
+      ),
       title: '已隐藏列表',
       secondTitle: controller.arguments != null
           ? Obx(() => getSpan(
@@ -145,7 +162,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 订阅组设置
     Widget setGroup = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_watermark.svg',
+        height: 16.h,
+      ),
       title: '订阅组设置',
       secondTitle: getSpan(''),
       onPressed: controller.handleSetGroup,
@@ -153,7 +173,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 水印设置
     Widget setWatermark = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_watermark.svg',
+        height: 16.h,
+      ),
       title: '水印设置',
       secondTitle: getSpan(''),
       onPressed: controller.handleSetUserLogo,
@@ -161,7 +184,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 麻将结算系统
     Widget money = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_watermark.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_watermark.svg',
+        height: 16.h,
+      ),
       title: '麻将结算系统',
       secondTitle: getSpan('内测版', color: AppColors.secondIcon),
       onPressed: controller.handleMoney,
@@ -169,7 +195,10 @@ class SettingView extends GetView<SettingController> {
 
     /// 注销账号
     Widget logout = getButtonList(
-      icon: SvgPicture.asset('assets/svg/set_logout.svg'),
+      icon: SvgPicture.asset(
+        'assets/svg/set_logout.svg',
+        height: 16.h,
+      ),
       title: '注销账号',
       secondTitle: getSpan(''),
       onPressed: controller.handleDeltetAccount,
@@ -181,12 +210,8 @@ class SettingView extends GetView<SettingController> {
     Widget bodyToken = ListView(
       children: [
         Padding(
-          padding: EdgeInsets.all(9.w),
-          child: getSpan(
-            '账号',
-            fontSize: 17,
-            color: AppColors.mainColor,
-          ),
+          padding: EdgeInsets.all(16.w),
+          child: getSpanMain('账号'),
         ),
         setUserName,
         SizedBox(height: 1.h),
@@ -196,23 +221,15 @@ class SettingView extends GetView<SettingController> {
         SizedBox(height: 1.h),
         setPassword,
         Padding(
-          padding: EdgeInsets.all(9.w),
-          child: getSpan(
-            '隐私',
-            fontSize: 17,
-            color: AppColors.mainColor,
-          ),
+          padding: EdgeInsets.all(16.w),
+          child: getSpanMain('隐私'),
         ),
         blockCount,
         SizedBox(height: 1.h),
         hiddenCount,
         Padding(
-          padding: EdgeInsets.all(9.w),
-          child: getSpan(
-            '设置',
-            fontSize: 17,
-            color: AppColors.mainColor,
-          ),
+          padding: EdgeInsets.all(16.w),
+          child: getSpanMain('设置'),
         ),
         setGroup,
         SizedBox(height: 1.h),

@@ -20,11 +20,9 @@ class ForgotView extends StatelessWidget {
         builder: (controller) {
           /// appbar
           AppBar appBar = getAppBar(
-            getSpan('找回密码', fontSize: 17),
+            getSpanTitle('找回密码'),
             backgroundColor: AppColors.mainBacground,
-            leading: getButton(
-              child: const Icon(Icons.close, color: AppColors.mainIcon),
-              background: AppColors.mainBacground,
+            leading: getCloseButton(
               onPressed: controller.handleBack,
             ),
           );

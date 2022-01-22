@@ -15,18 +15,12 @@ class IndexView extends GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget text = getSpan(
-      Lang.indexTitle.tr,
-      fontSize: 16.sp,
-      fontWeight: FontWeight.w600,
-    );
+    Widget text = getIndexTitle(Lang.indexTitle.tr);
 
     /// 去注册页面的按钮
-    Widget signUpButton = getButton(
-      padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
+    Widget signUpButton = getButtonMain(
       onPressed: controller.handleGoSignUpPage,
       child: getSpan(Lang.indexGoRegister.tr),
-      width: double.infinity,
     );
 
     /// 去登陆页面的按钮
@@ -35,11 +29,11 @@ class IndexView extends GetView<IndexController> {
       child: RichText(
         text: TextSpan(
           text: Lang.indexHint.tr,
-          style: const TextStyle(color: AppColors.secondText, fontSize: 15),
+          style: secondStyle,
           children: [
             TextSpan(
               text: Lang.indexGoLogin.tr,
-              style: const TextStyle(color: AppColors.mainColor, fontSize: 15),
+              style: mainStyle,
               recognizer: TapGestureRecognizer()
                 ..onTap = controller.handleGoSignInPage,
             ),
@@ -51,9 +45,9 @@ class IndexView extends GetView<IndexController> {
     /// body 布局
     Widget body = Padding(
       padding: EdgeInsets.only(
-        right: 20.w,
-        bottom: 30.h,
-        left: 20.w,
+        right: 32.w,
+        bottom: 64.h,
+        left: 32.w,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +56,7 @@ class IndexView extends GetView<IndexController> {
           Column(
             children: [
               text,
-              SizedBox(height: 10.h),
+              SizedBox(height: 20.h),
               signUpButton,
             ],
           ),

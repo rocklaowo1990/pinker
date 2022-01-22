@@ -15,7 +15,7 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(Lang.loginTitle.tr, fontSize: 26);
+    Widget title = getTitle(Lang.loginTitle.tr);
 
     /// 账号输入框
     Widget userCount = getInput(
@@ -34,15 +34,12 @@ class LoginView extends GetView<LoginController> {
 
     /// 底部
     Widget bottom = getBottomBox(
-      leftWidget: getButton(
+      leftWidget: getButtonTransparent(
         child: getSpan(Lang.loginForget.tr, color: AppColors.mainColor),
         onPressed: controller.handleGoForgetPasswordPage,
-        height: 18.h,
-        background: Colors.transparent,
       ),
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.loginButton.tr),
           onPressed:
               controller.state.isDissable ? null : controller.handleSignIn,

@@ -9,24 +9,21 @@ Future getSnackTop(
   String? msg, {
   bool? isError,
   int? time,
+  String? message,
 }) async {
   isError ??= true;
   Get.snackbar(
+    '提示',
     msg ?? '',
-    '',
     colorText: AppColors.mainText,
     titleText: getSpan(msg),
-    messageText: const SizedBox(height: 0),
+    messageText: SizedBox(height: 0.h),
     icon: Icon(
       isError ? Icons.error : Icons.check_circle,
-      size: 12.w,
+      size: 16.w,
       color: isError ? Colors.red : Colors.green,
     ),
-    padding: EdgeInsets.only(
-      left: 10.w,
-      top: 8.h,
-      bottom: 6.h,
-    ),
+    padding: EdgeInsets.only(left: 10.w, top: 13.h, bottom: 6.h),
     animationDuration: const Duration(milliseconds: 300),
     duration: Duration(milliseconds: time ?? 1000),
   );

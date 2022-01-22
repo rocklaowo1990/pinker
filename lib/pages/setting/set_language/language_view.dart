@@ -14,30 +14,18 @@ class LanguageView extends GetView<LanguageController> {
 
   @override
   Widget build(BuildContext context) {
-    /// appBar 右侧的设置按钮
-    Widget sureBox = Obx(() => getButton(
-          child: controller.state.language == null ||
-                  controller.state.language ==
-                      controller.settingController.state.language
-              ? const SizedBox()
-              : const Icon(
-                  Icons.done,
-                  color: AppColors.mainColor,
-                ),
-          onPressed: controller.state.language == null ||
-                  controller.state.language ==
-                      controller.settingController.state.language
-              ? null
-              : controller.handleSure,
-          background: Colors.transparent,
-          width: 30.w,
-          height: 30.w,
-        ));
+    Widget sureBox = Obx(() => controller.state.language == null ||
+            controller.state.language ==
+                controller.settingController.state.language
+        ? const SizedBox()
+        : getSuerButton(
+            onPressed: controller.handleSure,
+          ));
 
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan(Lang.langTitle.tr, fontSize: 17),
-      lineColor: AppColors.line,
+      getSpanTitle(Lang.langTitle.tr),
+      // lineColor: AppColors.line,
       backgroundColor: AppColors.secondBacground,
       actions: [sureBox],
     );
@@ -46,26 +34,26 @@ class LanguageView extends GetView<LanguageController> {
     Widget cnList = getButtonList(
       onPressed: controller.handleToLanguageCN,
       title: Lang.setLangValueCN.tr,
-      iconRight: Obx(() => Icon(
-            Icons.check_circle,
-            size: 9.w,
-            color: controller.state.language == const Locale('zh', 'CN')
-                ? AppColors.mainColor
-                : AppColors.thirdIcon,
-          )),
+      iconRight: Obx(
+        () => getCheckIcon(
+          isChooise: controller.state.language == const Locale('zh', 'CN')
+              ? true
+              : false,
+        ),
+      ),
     );
 
     /// 英文列表
     Widget enList = getButtonList(
       onPressed: controller.handleToLanguageUS,
       title: Lang.setLangValueEN.tr,
-      iconRight: Obx(() => Icon(
-            Icons.check_circle,
-            size: 9.w,
-            color: controller.state.language == const Locale('en', 'US')
-                ? AppColors.mainColor
-                : AppColors.thirdIcon,
-          )),
+      iconRight: Obx(
+        () => getCheckIcon(
+          isChooise: controller.state.language == const Locale('en', 'US')
+              ? true
+              : false,
+        ),
+      ),
     );
 
     /// body
@@ -73,7 +61,7 @@ class LanguageView extends GetView<LanguageController> {
       children: [
         SizedBox(height: 4.h),
         cnList,
-        SizedBox(height: 0.5.h),
+        SizedBox(height: 1.h),
         enList,
       ],
     );

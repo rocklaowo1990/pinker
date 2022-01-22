@@ -5,7 +5,6 @@ import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/fogot/type/library.dart';
 import 'package:pinker/utils/utils.dart';
 
-import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class ForgotTypeView extends GetView<ForgotTypeController> {
@@ -14,27 +13,17 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
   @override
   Widget build(BuildContext context) {
     /// 标题
-    Widget title = getSpan(
-      '您想要通过何种方式重置密码',
-      fontSize: 26,
-      textAlign: TextAlign.center,
-    );
+    Widget title = getTitle('您想要通过何种方式重置密码');
 
     /// 副标题
-    Widget titleSecond = getSpan(
-      '可以使用于您的账号关联的信息',
-      color: AppColors.secondText,
-    );
+    Widget titleSecond = getSpanSecond('可以使用于您的账号关联的信息');
 
     /// 手机验证列表
     Widget listPhone = getButtonList(
-        icon: Obx(() => Icon(
-              Icons.check_circle,
-              size: 10.sp,
-              color: controller.forgotController.state.verifyType == 1
-                  ? AppColors.mainColor
-                  : AppColors.thirdIcon,
-            )),
+        icon: Obx(() => getCheckIcon(
+            isChooise: controller.forgotController.state.verifyType == 1
+                ? true
+                : false)),
         iconRight: const SizedBox(),
         onPressed: controller.handlePhoneType,
         title:
@@ -42,13 +31,10 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
 
     /// 邮箱验证列表
     Widget listEmail = getButtonList(
-        icon: Obx(() => Icon(
-              Icons.check_circle,
-              size: 10.sp,
-              color: controller.forgotController.state.verifyType == 2
-                  ? AppColors.mainColor
-                  : AppColors.thirdIcon,
-            )),
+        icon: Obx(() => getCheckIcon(
+            isChooise: controller.forgotController.state.verifyType == 2
+                ? true
+                : false)),
         iconRight: const SizedBox(),
         onPressed: controller.handleEmailType,
         title:
@@ -56,11 +42,10 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
 
     /// 底部
     Widget bottom = getBottomBox(
-      rightWidget: getButton(
-        padding: EdgeInsets.only(left: 12.w, right: 12.w),
+      rightWidget: getButtonSheet(
         child: getSpan(Lang.next.tr),
         onPressed: controller.handleNext,
-        background: AppColors.mainColor,
+        // background: AppColors.mainColor,
       ),
     );
 
@@ -71,18 +56,18 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(16.w),
+              padding: EdgeInsets.all(20.w),
               child: Column(
                 children: [
                   title,
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 20.h),
                   titleSecond,
                 ],
               ),
             ),
             if (controller.forgotController.forgotInfo.phone != '') listPhone,
             if (controller.forgotController.forgotInfo.email != '')
-              SizedBox(height: 4.w),
+              SizedBox(height: 8.w),
             if (controller.forgotController.forgotInfo.email != '') listEmail,
           ],
         ),

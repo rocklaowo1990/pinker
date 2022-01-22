@@ -19,13 +19,7 @@ AppBar getAppBar(Widget title,
     double? bottomHeight,
     Widget? flexibleSpace}) {
   /// appBar 左侧的返回按钮
-  Widget leadingDefault = getButton(
-    child: SvgPicture.asset('assets/svg/icon_back.svg'),
-    onPressed: () {
-      Get.back();
-    },
-    background: Colors.transparent,
-  );
+  Widget leadingDefault = getBackButton();
 
   return AppBar(
     title: title,
@@ -127,5 +121,12 @@ AppBar getSearchBar({
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.dark,
     ),
+  );
+}
+
+AppBar getDefaultBar(String text) {
+  return getAppBar(
+    getSpan(text, fontSize: 16.sp),
+    backgroundColor: AppColors.secondBacground,
   );
 }
