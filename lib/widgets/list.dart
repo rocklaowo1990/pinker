@@ -117,8 +117,8 @@ Widget getUserAvatar(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      getSpan(nickName),
-      SizedBox(height: 5.h),
+      getSpanTitle(nickName),
+      SizedBox(height: 2.h),
       SizedBox(
         width: double.infinity,
         child: getSpan(

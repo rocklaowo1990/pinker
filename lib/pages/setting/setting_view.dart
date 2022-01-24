@@ -26,7 +26,7 @@ class SettingView extends GetView<SettingController> {
     Widget langList = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_about.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: Lang.setLang.tr,
       secondTitle: Obx(() => getSpan(
@@ -62,7 +62,7 @@ class SettingView extends GetView<SettingController> {
     Widget setUserName = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_user_name.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '用户名',
       secondTitle: controller.arguments != null
@@ -78,7 +78,7 @@ class SettingView extends GetView<SettingController> {
     Widget setUserPhone = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_phone.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '手机',
       secondTitle: controller.arguments != null
@@ -98,7 +98,7 @@ class SettingView extends GetView<SettingController> {
     Widget setUserEmail = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_email.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '电子邮箱',
       secondTitle: controller.arguments != null
@@ -118,7 +118,7 @@ class SettingView extends GetView<SettingController> {
     Widget setPassword = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_password.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '密码',
       secondTitle: getSpan(
@@ -132,7 +132,7 @@ class SettingView extends GetView<SettingController> {
     Widget blockCount = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_shield_list.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '已屏蔽列表',
       secondTitle: controller.arguments != null
@@ -148,7 +148,7 @@ class SettingView extends GetView<SettingController> {
     Widget hiddenCount = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_hide_list.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '已隐藏列表',
       secondTitle: controller.arguments != null
@@ -164,7 +164,7 @@ class SettingView extends GetView<SettingController> {
     Widget setGroup = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_watermark.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '订阅组设置',
       secondTitle: getSpan(''),
@@ -175,7 +175,7 @@ class SettingView extends GetView<SettingController> {
     Widget setWatermark = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_watermark.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '水印设置',
       secondTitle: getSpan(''),
@@ -186,7 +186,7 @@ class SettingView extends GetView<SettingController> {
     Widget money = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_watermark.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '麻将结算系统',
       secondTitle: getSpan('内测版', color: AppColors.secondIcon),
@@ -197,7 +197,7 @@ class SettingView extends GetView<SettingController> {
     Widget logout = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_logout.svg',
-        height: 16.h,
+        height: 20.h,
       ),
       title: '注销账号',
       secondTitle: getSpan(''),

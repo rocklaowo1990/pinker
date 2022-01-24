@@ -18,19 +18,7 @@ class ContentListSearchHotView extends StatelessWidget {
         init: ContentListSearchHotController(),
         builder: (controller) {
 // loading时显示转圈圈
-          Widget loading = Center(
-              child: Column(children: [
-            SizedBox(height: 40.h),
-            SizedBox(
-                width: 9.w,
-                height: 9.w,
-                child: CircularProgressIndicator(
-                    backgroundColor: AppColors.mainIcon,
-                    color: AppColors.mainColor,
-                    strokeWidth: 1.w)),
-            SizedBox(height: 6.h),
-            getSpan('加载中...', color: AppColors.secondText),
-          ]));
+          Widget loading = getLoadingIcon();
 
           // 没有数据的时候，显示暂无数据
           Widget noData = Center(

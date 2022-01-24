@@ -51,8 +51,8 @@ class ApplicationView extends GetView<ApplicationController> {
       }
       return getButton(
         child: child,
-        width: 32.h,
-        height: 32.h,
+        width: 50.h,
+        height: 50.h,
         background: Colors.transparent,
         onPressed: () {
           if (controller.state.rxIntValue != index) {
@@ -66,8 +66,8 @@ class ApplicationView extends GetView<ApplicationController> {
     /// 底部导航
     Widget bottomNavigationBar = Container(
       width: double.infinity,
-      height: 32.h,
-      padding: EdgeInsets.only(left: 9.w, right: 9.w),
+      height: 50.h,
+      padding: EdgeInsets.only(left: 16.w, right: 16.w),
       decoration: BoxDecoration(
         color: AppColors.secondBacground,
         border: Border(
@@ -112,8 +112,8 @@ class ApplicationView extends GetView<ApplicationController> {
               Icons.add,
               color: AppColors.mainIcon,
             ),
-            width: 30.w,
-            height: 30.w,
+            width: 50.w,
+            height: 50.w,
             onPressed: () {
               getDialog(
                 child: DialogChild.alert(

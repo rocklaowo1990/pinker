@@ -73,10 +73,10 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
     children: [
       Row(
         children: [
-          SizedBox(width: 9.w),
+          SizedBox(width: 16.w),
           LikeButton(
-            size: 20.0,
-            likeCountPadding: EdgeInsets.only(left: 3.w),
+            size: 20.sp,
+            likeCountPadding: EdgeInsets.only(left: 8.w),
             likeCount: _commentCount,
             likeBuilder: (bool isComment) {
               return SvgPicture.asset(
@@ -99,12 +99,12 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
             },
             onTap: _onComment,
           ),
-          SizedBox(width: 15.w),
+          SizedBox(width: 30.w),
           LikeButton(
             onTap: _onLike,
-            size: 18.0,
+            size: 18.sp,
             isLiked: _isLike,
-            likeCountPadding: EdgeInsets.only(left: 3.w),
+            likeCountPadding: EdgeInsets.only(left: 8.w),
             likeCount: _likeCount,
             likeBuilder: (bool isLiked) {
               return isLiked
@@ -130,11 +130,11 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
                 ? LikeCountAnimationType.part
                 : LikeCountAnimationType.none,
           ),
-          SizedBox(width: 15.w),
+          SizedBox(width: 30.w),
           LikeButton(
             onTap: _onForward,
-            size: 18.0,
-            likeCountPadding: EdgeInsets.only(left: 3.w),
+            size: 18.sp,
+            likeCountPadding: EdgeInsets.only(left: 8.w),
             bubblesColor: const BubblesColor(
                 dotPrimaryColor: Color(0xFF009688),
                 dotSecondaryColor: Colors.tealAccent,
@@ -173,7 +173,7 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
       _contentButton(
         icon: SvgPicture.asset(
           'assets/svg/icon_share.svg',
-          height: 10.w,
+          height: 18.w,
         ),
       ),
     ],
@@ -188,8 +188,8 @@ Widget _contentButton({
   EdgeInsetsGeometry? padding,
 }) {
   return getButton(
-    padding: padding ?? EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
-    height: 24.w + 15,
+    padding: padding ?? EdgeInsets.fromLTRB(16.w, 0, 16.w, 0),
+    height: 60.h,
     background: Colors.transparent,
     overlayColor: Colors.transparent,
     onPressed: onPressed,

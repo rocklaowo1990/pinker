@@ -14,16 +14,12 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan('水印设置', fontSize: 17),
-      backgroundColor: AppColors.secondBacground,
-    );
+    AppBar appBar = getDefaultBar('水印设置');
 
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.sure.tr),
           onPressed: controller.state.isDissable ? null : controller.handleSure,
           background: controller.state.isDissable
@@ -35,7 +31,6 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
 
     /// 手机输入框
     Widget _userLogoInput = getInput(
-      height: 30.h,
       type: '请输入水印文字',
       controller: controller.textController,
       focusNode: controller.focusNode,
@@ -59,7 +54,7 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
 
     /// 用户名
     Widget _switch = getButtonList(
-        height: 30.h,
+        height: 60.h,
         title: '水印开关',
         onPressed: controller.handleOnChangedNoValue,
         iconRight: Obx(() => Switch(
@@ -72,7 +67,7 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
       children: [
         SizedBox(height: 10.h),
         _switch,
-        SizedBox(height: 0.5.h),
+        SizedBox(height: 2.h),
         Container(
           child: Row(
             children: [
@@ -82,7 +77,7 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
             ],
           ),
           color: AppColors.secondBacground,
-          padding: EdgeInsets.all(9.w),
+          padding: EdgeInsets.all(16.w),
         ),
       ],
     );

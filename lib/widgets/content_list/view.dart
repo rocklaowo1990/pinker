@@ -12,7 +12,7 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   // 推文的作者信息
   Widget author = Padding(
-    padding: EdgeInsets.fromLTRB(9.w, 10.w, 0, 0),
+    padding: EdgeInsets.fromLTRB(16.w, 20.h, 0, 0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -44,11 +44,11 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
       borderRadius: BorderRadius.all(Radius.circular(4.w)),
       child: getNetworkImageBox(
         url,
-        height: 60.h,
+        height: (Get.width - 40.w) / 3,
         width: double.infinity,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.all(
-          Radius.circular(4.w),
+          Radius.circular(8.w),
         ),
       ),
       onPressed: () {
@@ -63,10 +63,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
       children: [
         Expanded(
             child: images.isNotEmpty ? _image(images[0], 0) : const SizedBox()),
-        SizedBox(width: 4.w),
+        SizedBox(width: 5.w),
         Expanded(
             child: images.length > 1 ? _image(images[1], 1) : const SizedBox()),
-        SizedBox(width: 4.w),
+        SizedBox(width: 5.w),
         Expanded(
             child: images.length > 2
                 ? Stack(
@@ -108,10 +108,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 8.h),
+                    : SizedBox(height: 10.h),
                 _imageBox(contentList.value.list[index].works.pics),
               ],
             )
@@ -119,12 +119,12 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 8.h),
+                    : SizedBox(height: 16.h),
                 _imageBox(contentList.value.list[index].works.pics),
-                SizedBox(height: 8.h),
+                SizedBox(height: 10.h),
                 getContentPayBox(contentList, index),
               ],
             ));
@@ -134,39 +134,40 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 8.h),
+                    : SizedBox(height: 16.h),
                 Stack(
                   children: [
                     getNetworkImageBox(
                         contentList.value.list[index].works.video.snapshotUrl,
                         width: double.infinity,
-                        height: 128.h,
+                        height: 200.h,
+                        fit: BoxFit.contain,
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                        borderRadius: BorderRadius.all(Radius.circular(8.w))),
                     getButton(
                       onPressed: () {
                         getMediaView(contentList, index);
                       },
-                      borderRadius: BorderRadius.all(Radius.circular(4.w)),
-                      height: 128.h,
+                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                      height: 200.h,
                       background: Colors.black54,
                       child: Center(
                         child: Container(
-                          width: 26.w,
-                          height: 26.w,
+                          width: 50.w,
+                          height: 50.w,
                           child: Icon(
                             Icons.play_arrow,
-                            size: 20.w,
+                            size: 30.w,
                             color: AppColors.mainIcon,
                           ),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColors.mainColor,
                             border: Border.all(
-                                color: AppColors.mainIcon, width: 1.w),
+                                color: AppColors.mainIcon, width: 2.w),
                           ),
                         ),
                       ),
@@ -185,13 +186,13 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
+                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 8.h),
+                    : SizedBox(height: 16.h),
                 _imageBox(
                     contentList.value.list[index].works.video.previewsUrls),
-                SizedBox(height: 8.h),
+                SizedBox(height: 16.h),
                 getContentPayBox(contentList, index),
               ],
             ));
@@ -211,7 +212,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
     children: [
       author, // 头像部分
       Padding(
-        padding: EdgeInsets.only(left: 9.w, right: 9.w),
+        padding: EdgeInsets.only(left: 16.w, right: 16.w),
         child: mediaBox,
       ), // 媒体部分，包含文字、图片和视频
       contentInfo, // 底部的留言、喜欢、转发、分享

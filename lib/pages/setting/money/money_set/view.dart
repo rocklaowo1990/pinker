@@ -70,7 +70,7 @@ class MoneySetView extends GetView<MoneySetController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 46.w,
+            width: 80.w,
             child: Row(
               children: [
                 getSpan('鸡（ '),
@@ -133,7 +133,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('${controller.arguments.value.onlyId_1}（ '),
@@ -265,7 +265,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('${controller.arguments.value.onlyId_2}（ '),
@@ -397,7 +397,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('${controller.arguments.value.onlyId_3}（ '),
@@ -542,7 +542,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('1（ '),
@@ -602,7 +602,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('2（ '),
@@ -662,7 +662,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('3（ '),
@@ -722,7 +722,7 @@ class MoneySetView extends GetView<MoneySetController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 40.w,
+                        width: 80.w,
                         child: Row(
                           children: [
                             getSpan('4（ '),

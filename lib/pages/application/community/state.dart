@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class CommunityState {
   /// 页面控制器
-  final RxInt _pageIndex = 0.obs;
-  set pageIndex(int value) => _pageIndex.value = value;
-  int get pageIndex => _pageIndex.value;
+  final RxInt pageIndexRx = 0.obs;
+  set pageIndex(int value) => pageIndexRx.value = value;
+  int get pageIndex => pageIndexRx.value;
 }

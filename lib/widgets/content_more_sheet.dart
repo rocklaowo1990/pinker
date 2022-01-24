@@ -123,10 +123,10 @@ Future<void> getContentMoreSheet({
     children: [
       Expanded(
           child: getButton(
-              width: double.infinity,
+              width: Get.width,
               background: Colors.transparent,
               overlayColor: Colors.transparent,
-              height: double.infinity,
+              height: Get.height,
               child: const SizedBox(),
               onPressed: () {
                 Get.back();
@@ -141,14 +141,14 @@ Future<void> getContentMoreSheet({
             )),
         child: Column(
           children: [
-            SizedBox(height: 8.w),
+            SizedBox(height: 16.w),
             Row(
               children: [
                 SizedBox(width: 10.w),
                 getSpan('请选择对他的操作', color: AppColors.secondText),
               ],
             ),
-            SizedBox(height: 8.w),
+            SizedBox(height: 16.w),
             Container(height: 1, color: AppColors.line),
             block,
             Container(height: 1, color: AppColors.line),

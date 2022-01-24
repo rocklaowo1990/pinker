@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/dynamic/comments_view/comment_item/library.dart';
@@ -23,34 +23,10 @@ Future getCommentsView(
       // 在里面初始化需要在控制器里面加入index变量
       controller.init(contentList, index);
 
-      Widget loading = Center(
-          child: Column(children: [
-        SizedBox(height: 40.h),
-        SizedBox(
-            width: 9.w,
-            height: 9.w,
-            child: CircularProgressIndicator(
-                backgroundColor: AppColors.mainIcon,
-                color: AppColors.mainColor,
-                strokeWidth: 1.w)),
-        SizedBox(height: 6.h),
-        getSpan('加载中...', color: AppColors.secondText),
-      ]));
+      Widget loading = getLoadingIcon();
 
       // 没有数据的时候，显示暂无数据
-      Widget noData = Center(
-        child: Column(
-          children: [
-            SizedBox(height: 40.h),
-            SvgPicture.asset(
-              'assets/svg/error_4.svg',
-              width: 55.w,
-            ),
-            SizedBox(height: 6.h),
-            getSpan('暂无数据', color: AppColors.secondText),
-          ],
-        ),
-      );
+      Widget noData = getNoDataIcon();
 
       // 整体布局
       Widget _body = Obx(
@@ -105,16 +81,13 @@ Future getCommentsView(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(9.w, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(20.w, 0, 0, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Obx(() => getSpan(
                             '${contentList.value.list[index].commentCount} 条评论')),
-                        getButton(
-                          child: const Icon(Icons.close,
-                              color: AppColors.mainIcon),
-                          background: Colors.transparent,
+                        getCloseButton(
                           onPressed: () {
                             Get.back();
                           },

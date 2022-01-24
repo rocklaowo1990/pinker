@@ -14,17 +14,12 @@ class SetEmailView extends GetView<SetEmailController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan('更改邮箱地址', fontSize: 17),
-      backgroundColor: AppColors.mainBacground,
-      lineColor: AppColors.line,
-    );
+    AppBar appBar = getSettingBar('更改邮箱地址');
 
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.next.tr),
           onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
@@ -45,11 +40,11 @@ class SetEmailView extends GetView<SetEmailController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: EdgeInsets.all(20.w),
           child: Column(
             children: [
-              getSpan('更改邮箱地址', fontSize: 26),
-              SizedBox(height: 8.h),
+              getTitle('更改邮箱地址'),
+              SizedBox(height: 20.h),
               getSpan('输入您想要更改的与账号关联的邮箱地址', color: AppColors.secondText),
               getSpan('您将通过此邮箱接收验证码', color: AppColors.secondText),
               SizedBox(height: 20.h),

@@ -12,24 +12,18 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
   @override
   Widget build(BuildContext context) {
     // appBar
-    AppBar appBar = getAppBar(
-      getSpan('注销账号', fontSize: 17),
-      backgroundColor: AppColors.secondBacground,
-      lineColor: AppColors.line,
-    );
+    AppBar appBar = getDefaultBar('注销账号');
 
     // 按钮
-    Widget button = getButton(
-      padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
+    Widget button = getButtonMain(
       onPressed: controller.handleDeleteAccount,
       child: getSpan('注销账号'),
-      width: double.infinity,
     );
 
     // body
     Widget body = SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(10.w),
+        padding: EdgeInsets.all(20.w),
         child: Column(
           children: [
             SizedBox(height: 10.h),

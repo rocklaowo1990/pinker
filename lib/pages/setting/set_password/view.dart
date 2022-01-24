@@ -14,22 +14,16 @@ class SetPasswordView extends GetView<SetPasswordController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan('更改密码', fontSize: 17),
-      backgroundColor: AppColors.mainBacground,
-      lineColor: AppColors.line,
-    );
+    AppBar appBar = getSettingBar('更改密码');
 
     /// 底部
     Widget bottom = getBottomBox(
-      leftWidget: getButton(
+      leftWidget: getButtonTransparent(
         child: getSpan('忘记密码？', color: AppColors.mainColor),
         onPressed: controller.handleReset,
-        background: Colors.transparent,
       ),
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.sure.tr),
           onPressed: controller.state.isDissable ? null : controller.handleSure,
           background: controller.state.isDissable

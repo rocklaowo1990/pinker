@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/values/values.dart';
@@ -197,5 +198,19 @@ Widget getCloseButton({
     background: Colors.transparent,
     width: 60.w,
     height: 60.w,
+  );
+}
+
+Widget getSearchButton({
+  VoidCallback? onPressed,
+}) {
+  return getButton(
+    child: SvgPicture.asset(
+      'assets/svg/icon_search_1.svg',
+    ),
+    background: Colors.transparent,
+    width: 60.w,
+    height: 60.w,
+    onPressed: onPressed,
   );
 }

@@ -23,8 +23,8 @@ class MyView extends StatelessWidget {
             return getButton(
               child: SvgPicture.asset(asset),
               background: Colors.transparent,
-              width: 33.h,
-              height: 33.h,
+              width: 60.w,
+              height: 60.w,
               onPressed: onPressed,
             );
           }
@@ -45,7 +45,7 @@ class MyView extends StatelessWidget {
               opacity: controller.state.opacity,
               child: Container(
                 width: double.infinity,
-                height: 51.h,
+                height: 80.h,
                 color: AppColors.mainColor,
               ),
             ),
@@ -54,7 +54,7 @@ class MyView extends StatelessWidget {
           /// appbar 内容
           Widget appBarChild = SizedBox(
             width: double.infinity,
-            height: 40.h,
+            height: 100.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,14 +65,14 @@ class MyView extends StatelessWidget {
                         opacity: controller.state.opacity,
                         child: getButton(
                           onPressed: controller.handlePersonal,
-                          width: 18.w,
-                          height: 18.w,
+                          width: 40.w,
+                          height: 32.w,
                           child: getNetworkImageBox(
                             controller.applicationController.state.userInfo
                                 .value.avatar,
                             shape: BoxShape.circle,
-                            width: 18.w,
-                            height: 18.w,
+                            width: 32.w,
+                            height: 32.w,
                           ),
                         )),
                   ),
@@ -109,10 +109,10 @@ class MyView extends StatelessWidget {
                           controller.applicationController.state.userInfo.value
                               .avatar,
                           shape: BoxShape.circle,
-                          width: 30.w,
-                          height: 30.w,
+                          width: 60.w,
+                          height: 60.w,
                         )),
-                    SizedBox(width: 6.w),
+                    SizedBox(width: 16.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -147,7 +147,7 @@ class MyView extends StatelessWidget {
             required VoidCallback onPressed,
           }) {
             return Padding(
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(16.w),
               child: Column(
                 children: [
                   Row(
@@ -157,16 +157,16 @@ class MyView extends StatelessWidget {
                       getSpan(title),
                     ],
                   ),
-                  SizedBox(height: 6.h),
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       getSpan(number,
-                          fontSize: 36, fontWeight: FontWeight.w300),
-                      getButton(
+                          fontSize: 36.sp, fontWeight: FontWeight.w300),
+                      getButtonSheet(
                         child: getSpan(buttonText),
                         onPressed: onPressed,
-                        width: 42.w,
+
                         // height: 18.h,
                       ),
                     ],
@@ -195,7 +195,7 @@ class MyView extends StatelessWidget {
                     )),
                 Container(
                   width: double.infinity,
-                  height: 0.5.h,
+                  height: 1.h,
                   color: AppColors.line,
                 ),
                 Obx(() => _walletChild(
@@ -228,7 +228,7 @@ class MyView extends StatelessWidget {
                       getSpan(title),
                     ],
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 10.h),
                   getSpan(number, fontSize: 32, fontWeight: FontWeight.w300),
                 ],
               ),
@@ -237,7 +237,7 @@ class MyView extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(8.w),
               ),
-              padding: EdgeInsets.all(9.w),
+              padding: EdgeInsets.all(16.w),
             );
           }
 
@@ -252,7 +252,7 @@ class MyView extends StatelessWidget {
                     onPressed: controller.handleSubscribeList,
                   )),
             ),
-            SizedBox(width: 5.h),
+            SizedBox(width: 10.h),
             Expanded(
               child: Obx(() => _userListBox(
                     title: '订阅的群聊',
@@ -276,7 +276,7 @@ class MyView extends StatelessWidget {
               child: Column(
                 children: [
                   SvgPicture.asset(svg),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 10.h),
                   getSpan(title),
                 ],
               ),
@@ -286,7 +286,7 @@ class MyView extends StatelessWidget {
           /// 底部功能模块
           Widget buttons = Container(
             width: double.infinity,
-            padding: EdgeInsets.only(top: 12.w, bottom: 12.w),
+            padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
             decoration: BoxDecoration(
               color: AppColors.secondBacground,
               borderRadius: BorderRadius.all(Radius.circular(8.w)),
@@ -342,16 +342,16 @@ class MyView extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(8.w),
+                  padding: EdgeInsets.all(16.w),
                   child: Column(
                     children: [
-                      SizedBox(height: 44.w),
+                      SizedBox(height: 100.h),
                       userInfo,
-                      SizedBox(height: 12.w),
+                      SizedBox(height: 20.w),
                       wallet,
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 10.h),
                       subscription,
-                      SizedBox(height: 5.h),
+                      SizedBox(height: 10.h),
                       buttons,
                     ],
                   ),

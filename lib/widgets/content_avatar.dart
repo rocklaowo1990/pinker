@@ -54,8 +54,8 @@ Widget getContentMore(
 
   return Center(
     child: getButton(
-      width: width ?? 26.w,
-      height: height ?? 26.w,
+      width: width ?? 60.w,
+      height: height ?? 60.w,
       background: background,
       onPressed: _onPressed,
       child: const Icon(

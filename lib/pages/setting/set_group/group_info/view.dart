@@ -15,19 +15,16 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan(controller.arguments == null ? '添加订阅组' : '订阅组信息', fontSize: 17),
-      backgroundColor: AppColors.secondBacground,
-      lineColor: AppColors.line,
-    );
+    AppBar appBar =
+        getDefaultBar(controller.arguments == null ? '添加订阅组' : '订阅组信息');
 
     /// 中间部分
     Widget middle = Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
         Container(
-          width: 60.w,
-          height: 60.w,
+          width: 80.w,
+          height: 80.w,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.secondBacground,
@@ -39,10 +36,10 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
                           shape: BoxShape.circle, width: 60.w, height: 60.w)
                       : SvgPicture.asset(
                           'assets/svg/avatar_default.svg',
-                          width: 60.w,
+                          width: 80.w,
                         )
                   : CircleAvatar(
-                      radius: 60.w,
+                      radius: 80.w,
                       backgroundImage: FileImage(controller.avatarFile),
                     ))),
         ),
@@ -51,8 +48,8 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
           background: Colors.transparent,
           overlayColor: Colors.transparent,
           child: Container(
-            width: 20.w,
-            height: 20.w,
+            width: 32.w,
+            height: 32.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(width: 1.w, color: AppColors.mainColor),
@@ -61,20 +58,13 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
             child: Center(
               child: Icon(
                 Icons.photo_camera,
-                size: 12.w,
+                size: 16.w,
                 color: AppColors.mainColor,
               ),
             ),
           ),
         ),
       ],
-    );
-
-    /// 单选按钮默认状态
-    Widget dialogDefault = Icon(
-      Icons.check_circle,
-      size: 10.w,
-      color: AppColors.mainColor,
     );
 
     /// 订阅日期
@@ -85,7 +75,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       background: Colors.transparent,
       child: Row(
         children: [
-          dialogDefault,
+          getCheckIcon(isChooise: true),
           SizedBox(width: 4.w),
           Expanded(child: getSpan('30天'), flex: 1),
         ],
@@ -97,7 +87,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       child: Center(child: middle),
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.all(30.w),
     );
 
     // 资料编辑区
@@ -136,7 +126,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
               alignment: Alignment.centerLeft,
             ),
           ),
-          SizedBox(height: 5.h),
+          SizedBox(height: 20.h),
           Row(
             children: [
               const SizedBox(width: 20),
@@ -151,14 +141,13 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       ),
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 10.w),
+      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.w),
     );
 
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.sure.tr),
           onPressed: controller.state.isDissable ? null : controller.handleSure,
           background: controller.state.isDissable

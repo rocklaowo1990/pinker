@@ -108,13 +108,12 @@ Future<Widget?> getMediaView(
                         ),
                       )
                     : controller.state.subscribeInfo.value.subGroupList != null
-                        ? getButton(
-                            width: 70,
+                        ? getButtonSheet(
                             child: getSpan('已订阅'),
                           )
                         : controller.state.subscribeInfo.value.groups.isEmpty
                             ? const SizedBox()
-                            : getButton(
+                            : getButtonSheetOutline(
                                 child: getSpan('订阅'),
                                 onPressed: () {
                                   getSubscribeBox(
@@ -129,10 +128,6 @@ Future<Widget?> getMediaView(
                                     },
                                   );
                                 },
-                                width: 70,
-                                borderSide: BorderSide(
-                                    width: 0.5.w, color: AppColors.mainColor),
-                                background: Colors.transparent,
                               ))
               ],
             ),
@@ -253,7 +248,7 @@ Future<Widget?> getMediaView(
                 return PhotoViewGalleryPageOptions.customChild(
                   minScale: PhotoViewComputedScale.contained,
                   maxScale: PhotoViewComputedScale.covered * 2,
-                  initialScale: PhotoViewComputedScale.covered,
+                  initialScale: PhotoViewComputedScale.contained,
                   child: Obx(() =>
                       contentList.value.list[index].canSee == 0 && _index == 3
                           ? Stack(
@@ -292,6 +287,9 @@ Future<Widget?> getMediaView(
                       controller.state.imagesList[_index],
                     );
                     return PhotoViewGalleryPageOptions.customChild(
+                        minScale: PhotoViewComputedScale.contained,
+                        maxScale: PhotoViewComputedScale.covered * 2,
+                        initialScale: PhotoViewComputedScale.contained,
                         child: _index == 3
                             ? Stack(
                                 children: [

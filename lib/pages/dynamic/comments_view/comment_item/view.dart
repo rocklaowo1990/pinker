@@ -22,7 +22,7 @@ Widget getCommentList(
   final controller = CommentListController();
 
   return Container(
-      padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 9.w),
+      padding: EdgeInsets.fromLTRB(16.w, 20.h, 9.w, 20.h),
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.line))),
       child: Row(
@@ -31,10 +31,10 @@ Widget getCommentList(
           getNetworkImageBox(
             commentList.value.list[index].author.avatar,
             shape: BoxShape.circle,
-            width: 28.w,
-            height: 28.w,
+            width: 40.w,
+            height: 40.w,
           ),
-          SizedBox(width: 9.w),
+          SizedBox(width: 16.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ Widget getCommentList(
             ),
           ),
           SizedBox(
-            width: 16.w,
+            width: 40.w,
             child: Column(
               children: [
                 LikeButton(
@@ -104,7 +104,7 @@ Widget getCommentList(
                       return !isLike;
                     }
                   },
-                  size: 18.0,
+                  size: 18.sp,
                   isLiked:
                       commentList.value.list[index].isLike == 0 ? false : true,
                   likeCount: commentList.value.list[index].likeCount,
@@ -127,9 +127,9 @@ Widget getCommentList(
                           ? LikeCountAnimationType.part
                           : LikeCountAnimationType.none,
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 8.h),
                 Obx(() => commentList.value.list[index].likeCount == 0
-                    ? getSpan('喜欢', color: AppColors.secondText)
+                    ? getSpan('喜欢 ', color: AppColors.secondText)
                     : getSpan('${commentList.value.list[index].likeCount}')),
               ],
             ),

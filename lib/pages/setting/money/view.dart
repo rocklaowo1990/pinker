@@ -162,7 +162,7 @@ class MoneyView extends GetView<MoneyController> {
 
     /// body 布局
     Widget body = Padding(
-      padding: EdgeInsets.all(9.w),
+      padding: EdgeInsets.all(16.w),
       child: Column(
         children: [
           Expanded(
@@ -181,13 +181,11 @@ class MoneyView extends GetView<MoneyController> {
             ),
           ),
           SizedBox(height: 9.w),
-          Obx(() => getButton(
+          Obx(() => getButtonMain(
                 child: getSpan('开始结算'),
                 background: controller.state.isReset
                     ? AppColors.secondBacground
                     : AppColors.mainColor,
-                width: double.infinity,
-                height: 22.h,
                 onPressed:
                     controller.state.isReset ? null : controller.handleResault,
               )),

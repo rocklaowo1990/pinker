@@ -126,7 +126,16 @@ AppBar getSearchBar({
 
 AppBar getDefaultBar(String text) {
   return getAppBar(
-    getSpan(text, fontSize: 16.sp),
+    getSpanTitle(text),
     backgroundColor: AppColors.secondBacground,
+    lineColor: AppColors.line,
+  );
+}
+
+AppBar getSettingBar(String text) {
+  return getAppBar(
+    getSpanTitle(text),
+    backgroundColor: AppColors.mainBacground,
+    lineColor: AppColors.line,
   );
 }

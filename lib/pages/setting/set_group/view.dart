@@ -17,16 +17,16 @@ class SetGroupView extends GetView<SetGroupController> {
   Widget build(BuildContext context) {
     /// appBar 右侧的设置按钮
     Widget settingBox = getButton(
-      child: const Icon(Icons.add, size: 28),
+      child: Icon(Icons.add, size: 24.sp),
       onPressed: controller.handleAddGroup,
       background: Colors.transparent,
-      width: 30.w,
-      height: 30.w,
+      width: 60.w,
+      height: 60.w,
     );
 
     /// appBar
     AppBar appBar = getAppBar(
-      getSpan('订阅组列表', fontSize: 17),
+      getSpanTitle('订阅组列表'),
       backgroundColor: AppColors.secondBacground,
       lineColor: AppColors.line,
       actions: [
@@ -57,7 +57,7 @@ class SetGroupView extends GetView<SetGroupController> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 16),
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     getSpan(groupName,
@@ -117,27 +117,9 @@ class SetGroupView extends GetView<SetGroupController> {
 
     /// body
     Widget body = Obx(() => controller.state.isLoading
-        ? Center(
-            child: Column(children: [
-            SizedBox(height: 40.h),
-            SizedBox(
-                width: 9.w,
-                height: 9.w,
-                child: CircularProgressIndicator(
-                    backgroundColor: AppColors.mainIcon,
-                    color: AppColors.mainColor,
-                    strokeWidth: 1.w)),
-            SizedBox(height: 6.h),
-            getSpan('加载中...', color: AppColors.secondText),
-          ]))
+        ? getLoadingIcon()
         : controller.state.groupList.isEmpty
-            ? Center(
-                child: Column(children: [
-                SizedBox(height: 20.h),
-                SvgPicture.asset('assets/svg/error_4.svg', width: 55.w),
-                SizedBox(height: 6.h),
-                getSpan('暂无数据', color: AppColors.secondText),
-              ]))
+            ? getNoDataIcon()
             : ListView(
                 children: controller.state.groupList
                     .map((item) => Padding(

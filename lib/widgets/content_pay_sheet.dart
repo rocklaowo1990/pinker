@@ -174,8 +174,8 @@ Future<void> getContentPaySheet({
   }
 
   Widget button = getButton(
-      width: 120.w,
-      height: 25.h,
+      width: 250.w,
+      height: 40.h,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
         Get.back();
@@ -241,8 +241,8 @@ Future<void> getContentPaySheet({
 
   /// 头像
   Widget avatarBox = Container(
-    width: 30.w,
-    height: 30.w,
+    width: 60.w,
+    height: 60.w,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
@@ -267,10 +267,10 @@ Future<void> getContentPaySheet({
     children: [
       Expanded(
           child: getButton(
-              width: double.infinity,
+              width: Get.width,
               background: Colors.transparent,
               overlayColor: Colors.transparent,
-              height: double.infinity,
+              height: Get.height,
               child: const SizedBox(),
               onPressed: () {
                 Get.back();
@@ -279,7 +279,7 @@ Future<void> getContentPaySheet({
         children: [
           Column(
             children: [
-              SizedBox(height: 20.h),
+              SizedBox(height: 48.h),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -292,13 +292,13 @@ Future<void> getContentPaySheet({
                   padding: EdgeInsets.all(12.w),
                   child: Column(
                     children: [
-                      SizedBox(height: 9.h),
+                      SizedBox(height: 20.h),
                       span,
-                      SizedBox(height: 9.h),
+                      SizedBox(height: 20.h),
                       _payBody(),
-                      SizedBox(height: 9.h),
+                      SizedBox(height: 20.h),
                       button,
-                      SizedBox(height: 9.h),
+                      SizedBox(height: 20.h),
                       getSpan(
                         '当前钻石余额：${subscribeInfo.balance}',
                         color: AppColors.secondText,
@@ -320,6 +320,6 @@ Future<void> getContentPaySheet({
     body,
     isScrollControlled: true,
     // backgroundColor: AppColors.dateBox,
-    // isDismissible: false, // 用户点击空白区域是否可以返回
+    isDismissible: false, // 用户点击空白区域是否可以返回
   );
 }

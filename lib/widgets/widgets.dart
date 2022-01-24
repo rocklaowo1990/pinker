@@ -22,4 +22,5 @@ export 'sheet.dart';
 export 'snackbar.dart';
 export 'span.dart';
 export 'subscribe_sheet.dart';
+export 'tab_bar.dart';
 export 'video_controller.dart';

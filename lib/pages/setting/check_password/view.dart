@@ -14,17 +14,12 @@ class CheckPasswordView extends GetView<CheckPasswordController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan('验证您的身份', fontSize: 17),
-      backgroundColor: AppColors.mainBacground,
-      lineColor: AppColors.line,
-    );
+    AppBar appBar = getSettingBar('验证您的身份');
 
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.next.tr),
           onPressed: controller.state.isDissable ? null : controller.handleNext,
           background: controller.state.isDissable
@@ -41,8 +36,8 @@ class CheckPasswordView extends GetView<CheckPasswordController> {
           padding: EdgeInsets.all(16.w),
           child: Column(
             children: [
-              getSpan('验证您的密码', fontSize: 26),
-              SizedBox(height: 8.h),
+              getTitle('验证您的密码'),
+              SizedBox(height: 16.h),
               getSpan('重新输入您的密码以继续', color: AppColors.secondText),
               SizedBox(height: 20.h),
               getInput(

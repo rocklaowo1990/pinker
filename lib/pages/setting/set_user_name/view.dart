@@ -14,17 +14,12 @@ class SetUserNameView extends GetView<SetUserNameController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getAppBar(
-      getSpan('更改用户名', fontSize: 17),
-      lineColor: AppColors.line,
-      backgroundColor: AppColors.mainBacground,
-    );
+    AppBar appBar = getSettingBar('更改用户名');
 
     /// 底部
     Widget bottom = getBottomBox(
       rightWidget: Obx(
-        () => getButton(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w),
+        () => getButtonSheet(
           child: getSpan(Lang.sure.tr),
           onPressed: controller.state.isDissable ? null : controller.handleSure,
           background: controller.state.isDissable
@@ -43,21 +38,19 @@ class SetUserNameView extends GetView<SetUserNameController> {
               padding: EdgeInsets.all(16.w),
               child: Column(
                 children: [
-                  getSpan('当前用户名', color: AppColors.secondText),
+                  getSpanSecond('当前用户名'),
                   SizedBox(height: 8.h),
-                  getSpan(
-                      controller
-                          .applicationController.state.userInfo.value.userName,
-                      fontSize: 17),
+                  getSpanTitle(controller
+                      .applicationController.state.userInfo.value.userName),
                   SizedBox(height: 20.h),
                   getInput(
                     type: '输入新的用户名',
                     controller: controller.textController,
                     focusNode: controller.focusNode,
                   ),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 20.h),
                   getSpan('6-16位字母开头，允许包含数字和下划线', color: AppColors.secondText),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 10.h),
                   getSpan('*用户名只能修改一次，请认真填写', color: AppColors.errro),
                 ],
               ),

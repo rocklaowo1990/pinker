@@ -21,36 +21,21 @@ class SearchView extends StatelessWidget {
     return GetBuilder<SearchController>(
         init: SearchController(),
         builder: (controller) {
-          Widget _leftChild(String title, int index) {
-            return Obx(() => getSpan(
-                  title,
-                  color: controller.state.pageIndex == index
-                      ? AppColors.mainColor
-                      : AppColors.secondIcon,
-                  fontWeight: controller.state.pageIndex == index
-                      ? FontWeight.w600
-                      : null,
-                ));
-          }
+          var list = ['最新', '用户', '照片', '视频'];
+          Widget left = getTabBar(
+            list,
+            controller.state.pageIndexRx,
+            controller: controller.tabController,
+            onTap: controller.handleChangedTab,
+          );
 
           Widget tabBar = SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
-              width: 198.w,
+              width: Get.width,
               height: 48,
               color: AppColors.secondBacground,
-              child: TabBar(
-                onTap: controller.handleChangedTab,
-                controller: controller.tabController,
-                tabs: [
-                  _leftChild('最新', 0),
-                  // _leftChild('最热', 1),
-                  _leftChild('用户', 1),
-                  _leftChild('照片', 2),
-                  _leftChild('视频', 3),
-                  // _leftChild('限免', 5),
-                ],
-              ),
+              child: left,
             ),
           );
           Widget pages = PageView(
@@ -141,7 +126,7 @@ class SearchView extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 68,
-                padding: EdgeInsets.fromLTRB(0, 24, 9.w, 4),
+                padding: EdgeInsets.fromLTRB(0, 32, 16.w, 4),
                 child: Row(
                   children: [
                     SizedBox(
@@ -169,7 +154,7 @@ class SearchView extends StatelessWidget {
                           ? Row(
                               children: [
                                 SizedBox(width: 8.w),
-                                getButton(
+                                getButtonSheet(
                                   child: getSpan('搜索'),
                                   onPressed: controller.handleSearch,
                                 ),

@@ -34,7 +34,7 @@ class PersonalView extends StatelessWidget {
         ///
         /// 往上拖的时候，到达一定位置会显示头像，以及带背景的appbar
         Widget appBar = SizedBox(
-          height: 44.h,
+          height: 80.h,
           child: Obx(
             () => getAppBar(
               controller.state.opacity == 1
@@ -45,8 +45,8 @@ class PersonalView extends StatelessWidget {
                   ? controller.state.intro.value.bannerPic.isNotEmpty
                       ? getNetworkImageBox(
                           controller.state.intro.value.bannerPic,
-                          width: double.infinity,
-                          height: 80.h,
+                          width: Get.width,
+                          height: 44.h,
                         )
                       : Image.asset(
                           'assets/images/personal_banner.png',
@@ -57,12 +57,13 @@ class PersonalView extends StatelessWidget {
                   : null,
               leading: Center(
                 child: getButton(
-                  height: 16.w,
-                  width: 16.w,
+                  height: 32.w,
+                  width: 32.w,
                   background: AppColors.mainBacground50,
                   child: SvgPicture.asset(
                     'assets/svg/icon_back.svg',
-                    height: 8.w,
+                    height: 16.w,
+                    width: 16.w,
                   ),
                   onPressed: () {
                     Get.back();
@@ -75,14 +76,14 @@ class PersonalView extends StatelessWidget {
 
         /// 头像漂浮
         Widget avatar = Positioned(
-          top: 60.h,
-          left: 9.w,
+          top: 90.h,
+          left: 16.w,
           child: Obx(
             () => controller.state.intro.value.avatar.isNotEmpty
                 ? getNetworkImageBox(
                     controller.state.intro.value.avatar,
-                    width: 40.w,
-                    height: 40.w,
+                    width: 60.w,
+                    height: 60.w,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: AppColors.secondBacground,
@@ -90,8 +91,8 @@ class PersonalView extends StatelessWidget {
                     ),
                   )
                 : Container(
-                    width: 40.w,
-                    height: 40.w,
+                    width: 60.w,
+                    height: 60.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.line,
@@ -103,6 +104,7 @@ class PersonalView extends StatelessWidget {
                     child: SvgPicture.asset(
                       'assets/svg/avatar_default.svg',
                       width: 40.w,
+                      height: 40.w,
                     ),
                   ),
           ),
@@ -116,12 +118,14 @@ class PersonalView extends StatelessWidget {
               () => controller.state.intro.value.bannerPic.isEmpty
                   ? Image.asset(
                       'assets/images/personal_banner.png',
-                      height: 80.h,
+                      height: 120.h,
+                      width: Get.width,
+                      fit: BoxFit.cover,
                     )
                   : getNetworkImageBox(
                       controller.state.intro.value.bannerPic,
-                      width: double.infinity,
-                      height: 80.h,
+                      width: Get.width,
+                      height: 120.h,
                     ),
             ),
             avatar,
@@ -130,22 +134,19 @@ class PersonalView extends StatelessWidget {
 
         Widget otherButton = Row(
           children: [
-            getButton(
+            getButtonSheet(
               child: getSpan('打赏'),
-              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
             ),
-            SizedBox(width: 4.w),
-            getButton(
+            SizedBox(width: 8.w),
+            getButtonSheet(
               child: getSpan('私信'),
-              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
             ),
-            SizedBox(width: 4.w),
+            SizedBox(width: 8.w),
             Obx(
-              () => getButton(
+              () => getButtonSheet(
                 child: getSpan(
                   controller.state.intro.value.isSubscribe == 0 ? '订阅' : '已订阅',
                 ),
-                padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
                 onPressed: controller.state.intro.value.isSubscribe == 0
                     ? () {
                         getSubscribeBox(
@@ -202,20 +203,18 @@ class PersonalView extends StatelessWidget {
 
         Widget myButton = Row(
           children: [
-            getButton(
+            getButtonSheet(
               child: getSpan('打赏列表'),
-              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
             ),
-            SizedBox(width: 4.w),
-            getButton(
+            SizedBox(width: 8.w),
+            getButtonSheet(
               child: getSpan('个人资料'),
-              padding: EdgeInsets.fromLTRB(8.w, 0, 8.w, 0),
             ),
           ],
         );
 
         Widget nameBox = Padding(
-          padding: EdgeInsets.fromLTRB(9.w, 4.h, 9.w, 8.h),
+          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 16.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +249,7 @@ class PersonalView extends StatelessWidget {
         );
 
         Widget intro = Padding(
-          padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 8.h),
+          padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
           child: Obx(
             () => SizedBox(
               width: double.infinity,
@@ -265,12 +264,12 @@ class PersonalView extends StatelessWidget {
         );
 
         Widget date = Padding(
-          padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+          padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
           child: Row(
             children: [
               SvgPicture.asset(
                 'assets/svg/icon_date.svg',
-                height: 15,
+                height: 15.sp,
               ),
               SizedBox(width: 4.w),
               Obx(
@@ -284,13 +283,13 @@ class PersonalView extends StatelessWidget {
         );
 
         Widget count = Padding(
-          padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+          padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 0),
           child: Row(
             children: [
               getButton(
                 background: Colors.transparent,
                 overlayColor: Colors.transparent,
-                padding: EdgeInsets.fromLTRB(0, 0, 9.w, 0),
+                padding: EdgeInsets.fromLTRB(0, 0, 16.w, 0),
                 child: Row(
                   children: [
                     Obx(
@@ -305,7 +304,7 @@ class PersonalView extends StatelessWidget {
               getButton(
                 background: Colors.transparent,
                 overlayColor: Colors.transparent,
-                padding: EdgeInsets.fromLTRB(0, 0, 9.w, 0),
+                padding: EdgeInsets.fromLTRB(0, 0, 16.w, 0),
                 child: Row(
                   children: [
                     Obx(

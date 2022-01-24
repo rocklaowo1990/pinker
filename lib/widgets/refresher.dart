@@ -23,17 +23,17 @@ Widget getRefresher({
     child: child,
     header: header ??
         WaterDropHeader(
-          complete: getSpan('刷新成功', color: AppColors.secondText),
+          complete: getSpanSecond('刷新成功'),
           idleIcon:
-              const Icon(Icons.autorenew, size: 20, color: AppColors.mainIcon),
+              Icon(Icons.autorenew, size: 16.sp, color: AppColors.mainIcon),
           waterDropColor: AppColors.secondText,
           refresh: SizedBox(
-              width: 9.w,
-              height: 9.w,
+              width: 16.w,
+              height: 16.w,
               child: CircularProgressIndicator(
                   backgroundColor: AppColors.mainIcon,
                   color: AppColors.mainColor,
-                  strokeWidth: 1.w)),
+                  strokeWidth: 1.5.w)),
         ),
     footer: isFooter
         ? CustomFooter(
@@ -41,33 +41,21 @@ Widget getRefresher({
             builder: (BuildContext context, LoadStatus? mode) {
               Widget body;
               if (mode == LoadStatus.idle) {
-                body = getSpan(
-                  "加载完成",
-                  color: AppColors.secondText,
-                );
+                body = getSpanSecond("加载完成");
               } else if (mode == LoadStatus.loading) {
                 body = SizedBox(
-                    width: 9.w,
-                    height: 9.w,
+                    width: 16.w,
+                    height: 16.w,
                     child: CircularProgressIndicator(
                         backgroundColor: AppColors.mainIcon,
                         color: AppColors.mainColor,
-                        strokeWidth: 1.w));
+                        strokeWidth: 1.5.w));
               } else if (mode == LoadStatus.failed) {
-                body = getSpan(
-                  "加载失败！点击重试！",
-                  color: AppColors.secondText,
-                );
+                body = getSpanSecond("加载失败！点击重试！");
               } else if (mode == LoadStatus.canLoading) {
-                body = getSpan(
-                  "释放刷新",
-                  color: AppColors.secondText,
-                );
+                body = getSpanSecond("释放刷新");
               } else {
-                body = getSpan(
-                  "没有更多数据了!",
-                  color: AppColors.secondText,
-                );
+                body = getSpanSecond("没有更多数据了!");
               }
               return Center(
                 child: Padding(

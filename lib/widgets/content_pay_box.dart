@@ -68,29 +68,41 @@ Widget getContentPayBox(
   } else {
     url = contentList.value.list[index].works.video.previewsUrls[0];
     mediaType = Container(
-      width: 18.w,
-      height: 18.w,
+      width: 30.w,
+      height: 30.w,
       child: Icon(
         Icons.play_arrow,
-        size: 12.w,
+        size: 20.w,
         color: AppColors.mainIcon,
       ),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AppColors.mainColor,
-        border: Border.all(color: AppColors.mainIcon, width: 1.w),
+        border: Border.all(color: AppColors.mainIcon, width: 1.5.w),
       ),
     );
     var time = getDuration(contentList.value.list[index].works.video.duration);
     mediaInfo = '视频：$time';
   }
   price = contentList.value.list[index].works.payPermission.type == 1
-      ? getSpan('需订阅', color: AppColors.thirdText)
+      ? getSpan(
+          '需订阅',
+          color: AppColors.thirdText,
+          fontSize: 16.sp,
+        )
       : contentList.value.list[index].works.payPermission.type == 2
-          ? getSpan('订阅或付费', color: AppColors.thirdText)
+          ? getSpan(
+              '订阅或付费',
+              color: AppColors.thirdText,
+              fontSize: 16.sp,
+            )
           : contentList.value.list[index].works.payPermission.type == 3 &&
                   contentList.value.list[index].subStatus == 0
-              ? getSpan('订阅且付费', color: AppColors.thirdText)
+              ? getSpan(
+                  '订阅且付费',
+                  color: AppColors.thirdText,
+                  fontSize: 16.sp,
+                )
               : Row(
                   children: [
                     SvgPicture.asset(
@@ -99,17 +111,19 @@ Widget getContentPayBox(
                     ),
                     SizedBox(width: 3.w),
                     getSpan(
-                        '${contentList.value.list[index].works.payPermission.price}',
-                        color: AppColors.thirdText),
+                      '${contentList.value.list[index].works.payPermission.price}',
+                      color: AppColors.thirdText,
+                      fontSize: 16.sp,
+                    ),
                   ],
                 );
 
   return getButton(
     onPressed: _onPressed,
     width: double.infinity,
-    padding: EdgeInsets.fromLTRB(5.w, 5.w, 8.w, 5.w),
+    padding: EdgeInsets.fromLTRB(10.w, 10.w, 16.w, 10.w),
     background: AppColors.line,
-    borderRadius: BorderRadius.all(Radius.circular(4.w)),
+    borderRadius: BorderRadius.all(Radius.circular(8.w)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -119,13 +133,13 @@ Widget getContentPayBox(
               Stack(
                 children: [
                   getNetworkImageBox(url,
-                      width: 32.h,
-                      height: 32.h,
+                      width: 50.h,
+                      height: 50.h,
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(8.w))),
                   SizedBox(
-                    height: 32.h,
-                    width: 32.h,
+                    height: 50.h,
+                    width: 50.h,
                     child: Center(
                       child: mediaType,
                     ),
@@ -142,25 +156,19 @@ Widget getContentPayBox(
                       getSpan(
                         '付费资源：',
                         color: AppColors.thirdText,
+                        fontSize: 16.sp,
                       ),
                       price,
                     ],
                   ),
-                  const SizedBox(height: 2),
-                  getSpan(mediaInfo, color: AppColors.secondText),
+                  SizedBox(height: 4.h),
+                  getSpanSecond(mediaInfo),
                 ],
               )
             ],
           ),
         ),
-        Container(
-          child: getSpan('查看'),
-          padding: EdgeInsets.fromLTRB(12.w, 4.w, 12.w, 4.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(500.w),
-            color: AppColors.mainColor,
-          ),
-        ),
+        getButtonSheet(child: getSpan('查看'))
       ],
     ),
   );
