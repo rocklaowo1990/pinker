@@ -154,22 +154,24 @@ Widget getSearchInput(
   TextEditingController controller,
   FocusNode focusNode, {
   BorderRadius? borderRadius,
+  Widget? prefixIcon,
 }) {
   return getInput(
-    height: 40,
+    height: 40.h,
     contentPadding: EdgeInsets.only(left: 20.w),
     type: Lang.inputSearch.tr,
     controller: controller,
     focusNode: focusNode,
     borderRadius: borderRadius,
-    prefixIcon: SizedBox(
-      width: 10.h,
-      height: 10.h,
-      child: Center(
-        child: SvgPicture.asset(
-          'assets/svg/icon_search_2.svg',
+    prefixIcon: prefixIcon ??
+        SizedBox(
+          width: 10.h,
+          height: 10.h,
+          child: Center(
+            child: SvgPicture.asset(
+              'assets/svg/icon_search_2.svg',
+            ),
+          ),
         ),
-      ),
-    ),
   );
 }

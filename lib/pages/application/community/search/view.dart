@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
@@ -8,6 +9,7 @@ import 'package:pinker/pages/application/community/search/new/library.dart';
 import 'package:pinker/pages/application/community/search/photo/library.dart';
 import 'package:pinker/pages/application/community/search/user/library.dart';
 import 'package:pinker/pages/application/community/search/video/library.dart';
+import 'package:pinker/values/colors.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -64,6 +66,36 @@ class SearchView extends StatelessWidget {
             ],
           );
 
+          AppBar appBar = getAppBar(
+            getSearchInput(controller.textController, controller.focusNode,
+                prefixIcon: Obx(() => controller.state.isShowSearch &&
+                        !controller.state.isSearchEnd
+                    ? getButtonTransparent(
+                        onPressed: controller.handleSearch,
+                        child: SizedBox(
+                          width: 40.h,
+                          height: 40.h,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              'assets/svg/icon_search_2.svg',
+                              color: AppColors.mainColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        width: 10.h,
+                        height: 10.h,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/svg/icon_search_2.svg',
+                          ),
+                        ),
+                      ))),
+            lineColor: AppColors.line,
+            backgroundColor: AppColors.secondBacground,
+          );
+
           Widget body = Obx(
             () => controller.state.isSearchEnd
                 ? searchEndBox
@@ -72,8 +104,11 @@ class SearchView extends StatelessWidget {
                     ? Column(
                         children: [
                           SizedBox(height: 20.h),
-                          getSpan('您可以在这里找到您要找的用户，推文等信息',
-                              color: AppColors.secondText),
+                          Center(
+                            child: getSpanSecond(
+                              '您可以在这里找到您要找的用户，推文等信息',
+                            ),
+                          ),
                         ],
                       )
                     : MediaQuery.removePadding(
@@ -120,61 +155,9 @@ class SearchView extends StatelessWidget {
                       ),
           );
 
-          Widget scaffold = Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 80.h,
-                padding: EdgeInsets.fromLTRB(0, 40.h, 16.w, 4.h),
-                child: Row(
-                  children: [
-                    getBackButton(),
-                    Expanded(
-                        child: SizedBox(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Center(
-                        child: getInput(
-                          type: '搜索',
-                          controller: controller.textController,
-                          focusNode: controller.focusNode,
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.w, 8.h, 0.w, 8.h),
-                        ),
-                      ),
-                    )),
-                    Obx(
-                      () => controller.state.isShowSearch &&
-                              !controller.state.isSearchEnd
-                          ? Row(
-                              children: [
-                                SizedBox(width: 8.w),
-                                getButtonSheet(
-                                  child: getSpan('搜索'),
-                                  onPressed: controller.handleSearch,
-                                ),
-                              ],
-                            )
-                          : const SizedBox(),
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.secondBacground,
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 0.5.w,
-                      color: AppColors.line,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(child: body),
-            ],
-          );
-
           return Scaffold(
-            body: scaffold,
+            appBar: appBar,
+            body: body,
             backgroundColor: AppColors.mainBacground,
           );
         });
