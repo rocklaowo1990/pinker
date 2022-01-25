@@ -116,10 +116,10 @@ Future getCommentsView(
                                   children: [
                                     getSpan(
                                         '回复 ${controller.state.replyUserName}'),
-                                    const Icon(
+                                    Icon(
                                       Icons.close,
                                       color: AppColors.mainIcon,
-                                      size: 17,
+                                      size: 14.sp,
                                     ),
                                   ],
                                 )),

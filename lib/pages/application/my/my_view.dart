@@ -116,10 +116,10 @@ class MyView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(() => getSpan(
-                            controller.applicationController.state.userInfo
-                                .value.nickName,
-                            fontSize: 17)),
+                        Obx(() => getSpanTitle(
+                              controller.applicationController.state.userInfo
+                                  .value.nickName,
+                            )),
                         Obx(() => getSpan(
                             '@${controller.applicationController.state.userInfo.value.userName}')),
                       ],

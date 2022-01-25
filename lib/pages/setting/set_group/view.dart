@@ -60,8 +60,7 @@ class SetGroupView extends GetView<SetGroupController> {
                 const SizedBox(height: 30),
                 Row(
                   children: [
-                    getSpan(groupName,
-                        fontSize: 17, fontWeight: FontWeight.w600),
+                    getSpanTitle(groupName),
                     const SizedBox(width: 12),
                     SvgPicture.asset(
                       'assets/svg/icon_edit.svg',
