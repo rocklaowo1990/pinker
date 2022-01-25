@@ -39,18 +39,18 @@ AppBar getAppBar(Widget title,
                   ),
                 if (lineColor != null)
                   Container(
-                    height: 0.8,
+                    height: 1.h,
                     color: lineColor,
                   ),
               ],
             ),
             preferredSize: Size.fromHeight(bottom == null
-                ? 0.8
+                ? 1.h
                 : lineColor == null
                     ? bottomHeight ?? 0
                     : bottomHeight == null
-                        ? 0.8
-                        : bottomHeight + 0.8),
+                        ? 1.h
+                        : bottomHeight + 1.h),
           ),
     centerTitle: true,
     systemOverlayStyle: const SystemUiOverlayStyle(

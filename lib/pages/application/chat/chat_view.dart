@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/chat/library.dart';
 
@@ -22,19 +21,7 @@ class ChatView extends StatelessWidget {
         );
 
         /// body
-        Widget body = Center(
-          child: Column(
-            children: [
-              SizedBox(height: 40.h),
-              SvgPicture.asset(
-                'assets/svg/error_1.svg',
-                width: 55.w,
-              ),
-              SizedBox(height: 6.h),
-              getSpan('暂无数据', color: AppColors.secondText),
-            ],
-          ),
-        );
+        Widget body = getNoDataIcon();
 
         /// 页面
         return Scaffold(

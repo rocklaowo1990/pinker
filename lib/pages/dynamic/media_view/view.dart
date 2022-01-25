@@ -88,21 +88,15 @@ Future<Widget?> getMediaView(
                   child: getContentAvatar(contentList, index),
                 ),
                 Obx(() => controller.state.isLoading
-                    ? getButton(
-                        width: 70,
-                        borderSide: BorderSide(
-                          width: 0.5.w,
-                          color: AppColors.mainColor,
-                        ),
-                        background: Colors.transparent,
-                        child: const Center(
+                    ? getButtonSheetOutline(
+                        child: Center(
                           child: SizedBox(
-                            width: 16,
-                            height: 16,
+                            width: 13.w,
+                            height: 13.w,
                             child: CircularProgressIndicator(
                               backgroundColor: AppColors.mainIcon,
                               color: AppColors.mainColor,
-                              strokeWidth: 1,
+                              strokeWidth: 1.w,
                             ),
                           ),
                         ),

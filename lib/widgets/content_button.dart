@@ -189,7 +189,7 @@ Widget _contentButton({
 }) {
   return getButton(
     padding: padding ?? EdgeInsets.fromLTRB(16.w, 0, 16.w, 0),
-    height: 60.h,
+    height: 50.h,
     background: Colors.transparent,
     overlayColor: Colors.transparent,
     onPressed: onPressed,

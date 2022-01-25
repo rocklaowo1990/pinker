@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
@@ -21,27 +19,7 @@ class ContentListSearchHotView extends StatelessWidget {
           Widget loading = getLoadingIcon();
 
           // 没有数据的时候，显示暂无数据
-          Widget noData = Center(
-            child: getButton(
-              width: double.infinity,
-              background: Colors.transparent,
-              overlayColor: Colors.transparent,
-              onPressed: controller.handleNoData,
-              child: Column(
-                children: [
-                  SizedBox(height: 40.h),
-                  SvgPicture.asset(
-                    'assets/svg/error_4.svg',
-                    width: 55.w,
-                  ),
-                  SizedBox(height: 6.h),
-                  getSpan('暂无数据', color: AppColors.secondText),
-                  SizedBox(height: 2.h),
-                  getSpan('轻触屏幕重试', color: AppColors.secondText),
-                ],
-              ),
-            ),
-          );
+          Widget noData = getNoDataIcon();
 
           // 整体布局
           Widget _body = Obx(

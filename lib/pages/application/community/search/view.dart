@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
@@ -125,29 +124,25 @@ class SearchView extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: 68,
-                padding: EdgeInsets.fromLTRB(0, 32, 16.w, 4),
+                height: 80.h,
+                padding: EdgeInsets.fromLTRB(0, 40.h, 16.w, 4.h),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 50,
-                      height: 40,
-                      child: getButton(
-                        child: SvgPicture.asset('assets/svg/icon_back.svg'),
-                        onPressed: () {
-                          Get.back();
-                        },
-                        background: Colors.transparent,
-                      ),
-                    ),
+                    getBackButton(),
                     Expanded(
-                      child: getInput(
-                        type: '搜索',
-                        controller: controller.textController,
-                        focusNode: controller.focusNode,
-                        height: 40,
+                        child: SizedBox(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Center(
+                        child: getInput(
+                          type: '搜索',
+                          controller: controller.textController,
+                          focusNode: controller.focusNode,
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.w, 8.h, 0.w, 8.h),
+                        ),
                       ),
-                    ),
+                    )),
                     Obx(
                       () => controller.state.isShowSearch &&
                               !controller.state.isSearchEnd

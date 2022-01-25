@@ -319,45 +319,16 @@ class PersonalView extends StatelessWidget {
           ),
         );
 
-        Widget _tabBar(String title, int index) {
-          return Obx(() => getSpan(
-                title,
-                fontSize: 17,
-                color: controller.state.pageIndex == index
-                    ? AppColors.mainColor
-                    : AppColors.secondIcon,
-                fontWeight: controller.state.pageIndex == index
-                    ? FontWeight.w600
-                    : null,
-              ));
-        }
-
-        Widget tabBar = Container(
-          height: 56,
-          decoration: BoxDecoration(
-            border: Border(
-              // top: BorderSide(width: 0.5.w, color: AppColors.line),
-              bottom: BorderSide(width: 0.5.w, color: AppColors.line),
-            ),
-          ),
-          child: TabBar(
-            labelPadding: EdgeInsets.zero,
-            indicatorPadding: EdgeInsets.zero,
-            indicatorWeight: 1.w,
-            tabs: [
-              _tabBar('作品', 0),
-              _tabBar('限免', 1),
-              _tabBar('回复', 2),
-              _tabBar('转发', 3),
-              _tabBar('喜欢', 4),
-            ],
-            onTap: controller.handleChangedTab,
+        var list = ['作品', '限免', '回复', '转发', '喜欢'];
+        Widget tabBar = SizedBox(
+          child: getTabBar(
+            list,
+            controller.state.pageIndexRx,
             controller: controller.tabController,
-            labelColor: Colors.transparent,
-            // indicatorColor: Colors.transparent,
-            unselectedLabelColor: Colors.transparent,
-            automaticIndicatorColorAdjustment: false,
+            onTap: controller.handleChangedTab,
           ),
+          width: double.infinity,
+          height: 55.h,
         );
 
         Widget pageView = PageView(

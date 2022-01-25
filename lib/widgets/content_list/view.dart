@@ -12,12 +12,17 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   // 推文的作者信息
   Widget author = Padding(
-    padding: EdgeInsets.fromLTRB(16.w, 20.h, 0, 0),
+    padding: EdgeInsets.fromLTRB(16.w, 16.w, 0, 0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(child: getContentAvatar(contentList, index)),
-        getContentMore(contentList, index),
+        getContentMore(
+          contentList,
+          index,
+          width: 55.w,
+          height: 50.w,
+        ),
       ],
     ),
   );
@@ -41,7 +46,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   Widget _image(String url, int imagetIndex) {
     return getButton(
       background: AppColors.mainBacground,
-      borderRadius: BorderRadius.all(Radius.circular(4.w)),
+      borderRadius: BorderRadius.all(Radius.circular(8.w)),
       child: getNetworkImageBox(
         url,
         height: (Get.width - 40.w) / 3,
@@ -108,10 +113,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
+                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 10.h),
+                    : SizedBox(height: 16.w),
                 _imageBox(contentList.value.list[index].works.pics),
               ],
             )
@@ -119,10 +124,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
+                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.h),
+                    : SizedBox(height: 16.w),
                 _imageBox(contentList.value.list[index].works.pics),
                 SizedBox(height: 10.h),
                 getContentPayBox(contentList, index),
@@ -134,10 +139,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
+                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.h),
+                    : SizedBox(height: 16.w),
                 Stack(
                   children: [
                     getNetworkImageBox(
@@ -186,13 +191,13 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
+                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.h),
+                    : SizedBox(height: 16.w),
                 _imageBox(
                     contentList.value.list[index].works.video.previewsUrls),
-                SizedBox(height: 16.h),
+                SizedBox(height: 16.w),
                 getContentPayBox(contentList, index),
               ],
             ));

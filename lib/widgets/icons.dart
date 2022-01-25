@@ -74,7 +74,7 @@ Widget getNoDataIcon() {
     child: Column(
       children: [
         SizedBox(height: 40.h),
-        SvgPicture.asset('assets/svg/error_1.svg', width: 60.w),
+        SvgPicture.asset('assets/svg/error_4.svg', width: 80.w),
         SizedBox(height: 20.h),
         getSpanSecond('暂无数据'),
       ],

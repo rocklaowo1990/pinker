@@ -50,19 +50,19 @@ class HomeView extends StatelessWidget {
 
         // 没有数据的时候，显示暂无数据
         Widget noDataList = Container(
-          padding: EdgeInsets.fromLTRB(20.w, 20.w, 20.w, 20.w),
+          padding: EdgeInsets.all(32.w),
           color: AppColors.secondBacground,
           width: double.infinity,
           child: Column(
             children: [
               getTitle('什么？还没有推文？'),
-              SizedBox(height: 10.h),
+              SizedBox(height: 20.h),
               getSpan(
                 '这条空白的时间线将很快消失，开始关注用户，您再次回到这里将看到他们的推文',
                 textAlign: TextAlign.center,
                 color: AppColors.secondText,
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 32.h),
               getButtonMain(
                 child: getSpan('寻找值得订阅的用户'),
                 onPressed: controller.handleRemmondMore,

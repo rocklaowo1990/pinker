@@ -9,9 +9,9 @@ class PersonalState {
   double get opacity => _opacity.value;
 
   /// 页面控制器
-  final RxInt _pageIndex = 0.obs;
-  set pageIndex(int value) => _pageIndex.value = value;
-  int get pageIndex => _pageIndex.value;
+  final RxInt pageIndexRx = 0.obs;
+  set pageIndex(int value) => pageIndexRx.value = value;
+  int get pageIndex => pageIndexRx.value;
 
   final intro = PersonalEntities.fromJson(PersonalEntities.child).obs;
 

@@ -96,13 +96,13 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
                         children: [
                           SizedBox(height: 30.h),
                           SizedBox(
-                              width: 9.w,
-                              height: 9.w,
+                              width: 16.w,
+                              height: 16.w,
                               child: CircularProgressIndicator(
                                   backgroundColor: AppColors.mainIcon,
                                   color: AppColors.mainColor,
-                                  strokeWidth: 1.w)),
-                          SizedBox(height: 6.h),
+                                  strokeWidth: 1.5.w)),
+                          SizedBox(height: 20.h),
                           getSpan('加载中...', color: AppColors.secondText),
                         ],
                       ),
