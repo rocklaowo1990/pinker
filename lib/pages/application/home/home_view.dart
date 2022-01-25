@@ -292,7 +292,7 @@ class HomeView extends StatelessWidget {
                 .recommendUserList.value.list.isNotEmpty
             ? Column(
                 children: [
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 16.h),
                   getButtonList(title: '推荐订阅', iconRight: const SizedBox()),
                   recommend,
                   getButtonList(

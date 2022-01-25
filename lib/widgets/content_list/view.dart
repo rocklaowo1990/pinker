@@ -129,7 +129,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
                       )
                     : SizedBox(height: 16.w),
                 _imageBox(contentList.value.list[index].works.pics),
-                SizedBox(height: 10.h),
+                SizedBox(height: 16.w),
                 getContentPayBox(contentList, index),
               ],
             ));
@@ -203,7 +203,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
             ));
     } else {
       return Padding(
-        padding: EdgeInsets.only(top: 8.h),
+        padding: EdgeInsets.only(top: 16.w),
         child: _workContent(),
       );
     }
@@ -221,7 +221,11 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
         child: mediaBox,
       ), // 媒体部分，包含文字、图片和视频
       contentInfo, // 底部的留言、喜欢、转发、分享
-      Container(height: 1, width: double.infinity, color: AppColors.line),
+      Container(
+        height: 10.h,
+        width: double.infinity,
+        color: AppColors.mainBacground,
+      ),
     ],
   );
 
