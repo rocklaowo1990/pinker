@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
@@ -58,7 +57,7 @@ class SearchView extends StatelessWidget {
             children: [
               tabBar,
               Container(
-                height: 0.8.w,
+                height: 1.h,
                 width: double.infinity,
                 color: AppColors.line,
               ),
@@ -67,32 +66,12 @@ class SearchView extends StatelessWidget {
           );
 
           AppBar appBar = getAppBar(
-            getSearchInput(controller.textController, controller.focusNode,
-                prefixIcon: Obx(() => controller.state.isShowSearch &&
-                        !controller.state.isSearchEnd
-                    ? getButtonTransparent(
-                        onPressed: controller.handleSearch,
-                        child: SizedBox(
-                          width: 40.h,
-                          height: 40.h,
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/svg/icon_search_2.svg',
-                              color: AppColors.mainColor,
-                            ),
-                          ),
-                        ),
-                      )
-                    : SizedBox(
-                        width: 10.h,
-                        height: 10.h,
-                        child: Center(
-                          child: SvgPicture.asset(
-                            'assets/svg/icon_search_2.svg',
-                          ),
-                        ),
-                      ))),
-            lineColor: AppColors.line,
+            getSearchInput(
+              controller.textController,
+              controller.focusNode,
+              onSubmitted: controller.handleSearch,
+            ),
+            // lineColor: AppColors.line,
             backgroundColor: AppColors.secondBacground,
           );
 
@@ -140,12 +119,13 @@ class SearchView extends StatelessWidget {
                                       controller.textController.text =
                                           controller.state.textData[i];
 
-                                      controller.handleSearch();
+                                      controller.handleSearch(
+                                          controller.textController.text);
                                     },
                                   ),
                                   Container(
                                     width: double.infinity,
-                                    height: 0.5.w,
+                                    height: 1.w,
                                     color: AppColors.line,
                                   ),
                                 ],

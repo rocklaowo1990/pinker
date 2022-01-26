@@ -16,7 +16,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
   Widget build(BuildContext context) {
     /// appBar
     AppBar appBar =
-        getDefaultBar(controller.arguments == null ? '添加订阅组' : '订阅组信息');
+        getLineBar(controller.arguments == null ? '添加订阅组' : '订阅组信息');
 
     /// 中间部分
     Widget middle = Stack(

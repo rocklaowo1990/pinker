@@ -12,7 +12,7 @@ class CodeListView extends GetView<CodeListController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getDefaultBar(Lang.codeTitle.tr);
+    AppBar appBar = getNoLineBar(Lang.codeTitle.tr);
 
     /// 搜索框
     Widget searchBox = getSearchInput(

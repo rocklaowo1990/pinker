@@ -74,8 +74,8 @@ Future getCommentsView(
               decoration: BoxDecoration(
                   color: AppColors.mainBacground,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.w),
-                      topRight: Radius.circular(8.w))),
+                      topLeft: Radius.circular(16.w),
+                      topRight: Radius.circular(16.w))),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -19,7 +19,7 @@ class SetCountListView extends GetView<SetCountListController> {
       controller.focusNode,
       borderRadius: BorderRadius.zero,
     );
-    AppBar appBar = getDefaultBar(controller.arguments.title);
+    AppBar appBar = getNoLineBar(controller.arguments.title);
 
     /// body
     Widget body = Obx(() => controller.state.isLoading

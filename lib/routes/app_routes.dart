@@ -56,4 +56,7 @@ class AppRoutes {
 
   /// 推荐订阅
   static const recommendUserList = '/recommendUserList';
+
+  /// 发推
+  static const publish = '/publish';
 }

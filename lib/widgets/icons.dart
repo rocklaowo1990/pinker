@@ -81,3 +81,11 @@ Widget getNoDataIcon() {
     ),
   );
 }
+
+Widget getLogoIcon() {
+  return Icon(
+    IconFont.logo,
+    size: 40.w,
+    color: AppColors.mainColor,
+  );
+}

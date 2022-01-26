@@ -75,7 +75,7 @@ AppBar getMainBar({required Widget left, required Widget right}) {
       // const SizedBox(),
     ],
     backgroundColor: AppColors.secondBacground,
-    elevation: 0.5.w,
+    elevation: 1.h,
     shadowColor: AppColors.thirdIcon,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -84,11 +84,6 @@ AppBar getMainBar({required Widget left, required Widget right}) {
     ),
   );
 }
-
-PreferredSize getNobar = const PreferredSize(
-  child: SizedBox(),
-  preferredSize: Size.fromHeight(0),
-);
 
 /// appBar
 /// 顶部带搜索的appbar
@@ -114,7 +109,7 @@ AppBar getSearchBar({
       ),
     ),
     backgroundColor: AppColors.mainBacground,
-    elevation: 0.5.w,
+    elevation: 1.h,
     shadowColor: AppColors.thirdIcon,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -124,11 +119,18 @@ AppBar getSearchBar({
   );
 }
 
-AppBar getDefaultBar(String text) {
+AppBar getLineBar(String text) {
   return getAppBar(
     getSpanTitle(text),
     backgroundColor: AppColors.secondBacground,
     lineColor: AppColors.line,
+  );
+}
+
+AppBar getNoLineBar(String text) {
+  return getAppBar(
+    getSpanTitle(text),
+    backgroundColor: AppColors.secondBacground,
   );
 }
 

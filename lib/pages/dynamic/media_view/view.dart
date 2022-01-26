@@ -41,8 +41,8 @@ Future<Widget?> getMediaView(
       // appBar 左侧的返回按钮
       Widget leading = Obx(() => Center(
             child: getButton(
-              height: 20.w,
-              width: 20.w,
+              height: 60.w,
+              width: 60.w,
               background: Colors.transparent,
               child: SvgPicture.asset('assets/svg/icon_back.svg'),
               onPressed: controller.state.opacity == 0.0

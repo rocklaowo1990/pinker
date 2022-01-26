@@ -28,7 +28,7 @@ class SubscribeListView extends GetView<SubscribeListController> {
     }) {
       return Container(
         width: double.infinity,
-        padding: EdgeInsets.all(9.w),
+        padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
             color: AppColors.secondBacground,
             border: Border(
@@ -40,8 +40,7 @@ class SubscribeListView extends GetView<SubscribeListController> {
                 Expanded(
                   child: getUserAvatar(avatar, title, secondTitle),
                 ),
-                getButton(
-                  width: 40.w,
+                getButtonSheet(
                   child: getSpan('续费'),
                 )
               ],
@@ -57,13 +56,13 @@ class SubscribeListView extends GetView<SubscribeListController> {
                       'assets/svg/icon_diamond.svg',
                       height: 15,
                     ),
-                    SizedBox(width: 3.w),
+                    SizedBox(width: 8.w),
                     getSpan('$amount'),
                   ],
                 )
               ],
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 8.h),
             Row(
               children: [
                 getSpan('自动续费：', color: AppColors.secondText),
@@ -80,7 +79,7 @@ class SubscribeListView extends GetView<SubscribeListController> {
                 ),
               ],
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 8.h),
             Row(
               children: [
                 getSpan('到期时间：', color: AppColors.secondText),
@@ -133,8 +132,8 @@ class SubscribeListView extends GetView<SubscribeListController> {
 
     return Scaffold(
       appBar: getAppBar(
-        Obx(() => getSpan(
-            '您正在订阅的用户（ ${controller.state.subscribeList.value.totalSize} 人）')),
+        Obx(() => getSpanTitle(
+            '您正在订阅的用户（ ${controller.state.subscribeList.value.totalSize} 人 ）')),
         backgroundColor: AppColors.secondBacground,
         lineColor: AppColors.line,
       ),

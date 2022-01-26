@@ -21,12 +21,12 @@ class HomeView extends StatelessWidget {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) {
-        var list = ['首页'];
-        Widget left = getTabBar(
-          list,
-          controller.state.pageIndexRx,
-          controller: controller.tabController,
-        );
+        // var list = ['首页'];
+        // Widget left = getTabBar(
+        //   list,
+        //   controller.state.pageIndexRx,
+        //   controller: controller.tabController,
+        // );
 
         // // appbar 右侧按钮
         // Widget right = getButton(
@@ -39,14 +39,38 @@ class HomeView extends StatelessWidget {
         //   onPressed: controller.handleMail,
         // );
 
-        // AppBar
-        AppBar appBar = getMainBar(
-          left: left,
-          right: const SizedBox(),
+        //AppBar
+        // AppBar appBar = getMainBar(
+        //   left: left,
+        //   right: const SizedBox(),
+        // );
+
+        /// appBar
+        AppBar appBar = getAppBar(
+          getLogoIcon(),
+          leading: Obx(
+            () => controller
+                    .applicationController.state.userInfo.value.avatar.isEmpty
+                ? const SizedBox()
+                : getButtonTransparent(
+                    onPressed: controller.handlePersonal,
+                    child: Center(
+                      child: getNetworkImageBox(
+                        controller
+                            .applicationController.state.userInfo.value.avatar,
+                        shape: BoxShape.circle,
+                        width: 26.w,
+                        height: 26.w,
+                      ),
+                    ),
+                  ),
+          ),
+          backgroundColor: AppColors.secondBacground,
+          lineColor: AppColors.line,
         );
 
         // loading时显示转圈圈
-        Widget loading = getLoadingIcon();
+        // Widget loading = getLoadingIcon();
 
         // 没有数据的时候，显示暂无数据
         Widget noDataList = Container(
@@ -72,25 +96,23 @@ class HomeView extends StatelessWidget {
         );
 
         Widget swiper = SizedBox(
-          height: 150.h,
+          height: 160.h,
           width: double.infinity,
           // color: AppColors.secondBacground,
           child: Obx(
             () => Swiper(
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.thirdIcon,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.w),
-                    ),
-                  ),
+                return getNetworkImageBox(
+                  controller.applicationController.state.homeSwiperKing.value
+                      .carousel[index].pic,
                 );
               },
               itemCount: controller.applicationController.state.homeSwiperKing
                   .value.carousel.length,
-              viewportFraction: 0.85,
-              scale: 0.9,
+              viewportFraction: 1,
+              scale: 1,
+              autoplay: true,
+              autoplayDelay: 3000,
               pagination: const SwiperPagination(
                 builder: SwiperPagination.dots,
               ),
@@ -114,7 +136,7 @@ class HomeView extends StatelessWidget {
                   width: 60.w,
                   height: 60.w,
                   borderRadius: BorderRadius.all(
-                    Radius.circular(8.w),
+                    Radius.circular(16.w),
                   ),
                 ),
                 SizedBox(height: 16.h),
@@ -303,14 +325,8 @@ class HomeView extends StatelessWidget {
 
         Widget fixedBox = Column(
           children: [
-            SizedBox(
-              height: 16.h,
-            ),
             swiper,
-            SizedBox(
-              height: 16.h,
-            ),
-            getButtonList(title: '热门分类', iconRight: const SizedBox()),
+            // getButtonList(title: '热门分类', iconRight: const SizedBox()),
             Container(
               width: double.infinity,
               height: 1.h,
@@ -323,7 +339,7 @@ class HomeView extends StatelessWidget {
               color: AppColors.line,
             ),
             getButtonList(
-                title: '查看更多', onPressed: controller.handleRemmondMore),
+                title: '查看更多热门分类', onPressed: controller.handleRemmondMore),
             SizedBox(height: 16.h),
             getButtonList(title: '精彩活动', iconRight: const SizedBox()),
             activity,
@@ -372,17 +388,17 @@ class HomeView extends StatelessWidget {
         );
 
         /// body
-        Widget body = Obx(
-          () => controller.applicationController.state.isLoadingHome
-              ? loading
-              : _body,
-        );
+        // Widget body = Obx(
+        //   () => controller.applicationController.state.isLoadingHome
+        //       ? loading
+        //       : _body,
+        // );
 
         /// 页面
         return Scaffold(
           backgroundColor: AppColors.mainBacground,
           appBar: appBar,
-          body: body,
+          body: _body,
         );
       },
     );

@@ -4,6 +4,7 @@ import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/personal/library.dart';
+import 'package:pinker/pages/publish/library.dart';
 import 'package:pinker/pages/recommend_user_list/binding.dart';
 import 'package:pinker/pages/recommend_user_list/view.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
@@ -49,6 +50,14 @@ class AppPages {
       name: AppRoutes.application,
       page: () => const ApplicationView(),
       binding: ApplicationBinding(),
+      children: [
+        /// 发推
+        GetPage(
+          name: AppRoutes.publish,
+          page: () => const PublishView(),
+          binding: PublishBinding(),
+        ),
+      ],
     ),
 
     /// 我的订阅列表

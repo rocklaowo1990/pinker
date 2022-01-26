@@ -87,6 +87,7 @@ Future<void> getHomeData() async {
   }
 
   ResponseEntity responseEntityTwo = await HomeApi.config();
+
   if (responseEntityTwo.code == 200) {
     applicationController.state.homeSwiperKing.value =
         HomeSwiperKing.fromJson(responseEntityTwo.data);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 
@@ -19,7 +20,7 @@ class HomeController extends GetxController
       RefreshController(initialRefresh: false);
 
   final ApplicationController applicationController = Get.find();
-  final ScrollController scrollController = ScrollController();
+  final scrollController = ScrollController();
 
   late TabController tabController;
 
@@ -110,6 +111,13 @@ class HomeController extends GetxController
     } else {
       applicationController.state.isLoadingHome = false;
     }
+  }
+
+  void handlePersonal() {
+    Get.toNamed(
+      AppRoutes.personal,
+      arguments: applicationController.state.userInfo.value.userId,
+    );
   }
 
   @override

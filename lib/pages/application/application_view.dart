@@ -16,72 +16,42 @@ class ApplicationView extends GetView<ApplicationController> {
 
   @override
   Widget build(BuildContext context) {
-    /// 底部导航子组件
-    Widget _bottomChild(int index) {
-      Widget _child(IconData icon) {
-        return Obx(
-          () => Icon(
-            icon,
-            color: controller.state.pageIndex == index
-                ? AppColors.mainColor
-                : AppColors.secondIcon,
-          ),
-        );
-      }
-
-      Widget child = _child(Icons.home);
-
-      switch (index) {
-        case 0:
-          child = _child(Icons.home);
-          break;
-        case 1:
-          child = _child(Icons.public);
-
-          break;
-        case 2:
-          child = _child(Icons.sms);
-
-          break;
-        case 3:
-          child = _child(Icons.person);
-          break;
-
-        default:
-      }
-      return getButton(
-        child: child,
-        width: 50.h,
-        height: 50.h,
-        background: Colors.transparent,
-        onPressed: () {
-          if (controller.state.rxIntValue != index) {
-            controller.state.rxIntValue = index;
-          }
-          controller.pageController.jumpToPage(index);
-        },
-      );
-    }
+    const bottomNavItems = [
+      BottomNavigationBarItem(
+        backgroundColor: AppColors.secondBacground,
+        icon: Icon(Icons.home),
+        label: "首页",
+      ),
+      BottomNavigationBarItem(
+        backgroundColor: AppColors.secondBacground,
+        icon: Icon(Icons.public),
+        label: "社区",
+      ),
+      BottomNavigationBarItem(
+        backgroundColor: AppColors.secondBacground,
+        icon: Icon(Icons.message),
+        label: "聊天",
+      ),
+      BottomNavigationBarItem(
+        backgroundColor: AppColors.secondBacground,
+        icon: Icon(Icons.person),
+        label: "我的",
+      ),
+    ];
 
     /// 底部导航
-    Widget bottomNavigationBar = Container(
-      width: double.infinity,
-      height: 50.h,
-      padding: EdgeInsets.only(left: 16.w, right: 16.w),
-      decoration: BoxDecoration(
-        color: AppColors.secondBacground,
-        border: Border(
-          top: BorderSide(width: 0.5.w, color: AppColors.line),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _bottomChild(0),
-          _bottomChild(1),
-          _bottomChild(2),
-          _bottomChild(3),
-        ],
+    Widget bottomNavigationBar = Obx(
+      () => BottomNavigationBar(
+        backgroundColor: AppColors.secondBacground,
+        elevation: 1,
+        currentIndex: controller.state.pageIndex,
+        // showSelectedLabels: false,
+        // showUnselectedLabels: false,
+        selectedItemColor: AppColors.mainColor,
+        unselectedItemColor: AppColors.secondIcon,
+        type: BottomNavigationBarType.fixed,
+        items: bottomNavItems,
+        onTap: controller.handlePageChanged,
       ),
     );
 
@@ -114,18 +84,7 @@ class ApplicationView extends GetView<ApplicationController> {
             ),
             width: 50.w,
             height: 50.w,
-            onPressed: () {
-              getDialog(
-                child: DialogChild.alert(
-                  title: '提示',
-                  content: '功能制作中...',
-                  leftText: '确认',
-                  onPressedLeft: () {
-                    Get.back();
-                  },
-                ),
-              );
-            },
+            onPressed: controller.handlePublish,
           )
         : const SizedBox());
 

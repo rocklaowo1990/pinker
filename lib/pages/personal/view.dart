@@ -320,7 +320,7 @@ class PersonalView extends StatelessWidget {
         );
 
         var list = ['作品', '限免', '回复', '转发', '喜欢'];
-        Widget tabBar = SizedBox(
+        Widget tabBar = Container(
           child: getTabBar(
             list,
             controller.state.pageIndexRx,
@@ -329,6 +329,18 @@ class PersonalView extends StatelessWidget {
           ),
           width: double.infinity,
           height: 55.h,
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                width: 1.w,
+                color: AppColors.line,
+              ),
+              bottom: BorderSide(
+                width: 1.w,
+                color: AppColors.line,
+              ),
+            ),
+          ),
         );
 
         Widget pageView = PageView(
@@ -455,13 +467,17 @@ class PersonalView extends StatelessWidget {
                     intro,
                     date,
                     count,
+                    SizedBox(height: 16.w),
                     tabBar,
                   ],
                 ),
               ),
             ];
           },
-          body: pageView,
+          body: Container(
+            child: pageView,
+            color: AppColors.mainBacground,
+          ),
         );
 
         /// 页面

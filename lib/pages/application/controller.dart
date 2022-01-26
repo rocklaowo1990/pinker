@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/library.dart';
+import 'package:pinker/routes/app_pages.dart';
 
 import 'package:pinker/utils/utils.dart';
 
@@ -13,6 +14,11 @@ class ApplicationController extends GetxController {
 
   void handlePageChanged(index) {
     state.pageIndex = index;
+    pageController.jumpToPage(index);
+  }
+
+  void handlePublish() {
+    Get.toNamed(AppRoutes.application + AppRoutes.publish);
   }
 
   // /// 嵌套路由封装

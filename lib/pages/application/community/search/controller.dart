@@ -64,7 +64,7 @@ class SearchController extends GetxController
     }
   }
 
-  void handleSearch() async {
+  void handleSearch(String text) async {
     focusNode.unfocus();
     keywords = textController.text;
     state.textData.add(textController.text);

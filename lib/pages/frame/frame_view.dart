@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/global.dart';
@@ -15,19 +14,12 @@ class FrameView extends GetView<FrameController> {
 
   @override
   Widget build(BuildContext context) {
-    /// logo
-    Widget logo = Icon(
-      IconFont.logo,
-      size: 40.w,
-      color: AppColors.mainColor,
-    );
-
     /// appBar 两侧的占位
     Widget emptyBox = const SizedBox();
 
     /// appBar
     AppBar appBar = getAppBar(
-      logo,
+      getLogoIcon(),
       leading: Obx(() => controller.state.pageIndex > 0
           ? getBackButton(onPressed: controller.handleBack)
           : emptyBox),

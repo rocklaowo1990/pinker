@@ -19,7 +19,7 @@ class SettingView extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getDefaultBar(Lang.setTitle.tr);
+    AppBar appBar = getNoLineBar(Lang.setTitle.tr);
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
     /// 语言

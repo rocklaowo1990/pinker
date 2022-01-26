@@ -48,7 +48,7 @@ class CheckPasswordController extends GetxController {
       String data = duMD5(textController.text);
       await futureMill(500);
       Get.back();
-      Get.toNamed(
+      Get.offNamed(
         AppRoutes.set + AppRoutes.checkPassword + arguments,
         arguments: arguments == AppRoutes.setVerify
             ? {

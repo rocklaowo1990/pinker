@@ -38,6 +38,7 @@ Widget getInput({
 
   /// radius
   BorderRadius? borderRadius,
+  void Function(String)? onSubmitted,
 }) {
   /// 判断是否显示密码
   RxBool isPassword = false.obs;
@@ -100,6 +101,7 @@ Widget getInput({
       // autofocus: autofocus,
       focusNode: focusNode,
       controller: controller,
+      onSubmitted: onSubmitted,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
@@ -154,7 +156,8 @@ Widget getSearchInput(
   TextEditingController controller,
   FocusNode focusNode, {
   BorderRadius? borderRadius,
-  Widget? prefixIcon,
+  // Widget? prefixIcon,
+  void Function(String)? onSubmitted,
 }) {
   return getInput(
     height: 40.h,
@@ -163,15 +166,16 @@ Widget getSearchInput(
     controller: controller,
     focusNode: focusNode,
     borderRadius: borderRadius,
-    prefixIcon: prefixIcon ??
-        SizedBox(
-          width: 10.h,
-          height: 10.h,
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/svg/icon_search_2.svg',
-            ),
-          ),
+    onSubmitted: onSubmitted,
+    textInputAction: TextInputAction.search,
+    prefixIcon: SizedBox(
+      width: 10.h,
+      height: 10.h,
+      child: Center(
+        child: SvgPicture.asset(
+          'assets/svg/icon_search_2.svg',
         ),
+      ),
+    ),
   );
 }

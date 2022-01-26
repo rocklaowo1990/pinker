@@ -14,7 +14,7 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
   @override
   Widget build(BuildContext context) {
     /// appBar
-    AppBar appBar = getDefaultBar('水印设置');
+    AppBar appBar = getNoLineBar('水印设置');
 
     /// 底部
     Widget bottom = getBottomBox(

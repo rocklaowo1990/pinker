@@ -116,7 +116,7 @@ class MyView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(() => getSpanTitle(
+                        Obx(() => getTitle(
                               controller.applicationController.state.userInfo
                                   .value.nickName,
                             )),
@@ -157,7 +157,7 @@ class MyView extends StatelessWidget {
                       getSpan(title),
                     ],
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 16.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -181,7 +181,7 @@ class MyView extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               color: AppColors.secondBacground,
-              borderRadius: BorderRadius.all(Radius.circular(8.w)),
+              borderRadius: BorderRadius.all(Radius.circular(16.w)),
             ),
             child: Column(
               children: [
@@ -235,7 +235,7 @@ class MyView extends StatelessWidget {
               background: AppColors.secondBacground,
               onPressed: onPressed,
               borderRadius: BorderRadius.all(
-                Radius.circular(8.w),
+                Radius.circular(16.w),
               ),
               padding: EdgeInsets.all(16.w),
             );
@@ -289,7 +289,7 @@ class MyView extends StatelessWidget {
             padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
             decoration: BoxDecoration(
               color: AppColors.secondBacground,
-              borderRadius: BorderRadius.all(Radius.circular(8.w)),
+              borderRadius: BorderRadius.all(Radius.circular(16.w)),
             ),
             child: Row(
               children: [
@@ -361,7 +361,7 @@ class MyView extends StatelessWidget {
             isFooter: false,
             onRefresh: controller.onRefresh,
             header: const WaterDropMaterialHeader(
-              backgroundColor: AppColors.thirdText,
+              backgroundColor: AppColors.mainColor,
             ),
           );
 

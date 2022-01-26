@@ -12,7 +12,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
   @override
   Widget build(BuildContext context) {
     // appBar
-    AppBar appBar = getDefaultBar('注销账号');
+    AppBar appBar = getLineBar('注销账号');
 
     // 按钮
     Widget button = getButtonMain(
