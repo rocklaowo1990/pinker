@@ -72,6 +72,7 @@ class SearchView extends StatelessWidget {
               onSubmitted: controller.handleSearch,
             ),
             // lineColor: AppColors.line,
+
             backgroundColor: AppColors.secondBacground,
           );
 

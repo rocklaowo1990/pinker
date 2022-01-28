@@ -45,7 +45,7 @@ class DialogChild {
         height: height ?? 80.w,
         decoration: BoxDecoration(
           color: AppColors.secondBacground,
-          borderRadius: BorderRadius.circular(8.w),
+          borderRadius: BorderRadius.circular(16.w),
         ),
         child: Center(
           child: SizedBox(
@@ -83,11 +83,11 @@ class DialogChild {
             background: Colors.transparent,
             borderRadius: onPressedRight != null
                 ? BorderRadius.only(
-                    bottomLeft: Radius.circular(8.w),
+                    bottomLeft: Radius.circular(16.w),
                   )
                 : BorderRadius.only(
-                    bottomLeft: Radius.circular(8.w),
-                    bottomRight: Radius.circular(8.w),
+                    bottomLeft: Radius.circular(16.w),
+                    bottomRight: Radius.circular(16.w),
                   ),
             onPressed: onPressedLeft,
           ),
@@ -107,7 +107,7 @@ class DialogChild {
               width: double.infinity,
               background: Colors.transparent,
               borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(8.w),
+                bottomRight: Radius.circular(16.w),
               ),
               onPressed: onPressedRight,
             ),
@@ -134,7 +134,7 @@ class DialogChild {
     Widget body = Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(8.w),
+          Radius.circular(16.w),
         ),
         color: AppColors.secondBacground,
       ),

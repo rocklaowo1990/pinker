@@ -33,7 +33,6 @@ Widget getVideoController(
     width: double.infinity,
     height: 50,
     decoration: const BoxDecoration(
-        color: Colors.black54,
         border: Border(top: BorderSide(color: AppColors.line, width: 1))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

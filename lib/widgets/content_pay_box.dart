@@ -41,7 +41,7 @@ Widget getContentPayBox(
 
   final ApplicationController applicationController = Get.find();
 
-  void _onPressed() async {
+  void _onPressed() {
     getContentPaySheet(
       userInfo: applicationController.state.userInfo,
       contentList: contentList,

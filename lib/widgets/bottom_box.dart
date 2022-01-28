@@ -30,16 +30,22 @@ Widget getBottomBox({
 
   /// 底部 bottom 布局
   return Container(
-    padding: EdgeInsets.fromLTRB(10.w, 5.w, 10.w, 5.w),
     width: double.infinity,
-    height: 40.h,
     color: AppColors.secondBacground,
-    child: Row(
-      children: [
-        leftWidget ?? left,
-        const Spacer(),
-        rightWidget ?? right,
-      ],
+    child: SafeArea(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(8.w, 5.w, 8.w, 5.w),
+        width: double.infinity,
+        height: 40.h,
+        color: AppColors.secondBacground,
+        child: Row(
+          children: [
+            leftWidget ?? left,
+            const Spacer(),
+            rightWidget ?? right,
+          ],
+        ),
+      ),
     ),
   );
 }

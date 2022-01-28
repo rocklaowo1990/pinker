@@ -39,6 +39,7 @@ Widget getInput({
   /// radius
   BorderRadius? borderRadius,
   void Function(String)? onSubmitted,
+  int? maxLines = 1,
 }) {
   /// 判断是否显示密码
   RxBool isPassword = false.obs;
@@ -91,6 +92,8 @@ Widget getInput({
     keyboardType = TextInputType.number;
   } else if (type == Lang.inputEmail.tr) {
     keyboardType = TextInputType.emailAddress;
+  } else if (RegExp(r"新鲜事").hasMatch(type)) {
+    keyboardType = TextInputType.multiline;
   }
 
   /// 组件
@@ -102,6 +105,7 @@ Widget getInput({
       focusNode: focusNode,
       controller: controller,
       onSubmitted: onSubmitted,
+      maxLines: maxLines,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,

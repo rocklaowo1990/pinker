@@ -23,13 +23,18 @@ Widget getTabBar(
           .keys
           .map(
             (index) => Obx(
-              () => getSpan(
-                tabs[index],
-                fontSize: 16.sp,
-                color: rxInt.value == index
-                    ? AppColors.mainColor
-                    : AppColors.secondIcon,
-                fontWeight: rxInt.value == index ? FontWeight.w600 : null,
+              () => SizedBox(
+                height: double.infinity,
+                child: Center(
+                  child: getSpan(
+                    tabs[index],
+                    fontSize: 16.sp,
+                    color: rxInt.value == index
+                        ? AppColors.mainColor
+                        : AppColors.secondIcon,
+                    fontWeight: rxInt.value == index ? FontWeight.w600 : null,
+                  ),
+                ),
               ),
             ),
           )

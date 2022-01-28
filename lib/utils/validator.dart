@@ -30,6 +30,11 @@ bool isInclude(String value, String match) {
   return RegExp(r"(" + match + ")").hasMatch(value);
 }
 
+/// 字符串去掉空白字符
+String stringClear(String value) {
+  return value.replaceAll(RegExp(r"\s+\b|\b\s"), '');
+}
+
 /// 验证身份证
 bool isIdCard(String value) {
   return RegExp(r"\d{17}[\d|x]|\d{15}").hasMatch(value);

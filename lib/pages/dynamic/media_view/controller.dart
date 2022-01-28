@@ -103,6 +103,9 @@ class MediaViewController extends GetxController {
       state.opacityListenRx,
       (int value) {
         state.opacity = state.opacity == 1.0 ? 0.0 : 1.0;
+        // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        //     overlays: [SystemUiOverlay.bottom]);
+        // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
       },
       time: const Duration(milliseconds: 100),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/icons.dart';
 
@@ -42,6 +43,8 @@ Widget getButton({
 }) {
   MaterialStateProperty<Size?>? fixedSize;
 
+  final enable = false.obs;
+
   if (width != null && height != null) {
     fixedSize = MaterialStateProperty.all(Size(width, height));
   } else if (width != null) {
@@ -50,41 +53,51 @@ Widget getButton({
     fixedSize = MaterialStateProperty.all(Size.fromHeight(height));
   }
 
-  return TextButton(
-    clipBehavior: Clip.none,
-    onPressed: onPressed,
-    style: ButtonStyle(
-      /// 对其方式，默认居中对齐
-      alignment: alignment,
+  return Obx(
+    () => TextButton(
+      clipBehavior: Clip.none,
+      onPressed: !enable.value
+          ? () {
+              if (onPressed != null) onPressed();
+              enable.value = true;
+              Future.delayed(const Duration(seconds: 2), () {
+                enable.value = false;
+              });
+            }
+          : null,
+      style: ButtonStyle(
+        /// 对其方式，默认居中对齐
+        alignment: alignment,
 
-      fixedSize: fixedSize,
-      minimumSize: MaterialStateProperty.all(Size.zero),
+        fixedSize: fixedSize,
+        minimumSize: MaterialStateProperty.all(Size.zero),
 
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
-      /// 按钮文字样式
-      textStyle: MaterialStateProperty.all(
-        const TextStyle(fontWeight: FontWeight.normal),
-      ),
-
-      overlayColor: MaterialStateProperty.all(overlayColor),
-
-      /// 按钮圆角
-      shape: MaterialStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: borderRadius ?? BorderRadius.circular(Get.width),
+        /// 按钮文字样式
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(fontWeight: FontWeight.normal),
         ),
+
+        overlayColor: MaterialStateProperty.all(overlayColor),
+
+        /// 按钮圆角
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: borderRadius ?? BorderRadius.circular(Get.width),
+          ),
+        ),
+
+        side: borderSide == null ? null : MaterialStateProperty.all(borderSide),
+
+        /// 清空按钮的padding
+        padding: MaterialStateProperty.all(padding),
+
+        /// 按钮背景色，默认主色
+        backgroundColor: MaterialStateProperty.all(background),
       ),
-
-      side: borderSide == null ? null : MaterialStateProperty.all(borderSide),
-
-      /// 清空按钮的padding
-      padding: MaterialStateProperty.all(padding),
-
-      /// 按钮背景色，默认主色
-      backgroundColor: MaterialStateProperty.all(background),
+      child: child,
     ),
-    child: child,
   );
 }
 

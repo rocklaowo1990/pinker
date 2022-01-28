@@ -39,60 +39,44 @@ class MyView extends StatelessWidget {
             ),
           ];
 
-          /// appbar 背景
-          Widget appBarBacground = Obx(
-            () => Opacity(
-              opacity: controller.state.opacity,
-              child: Container(
-                width: double.infinity,
-                height: 80.h,
-                color: AppColors.mainColor,
-              ),
-            ),
-          );
-
           /// appbar 内容
-          Widget appBarChild = SizedBox(
-            width: double.infinity,
-            height: 100.h,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10.w),
-                  child: Obx(
-                    () => Opacity(
-                        opacity: controller.state.opacity,
-                        child: getButton(
-                          onPressed: controller.handlePersonal,
-                          width: 40.w,
+          Widget appBarChild = Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10.w),
+                child: Obx(
+                  () => Opacity(
+                      opacity: controller.state.opacity,
+                      child: getButton(
+                        onPressed: controller.handlePersonal,
+                        width: 40.w,
+                        height: 32.w,
+                        child: getNetworkImageBox(
+                          controller.applicationController.state.userInfo.value
+                              .avatar,
+                          shape: BoxShape.circle,
+                          width: 32.w,
                           height: 32.w,
-                          child: getNetworkImageBox(
-                            controller.applicationController.state.userInfo
-                                .value.avatar,
-                            shape: BoxShape.circle,
-                            width: 32.w,
-                            height: 32.w,
-                          ),
-                        )),
-                  ),
+                        ),
+                      )),
                 ),
-                Row(children: actions),
-              ],
-            ),
+              ),
+              Row(children: actions),
+            ],
           );
 
           /// appbar 组装
-          Widget appBar = Stack(
-            children: [
-              appBarBacground,
-              Column(
-                children: [
-                  SizedBox(height: 11.h),
-                  appBarChild,
-                ],
-              )
-            ],
+          Widget appBar = Obx(
+            () => Container(
+              width: double.infinity,
+              color: controller.state.opacity >= 1
+                  ? AppColors.mainColor
+                  : Colors.transparent,
+              child: SafeArea(
+                child: appBarChild,
+              ),
+            ),
           );
 
           /// 用户信息模块：点击去个人主页
@@ -341,19 +325,21 @@ class MyView extends StatelessWidget {
                     alignment: Alignment.topCenter,
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(16.w),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 100.h),
-                      userInfo,
-                      SizedBox(height: 20.w),
-                      wallet,
-                      SizedBox(height: 10.h),
-                      subscription,
-                      SizedBox(height: 10.h),
-                      buttons,
-                    ],
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.w),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 60.h),
+                        userInfo,
+                        SizedBox(height: 20.w),
+                        wallet,
+                        SizedBox(height: 10.h),
+                        subscription,
+                        SizedBox(height: 10.h),
+                        buttons,
+                      ],
+                    ),
                   ),
                 ),
               ),

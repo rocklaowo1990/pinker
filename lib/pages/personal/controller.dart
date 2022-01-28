@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/personal.dart';
 
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/personal/library.dart';
@@ -71,6 +70,44 @@ class PersonalController extends GetxController
     }
   }
 
+  void handleSub() {
+    getSubscribeBox(
+      userId: state.intro.value.userId,
+      avatar: state.intro.value.avatar,
+      userName: state.intro.value.userName,
+      reSault: () async {
+        ResponseEntity responseEntity = await UserApi.home(userId: arguments);
+        if (responseEntity.code == 200) {
+          state.intro.value = PersonalEntities.fromJson(responseEntity.data);
+        } else {
+          getSnackTop(responseEntity.msg);
+        }
+
+        Future<void> _getPersonalContent(
+            int type, Rx<ContentListEntities> rx) async {
+          ResponseEntity responseEntity = await ContentApi.userHomeContentList(
+            pageNo: 1,
+            type: type,
+            userId: arguments,
+          );
+
+          if (responseEntity.code == 200) {
+            rx.value = ContentListEntities.fromJson(responseEntity.data);
+            rx.update((val) {});
+          } else {
+            getSnackTop(responseEntity.msg);
+          }
+        }
+
+        await _getPersonalContent(1, state.personalAll);
+        await _getPersonalContent(2, state.personalFree);
+        await _getPersonalContent(3, state.personalReply);
+        await _getPersonalContent(4, state.personalForward);
+        await _getPersonalContent(5, state.personalLike);
+      },
+    );
+  }
+
   void handleChangedTab(index) {
     state.pageIndex = index;
     pageController.animateToPage(
@@ -97,6 +134,7 @@ class PersonalController extends GetxController
     }
 
     scrollController.addListener(() {
+      state.offsetWidth = scrollController.offset;
       if (scrollController.offset >= 50) state.opacity = 1;
       if (scrollController.offset < 50) state.opacity = 0;
     });

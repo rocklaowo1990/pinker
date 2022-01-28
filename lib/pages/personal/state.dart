@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/entities/personal.dart';
 
 class PersonalState {
   /// appbar 透明度
   final RxDouble _opacity = 0.0.obs;
   set opacity(double value) => _opacity.value = value;
   double get opacity => _opacity.value;
+
+  /// appbar 透明度
+  final RxDouble _offsetWidth = 0.0.obs;
+  set offsetWidth(double value) => _offsetWidth.value = value;
+  double get offsetWidth => _offsetWidth.value;
 
   /// 页面控制器
   final RxInt pageIndexRx = 0.obs;

@@ -139,23 +139,25 @@ Future<void> getContentMoreSheet({
               topLeft: Radius.circular(8.w),
               topRight: Radius.circular(8.w),
             )),
-        child: Column(
-          children: [
-            SizedBox(height: 16.w),
-            Row(
-              children: [
-                SizedBox(width: 10.w),
-                getSpan('请选择对他的操作', color: AppColors.secondText),
-              ],
-            ),
-            SizedBox(height: 16.w),
-            Container(height: 1, color: AppColors.line),
-            block,
-            Container(height: 1, color: AppColors.line),
-            hide,
-            Container(height: 1, color: AppColors.line),
-            report,
-          ],
+        child: SafeArea(
+          child: Column(
+            children: [
+              SizedBox(height: 16.w),
+              Row(
+                children: [
+                  SizedBox(width: 10.w),
+                  getSpan('请选择对他的操作', color: AppColors.secondText),
+                ],
+              ),
+              SizedBox(height: 16.w),
+              Container(height: 1, color: AppColors.line),
+              block,
+              Container(height: 1, color: AppColors.line),
+              hide,
+              Container(height: 1, color: AppColors.line),
+              report,
+            ],
+          ),
         ),
       ),
     ],
@@ -165,6 +167,7 @@ Future<void> getContentMoreSheet({
   Get.bottomSheet(
     body,
     isScrollControlled: true,
+
     // backgroundColor: AppColors.dateBox,
     // isDismissible: false, // 用户点击空白区域是否可以返回
   );

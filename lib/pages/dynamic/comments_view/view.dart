@@ -103,7 +103,7 @@ Future getCommentsView(
                   Obx(
                     () => controller.state.replyUserName.isNotEmpty
                         ? Padding(
-                            padding: EdgeInsets.only(left: 4.w),
+                            padding: EdgeInsets.only(left: 8.w),
                             child: getButton(
                                 onPressed: controller.handleClearReply,
                                 height: 30,
@@ -126,8 +126,11 @@ Future getCommentsView(
                           )
                         : const SizedBox(),
                   ),
-                  Obx(() => Padding(
-                        padding: EdgeInsets.all(4.w),
+                  SafeArea(
+                    top: false,
+                    child: Obx(
+                      () => Padding(
+                        padding: EdgeInsets.all(8.w),
                         child: contentList.value.list[index].canReply == 1
                             ? Row(
                                 mainAxisAlignment:
@@ -135,7 +138,7 @@ Future getCommentsView(
                                 children: [
                                   Expanded(
                                     child: getInput(
-                                      height: 40,
+                                      height: 40.h,
                                       type: '文明回复，共创美好环境 ~',
                                       controller: controller.textController,
                                       focusNode: controller.focusNode,
@@ -155,7 +158,7 @@ Future getCommentsView(
                                 ],
                               )
                             : SizedBox(
-                                height: 40,
+                                height: 40.h,
                                 width: double.infinity,
                                 child: Center(
                                   child: getSpan(
@@ -164,7 +167,9 @@ Future getCommentsView(
                                   ),
                                 ),
                               ),
-                      )),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -145,9 +145,11 @@ void onHideContentList({
 }) {
   final ApplicationController applicationController = Get.find();
 
-  applicationController.state.contentListHome.update((val) {
-    val!.list.removeWhere((element) => element.author.userId == userId);
-  });
+  if (applicationController.state.contentListHome.value.list.isNotEmpty) {
+    applicationController.state.contentListHome.update((val) {
+      val!.list.removeWhere((element) => element.author.userId == userId);
+    });
+  }
 
   if (applicationController.state.contentListHot.value.list.isNotEmpty) {
     applicationController.state.contentListHot.update((val) {

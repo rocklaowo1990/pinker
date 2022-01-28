@@ -44,11 +44,14 @@ Future getDateBox({
   /// 组合
   var body = SizedBox(
     height: 260.h,
-    child: Column(
-      children: [
-        title,
-        Expanded(child: dateBox),
-      ],
+    child: SafeArea(
+      top: false,
+      child: Column(
+        children: [
+          title,
+          Expanded(child: dateBox),
+        ],
+      ),
     ),
   );
 

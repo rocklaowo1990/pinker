@@ -23,12 +23,15 @@ Future getImage(VoidCallback handleCamera, VoidCallback handleGallery) async {
         Container(
           color: AppColors.mainBacground,
           padding: EdgeInsets.all(40.w),
-          child: Column(
-            children: [
-              _button(1, handleCamera),
-              SizedBox(height: 10.h),
-              _button(2, handleGallery),
-            ],
+          child: SafeArea(
+            top: false,
+            child: Column(
+              children: [
+                _button(1, handleCamera),
+                SizedBox(height: 16.h),
+                _button(2, handleGallery),
+              ],
+            ),
           ),
         ),
       ],

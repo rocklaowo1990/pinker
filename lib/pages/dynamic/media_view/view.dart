@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -69,74 +70,67 @@ Future<Widget?> getMediaView(
 
       // 底部信息
       // 就是留言、喜欢、转发、分享那些
-      Widget contentButton = Container(
-        color: Colors.black54,
-        child: getContentButton(contentList, index),
-      );
+      Widget contentButton = getContentButton(contentList, index);
 
       // 头像信息和订阅组合
       // 还包括文本信息
       // 这里的组合统称为 contentBody
-      Widget contentBody = Container(
-        color: Colors.black54,
-        padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: getContentAvatar(contentList, index),
-                ),
-                Obx(() => controller.state.isLoading
-                    ? getButtonSheetOutline(
-                        child: Center(
-                          child: SizedBox(
-                            width: 13.w,
-                            height: 13.w,
-                            child: CircularProgressIndicator(
-                              backgroundColor: AppColors.mainIcon,
-                              color: AppColors.mainColor,
-                              strokeWidth: 1.w,
-                            ),
+      Widget contentBody = Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: getContentAvatar(contentList, index),
+              ),
+              Obx(() => controller.state.isLoading
+                  ? getButtonSheetOutline(
+                      child: Center(
+                        child: SizedBox(
+                          width: 13.w,
+                          height: 13.w,
+                          child: CircularProgressIndicator(
+                            backgroundColor: AppColors.mainIcon,
+                            color: AppColors.mainColor,
+                            strokeWidth: 1.w,
                           ),
                         ),
-                      )
-                    : controller.state.subscribeInfo.value.subGroupList != null
-                        ? getButtonSheet(
-                            child: getSpan('已订阅'),
-                          )
-                        : controller.state.subscribeInfo.value.groups.isEmpty
-                            ? const SizedBox()
-                            : getButtonSheetOutline(
-                                child: getSpan('订阅'),
-                                onPressed: () {
-                                  getSubscribeBox(
-                                    userId: contentList
-                                        .value.list[index].author.userId,
-                                    userName: contentList
-                                        .value.list[index].author.userName,
-                                    avatar: contentList
-                                        .value.list[index].author.avatar,
-                                    reSault: () {
-                                      controller.handlePay(contentList, index);
-                                    },
-                                  );
-                                },
-                              ))
-              ],
-            ),
-            if (contentList.value.list[index].works.content.isNotEmpty)
-              SizedBox(height: 8.h),
-            if (contentList.value.list[index].works.content.isNotEmpty)
-              SizedBox(
-                width: double.infinity,
-                child: getSpan(
-                  contentList.value.list[index].works.content,
-                  textAlign: TextAlign.start,
-                ),
+                      ),
+                    )
+                  : controller.state.subscribeInfo.value.subGroupList != null
+                      ? getButtonSheet(
+                          child: getSpan('已订阅'),
+                        )
+                      : controller.state.subscribeInfo.value.groups.isEmpty
+                          ? const SizedBox()
+                          : getButtonSheetOutline(
+                              child: getSpan('订阅'),
+                              onPressed: () {
+                                getSubscribeBox(
+                                  userId: contentList
+                                      .value.list[index].author.userId,
+                                  userName: contentList
+                                      .value.list[index].author.userName,
+                                  avatar: contentList
+                                      .value.list[index].author.avatar,
+                                  reSault: () {
+                                    controller.handlePay(contentList, index);
+                                  },
+                                );
+                              },
+                            ))
+            ],
+          ),
+          if (contentList.value.list[index].works.content.isNotEmpty)
+            SizedBox(height: 16.h),
+          if (contentList.value.list[index].works.content.isNotEmpty)
+            SizedBox(
+              width: double.infinity,
+              child: getSpan(
+                contentList.value.list[index].works.content,
+                textAlign: TextAlign.start,
               ),
-          ],
-        ),
+            ),
+        ],
       );
 
       Widget _filterBox({void Function()? reSault}) {
@@ -171,16 +165,30 @@ Future<Widget?> getMediaView(
               children: [
                 appBar,
                 const Spacer(),
-                contentBody,
-                contentButton,
-                if (contentList.value.list[index].canSee == 1 &&
-                    contentList.value.list[index].works.video.url.isNotEmpty &&
-                    controller.fijkPlayer != null)
-                  getVideoController(
-                    controller.fijkPlayer!,
-                    controller.handleExitFlullScreen,
-                    controller.handleEenterFlullScreen,
+                Container(
+                  color: AppColors.mainBacground50,
+                  child: SafeArea(
+                    top: false,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.w, 16.w, 16.w, 0.w),
+                          child: contentBody,
+                        ),
+                        contentButton,
+                        if (contentList.value.list[index].canSee == 1 &&
+                            contentList
+                                .value.list[index].works.video.url.isNotEmpty &&
+                            controller.fijkPlayer != null)
+                          getVideoController(
+                            controller.fijkPlayer!,
+                            controller.handleExitFlullScreen,
+                            controller.handleEenterFlullScreen,
+                          ),
+                      ],
+                    ),
                   ),
+                ),
               ],
             )),
       );

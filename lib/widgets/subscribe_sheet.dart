@@ -178,37 +178,40 @@ Future<void> getSubscribeBox({
                 decoration: BoxDecoration(
                     color: AppColors.secondBacground,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.w),
-                      topRight: Radius.circular(8.w),
+                      topLeft: Radius.circular(16.w),
+                      topRight: Radius.circular(16.w),
                     )),
-                child: Padding(
-                  padding: EdgeInsets.all(24.w),
-                  child: subscribeInfo.groups.isNotEmpty
-                      ? Column(
-                          children: [
-                            SizedBox(height: 20.h),
-                            span,
-                            SizedBox(height: 20.h),
-                            payBody,
-                            SizedBox(height: 20.h),
-                            button,
-                            SizedBox(height: 20.h),
-                            getSpan(
-                              '当前钻石余额：${subscribeInfo.balance}',
-                              color: AppColors.secondText,
-                            )
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            SizedBox(height: 20.h),
-                            getSpan(
-                              '$userName 暂时还没有任何可以订阅的分组',
-                              color: AppColors.secondText,
-                            ),
-                            SizedBox(height: 11.h),
-                          ],
-                        ),
+                child: SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(28.w, 12.w, 28.w, 12.w),
+                    child: subscribeInfo.groups.isNotEmpty
+                        ? Column(
+                            children: [
+                              SizedBox(height: 20.h),
+                              span,
+                              SizedBox(height: 20.h),
+                              payBody,
+                              SizedBox(height: 20.h),
+                              button,
+                              SizedBox(height: 20.h),
+                              getSpan(
+                                '当前钻石余额：${subscribeInfo.balance}',
+                                color: AppColors.secondText,
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              SizedBox(height: 20.h),
+                              getSpan(
+                                '$userName 暂时还没有任何可以订阅的分组',
+                                color: AppColors.secondText,
+                              ),
+                              SizedBox(height: 11.h),
+                            ],
+                          ),
+                  ),
                 ),
               ),
             ],

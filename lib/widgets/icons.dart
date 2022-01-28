@@ -89,3 +89,11 @@ Widget getLogoIcon() {
     color: AppColors.mainColor,
   );
 }
+
+Widget getRightIcon({Color? color}) {
+  return SvgPicture.asset(
+    'assets/svg/icon_right.svg',
+    width: 12.w,
+    color: color,
+  );
+}

@@ -31,11 +31,7 @@ Widget getButtonList({
     children: [
       secondTitle ?? const SizedBox(),
       SizedBox(width: 10.w),
-      SvgPicture.asset(
-        'assets/svg/icon_right.svg',
-        width: 12.w,
-        color: AppColors.secondIcon,
-      ),
+      getRightIcon(color: AppColors.secondIcon)
     ],
   );
 
@@ -46,10 +42,7 @@ Widget getButtonList({
 
   /// 右边没有传入文字的时候
   if (secondTitle == null) {
-    right = SvgPicture.asset(
-      'assets/svg/icon_right.svg',
-      width: 12.w,
-    );
+    right = getRightIcon();
   }
 
   /// 右侧图标如果有传入新的 widge
@@ -78,7 +71,7 @@ Widget getButtonList({
     borderRadius: BorderRadius.zero,
     background: AppColors.secondBacground,
     height: height,
-    padding: padding ?? EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 16.w),
+    padding: padding ?? EdgeInsets.all(16.w),
     onPressed: onPressed,
     borderSide: borderSide,
   );

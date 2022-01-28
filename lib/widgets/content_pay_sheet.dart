@@ -285,25 +285,28 @@ Future<void> getContentPaySheet({
                 decoration: BoxDecoration(
                     color: AppColors.secondBacground,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8.w),
-                      topRight: Radius.circular(8.w),
+                      topLeft: Radius.circular(16.w),
+                      topRight: Radius.circular(16.w),
                     )),
-                child: Padding(
-                  padding: EdgeInsets.all(12.w),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20.h),
-                      span,
-                      SizedBox(height: 20.h),
-                      _payBody(),
-                      SizedBox(height: 20.h),
-                      button,
-                      SizedBox(height: 20.h),
-                      getSpan(
-                        '当前钻石余额：${subscribeInfo.balance}',
-                        color: AppColors.secondText,
-                      )
-                    ],
+                child: SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(24.w, 12.w, 24.w, 12.w),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20.h),
+                        span,
+                        SizedBox(height: 20.h),
+                        _payBody(),
+                        SizedBox(height: 20.h),
+                        button,
+                        SizedBox(height: 20.h),
+                        getSpan(
+                          '当前钻石余额：${subscribeInfo.balance}',
+                          color: AppColors.secondText,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -321,5 +324,6 @@ Future<void> getContentPaySheet({
     isScrollControlled: true,
     // backgroundColor: AppColors.dateBox,
     isDismissible: false, // 用户点击空白区域是否可以返回
+    ignoreSafeArea: false,
   );
 }

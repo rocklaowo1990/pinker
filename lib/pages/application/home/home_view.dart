@@ -70,55 +70,60 @@ class HomeView extends StatelessWidget {
         );
 
         // loading时显示转圈圈
-        // Widget loading = getLoadingIcon();
+        Widget loading = getLoadingIcon();
 
         // 没有数据的时候，显示暂无数据
-        Widget noDataList = Container(
-          padding: EdgeInsets.all(32.w),
-          color: AppColors.secondBacground,
-          width: double.infinity,
-          child: Column(
-            children: [
-              getTitle('什么？还没有推文？'),
-              SizedBox(height: 20.h),
-              getSpan(
-                '这条空白的时间线将很快消失，开始关注用户，您再次回到这里将看到他们的推文',
-                textAlign: TextAlign.center,
-                color: AppColors.secondText,
-              ),
-              SizedBox(height: 32.h),
-              getButtonMain(
-                child: getSpan('寻找值得订阅的用户'),
-                onPressed: controller.handleRemmondMore,
-              )
-            ],
-          ),
-        );
-
-        Widget swiper = SizedBox(
-          height: 160.h,
-          width: double.infinity,
-          // color: AppColors.secondBacground,
-          child: Obx(
-            () => Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                return getNetworkImageBox(
-                  controller.applicationController.state.homeSwiperKing.value
-                      .carousel[index].pic,
-                );
-              },
-              itemCount: controller.applicationController.state.homeSwiperKing
-                  .value.carousel.length,
-              viewportFraction: 1,
-              scale: 1,
-              autoplay: true,
-              autoplayDelay: 3000,
-              pagination: const SwiperPagination(
-                builder: SwiperPagination.dots,
-              ),
+        Widget noDataList = SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(32.w),
+            color: AppColors.secondBacground,
+            width: double.infinity,
+            child: Column(
+              children: [
+                getTitle('什么？还没有推文？'),
+                SizedBox(height: 20.h),
+                getSpan(
+                  '这条空白的时间线将很快消失，开始关注用户，您再次回到这里将看到他们的推文',
+                  textAlign: TextAlign.center,
+                  color: AppColors.secondText,
+                ),
+                SizedBox(height: 32.h),
+                getButtonMain(
+                  child: getSpan('寻找值得订阅的用户'),
+                  onPressed: controller.handleRemmondMore,
+                )
+              ],
             ),
           ),
         );
+
+        Widget swiper = Obx(() => controller.applicationController.state
+                .homeSwiperKing.value.carousel.isNotEmpty
+            ? SizedBox(
+                height: 160.h,
+                width: double.infinity,
+                // color: AppColors.secondBacground,
+                child: Obx(
+                  () => Swiper(
+                    itemBuilder: (BuildContext context, int _index) {
+                      return getNetworkImageBox(
+                        controller.applicationController.state.homeSwiperKing
+                            .value.carousel[_index].pic,
+                      );
+                    },
+                    itemCount: controller.applicationController.state
+                        .homeSwiperKing.value.carousel.length,
+                    viewportFraction: 1,
+                    scale: 1,
+                    autoplay: true,
+                    autoplayDelay: 3000,
+                    pagination: const SwiperPagination(
+                      builder: SwiperPagination.dots,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox());
 
         Widget _warp(
           String url,
@@ -212,19 +217,22 @@ class HomeView extends StatelessWidget {
         }
 
         Widget activity = Obx(
-          () => Column(
-            children:
-                controller.applicationController.state.homeActivity.value.list
-                    .map(
-                      (e) => _activity(
-                        name: e.name,
-                        avatar: e.avatar,
-                        endDate: e.endDate,
-                        joinCount: e.joinCount,
-                      ),
-                    )
-                    .toList(),
-          ),
+          () => controller.applicationController.state.homeActivity.value.list
+                  .isNotEmpty
+              ? Column(
+                  children: controller
+                      .applicationController.state.homeActivity.value.list
+                      .map(
+                        (e) => _activity(
+                          name: e.name,
+                          avatar: e.avatar,
+                          endDate: e.endDate,
+                          joinCount: e.joinCount,
+                        ),
+                      )
+                      .toList(),
+                )
+              : const SizedBox(),
         );
 
         Widget warp = Obx(
@@ -323,82 +331,75 @@ class HomeView extends StatelessWidget {
               )
             : const SizedBox());
 
-        Widget fixedBox = Column(
-          children: [
-            swiper,
-            // getButtonList(title: '热门分类', iconRight: const SizedBox()),
-            Container(
-              width: double.infinity,
-              height: 1.h,
-              color: AppColors.line,
-            ),
-            warp,
-            Container(
-              width: double.infinity,
-              height: 1.h,
-              color: AppColors.line,
-            ),
-            getButtonList(
-                title: '查看更多热门分类', onPressed: controller.handleRemmondMore),
-            SizedBox(height: 16.h),
-            getButtonList(title: '精彩活动', iconRight: const SizedBox()),
-            activity,
-            remmondBox,
-            SizedBox(height: 16.h),
-          ],
-        );
-
-        Widget noData = getRefresher(
-          controller: controller.refreshController,
-          child: ListView(
-            children: [
-              fixedBox,
-              noDataList,
-            ],
-          ),
-          onRefresh: controller.onRefresh,
-          isFooter: false,
-        );
-
-        // 整体布局
-        Widget _body = Obx(
-          () => controller.applicationController.state.contentListHome.value
-                  .list.isEmpty
-              ? noData
-              : getRefresher(
-                  controller: controller.refreshController,
-                  child: ListView(
-                    children: [
-                      fixedBox,
-                      for (int index = 0;
-                          index <
-                              controller.applicationController.state
-                                  .contentListHome.value.list.length;
-                          index++)
-                        getContentListView(
+        var _body = NestedScrollView(
+          controller: controller.scrollController,
+          // floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    swiper,
+                    // getButtonList(title: '热门分类', iconRight: const SizedBox()),
+                    Container(
+                      width: double.infinity,
+                      height: 1.h,
+                      color: AppColors.line,
+                    ),
+                    warp,
+                    // Container(
+                    //   width: double.infinity,
+                    //   height: 1.h,
+                    //   color: AppColors.line,
+                    // ),
+                    // getButtonList(
+                    //     title: '查看更多热门分类',
+                    //     onPressed: controller.handleRemmondMore),
+                    SizedBox(height: 16.h),
+                    getButtonList(title: '精彩活动', iconRight: const SizedBox()),
+                    activity,
+                    remmondBox,
+                    SizedBox(height: 16.h),
+                  ],
+                ),
+              ),
+            ];
+          },
+          body: Obx(
+            () => controller.applicationController.state.contentListHome.value
+                    .list.isNotEmpty
+                ? getRefresher(
+                    controller: controller.refreshController,
+                    child: ListView.builder(
+                      itemCount: controller.applicationController.state
+                          .contentListHome.value.list.length,
+                      itemBuilder: (context, _index) {
+                        return getContentListView(
                           controller
                               .applicationController.state.contentListHome,
-                          index,
-                        ),
-                    ],
-                  ),
-                  onLoading: controller.onLoading,
-                  onRefresh: controller.onRefresh,
-                ),
+                          _index,
+                        );
+                      },
+                    ),
+                    onLoading: controller.onLoading,
+                    onRefresh: controller.onRefresh,
+                  )
+                : noDataList,
+          ),
         );
 
-        /// body
-        // Widget body = Obx(
-        //   () => controller.applicationController.state.isLoadingHome
-        //       ? loading
-        //       : _body,
-        // );
+        // body
+        Widget body = Obx(
+          () => controller.applicationController.state.isLoadingHome
+              ? loading
+              : _body,
+        );
 
         /// 页面
         return Scaffold(
           backgroundColor: AppColors.mainBacground,
           appBar: appBar,
-          body: _body,
+          body: body,
         );
       },
     );

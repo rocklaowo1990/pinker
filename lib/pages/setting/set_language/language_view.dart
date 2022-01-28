@@ -14,20 +14,32 @@ class LanguageView extends GetView<LanguageController> {
 
   @override
   Widget build(BuildContext context) {
-    Widget sureBox = Obx(() => controller.state.language == null ||
-            controller.state.language ==
-                controller.settingController.state.language
-        ? const SizedBox()
-        : getSuerButton(
-            onPressed: controller.handleSure,
-          ));
+    Widget sureBox = Obx(
+      () => controller.state.language == null ||
+              controller.state.language ==
+                  controller.settingController.state.language
+          ? const SizedBox()
+          : getButton(
+              background: Colors.transparent,
+              child: SizedBox(
+                child: Center(
+                  child: getButtonSheet(
+                    child: getSpan(Lang.sure.tr),
+                  ),
+                ),
+              ),
+            ),
+    );
 
     /// appBar
     AppBar appBar = getAppBar(
       getSpanTitle(Lang.langTitle.tr),
       // lineColor: AppColors.line,
       backgroundColor: AppColors.secondBacground,
-      actions: [sureBox],
+      actions: [
+        sureBox,
+        SizedBox(width: 16.w),
+      ],
     );
 
     /// 中文列表
