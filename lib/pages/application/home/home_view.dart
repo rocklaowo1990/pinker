@@ -70,32 +70,7 @@ class HomeView extends StatelessWidget {
         );
 
         // loading时显示转圈圈
-        Widget loading = getLoadingIcon();
-
-        // 没有数据的时候，显示暂无数据
-        Widget noDataList = SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(32.w),
-            color: AppColors.secondBacground,
-            width: double.infinity,
-            child: Column(
-              children: [
-                getTitle('什么？还没有推文？'),
-                SizedBox(height: 20.h),
-                getSpan(
-                  '这条空白的时间线将很快消失，开始关注用户，您再次回到这里将看到他们的推文',
-                  textAlign: TextAlign.center,
-                  color: AppColors.secondText,
-                ),
-                SizedBox(height: 32.h),
-                getButtonMain(
-                  child: getSpan('寻找值得订阅的用户'),
-                  onPressed: controller.handleRemmondMore,
-                )
-              ],
-            ),
-          ),
-        );
+        // Widget loading = getLoadingIcon();
 
         Widget swiper = Obx(() => controller.applicationController.state
                 .homeSwiperKing.value.carousel.isNotEmpty
@@ -331,68 +306,74 @@ class HomeView extends StatelessWidget {
               )
             : const SizedBox());
 
-        var _body = NestedScrollView(
-          controller: controller.scrollController,
-          // floatHeaderSlivers: true,
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    swiper,
-                    // getButtonList(title: '热门分类', iconRight: const SizedBox()),
-                    Container(
-                      width: double.infinity,
-                      height: 1.h,
-                      color: AppColors.line,
-                    ),
-                    warp,
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: 1.h,
-                    //   color: AppColors.line,
-                    // ),
-                    // getButtonList(
-                    //     title: '查看更多热门分类',
-                    //     onPressed: controller.handleRemmondMore),
-                    SizedBox(height: 16.h),
-                    getButtonList(title: '精彩活动', iconRight: const SizedBox()),
-                    activity,
-                    remmondBox,
-                    SizedBox(height: 16.h),
-                  ],
-                ),
-              ),
-            ];
-          },
-          body: Obx(
-            () => controller.applicationController.state.contentListHome.value
-                    .list.isNotEmpty
-                ? getRefresher(
-                    controller: controller.refreshController,
-                    child: ListView.builder(
-                      itemCount: controller.applicationController.state
-                          .contentListHome.value.list.length,
-                      itemBuilder: (context, _index) {
-                        return getContentListView(
-                          controller
-                              .applicationController.state.contentListHome,
-                          _index,
-                        );
-                      },
-                    ),
-                    onLoading: controller.onLoading,
-                    onRefresh: controller.onRefresh,
-                  )
-                : noDataList,
-          ),
-        );
+        // var _body = NestedScrollView(
+        //   controller: controller.scrollController,
+        //   // floatHeaderSlivers: true,
+        //   headerSliverBuilder: (context, innerBoxIsScrolled) {
+        //     return [
+        //       SliverList(
+        //         delegate: SliverChildListDelegate(
+        //           [
+        //             swiper,
+        //             // getButtonList(title: '热门分类', iconRight: const SizedBox()),
+        //             Container(
+        //               width: double.infinity,
+        //               height: 1.h,
+        //               color: AppColors.line,
+        //             ),
+        //             warp,
+        //             // Container(
+        //             //   width: double.infinity,
+        //             //   height: 1.h,
+        //             //   color: AppColors.line,
+        //             // ),
+        //             // getButtonList(
+        //             //     title: '查看更多热门分类',
+        //             //     onPressed: controller.handleRemmondMore),
+        //             SizedBox(height: 16.h),
+        //             getButtonList(title: '精彩活动', iconRight: const SizedBox()),
+        //             activity,
+        //             remmondBox,
+        //             SizedBox(height: 16.h),
+        //           ],
+        //         ),
+        //       ),
+        //     ];
+        //   },
+        //   body: Obx(
+        //     () => controller.applicationController.state.contentListHome.value
+        //             .list.isNotEmpty
+        //         ? const SizedBox()
+        //         : noDataList,
+        //   ),
+        // );
 
         // body
-        Widget body = Obx(
-          () => controller.applicationController.state.isLoadingHome
-              ? loading
-              : _body,
+        Widget body = SingleChildScrollView(
+          controller: controller.scrollController,
+          child: Column(
+            children: [
+              swiper,
+              // getButtonList(title: '热门分类', iconRight: const SizedBox()),
+              Container(
+                width: double.infinity,
+                height: 1.h,
+                color: AppColors.line,
+              ),
+              warp,
+              Container(
+                width: double.infinity,
+                height: 1.h,
+                color: AppColors.line,
+              ),
+              getButtonList(
+                  title: '查看更多热门分类', onPressed: controller.handleRemmondMore),
+              SizedBox(height: 16.h),
+              getButtonList(title: '精彩活动', iconRight: const SizedBox()),
+              activity,
+              remmondBox,
+            ],
+          ),
         );
 
         /// 页面

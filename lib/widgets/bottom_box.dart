@@ -36,7 +36,7 @@ Widget getBottomBox({
       child: Container(
         padding: EdgeInsets.fromLTRB(8.w, 5.w, 8.w, 5.w),
         width: double.infinity,
-        height: 40.h,
+        height: 48.h,
         color: AppColors.secondBacground,
         child: Row(
           children: [

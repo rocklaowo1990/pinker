@@ -122,12 +122,7 @@ Widget getInput({
                 width: 20.w,
                 height: 20.w,
               ),
-        contentPadding: contentPadding ??
-            EdgeInsets.only(
-              left: 20.w,
-            ),
-        filled: true,
-        fillColor: AppColors.inputFiled,
+        contentPadding: contentPadding ?? EdgeInsets.only(left: 20.w),
         border: OutlineInputBorder(
           borderRadius: borderRadius ??
               BorderRadius.all(
@@ -147,12 +142,16 @@ Widget getInput({
     );
   });
 
-  return SizedBox(
+  return Container(
     child: Center(
       child: textField,
     ),
     width: width,
-    height: height ?? 40.h,
+    height: height ?? 48.h,
+    decoration: BoxDecoration(
+        color: AppColors.inputFiled,
+        borderRadius:
+            borderRadius ?? BorderRadius.all(Radius.circular(Get.width))),
   );
 }
 
@@ -164,7 +163,7 @@ Widget getSearchInput(
   void Function(String)? onSubmitted,
 }) {
   return getInput(
-    height: 40.h,
+    height: 48.h,
     contentPadding: EdgeInsets.only(left: 20.w),
     type: Lang.inputSearch.tr,
     controller: controller,

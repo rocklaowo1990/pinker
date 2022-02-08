@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/chat/library.dart';
 import 'package:pinker/pages/application/community/library.dart';
+
 import 'package:pinker/pages/application/home/home_view.dart';
 
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/application/my/my_view.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -16,6 +18,8 @@ class ApplicationView extends GetView<ApplicationController> {
 
   @override
   Widget build(BuildContext context) {
+    screenInit(context);
+
     const bottomNavItems = [
       BottomNavigationBarItem(
         backgroundColor: AppColors.secondBacground,
@@ -94,6 +98,9 @@ class ApplicationView extends GetView<ApplicationController> {
       body: body,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatButton,
+      // floatingActionButtonLocation:
+      //     FloatingActionButtonLocation.miniCenterDocked,
+      // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 }

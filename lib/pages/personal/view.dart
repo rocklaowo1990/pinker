@@ -27,39 +27,40 @@ class PersonalView extends GetView<PersonalController> {
   Widget build(BuildContext context) {
     /// 头像漂浮
     Widget avatar = Positioned(
-      top: 120.h,
-      left: 16.w,
-      child: Obx(
-        () => controller.state.intro.value.avatar.isNotEmpty
-            ? getNetworkImageBox(
-                controller.state.intro.value.avatar,
-                width: 70.w * ((100 - controller.state.offsetWidth) / 100),
-                height: 70.w * ((100 - controller.state.offsetWidth) / 100),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.secondBacground,
-                  width: 3.w,
-                ),
-              )
-            : Container(
-                width: 70.w * ((100 - controller.state.offsetWidth) / 100),
-                height: 70.w * ((100 - controller.state.offsetWidth) / 100),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.line,
-                  border: Border.all(
-                    color: AppColors.secondBacground,
-                    width: 3.w,
+        top: 70.h,
+        left: 16.w,
+        child: SafeArea(
+          child: Obx(
+            () => controller.state.intro.value.avatar.isNotEmpty
+                ? getNetworkImageBox(
+                    controller.state.intro.value.avatar,
+                    width: 70.w * ((100 - controller.state.offsetWidth) / 100),
+                    height: 70.w * ((100 - controller.state.offsetWidth) / 100),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColors.secondBacground,
+                      width: 3.w,
+                    ),
+                  )
+                : Container(
+                    width: 70.w * ((100 - controller.state.offsetWidth) / 100),
+                    height: 70.w * ((100 - controller.state.offsetWidth) / 100),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.line,
+                      border: Border.all(
+                        color: AppColors.secondBacground,
+                        width: 3.w,
+                      ),
+                    ),
+                    child: SvgPicture.asset(
+                      'assets/svg/avatar_default.svg',
+                      width: 40.w,
+                      height: 40.w,
+                    ),
                   ),
-                ),
-                child: SvgPicture.asset(
-                  'assets/svg/avatar_default.svg',
-                  width: 40.w,
-                  height: 40.w,
-                ),
-              ),
-      ),
-    );
+          ),
+        ));
 
     /// banner 区域
     Widget banner = Stack(
@@ -249,10 +250,9 @@ class PersonalView extends GetView<PersonalController> {
       ),
     );
 
-    var list = ['作品', '限免', '回复', '转发', '喜欢'];
     Widget tabBar = Container(
       child: getTabBar(
-        list,
+        controller.list,
         controller.state.pageIndexRx,
         controller: controller.tabController,
         onTap: controller.handleChangedTab,
@@ -308,7 +308,10 @@ class PersonalView extends GetView<PersonalController> {
           ),
         ];
       },
-      body: pageView,
+      body: Container(
+        child: pageView,
+        color: AppColors.mainBacground,
+      ),
     );
 
     /// 页面

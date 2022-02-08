@@ -64,7 +64,7 @@ class AppColors {
   //   ],
   //   begin: Alignment.topCenter,
   //   end: Alignment.bottomCenter,
-  // ).createShader(Rect.fromLTWH(0.w, 147.h, 0.w, 40.h));
+  // ).createShader(Rect.fromLTWH(0.w, 147.h, 0.w, 48.h));
 
   /// 背景渐变色
   static const LinearGradient groupBackground = LinearGradient(

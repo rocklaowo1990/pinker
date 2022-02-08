@@ -16,7 +16,7 @@ class ApplicationState {
   final userInfo = UserInfoEntities.fromJson(UserInfoEntities.child).obs;
 
   /// 推文列表-首页
-  final contentListHome =
+  final contentListSub =
       ContentListEntities.fromJson(ContentListEntities.child).obs;
 
   /// 首页金刚区和轮播图
@@ -42,9 +42,9 @@ class ApplicationState {
       UserListEntities.fromJson(UserListEntities.child).obs;
 
   /// 加载中--首页
-  final RxBool _isLoadingHome = true.obs;
-  set isLoadingHome(bool value) => _isLoadingHome.value = value;
-  bool get isLoadingHome => _isLoadingHome.value;
+  final RxBool _isLoadingSub = true.obs;
+  set isLoadingSub(bool value) => _isLoadingSub.value = value;
+  bool get isLoadingSub => _isLoadingSub.value;
 
   /// 加载中--限免
   final RxBool _isLoadingFree = true.obs;

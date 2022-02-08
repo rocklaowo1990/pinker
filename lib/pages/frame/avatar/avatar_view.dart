@@ -85,7 +85,7 @@ class AvatarView extends GetView<AvatarController> {
         ),
         SizedBox(height: 10.h),
         getButton(
-          height: 40.h,
+          height: 48.h,
           child: getSpanMain('暂时跳过'),
           width: Get.width,
           background: Colors.transparent,

@@ -15,6 +15,7 @@ class SearchController extends GetxController
   final TextEditingController textController = TextEditingController();
   late TabController tabController;
   final FocusNode focusNode = FocusNode();
+  List<String> list = ['最新', '用户', '照片', '视频'];
 
   String keywords = '';
 
@@ -79,7 +80,7 @@ class SearchController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: list.length, vsync: this);
   }
 
   void handlePageChanged(index) {

@@ -104,7 +104,7 @@ Future<void> getSubscribeBox({
 
   Widget button = getButton(
       width: 250.w,
-      height: 40.h,
+      height: 48.h,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
         Get.back();

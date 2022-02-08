@@ -43,7 +43,9 @@ Widget getButton({
 }) {
   MaterialStateProperty<Size?>? fixedSize;
 
-  final enable = false.obs;
+  final enable = true.obs;
+
+  if (onPressed != null) enable.value = false;
 
   if (width != null && height != null) {
     fixedSize = MaterialStateProperty.all(Size(width, height));
@@ -108,7 +110,7 @@ Widget getButtonMain({
 }) {
   return getButton(
     width: Get.width,
-    height: 40.h,
+    height: 48.h,
     child: child,
     onPressed: onPressed,
     background: background,

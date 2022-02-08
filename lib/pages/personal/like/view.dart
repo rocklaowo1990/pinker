@@ -17,25 +17,26 @@ Widget personalLikeView() {
         Widget noData = getNoDataIcon();
 
         // 整体布局
-        Widget _body = Obx(
-          () => controller
-                  .personalController.state.personalLike.value.list.isEmpty
-              ? noData
-              : getRefresher(
-                  controller: controller.refreshController,
-                  child: ListView.builder(
-                    itemCount: controller.personalController.state.personalLike
-                        .value.list.length,
-                    itemBuilder: (BuildContext buildContext, int index) {
-                      return getContentListView(
-                          controller.personalController.state.personalLike,
-                          index);
-                    },
-                  ),
-                  onLoading: controller.onLoading,
-                  onRefresh: controller.onRefresh,
-                ),
-        );
+        Widget _body = Obx(() =>
+            controller.personalController.state.personalLike.value.list.isEmpty
+                ? noData
+                : SafeArea(
+                    child: getRefresher(
+                      controller: controller.refreshController,
+                      child: ListView.builder(
+                        itemCount: controller.personalController.state
+                            .personalLike.value.list.length,
+                        itemBuilder: (BuildContext buildContext, int index) {
+                          return getContentListView(
+                              controller.personalController.state.personalLike,
+                              index);
+                        },
+                      ),
+                      onLoading: controller.onLoading,
+                      onRefresh: controller.onRefresh,
+                    ),
+                    top: false,
+                  ));
 
         /// body
         Widget body = Obx(() => controller.state.isLoading ? loading : _body);

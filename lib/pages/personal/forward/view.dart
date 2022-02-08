@@ -17,11 +17,11 @@ Widget personalForwardView() {
         Widget noData = getNoDataIcon();
 
         // 整体布局
-        Widget _body = Obx(
-          () => controller
-                  .personalController.state.personalForward.value.list.isEmpty
-              ? noData
-              : getRefresher(
+        Widget _body = Obx(() => controller
+                .personalController.state.personalForward.value.list.isEmpty
+            ? noData
+            : SafeArea(
+                child: getRefresher(
                   controller: controller.refreshController,
                   child: ListView.builder(
                     itemCount: controller.personalController.state
@@ -35,7 +35,8 @@ Widget personalForwardView() {
                   onLoading: controller.onLoading,
                   onRefresh: controller.onRefresh,
                 ),
-        );
+                top: false,
+              ));
 
         /// body
         Widget body = Obx(() => controller.state.isLoading ? loading : _body);

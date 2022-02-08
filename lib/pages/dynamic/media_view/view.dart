@@ -249,7 +249,7 @@ Future<Widget?> getMediaView(
 
                 return PhotoViewGalleryPageOptions.customChild(
                   minScale: PhotoViewComputedScale.contained,
-                  maxScale: PhotoViewComputedScale.covered * 2,
+                  maxScale: PhotoViewComputedScale.contained * 2,
                   initialScale: PhotoViewComputedScale.contained,
                   child: Obx(() =>
                       contentList.value.list[index].canSee == 0 && _index == 3
@@ -290,7 +290,7 @@ Future<Widget?> getMediaView(
                     );
                     return PhotoViewGalleryPageOptions.customChild(
                         minScale: PhotoViewComputedScale.contained,
-                        maxScale: PhotoViewComputedScale.covered * 2,
+                        maxScale: PhotoViewComputedScale.contained * 2,
                         initialScale: PhotoViewComputedScale.contained,
                         child: _index == 3
                             ? Stack(

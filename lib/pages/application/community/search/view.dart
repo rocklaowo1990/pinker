@@ -21,9 +21,8 @@ class SearchView extends StatelessWidget {
     return GetBuilder<SearchController>(
         init: SearchController(),
         builder: (controller) {
-          var list = ['最新', '用户', '照片', '视频'];
           Widget left = getTabBar(
-            list,
+            controller.list,
             controller.state.pageIndexRx,
             controller: controller.tabController,
             onTap: controller.handleChangedTab,

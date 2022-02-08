@@ -54,7 +54,7 @@ Widget getLoadingIcon() {
   return Center(
     child: Column(
       children: [
-        SizedBox(height: 40.h),
+        SizedBox(height: 48.h),
         SizedBox(
             width: 16.w,
             height: 16.w,
@@ -73,7 +73,7 @@ Widget getNoDataIcon() {
   return Center(
     child: Column(
       children: [
-        SizedBox(height: 40.h),
+        SizedBox(height: 48.h),
         SvgPicture.asset('assets/svg/error_4.svg', width: 80.w),
         SizedBox(height: 20.h),
         getSpanSecond('暂无数据'),

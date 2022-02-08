@@ -61,19 +61,15 @@ Future<void> getHomeContentList() async {
 
   ResponseEntity responseEntity = await ContentApi.homeContentList(pageNo: 1);
   if (responseEntity.code == 200) {
-    applicationController.state.contentListHome.value =
+    applicationController.state.contentListSub.value =
         ContentListEntities.fromJson(responseEntity.data);
-    applicationController.state.contentListHome.update((val) {});
+    applicationController.state.contentListSub.update((val) {});
   } else {
     getSnackTop(responseEntity.msg);
   }
 }
 
-/// 刷新首页的推文列表
-///
-/// 这里是重置
-///
-/// 重新请求首页的推文列表
+/// 获取首页数据
 Future<void> getHomeData() async {
   final ApplicationController applicationController = Get.find();
 
@@ -97,11 +93,7 @@ Future<void> getHomeData() async {
   }
 }
 
-/// 刷新首页的其他数据
-///
-/// 包括banner，金刚区，活动，和推荐列表
-///
-/// 重新请求会刷新
+/// 获取用户列表
 Future<void> getRecommendList({required int pageNo}) async {
   final ApplicationController applicationController = Get.find();
 
@@ -145,8 +137,8 @@ void onHideContentList({
 }) {
   final ApplicationController applicationController = Get.find();
 
-  if (applicationController.state.contentListHome.value.list.isNotEmpty) {
-    applicationController.state.contentListHome.update((val) {
+  if (applicationController.state.contentListSub.value.list.isNotEmpty) {
+    applicationController.state.contentListSub.update((val) {
       val!.list.removeWhere((element) => element.author.userId == userId);
     });
   }
@@ -199,7 +191,7 @@ Future<void> onRefreshContentList({
     }
   }
 
-  await _r(applicationController.state.contentListHome);
+  await _r(applicationController.state.contentListSub);
   await _r(applicationController.state.contentListHot);
   await _r(applicationController.state.contentListNew);
   await _r(applicationController.state.contentListFree);
@@ -213,7 +205,7 @@ Future<void> getContentListAll() async {
 
   await getHomeContentList();
 
-  if (applicationController.state.contentListHome.value.list.isNotEmpty) {
+  if (applicationController.state.contentListSub.value.list.isNotEmpty) {
     await getContentList(
       listRx: applicationController.state.contentListNew,
       type: 2,
@@ -267,7 +259,7 @@ Future<void> getContentOnly({
     }
   }
 
-  await _r(applicationController.state.contentListHome);
+  await _r(applicationController.state.contentListSub);
   await _r(applicationController.state.contentListHot);
   await _r(applicationController.state.contentListNew);
   await _r(applicationController.state.contentListFree);

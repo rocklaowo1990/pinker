@@ -21,11 +21,11 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
     Widget noData = getNoDataIcon();
 
     // 整体布局
-    Widget _body = Obx(
-      () => controller
-              .applicationController.state.recommendUserList.value.list.isEmpty
-          ? SingleChildScrollView(child: noData)
-          : getRefresher(
+    Widget _body = Obx(() => controller
+            .applicationController.state.recommendUserList.value.list.isEmpty
+        ? SingleChildScrollView(child: noData)
+        : SafeArea(
+            child: getRefresher(
               controller: controller.refreshController,
               child: ListView(
                 children: controller
@@ -71,7 +71,8 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
                 controller.onRefresh();
               },
             ),
-    );
+            top: false,
+          ));
 
     /// body
     Widget body = Obx(() => controller.state.isLoading ? loading : _body);

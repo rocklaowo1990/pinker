@@ -138,7 +138,7 @@ Future getCommentsView(
                                 children: [
                                   Expanded(
                                     child: getInput(
-                                      height: 40.h,
+                                      height: 48.h,
                                       type: '文明回复，共创美好环境 ~',
                                       controller: controller.textController,
                                       focusNode: controller.focusNode,
@@ -147,8 +147,8 @@ Future getCommentsView(
                                   const SizedBox(width: 12),
                                   getButton(
                                     child: getSpan('回复'),
-                                    height: 40,
-                                    width: 70,
+                                    height: 48.h,
+                                    width: 70.w,
                                     onPressed: () {
                                       controller.handleCommentAdd(
                                           contentList, index,
@@ -158,7 +158,7 @@ Future getCommentsView(
                                 ],
                               )
                             : SizedBox(
-                                height: 40.h,
+                                height: 48.h,
                                 width: double.infinity,
                                 child: Center(
                                   child: getSpan(

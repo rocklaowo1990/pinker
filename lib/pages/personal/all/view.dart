@@ -20,19 +20,22 @@ Widget personalAllView() {
           () =>
               controller.personalController.state.personalAll.value.list.isEmpty
                   ? noData
-                  : getRefresher(
-                      controller: controller.refreshController,
-                      child: ListView.builder(
-                        itemCount: controller.personalController.state
-                            .personalAll.value.list.length,
-                        itemBuilder: (BuildContext buildContext, int index) {
-                          return getContentListView(
-                              controller.personalController.state.personalAll,
-                              index);
-                        },
+                  : SafeArea(
+                      child: getRefresher(
+                        controller: controller.refreshController,
+                        child: ListView.builder(
+                          itemCount: controller.personalController.state
+                              .personalAll.value.list.length,
+                          itemBuilder: (BuildContext buildContext, int index) {
+                            return getContentListView(
+                                controller.personalController.state.personalAll,
+                                index);
+                          },
+                        ),
+                        onLoading: controller.onLoading,
+                        onRefresh: controller.onRefresh,
                       ),
-                      onLoading: controller.onLoading,
-                      onRefresh: controller.onRefresh,
+                      top: false,
                     ),
         );
 

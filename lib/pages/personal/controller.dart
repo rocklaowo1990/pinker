@@ -24,6 +24,7 @@ class PersonalController extends GetxController
   final int arguments = Get.arguments;
 
   int pageNo = 1;
+  List<String> list = ['作品', '限免', '回复', '转发', '喜欢'];
 
   void onRefresh() async {
     refreshController.resetNoData();
@@ -39,7 +40,7 @@ class PersonalController extends GetxController
 
   void onLoading() async {
     await futureMill(300);
-    if (applicationController.state.contentListHome.value.totalSize >= 20) {
+    if (applicationController.state.contentListSub.value.totalSize >= 20) {
       pageNo++;
 
       ResponseEntity responseEntity = await ContentApi.homeContentList(
@@ -50,16 +51,16 @@ class PersonalController extends GetxController
         ContentListEntities contentList =
             ContentListEntities.fromJson(responseEntity.data);
 
-        applicationController.state.contentListHome.update((val) {
+        applicationController.state.contentListSub.update((val) {
           val!.list.addAll(contentList.list);
         });
 
-        applicationController.state.contentListHome.value.totalSize =
+        applicationController.state.contentListSub.value.totalSize =
             contentList.totalSize;
         refreshController.loadComplete();
 
         // await StorageUtil()
-        //     .setJSON(storageHomeContentListKey, state.contentList.value);
+        //     .setJSON(storageSubContentListKey, state.contentList.value);
       } else {
         pageNo--;
         refreshController.loadFailed();
@@ -143,6 +144,6 @@ class PersonalController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: list.length, vsync: this);
   }
 }

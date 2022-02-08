@@ -6,6 +6,7 @@ import 'package:pinker/pages/application/community/hot/library.dart';
 
 import 'package:pinker/pages/application/community/library.dart';
 import 'package:pinker/pages/application/community/new/library.dart';
+import 'package:pinker/pages/application/community/sub/library.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -18,9 +19,8 @@ class CommunityView extends StatelessWidget {
     return GetBuilder<CommunityController>(
         init: CommunityController(),
         builder: (controller) {
-          var list = ['限免', '最新', '最热'];
           Widget left = getTabBar(
-            list,
+            controller.list,
             controller.state.pageIndexRx,
             controller: controller.tabController,
             onTap: controller.handleChangedTab,
@@ -32,7 +32,7 @@ class CommunityView extends StatelessWidget {
           AppBar appBar = getMainBar(
             left: Expanded(
               child: left,
-              flex: 2,
+              flex: 4,
             ),
             right: right,
           );
@@ -42,6 +42,7 @@ class CommunityView extends StatelessWidget {
             controller: controller.pageController,
             children: const [
               ContentListFreeView(),
+              ContentListSubView(),
               ContentListNewView(),
               ContentListHotView(),
             ],

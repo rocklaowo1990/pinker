@@ -239,7 +239,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               body,
               Image.asset(
                 'assets/images/xian.png',
-                height: 40.h,
+                height: 48.h,
               )
             ],
           ),

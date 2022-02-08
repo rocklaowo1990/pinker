@@ -36,7 +36,7 @@ class RegisterView extends GetView<RegisterController> {
     /// 生日输入框
     Widget userBirth = Obx(
       () => getButton(
-        height: 40.h,
+        height: 48.h,
         padding: EdgeInsets.only(left: 20.w),
         onPressed: controller.birthChoice,
         child: getSpan(

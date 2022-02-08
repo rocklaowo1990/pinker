@@ -77,7 +77,7 @@ class DialogChild {
       children: [
         Expanded(
           child: getButton(
-            height: 40.h,
+            height: 48.h,
             child: Text(leftText ?? Lang.edit.tr),
             width: double.infinity,
             background: Colors.transparent,
@@ -96,13 +96,13 @@ class DialogChild {
         if (onPressedRight != null)
           Container(
             width: 0.5.w,
-            height: 40.h,
+            height: 48.h,
             color: AppColors.line,
           ),
         if (onPressedRight != null)
           Expanded(
             child: getButton(
-              height: 40.h,
+              height: 48.h,
               child: Text(rightText ?? Lang.sure.tr),
               width: double.infinity,
               background: Colors.transparent,
@@ -221,7 +221,7 @@ class DialogChild {
                 Expanded(
                   child: getButton(
                       width: Get.width,
-                      height: 40.h,
+                      height: 48.h,
                       child: getSpan(Lang.cancel.tr),
                       onPressed: () {
                         Get.back();
@@ -232,7 +232,7 @@ class DialogChild {
                 Expanded(
                   child: getButton(
                     width: Get.width,
-                    height: 40.h,
+                    height: 48.h,
                     child: getSpan(Lang.sure.tr),
                     onPressed: onPressed ??
                         () {

@@ -15,6 +15,8 @@ class CommunityController extends GetxController
   /// 页面控制器
   final pageController = PageController();
 
+  List<String> list = ['限免', '订阅', '最新', '最热'];
+
   void handleChangedTab(index) {
     state.pageIndex = index;
     pageController.animateToPage(
@@ -37,6 +39,6 @@ class CommunityController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: list.length, vsync: this);
   }
 }
