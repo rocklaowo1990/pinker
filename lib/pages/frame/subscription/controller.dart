@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/global.dart';
-
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/subscription/state.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
+import 'package:pinker/store/user.dart';
 
 import 'package:pinker/utils/utils.dart';
 
@@ -20,7 +20,7 @@ class SubscriptionController extends GetxController {
   final SubscriptionState state = SubscriptionState();
 
   /// token
-  final String token = Global.token ?? '';
+  final String token = UserStore.to.token;
 
   /// 下一步
   void handleNext() {

@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+
 
 import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';

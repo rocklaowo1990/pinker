@@ -12,7 +12,8 @@ import 'package:pinker/api/user.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/pages/frame/avatar/library.dart';
 import 'package:pinker/pages/frame/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 
@@ -45,7 +46,7 @@ class AvatarController extends GetxController {
     Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
 
     /// 获取token
-    String token = StorageUtil().getJSON(storageUserTokenKey);
+    String token = StorageService().getString(storageUserTokenKey);
 
     /// 准备验证资源
     Map<String, dynamic> verifyResourceData = {

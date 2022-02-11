@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/global.dart';
+
+import 'package:pinker/store/store.dart';
 import 'package:pinker/utils/utils.dart';
 
 class SubscribeGroupApi {
@@ -12,7 +13,7 @@ class SubscribeGroupApi {
     var response = await HttpUtil().get(
       '/api/subscribeGroup/list',
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       queryParameters: {
         'pageNo': pageNo,
@@ -34,7 +35,7 @@ class SubscribeGroupApi {
       '/api/subscribeGroup/update',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'groupId': groupId,
@@ -57,7 +58,7 @@ class SubscribeGroupApi {
       '/api/subscribeGroup/create',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'groupName': groupName,

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/global.dart';
+
+import 'package:pinker/store/store.dart';
 
 import 'package:pinker/utils/utils.dart';
 
@@ -28,7 +29,7 @@ class UserApi {
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
 
@@ -61,7 +62,7 @@ class UserApi {
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
 
@@ -74,7 +75,7 @@ class UserApi {
     var response = await HttpUtil().get(
       '/api/user/info',
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
 
@@ -116,7 +117,7 @@ class UserApi {
       '/api/user/setUserName',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'userName': userName,
@@ -138,7 +139,7 @@ class UserApi {
       '/api/user/setMobile',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'password': password,
@@ -162,7 +163,7 @@ class UserApi {
       '/api/user/setEmail',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'password': password,
@@ -188,7 +189,7 @@ class UserApi {
       '/api/user/setPassword',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         if (oldPassword != null) 'oldPassword': oldPassword,
@@ -218,7 +219,7 @@ class UserApi {
     var response = await HttpUtil().get(
       apiUrl,
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       queryParameters: {
         'pageNo': pageNo,
@@ -244,7 +245,7 @@ class UserApi {
       apiUrl,
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'userId': userId,
@@ -266,7 +267,7 @@ class UserApi {
       '/api/user/hide',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'userId': userId,
@@ -288,7 +289,7 @@ class UserApi {
       '/api/user/block',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'userId': userId,
@@ -305,7 +306,7 @@ class UserApi {
       '/api/user/getUserLogo',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -326,7 +327,7 @@ class UserApi {
       '/api/user/setUserLogo',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'enable': enable,
@@ -346,7 +347,7 @@ class UserApi {
       '/api/user/oneSubscribeInfo',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       queryParameters: {
         'userId': userId,
@@ -368,7 +369,7 @@ class UserApi {
       '/api/user/subscribeGroup',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       data: {
         'userId': userId,
@@ -386,7 +387,7 @@ class UserApi {
       '/api/user/subscribeList',
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       queryParameters: {
         'pageNo': pageNo,
@@ -404,7 +405,7 @@ class UserApi {
       '/api/user/home',
       options: Options(headers: {
         // 'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
       queryParameters: {
         'userId': userId,

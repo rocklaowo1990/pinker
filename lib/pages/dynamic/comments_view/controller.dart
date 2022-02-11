@@ -53,7 +53,8 @@ class CommentsViewController extends GetxController {
       });
 
       if (storageKey != null) {
-        await StorageUtil().setJSON(storageKey, contentList.value);
+        await StorageService()
+            .setString(storageKey, contentList.value.toString());
       }
       textController.clear();
       Get.back();

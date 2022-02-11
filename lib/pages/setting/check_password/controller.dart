@@ -6,7 +6,8 @@ import 'package:pinker/entities/response.dart';
 import 'package:pinker/pages/application/library.dart';
 
 import 'package:pinker/pages/setting/check_password/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
 
 import 'package:pinker/utils/utils.dart';
 

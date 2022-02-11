@@ -3,7 +3,8 @@ import 'package:pinker/api/subscribe_group.dart';
 import 'package:pinker/entities/group_list.dart';
 import 'package:pinker/entities/response.dart';
 import 'package:pinker/pages/setting/set_group/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class SetGroupController extends GetxController {

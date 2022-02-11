@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/global.dart';
+
+import 'package:pinker/store/store.dart';
 import 'package:pinker/utils/utils.dart';
 
 class ContentApi {
@@ -25,7 +26,7 @@ class ContentApi {
         'keywords': keywords,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -46,7 +47,7 @@ class ContentApi {
         'userId': userId,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -59,7 +60,7 @@ class ContentApi {
       '/api/content/contentDetail',
       queryParameters: {'wid': wid},
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -74,7 +75,7 @@ class ContentApi {
         'pageSize': 20,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -99,7 +100,7 @@ class ContentApi {
         'pageSize': 20,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -120,7 +121,7 @@ class ContentApi {
         'beUserId': beUserId,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     );
@@ -151,7 +152,7 @@ class ContentApi {
         'isLike': isLike,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     );
@@ -174,7 +175,7 @@ class ContentApi {
         'isForward': isForward,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     );
@@ -193,7 +194,7 @@ class ContentApi {
         if (type != null) 'type': type,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
         'Content-Type': 'application/x-www-form-urlencoded',
       }),
     );

@@ -1,42 +1,36 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/personal/library.dart';
 import 'package:pinker/pages/publish/library.dart';
-import 'package:pinker/pages/recommend_user_list/binding.dart';
-import 'package:pinker/pages/recommend_user_list/view.dart';
+import 'package:pinker/pages/recommend_user_list/library.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
-import 'package:pinker/pages/setting/count_list/binding.dart';
 import 'package:pinker/pages/setting/count_list/library.dart';
 import 'package:pinker/pages/setting/delete_account/library.dart';
-
 import 'package:pinker/pages/setting/library.dart';
-import 'package:pinker/pages/setting/money/binding.dart';
+import 'package:pinker/pages/setting/money/library.dart';
 import 'package:pinker/pages/setting/money/money_set/library.dart';
-import 'package:pinker/pages/setting/money/view.dart';
 import 'package:pinker/pages/setting/set_email/library.dart';
-import 'package:pinker/pages/setting/set_group/group_info/binding.dart';
-import 'package:pinker/pages/setting/set_group/group_info/view.dart';
+import 'package:pinker/pages/setting/set_group/group_info/library.dart';
 import 'package:pinker/pages/setting/set_group/library.dart';
 import 'package:pinker/pages/setting/set_language/library.dart';
-import 'package:pinker/pages/setting/set_password/binding.dart';
-import 'package:pinker/pages/setting/set_password/view.dart';
-
+import 'package:pinker/pages/setting/set_password/library.dart';
 import 'package:pinker/pages/setting/set_phone/library.dart';
 import 'package:pinker/pages/setting/set_user_logo/library.dart';
-
 import 'package:pinker/pages/setting/set_user_name/library.dart';
 import 'package:pinker/pages/setting/verify/library.dart';
 import 'package:pinker/pages/subscribe_list/library.dart';
-
 import 'package:pinker/pages/unknown/library.dart';
 
-part 'app_routes.dart';
+import 'routes.dart';
 
 class AppPages {
   static const initial = AppRoutes.frame;
+  static List<String> history = [];
+  static final RouteObserver<Route> observer = RouteObservers();
 
   static final unknownRoute = GetPage(
     name: AppRoutes.unknownRoute,

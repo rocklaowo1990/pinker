@@ -1,11 +1,20 @@
 import 'package:dio/dio.dart';
-
-import 'package:pinker/entities/response.dart';
-import 'package:pinker/global.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:pinker/store/user.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
+import 'package:get/get.dart' hide FormData;
 
-/// http 请求封装
+/*
+  * http 操作类
+  *
+  * 手册
+  * https://github.com/flutterchina/dio/blob/master/README-ZH.md
+  *
+  * 从 3 升级到 4
+  * https://github.com/flutterchina/dio/blob/master/migration_to_4.x.md
+*/
 class HttpUtil {
   static final HttpUtil _instance = HttpUtil._internal();
   factory HttpUtil() => _instance;
@@ -65,11 +74,11 @@ class HttpUtil {
       onResponse: (response, handler) async {
         // Do something with response data
         // 如果token过期将直接退出登陆
-        ResponseEntity responseEntity = ResponseEntity.fromJson(response.data);
-        if (responseEntity.code == 1) {
-          await futureMill(500);
-          goLoginPage();
-        }
+        // ResponseEntity responseEntity = ResponseEntity.fromJson(response.data);
+        // if (responseEntity.code == 1) {
+        //   await futureMill(500);
+        //   goLoginPage();
+        // }
 
         return handler.next(response); // continue
         // 如果你想终止请求并触发一个错误,你可以 reject 一个`DioError`对象,如`handler.reject(error)`，
@@ -77,33 +86,10 @@ class HttpUtil {
       },
       onError: (DioError e, handler) {
         // Do something with response error
-        createErrorEntity(e);
-        // switch (eInfo.code) {
-        //   case 401: // 没有权限 重新登录
-        //     break;
-
-        //   default:
-        //     return handler.resolve(Response(
-        //       data: {
-        //         'code': -1,
-        //         'msg': '网络连接失败',
-        //         'data': '',
-        //       },
-        //       requestOptions: RequestOptions(
-        //         path: '',
-        //       ),
-        //     ));
-        // }
-        return handler.resolve(Response(
-          data: {
-            'code': -1,
-            'msg': '网络连接失败',
-          },
-          requestOptions: RequestOptions(
-            path: '',
-          ),
-        ));
-        // return handler.next(e); //continue
+        Loading.dismiss();
+        ErrorEntity eInfo = createErrorEntity(e);
+        onError(eInfo);
+        return handler.next(e); //continue
         // 如果你想完成请求并返回一些自定义数据，可以resolve 一个`Response`,如`handler.resolve(response)`。
         // 这样请求将会被终止，上层then会被调用，then中返回的数据将是你的自定义response.
       },
@@ -113,6 +99,23 @@ class HttpUtil {
   /*
    * error统一处理
    */
+  // 错误处理
+  void onError(ErrorEntity eInfo) {
+    debugPrint('error.code -> ' +
+        eInfo.code.toString() +
+        ', error.message -> ' +
+        eInfo.message);
+    switch (eInfo.code) {
+      case 401:
+        goLoginPage();
+        EasyLoading.showError(eInfo.message);
+        break;
+      default:
+        EasyLoading.showError('未知错误');
+        break;
+    }
+  }
+
   // 错误信息
   ErrorEntity createErrorEntity(DioError error) {
     switch (error.type) {
@@ -127,7 +130,8 @@ class HttpUtil {
       case DioErrorType.response:
         {
           try {
-            int? errCode = error.response?.statusCode;
+            int errCode =
+                error.response != null ? error.response!.statusCode! : -1;
             // String errMsg = error.response.statusMessage;
             // return ErrorEntity(code: errCode, message: errMsg);
             switch (errCode) {
@@ -154,7 +158,9 @@ class HttpUtil {
                   // return ErrorEntity(code: errCode, message: "未知错误");
                   return ErrorEntity(
                     code: errCode,
-                    message: error.response?.statusMessage,
+                    message: error.response != null
+                        ? error.response!.statusMessage!
+                        : '',
                   );
                 }
             }
@@ -181,11 +187,10 @@ class HttpUtil {
 
   /// 读取本地配置
   Map<String, dynamic>? getAuthorizationHeader() {
-    Map<String, dynamic>? headers;
-    String? accessToken = Global.token;
-    headers = {
-      'Authorization': 'Bearer $accessToken',
-    };
+    var headers = <String, dynamic>{};
+    if (Get.isRegistered<UserStore>() && UserStore.to.token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer ${UserStore.to.token}';
+    }
     return headers;
   }
 
@@ -376,13 +381,13 @@ class HttpUtil {
 
 // 异常处理
 class ErrorEntity implements Exception {
-  int? code;
-  String? message;
-  ErrorEntity({this.code, this.message});
+  int code = -1;
+  String message = '';
+  ErrorEntity({required this.code, required this.message});
 
   @override
   String toString() {
-    if (message == null) return "Exception";
+    if (message == '') return "Exception";
     return "Exception: code $code, $message";
   }
 }

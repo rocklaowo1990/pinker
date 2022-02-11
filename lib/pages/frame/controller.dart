@@ -5,7 +5,8 @@ import 'package:pinker/pages/frame/password/library.dart';
 import 'package:pinker/pages/frame/state.dart';
 import 'package:pinker/pages/frame/subscription/library.dart';
 import 'package:pinker/pages/frame/verify/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
 import 'index/library.dart';
 import 'login/library.dart';
 import 'register/library.dart';

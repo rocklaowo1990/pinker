@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/response.dart';
-import 'package:pinker/global.dart';
+
 import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/login/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+import 'package:pinker/store/user.dart';
+
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/widgets/widgets.dart';
@@ -84,10 +86,10 @@ class LoginController extends GetxController {
     /// 返回数据处理
     if (login.code == 200) {
       /// 全局token赋值
-      Global.token = login.data['token'];
+      UserStore.to.token = login.data['token'];
 
       /// 储存Token
-      await Global.saveToken(Global.token!);
+      await UserStore.to.setToken(UserStore.to.token);
 
       /// 去往首页
       await futureMill(500);

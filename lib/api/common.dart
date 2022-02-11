@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/global.dart';
+
+import 'package:pinker/store/store.dart';
 import 'package:pinker/utils/utils.dart';
 
 class CommonApi {
@@ -20,12 +21,12 @@ class CommonApi {
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'platform': Global.platform,
-        'osversion': Global.osversion,
-        'version': Global.packageInfo?.version,
-        'model': Global.model,
+        'platform': ConfigStore.to.platform,
+        'osversion': ConfigStore.to.osversion,
+        'version': ConfigStore.to.packageInfo?.version,
+        'model': ConfigStore.to.model,
         'timestamp': timestamp,
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -45,12 +46,12 @@ class CommonApi {
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'platform': Global.platform,
-        'osversion': Global.osversion,
-        'version': Global.packageInfo?.version,
-        'model': Global.model,
+        'platform': ConfigStore.to.platform,
+        'osversion': ConfigStore.to.osversion,
+        'version': ConfigStore.to.packageInfo?.version,
+        'model': ConfigStore.to.model,
         'timestamp': timestamp,
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -70,12 +71,12 @@ class CommonApi {
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'platform': Global.platform,
-        'osversion': Global.osversion,
-        'version': Global.packageInfo?.version,
-        'model': Global.model,
+        'platform': ConfigStore.to.platform,
+        'osversion': ConfigStore.to.osversion,
+        'version': ConfigStore.to.packageInfo?.version,
+        'model': ConfigStore.to.model,
         'timestamp': timestamp,
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);

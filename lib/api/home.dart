@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/global.dart';
+
+import 'package:pinker/store/store.dart';
 import 'package:pinker/utils/utils.dart';
 
 class HomeApi {
@@ -15,7 +16,7 @@ class HomeApi {
         'pageSize': 20,
       },
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
@@ -26,7 +27,7 @@ class HomeApi {
     var response = await HttpUtil().get(
       '/api/home/config',
       options: Options(headers: {
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);

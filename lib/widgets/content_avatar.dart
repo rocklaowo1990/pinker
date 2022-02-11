@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/routes/app_pages.dart';
 
-import 'package:pinker/utils/validator.dart';
+import 'package:pinker/routes/routes.dart';
+import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 

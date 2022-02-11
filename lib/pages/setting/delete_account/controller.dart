@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/pages/setting/delete_account/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class DeleteAccountController extends GetxController {

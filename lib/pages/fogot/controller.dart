@@ -10,7 +10,8 @@ import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/pages/fogot/password/library.dart';
 import 'package:pinker/pages/fogot/type/library.dart';
 import 'package:pinker/pages/fogot/verify/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+
 
 class ForgotController extends GetxController {
   ForgotController(this.arguments);

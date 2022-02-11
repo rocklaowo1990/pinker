@@ -2,22 +2,23 @@ import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/global.dart';
 import 'package:pinker/pages/application/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+import 'package:pinker/store/user.dart';
 import 'package:pinker/utils/utils.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 /// 检查是否有 token
 Future<bool> isAuthenticated() async {
-  var profileJSON = StorageUtil().getJSON(storageUserTokenKey);
-  return profileJSON != null ? true : false;
+  var profileJSON = StorageService().getString(storageUserTokenKey);
+  return profileJSON.isNotEmpty ? true : false;
 }
 
 /// 删除缓存 token
 Future deleteAuthentication() async {
-  await StorageUtil().remove(storageUserTokenKey);
+  await StorageService().remove(storageUserTokenKey);
 
   // await StorageUtil().remove(storageUserInfoKey);
   // await StorageUtil().remove(storageIsHadUserInfo);
@@ -28,8 +29,8 @@ Future deleteAuthentication() async {
   // await StorageUtil().remove(storageIsHadHotContent);
   // Global.isHadUserInfo = false;
 
-  Global.token = null;
-  Global.isOfflineLogin = false;
+  UserStore.to.token = '';
+  UserStore.to.isOfflineLogin = false;
 }
 
 /// 重新登录

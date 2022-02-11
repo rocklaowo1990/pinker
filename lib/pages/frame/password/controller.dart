@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/account.dart';
 import 'package:pinker/entities/response.dart';
-import 'package:pinker/global.dart';
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/password/state.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+import 'package:pinker/store/user.dart';
+
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 
@@ -41,8 +42,8 @@ class PasswordController extends GetxController {
     if (registerAccount.code == 200) {
       /// 注册成功
       /// 储存用户数据
-      Global.token = registerAccount.data['token'];
-      await Global.saveToken(Global.token!);
+      UserStore.to.token = registerAccount.data['token'];
+      await UserStore.to.setToken(UserStore.to.token);
 
       /// 去头像设置页面
       await futureMill(500);

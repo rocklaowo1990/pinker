@@ -5,7 +5,8 @@ import 'package:pinker/lang/translation_service.dart';
 
 import 'package:pinker/pages/frame/library.dart';
 import 'package:pinker/pages/frame/verify/library.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 

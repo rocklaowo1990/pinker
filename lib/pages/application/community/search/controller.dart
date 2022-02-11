@@ -4,7 +4,7 @@ import 'package:pinker/api/api.dart';
 import 'package:pinker/entities/entities.dart';
 
 import 'package:pinker/pages/application/community/search/library.dart';
-import 'package:pinker/utils/authentication.dart';
+import 'package:pinker/business/data.dart';
 import 'package:pinker/widgets/widgets.dart';
 
 class SearchController extends GetxController

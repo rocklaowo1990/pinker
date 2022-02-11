@@ -1,5 +1,3 @@
-part of 'app_pages.dart';
-
 class AppRoutes {
   /// 静态页面
   static const application = '/application'; //首页框架

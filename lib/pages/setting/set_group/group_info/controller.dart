@@ -49,7 +49,7 @@ class SetGroupInfoController extends GetxController {
       Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
 
       /// 获取token
-      String token = await StorageUtil().getJSON(storageUserTokenKey);
+      String token = StorageService().getString(storageUserTokenKey);
 
       /// 准备验证资源
       Map<String, dynamic> verifyResourceData = {

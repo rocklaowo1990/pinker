@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:pinker/pages/setting/money/library.dart';
 import 'package:pinker/pages/setting/money/state.dart';
-import 'package:pinker/routes/app_pages.dart';
+
+import 'package:pinker/routes/routes.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/widgets/widgets.dart';
 

@@ -3,9 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import 'package:pinker/global.dart';
+import 'package:pinker/routes/routes.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'lang/translation_service.dart';
-import 'routes/app_pages.dart';
+
 import 'utils/utils.dart';
 
 Future<void> main() async {
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
       ],
 
       /// 主题
-      // theme: ThemeData.dark(),
+      theme: ThemeData.dark(),
     );
   }
 }

@@ -6,7 +6,8 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/application/community/sub/library.dart';
 
 import 'package:pinker/pages/application/controller.dart';
-import 'package:pinker/routes/app_pages.dart';
+import 'package:pinker/routes/routes.dart';
+
 
 import 'package:pinker/utils/utils.dart';
 

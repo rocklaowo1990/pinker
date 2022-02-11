@@ -6,8 +6,9 @@ import 'package:pinker/entities/entities.dart';
 import 'package:pinker/pages/fogot/index/library.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
+import 'package:pinker/routes/routes.dart';
 
-import 'package:pinker/routes/app_pages.dart';
+
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/widgets/widgets.dart';

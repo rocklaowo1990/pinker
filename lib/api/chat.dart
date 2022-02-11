@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/global.dart';
+
+import 'package:pinker/store/store.dart';
 import 'package:pinker/utils/utils.dart';
 
 class ChatApi {
@@ -18,7 +19,7 @@ class ChatApi {
       },
       options: Options(headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'token': Global.token,
+        'token': UserStore.to.token,
       }),
     );
     return ResponseEntity.fromJson(response);
