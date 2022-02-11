@@ -15,7 +15,7 @@ class Global {
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    setSystemUi();
+    _setSystemUi();
     Loading();
 
     await Get.putAsync<StorageService>(() => StorageService().init());
@@ -24,7 +24,7 @@ class Global {
     Get.put<UserStore>(UserStore());
   }
 
-  static void setSystemUi() {
+  static void _setSystemUi() {
     if (GetPlatform.isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,

@@ -28,6 +28,7 @@ class LanguageView extends GetView<LanguageController> {
                   ),
                 ),
               ),
+              onPressed: controller.handleSure,
             ),
     );
 

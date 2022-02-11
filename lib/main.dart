@@ -10,12 +10,8 @@ import 'lang/translation_service.dart';
 import 'utils/utils.dart';
 
 Future<void> main() async {
-  await initServices();
-  runApp(const MyApp());
-}
-
-Future<void> initServices() async {
   await Global.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
