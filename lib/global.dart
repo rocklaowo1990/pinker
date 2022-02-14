@@ -11,12 +11,12 @@ class Global {
     /// 运行初始
     WidgetsFlutterBinding.ensureInitialized();
 
-    // 强制竖屏
+    /// 强制竖屏
+
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     _setSystemUi();
-    Loading();
 
     await Get.putAsync<StorageService>(() => StorageService().init());
 

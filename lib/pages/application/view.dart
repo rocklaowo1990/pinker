@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/application/chat/library.dart';
 import 'package:pinker/pages/application/community/library.dart';
 
-import 'package:pinker/pages/application/home/home_view.dart';
+import 'package:pinker/pages/application/home/view.dart';
 
 import 'package:pinker/pages/application/library.dart';
-import 'package:pinker/pages/application/my/my_view.dart';
-import 'package:pinker/utils/utils.dart';
+import 'package:pinker/pages/application/my/view.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -18,8 +17,6 @@ class ApplicationView extends GetView<ApplicationController> {
 
   @override
   Widget build(BuildContext context) {
-    screenInit(context);
-
     const bottomNavItems = [
       BottomNavigationBarItem(
         backgroundColor: AppColors.secondBacground,

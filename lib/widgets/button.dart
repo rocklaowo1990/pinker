@@ -8,7 +8,9 @@ import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/icons.dart';
 
 /// 按钮封装
+///
 /// 基本上所有的按钮都可以用到
+///
 /// 这个按钮是全局的，任何按钮都可以调用该方法
 Widget getButton({
   /// 按钮的背景色
@@ -110,7 +112,7 @@ Widget getButtonMain({
 }) {
   return getButton(
     width: Get.width,
-    height: 48.h,
+    height: 48,
     child: child,
     onPressed: onPressed,
     background: background,

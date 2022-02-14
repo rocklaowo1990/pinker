@@ -40,13 +40,13 @@ dependencies:
 
 
   # flutter 屏幕适配方案
-  flutter_screenutil: ^5.1.1
+  flutter_screenutil: ^5.2.0
 
   # get 框架
   get: ^4.6.1
 
   # 本地储存
-  shared_preferences: ^2.0.12
+  shared_preferences: ^2.0.13
 
   # http 请求
   dio: ^4.0.4
@@ -87,7 +87,6 @@ dependencies:
 
   # 轮播图
   card_swiper: ^2.0.1
-  flutter_easyloading: ^3.0.3
 
 
 

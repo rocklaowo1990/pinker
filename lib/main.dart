@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:pinker/global.dart';
 import 'package:pinker/routes/routes.dart';
+import 'package:pinker/theme/theme.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'lang/translation_service.dart';
 
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    screenInit(context);
+
     /// 填入设计稿中设备的屏幕尺寸,单位dp
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
       ],
 
       /// 主题
-      theme: ThemeData.dark(),
+      theme: AppTheme.light,
     );
   }
 }

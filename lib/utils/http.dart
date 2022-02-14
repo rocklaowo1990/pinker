@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:pinker/store/user.dart';
 import 'package:pinker/utils/utils.dart';
 import 'package:pinker/values/values.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:pinker/widgets/snackbar.dart';
 
 /*
   * http 操作类
@@ -86,7 +87,6 @@ class HttpUtil {
       },
       onError: (DioError e, handler) {
         // Do something with response error
-        Loading.dismiss();
         ErrorEntity eInfo = createErrorEntity(e);
         onError(eInfo);
         return handler.next(e); //continue
@@ -108,10 +108,10 @@ class HttpUtil {
     switch (eInfo.code) {
       case 401:
         goLoginPage();
-        EasyLoading.showError(eInfo.message);
+        getSnackTop(eInfo.message);
         break;
       default:
-        EasyLoading.showError('未知错误');
+        getSnackTop('未知错误');
         break;
     }
   }
