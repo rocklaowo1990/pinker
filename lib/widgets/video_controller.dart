@@ -29,53 +29,56 @@ Widget getVideoController(
     videoTime.value = videoTimeListen.value;
   }, time: const Duration(milliseconds: 500));
 
-  return Container(
-    width: double.infinity,
-    height: 50,
-    decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: AppColors.line, width: 1))),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        getButton(
-          child: Obx(() => isPlay.value
-              ? const Icon(Icons.pause)
-              : const Icon(Icons.play_circle)),
-          onPressed: () {
-            fijkPlayer.state == FijkState.started
-                ? fijkPlayer.pause()
-                : fijkPlayer.start();
-          },
-          height: 50,
-          width: 50,
-          background: Colors.transparent,
-        ),
-        Expanded(
-            child: Obx(() => Slider(
-                  value: videoTime.value.toDouble(),
-                  min: 0.0,
-                  max: fijkPlayer.value.duration.inMilliseconds.toDouble(),
-                  onChanged: (value) {
-                    fijkPlayer.pause();
-                    videoTime.value = value.toInt();
-                  },
-                  onChangeEnd: (value) async {
-                    await fijkPlayer.seekTo(value.toInt());
-                    fijkPlayer.start();
-                  },
-                ))),
-        getButton(
-          child: const Icon(Icons.fullscreen),
-          onPressed: () {
-            fijkPlayer.value.fullScreen
-                ? fijkPlayer.exitFullScreen()
-                : fijkPlayer.enterFullScreen();
-          },
-          height: 50,
-          width: 50,
-          background: Colors.transparent,
-        ),
-      ],
+  return Material(
+    color: Colors.transparent,
+    child: Container(
+      width: double.infinity,
+      height: 50,
+      decoration: const BoxDecoration(
+          border: Border(top: BorderSide(color: AppColors.line, width: 1))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          getButton(
+            child: Obx(() => isPlay.value
+                ? const Icon(Icons.pause)
+                : const Icon(Icons.play_circle)),
+            onPressed: () {
+              fijkPlayer.state == FijkState.started
+                  ? fijkPlayer.pause()
+                  : fijkPlayer.start();
+            },
+            height: 50,
+            width: 50,
+            background: Colors.transparent,
+          ),
+          Expanded(
+              child: Obx(() => Slider(
+                    value: videoTime.value.toDouble(),
+                    min: 0.0,
+                    max: fijkPlayer.value.duration.inMilliseconds.toDouble(),
+                    onChanged: (value) {
+                      fijkPlayer.pause();
+                      videoTime.value = value.toInt();
+                    },
+                    onChangeEnd: (value) async {
+                      await fijkPlayer.seekTo(value.toInt());
+                      fijkPlayer.start();
+                    },
+                  ))),
+          getButton(
+            child: const Icon(Icons.fullscreen),
+            onPressed: () {
+              fijkPlayer.value.fullScreen
+                  ? fijkPlayer.exitFullScreen()
+                  : fijkPlayer.enterFullScreen();
+            },
+            height: 50,
+            width: 50,
+            background: Colors.transparent,
+          ),
+        ],
+      ),
     ),
   );
 }

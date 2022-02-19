@@ -35,12 +35,9 @@ class PublishView extends GetView<PublishController> {
       getSpanTitle('发推'),
       backgroundColor: AppColors.secondBacground,
       actions: [
-        Obx(() => controller.applicationController.state.publish.value.content
-                    .isEmpty &&
-                controller
-                    .applicationController.state.publish.value.pics.isEmpty &&
-                controller
-                    .applicationController.state.publish.value.video.isEmpty
+        Obx(() => controller.state.publish.value.content.isEmpty &&
+                controller.state.publish.value.pics.isEmpty &&
+                controller.state.publish.value.video.isEmpty
             ? const SizedBox()
             : getButton(
                 background: Colors.transparent,
@@ -58,23 +55,21 @@ class PublishView extends GetView<PublishController> {
 
     var reply = Obx(
       () => getButtonList(
+        onPressed: controller.handleReply,
         icon: SvgPicture.asset(
           'assets/svg/set_shield_list.svg',
           height: 20.h,
         ),
-        title: controller.applicationController.state.publish.value
-                    .replyPermissionType ==
-                1
+        title: controller.state.publish.value.replyPermissionType == 1
             ? '任何人都可以回复'
-            : controller.applicationController.state.publish.value
-                        .replyPermissionType ==
-                    2
+            : controller.state.publish.value.replyPermissionType == 2
                 ? '仅您订阅的人可以回复'
-                : controller.applicationController.state.publish.value
-                            .replyPermissionType ==
-                        3
+                : controller.state.publish.value.replyPermissionType == 3
                     ? '仅您提及的人可以回复'
-                    : '仅订阅您的人可以回复',
+                    : controller.state.publish.value.replyPermissionType == 4 &&
+                            controller.state.publish.value.replyGroupId == 0
+                        ? '仅订阅您的人可以回复'
+                        : '仅订阅组“${controller.state.publish.value.groupName}”可以回复',
       ),
     );
     var media = Obx(
@@ -83,6 +78,7 @@ class PublishView extends GetView<PublishController> {
         padding: EdgeInsets.all(16.w),
         background: AppColors.secondBacground,
         borderRadius: BorderRadius.zero,
+        onPressed: () {},
         child: Row(
           children: [
             Container(
@@ -103,13 +99,10 @@ class PublishView extends GetView<PublishController> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                getSpanTitle(controller.applicationController.state.publish
-                            .value.pics.isEmpty &&
-                        controller.applicationController.state.publish.value
-                            .video.isEmpty
+                getSpanTitle(controller.state.publish.value.pics.isEmpty &&
+                        controller.state.publish.value.video.isEmpty
                     ? '媒体资源：无'
-                    : controller.applicationController.state.publish.value.pics
-                            .isNotEmpty
+                    : controller.state.publish.value.pics.isNotEmpty
                         ? '图片：X张'
                         : '视频：00:00:00'),
                 SizedBox(height: 6.h),

@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/code_list/library.dart';
 import 'package:pinker/pages/frame/library.dart';
+import 'package:pinker/pages/media/library.dart';
 import 'package:pinker/pages/personal/library.dart';
 import 'package:pinker/pages/publish/library.dart';
+import 'package:pinker/pages/publish/reply/binding.dart';
+import 'package:pinker/pages/publish/reply/view.dart';
 import 'package:pinker/pages/recommend_user_list/library.dart';
 import 'package:pinker/pages/setting/check_password/library.dart';
 import 'package:pinker/pages/setting/count_list/library.dart';
@@ -47,10 +50,16 @@ class AppPages {
       children: [
         /// 发推
         GetPage(
-          name: AppRoutes.publish,
-          page: () => const PublishView(),
-          binding: PublishBinding(),
-        ),
+            name: AppRoutes.publish,
+            page: () => const PublishView(),
+            binding: PublishBinding(),
+            children: [
+              GetPage(
+                name: AppRoutes.reply,
+                page: () => const ReplyView(),
+                binding: ReplyBinding(),
+              )
+            ]),
       ],
     ),
 
@@ -87,6 +96,14 @@ class AppPages {
       name: AppRoutes.personal,
       page: () => const PersonalView(),
       binding: PersonalBinding(),
+    ),
+
+    /// 媒体页面
+    GetPage(
+      name: AppRoutes.media,
+      page: () => const MediaView(),
+      binding: MediaBinding(),
+      transition: Transition.noTransition,
     ),
 
     /// 设置页面

@@ -50,7 +50,4 @@ class ApplicationState {
   final RxBool _isLoadingFree = true.obs;
   set isLoadingFree(bool value) => _isLoadingFree.value = value;
   bool get isLoadingFree => _isLoadingFree.value;
-
-  /// 发推字段
-  final publish = PublishEntities.fromJson(PublishEntities.child).obs;
 }

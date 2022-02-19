@@ -1,18 +1,19 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
+
 import 'package:pinker/entities/entities.dart';
 
-import 'package:pinker/pages/dynamic/media_view/library.dart';
-
+import 'package:pinker/pages/media/library.dart';
 import 'package:pinker/values/values.dart';
 
-class MediaViewController extends GetxController {
-  final MediaViewState state = MediaViewState();
+class MediaController extends GetxController {
+  final state = MediaState();
+  final arguments = Get.arguments;
+
   FijkPlayer? fijkPlayer;
-  PageController pageController = PageController();
+  ExtendedPageController pageController = ExtendedPageController();
 
   int pageIndex = 0;
   void handleOnPageChanged(value) {
@@ -85,27 +86,19 @@ class MediaViewController extends GetxController {
     state.isFullScreen = true;
   }
 
-  Future<void> init(
-    Rx<ContentListEntities> contentList,
-    int index, {
-    int? imageIndex,
-  }) async {
-    await _getSubscribeInfo(contentList, index);
-    state.isLoading = false;
-    if (fijkPlayer == null && imageIndex != null) state.pageIndex = imageIndex;
-  }
-
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    if (fijkPlayer == null) pageController.jumpToPage(state.pageIndex);
+    if (fijkPlayer == null && arguments['imageIndex'] != null) {
+      state.pageIndex = arguments['imageIndex'];
+      pageController.jumpToPage(state.pageIndex);
+    }
+    state.isLoading = false;
+    await _getSubscribeInfo(arguments['contentList'], arguments['index']);
     debounce(
       state.opacityListenRx,
       (int value) {
         state.opacity = state.opacity == 1.0 ? 0.0 : 1.0;
-        // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        //     overlays: [SystemUiOverlay.bottom]);
-        // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
       },
       time: const Duration(milliseconds: 100),
     );

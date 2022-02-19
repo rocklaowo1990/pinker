@@ -12,13 +12,13 @@ import 'package:pinker/widgets/widgets.dart';
 
 /// 检查是否有 token
 Future<bool> isAuthenticated() async {
-  var profileJSON = StorageService().getString(storageUserTokenKey);
+  var profileJSON = StorageService.to.getString(storageUserTokenKey);
   return profileJSON.isNotEmpty ? true : false;
 }
 
 /// 删除缓存 token
 Future deleteAuthentication() async {
-  await StorageService().remove(storageUserTokenKey);
+  await StorageService.to.remove(storageUserTokenKey);
 
   // await StorageUtil().remove(storageUserInfoKey);
   // await StorageUtil().remove(storageIsHadUserInfo);

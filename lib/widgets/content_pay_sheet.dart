@@ -36,12 +36,10 @@ Future<void> getContentPaySheet({
 
   if (responseEntity.code == 200) {
     subscribeInfo = SubscribeInfoEntities.fromJson(responseEntity.data);
-    for (int i = 0; i < subscribeInfo.groups.length; i++) {
-      if (contentList.value.list[index].works.payPermission.groupId !=
-          subscribeInfo.groups[i].groupId) {
-        subscribeInfo.groups.remove(subscribeInfo.groups[i]);
-      }
-    }
+    subscribeInfo.groups.removeWhere((element) =>
+        element.groupId !=
+        contentList.value.list[index].works.payPermission.groupId);
+
     isLoading.value = false;
   } else {
     getSnackTop(responseEntity.msg);

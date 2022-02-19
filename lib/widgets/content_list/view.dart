@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
-import 'package:pinker/pages/dynamic/dynamic.dart';
+
+import 'package:pinker/routes/routes.dart';
 import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
@@ -43,7 +44,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   }
 
   /// 图像展示
-  Widget _image(String url, int imagetIndex) {
+  Widget _image(String url, int imageIndex) {
     return getButton(
       background: AppColors.mainBacground,
       borderRadius: BorderRadius.all(Radius.circular(8.w)),
@@ -57,7 +58,11 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
         ),
       ),
       onPressed: () {
-        getMediaView(contentList, index, imageIndex: imagetIndex);
+        Get.toNamed(AppRoutes.media, arguments: {
+          'contentList': contentList,
+          'index': index,
+          'imageIndex': imageIndex,
+        });
       },
     );
   }
@@ -154,7 +159,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
                         borderRadius: BorderRadius.all(Radius.circular(8.w))),
                     getButton(
                       onPressed: () {
-                        getMediaView(contentList, index);
+                        Get.toNamed(AppRoutes.media, arguments: {
+                          'contentList': contentList,
+                          'index': index,
+                        });
                       },
                       borderRadius: BorderRadius.all(Radius.circular(8.w)),
                       height: 200.h,

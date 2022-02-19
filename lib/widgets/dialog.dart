@@ -19,7 +19,7 @@ Future<Widget?> getDialog({
   Color color = Colors.transparent,
   Object? arguments,
 }) async {
-  Get.dialog(
+  return Get.dialog(
     Material(
       child: child ?? DialogChild.loading(),
       color: color,

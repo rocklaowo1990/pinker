@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/chat/library.dart';
 import 'package:pinker/pages/application/community/library.dart';
@@ -8,6 +8,7 @@ import 'package:pinker/pages/application/home/view.dart';
 
 import 'package:pinker/pages/application/library.dart';
 import 'package:pinker/pages/application/my/view.dart';
+import 'package:pinker/utils/utils.dart';
 
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
@@ -17,6 +18,8 @@ class ApplicationView extends GetView<ApplicationController> {
 
   @override
   Widget build(BuildContext context) {
+    screenInit(context);
+
     const bottomNavItems = [
       BottomNavigationBarItem(
         backgroundColor: AppColors.secondBacground,
@@ -83,8 +86,8 @@ class ApplicationView extends GetView<ApplicationController> {
               Icons.add,
               color: AppColors.mainIcon,
             ),
-            width: 50.w,
-            height: 50.w,
+            width: 50,
+            height: 50,
             onPressed: controller.handlePublish,
           )
         : const SizedBox());

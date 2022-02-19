@@ -46,7 +46,7 @@ class AvatarController extends GetxController {
     Digest flieMD5 = md5.convert(avatarFile.readAsBytesSync());
 
     /// 获取token
-    String token = StorageService().getString(storageUserTokenKey);
+    String token = StorageService.to.getString(storageUserTokenKey);
 
     /// 准备验证资源
     Map<String, dynamic> verifyResourceData = {

@@ -67,6 +67,9 @@ dependencies:
   # 图像裁剪
   image_crop: ^0.4.0
 
+  # 图像综合处理
+  extended_image: ^6.0.1
+
   # SVG
   flutter_svg: ^1.0.1
 

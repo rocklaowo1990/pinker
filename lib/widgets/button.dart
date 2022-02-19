@@ -142,7 +142,7 @@ Widget getButtonSheet({
 }) {
   return getButton(
     child: child,
-    padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 8.h),
+    padding: EdgeInsets.fromLTRB(20, 8.h, 20, 8.h),
     onPressed: onPressed,
     background: background,
   );
@@ -154,10 +154,10 @@ Widget getButtonSheetOutline({
 }) {
   return getButton(
     child: child,
-    padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 8.h),
+    padding: EdgeInsets.fromLTRB(20, 8.h, 20, 8.h),
     onPressed: onPressed,
     background: Colors.transparent,
-    borderSide: BorderSide(width: 1.w, color: AppColors.mainColor),
+    borderSide: const BorderSide(width: 1, color: AppColors.mainColor),
   );
 }
 
@@ -167,8 +167,8 @@ Widget getBackButton({
   return getButton(
     child: getBackIcon(),
     background: Colors.transparent,
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
     onPressed: onPressed ??
         () {
           Get.back();
@@ -181,8 +181,8 @@ Widget getSettingButton({
 }) {
   return getButton(
     child: getSettingIcon(),
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
     onPressed: onPressed,
     background: Colors.transparent,
   );
@@ -198,8 +198,8 @@ Widget getSuerButton({
     ),
     onPressed: onPressed,
     background: Colors.transparent,
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
   );
 }
 
@@ -213,8 +213,8 @@ Widget getCloseButton({
     ),
     onPressed: onPressed,
     background: Colors.transparent,
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
   );
 }
 
@@ -226,8 +226,8 @@ Widget getSearchButton({
       'assets/svg/icon_search_1.svg',
     ),
     background: Colors.transparent,
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
     onPressed: onPressed,
   );
 }

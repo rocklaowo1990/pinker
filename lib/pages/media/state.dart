@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 
-class MediaViewState {
+class MediaState {
   /// 透明度监听
   final RxInt opacityListenRx = 0.obs;
   set opacityListen(int value) => opacityListenRx.value = value;

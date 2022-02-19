@@ -10,6 +10,7 @@ class PublishEntities {
     required this.replyPermissionType,
     this.replyGroupId,
     this.mentionedUsers,
+    this.groupName,
   });
 
   String content;
@@ -21,8 +22,9 @@ class PublishEntities {
   String? payPrice;
   String? limitFreeDays;
   int replyPermissionType;
-  String? replyGroupId;
+  int? replyGroupId;
   String? mentionedUsers;
+  String? groupName;
 
   factory PublishEntities.fromJson(Map<String, dynamic> json) =>
       PublishEntities(
@@ -36,6 +38,7 @@ class PublishEntities {
         replyPermissionType: json["replyPermissionType"],
         replyGroupId: json["replyGroupId"],
         mentionedUsers: json["mentionedUsers"],
+        groupName: json["groupName"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,6 +52,7 @@ class PublishEntities {
         'replyPermissionType': replyPermissionType,
         'replyGroupId': replyGroupId,
         'mentionedUsers': mentionedUsers,
+        'groupName': groupName,
       };
 
   static Map<String, dynamic> child = {
