@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -18,15 +18,15 @@ class PublishView extends GetView<PublishController> {
       keyboardType: TextInputType.multiline,
       maxLines: null,
       autofocus: true,
-      style: TextStyle(color: AppColors.mainText, fontSize: 14.sp),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(16.w),
-        border: const OutlineInputBorder(borderSide: BorderSide.none),
+      style: const TextStyle(color: AppColors.mainText, fontSize: 14),
+      decoration: const InputDecoration(
+        contentPadding: EdgeInsets.all(16),
+        border: OutlineInputBorder(borderSide: BorderSide.none),
         fillColor: AppColors.inputFiled,
         filled: true,
         hintText: '有什么新鲜事?',
-        hintStyle: const TextStyle(color: AppColors.secondText),
-        counterStyle: const TextStyle(color: AppColors.mainText),
+        hintStyle: TextStyle(color: AppColors.secondText),
+        counterStyle: TextStyle(color: AppColors.mainText),
       ),
       maxLength: 200,
     );
@@ -49,7 +49,7 @@ class PublishView extends GetView<PublishController> {
                   ),
                 ),
               )),
-        SizedBox(width: 16.w),
+        const SizedBox(width: 16),
       ],
     );
 
@@ -58,7 +58,7 @@ class PublishView extends GetView<PublishController> {
         onPressed: controller.handleReply,
         icon: SvgPicture.asset(
           'assets/svg/set_shield_list.svg',
-          height: 20.h,
+          height: 20,
         ),
         title: controller.state.publish.value.replyPermissionType == 1
             ? '任何人都可以回复'
@@ -75,17 +75,17 @@ class PublishView extends GetView<PublishController> {
     var media = Obx(
       () => getButton(
         width: Get.width,
-        padding: EdgeInsets.all(16.w),
+        padding: const EdgeInsets.all(16),
         background: AppColors.secondBacground,
         borderRadius: BorderRadius.zero,
         onPressed: () {},
         child: Row(
           children: [
             Container(
-              width: 60.w,
-              height: 60.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(16.w)),
+              width: 60,
+              height: 60,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
                 color: AppColors.line,
               ),
               child: const Center(
@@ -95,7 +95,7 @@ class PublishView extends GetView<PublishController> {
                 ),
               ),
             ),
-            SizedBox(width: 16.w),
+            const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -105,7 +105,7 @@ class PublishView extends GetView<PublishController> {
                     : controller.state.publish.value.pics.isNotEmpty
                         ? '图片：X张'
                         : '视频：00:00:00'),
-                SizedBox(height: 6.h),
+                const SizedBox(height: 6),
                 getSpanSecond('收费方式：免费')
               ],
             ),
@@ -121,9 +121,9 @@ class PublishView extends GetView<PublishController> {
         Expanded(child: input),
         Column(
           children: [
-            SizedBox(height: 20.h),
+            const SizedBox(height: 20),
             media,
-            SizedBox(height: 1.h),
+            const SizedBox(height: 1),
             reply,
           ],
         ),

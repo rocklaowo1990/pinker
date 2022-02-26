@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -41,18 +41,18 @@ AppBar getAppBar(
                   ),
                 if (lineColor != null)
                   Container(
-                    height: 1.h,
+                    height: 1,
                     color: lineColor,
                   ),
               ],
             ),
             preferredSize: Size.fromHeight(bottom == null
-                ? 1.h
+                ? 1
                 : lineColor == null
                     ? bottomHeight ?? 0
                     : bottomHeight == null
-                        ? 1.h
-                        : bottomHeight + 1.h),
+                        ? 1
+                        : bottomHeight + 1),
           ),
     centerTitle: true,
     systemOverlayStyle: const SystemUiOverlayStyle(
@@ -77,7 +77,7 @@ AppBar getMainBar({required Widget left, required Widget right}) {
       // const SizedBox(),
     ],
     backgroundColor: AppColors.secondBacground,
-    elevation: 1.h,
+    elevation: 1,
     shadowColor: AppColors.thirdIcon,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -96,13 +96,13 @@ AppBar getSearchBar({
   return AppBar(
     title: getInput(
       height: 40,
-      contentPadding: EdgeInsets.only(left: 8.w),
+      contentPadding: const EdgeInsets.only(left: 8),
       type: Lang.inputSearch.tr,
       controller: controller,
       focusNode: focusNode,
       prefixIcon: SizedBox(
-        width: 10.h,
-        height: 10.h,
+        width: 10,
+        height: 10,
         child: Center(
           child: SvgPicture.asset(
             'assets/svg/icon_search_2.svg',
@@ -111,7 +111,7 @@ AppBar getSearchBar({
       ),
     ),
     backgroundColor: AppColors.mainBacground,
-    elevation: 1.h,
+    elevation: 1,
     shadowColor: AppColors.thirdIcon,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

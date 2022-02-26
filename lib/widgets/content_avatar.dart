@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/entities/entities.dart';
@@ -55,8 +55,8 @@ Widget getContentMore(
 
   return Center(
     child: getButton(
-      width: width ?? 60.w,
-      height: height ?? 60.w,
+      width: width ?? 60,
+      height: height ?? 60,
       background: background,
       onPressed: _onPressed,
       child: const Icon(

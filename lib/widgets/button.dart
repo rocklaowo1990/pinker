@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -142,7 +142,7 @@ Widget getButtonSheet({
 }) {
   return getButton(
     child: child,
-    padding: EdgeInsets.fromLTRB(20, 8.h, 20, 8.h),
+    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
     onPressed: onPressed,
     background: background,
   );
@@ -154,7 +154,7 @@ Widget getButtonSheetOutline({
 }) {
   return getButton(
     child: child,
-    padding: EdgeInsets.fromLTRB(20, 8.h, 20, 8.h),
+    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
     onPressed: onPressed,
     background: Colors.transparent,
     borderSide: const BorderSide(width: 1, color: AppColors.mainColor),

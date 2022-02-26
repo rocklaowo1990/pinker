@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/api.dart';
@@ -73,10 +73,10 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
     children: [
       Row(
         children: [
-          SizedBox(width: 16.w),
+          const SizedBox(width: 16),
           LikeButton(
-            size: 20.sp,
-            likeCountPadding: EdgeInsets.only(left: 8.w),
+            size: 20,
+            likeCountPadding: const EdgeInsets.only(left: 8),
             likeCount: _commentCount,
             likeBuilder: (bool isComment) {
               return SvgPicture.asset(
@@ -99,12 +99,12 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
             },
             onTap: _onComment,
           ),
-          SizedBox(width: 30.w),
+          const SizedBox(width: 30),
           LikeButton(
             onTap: _onLike,
-            size: 18.sp,
+            size: 18,
             isLiked: _isLike,
-            likeCountPadding: EdgeInsets.only(left: 8.w),
+            likeCountPadding: const EdgeInsets.only(left: 8),
             likeCount: _likeCount,
             likeBuilder: (bool isLiked) {
               return isLiked
@@ -130,11 +130,11 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
                 ? LikeCountAnimationType.part
                 : LikeCountAnimationType.none,
           ),
-          SizedBox(width: 30.w),
+          const SizedBox(width: 30),
           LikeButton(
             onTap: _onForward,
-            size: 18.sp,
-            likeCountPadding: EdgeInsets.only(left: 8.w),
+            size: 18,
+            likeCountPadding: const EdgeInsets.only(left: 8),
             bubblesColor: const BubblesColor(
                 dotPrimaryColor: Color(0xFF009688),
                 dotSecondaryColor: Colors.tealAccent,
@@ -173,7 +173,7 @@ Widget getContentButton(Rx<ContentListEntities> contentList, int index) {
       _contentButton(
         icon: SvgPicture.asset(
           'assets/svg/icon_share.svg',
-          height: 18.w,
+          height: 18,
         ),
       ),
     ],
@@ -188,15 +188,15 @@ Widget _contentButton({
   EdgeInsetsGeometry? padding,
 }) {
   return getButton(
-    padding: padding ?? EdgeInsets.fromLTRB(16.w, 0, 16.w, 0),
-    height: 50.h,
+    padding: padding ?? const EdgeInsets.fromLTRB(16, 0, 16, 0),
+    height: 50,
     background: Colors.transparent,
     overlayColor: Colors.transparent,
     onPressed: onPressed,
     child: Row(
       children: [
         icon,
-        if (data != null) SizedBox(width: 1.w),
+        if (data != null) const SizedBox(width: 1),
         if (data != null)
           getSpan(
             data,

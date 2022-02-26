@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -28,11 +28,11 @@ class SubscribeListView extends GetView<SubscribeListController> {
     }) {
       return Container(
         width: double.infinity,
-        padding: EdgeInsets.all(20.w),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
             color: AppColors.secondBacground,
-            border: Border(
-                bottom: BorderSide(color: AppColors.line, width: 0.5.w))),
+            border:
+                Border(bottom: BorderSide(color: AppColors.line, width: 0.5))),
         child: Column(
           children: [
             Row(
@@ -45,7 +45,7 @@ class SubscribeListView extends GetView<SubscribeListController> {
                 )
               ],
             ),
-            SizedBox(height: 10.h),
+            const SizedBox(height: 10),
             Row(
               children: [
                 getSpan('订阅价格：', color: AppColors.secondText),
@@ -56,13 +56,13 @@ class SubscribeListView extends GetView<SubscribeListController> {
                       'assets/svg/icon_diamond.svg',
                       height: 15,
                     ),
-                    SizedBox(width: 8.w),
+                    const SizedBox(width: 8),
                     getSpan('$amount'),
                   ],
                 )
               ],
             ),
-            SizedBox(height: 8.h),
+            const SizedBox(height: 8),
             Row(
               children: [
                 getSpan('自动续费：', color: AppColors.secondText),
@@ -79,7 +79,7 @@ class SubscribeListView extends GetView<SubscribeListController> {
                 ),
               ],
             ),
-            SizedBox(height: 8.h),
+            const SizedBox(height: 8),
             Row(
               children: [
                 getSpan('到期时间：', color: AppColors.secondText),

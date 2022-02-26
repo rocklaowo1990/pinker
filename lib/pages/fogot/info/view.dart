@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -21,8 +20,8 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
     Widget avatar = getNetworkImageBox(
       controller.forgotController.forgotInfo.avatar,
       shape: BoxShape.circle,
-      width: 60.w,
-      height: 60.w,
+      width: 60,
+      height: 60,
     );
 
     /// 昵称
@@ -60,17 +59,17 @@ class ForgotInfoView extends GetView<ForgotInfoController> {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(20.w),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   title,
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: 20),
                   avatar,
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: 20),
                   nickName,
-                  SizedBox(height: 4.h),
+                  const SizedBox(height: 4),
                   userName,
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: 20),
                   userCount,
                 ],
               ),

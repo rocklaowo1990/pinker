@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -55,8 +55,8 @@ Future<void> getSubscribeBox({
 
   /// 头像
   Widget avatarBox = Container(
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
@@ -74,7 +74,7 @@ Future<void> getSubscribeBox({
   Widget span = getSpan('请选择 $userName 的订阅方式');
 
   Widget payBody = Padding(
-    padding: EdgeInsets.fromLTRB(0, 10.h, 0, 10.h),
+    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
     child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -96,15 +96,15 @@ Future<void> getSubscribeBox({
               },
               margin: subscribeInfo.groups.length > 1 &&
                       itemIndex != subscribeInfo.groups.length - 1
-                  ? 8.w
+                  ? 8
                   : null))
       ]),
     ),
   );
 
   Widget button = getButton(
-      width: 250.w,
-      height: 48.h,
+      width: 250,
+      height: 48,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
         Get.back();
@@ -119,7 +119,7 @@ Future<void> getSubscribeBox({
                   'assets/svg/icon_diamond.svg',
                   height: 15,
                 ),
-                SizedBox(width: 3.w),
+                const SizedBox(width: 3),
                 getSpan('${amount.value} 钻石'),
               ],
             ),
@@ -172,29 +172,29 @@ Future<void> getSubscribeBox({
         children: [
           Column(
             children: [
-              SizedBox(height: 48.h),
+              const SizedBox(height: 48),
               Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: AppColors.secondBacground,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.w),
-                      topRight: Radius.circular(16.w),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
                     )),
                 child: SafeArea(
                   top: false,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(28.w, 12.w, 28.w, 12.w),
+                    padding: const EdgeInsets.fromLTRB(28, 12, 28, 12),
                     child: subscribeInfo.groups.isNotEmpty
                         ? Column(
                             children: [
-                              SizedBox(height: 20.h),
+                              const SizedBox(height: 20),
                               span,
-                              SizedBox(height: 20.h),
+                              const SizedBox(height: 20),
                               payBody,
-                              SizedBox(height: 20.h),
+                              const SizedBox(height: 20),
                               button,
-                              SizedBox(height: 20.h),
+                              const SizedBox(height: 20),
                               getSpan(
                                 '当前钻石余额：${subscribeInfo.balance}',
                                 color: AppColors.secondText,
@@ -203,12 +203,12 @@ Future<void> getSubscribeBox({
                           )
                         : Column(
                             children: [
-                              SizedBox(height: 20.h),
+                              const SizedBox(height: 20),
                               getSpan(
                                 '$userName 暂时还没有任何可以订阅的分组',
                                 color: AppColors.secondText,
                               ),
-                              SizedBox(height: 11.h),
+                              const SizedBox(height: 11),
                             ],
                           ),
                   ),
@@ -244,8 +244,8 @@ Widget getContentPayChooiseBox({
   /// 头像
   Widget avatarBox = avatar != null
       ? Container(
-          width: 40.w,
-          height: 40.w,
+          width: 40,
+          height: 40,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.thirdIcon,
@@ -259,8 +259,8 @@ Widget getContentPayChooiseBox({
         )
       : SvgPicture.asset(
           'assets/svg/icon_buy_only.svg',
-          width: 40.w,
-          height: 40.w,
+          width: 40,
+          height: 40,
         );
 
   Widget pay = getButton(
@@ -268,21 +268,21 @@ Widget getContentPayChooiseBox({
     borderSide: isChooise == true
         ? const BorderSide(color: AppColors.mainColor, width: 1)
         : null,
-    borderRadius: BorderRadius.all(Radius.circular(8.w)),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
     background:
         isChooise == true ? AppColors.mainColor20 : AppColors.mainBacground,
-    width: 135.w,
+    width: 135,
     child: Column(
       children: [
-        SizedBox(height: 20.h),
+        const SizedBox(height: 20),
         getSpanTitle(title),
-        SizedBox(height: 16.h),
+        const SizedBox(height: 16),
         avatarBox,
-        SizedBox(height: 16.h),
+        const SizedBox(height: 16),
         getSpan(groupName),
-        SizedBox(height: 4.h),
+        const SizedBox(height: 4),
         getSpan(timeLength, color: AppColors.secondText),
-        SizedBox(height: 16.h),
+        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -290,11 +290,11 @@ Widget getContentPayChooiseBox({
               'assets/svg/icon_diamond.svg',
               height: 15,
             ),
-            SizedBox(width: 3.w),
+            const SizedBox(width: 3),
             getSpan(amount),
           ],
         ),
-        SizedBox(height: 12.h),
+        const SizedBox(height: 12),
       ],
     ),
   );
@@ -304,12 +304,11 @@ Widget getContentPayChooiseBox({
       pay,
       Positioned(
         child: Container(
-          height: 40.w,
-          width: 40.w,
-          decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.only(bottomRight: Radius.circular(8.w)),
-              image: const DecorationImage(
+          height: 40,
+          width: 40,
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(bottomRight: Radius.circular(8)),
+              image: DecorationImage(
                   image: AssetImage('assets/images/icon_chooise.png'))),
         ),
         bottom: 0,

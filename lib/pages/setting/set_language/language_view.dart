@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -39,7 +38,7 @@ class LanguageView extends GetView<LanguageController> {
       backgroundColor: AppColors.secondBacground,
       actions: [
         sureBox,
-        SizedBox(width: 16.w),
+        const SizedBox(width: 16),
       ],
     );
 
@@ -72,9 +71,9 @@ class LanguageView extends GetView<LanguageController> {
     /// body
     Widget body = ListView(
       children: [
-        SizedBox(height: 4.h),
+        const SizedBox(height: 4),
         cnList,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         enList,
       ],
     );

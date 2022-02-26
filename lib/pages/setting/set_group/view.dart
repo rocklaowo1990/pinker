@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -17,11 +17,11 @@ class SetGroupView extends GetView<SetGroupController> {
   Widget build(BuildContext context) {
     /// appBar 右侧的设置按钮
     Widget settingBox = getButton(
-      child: Icon(Icons.add, size: 24.sp),
+      child: const Icon(Icons.add, size: 24),
       onPressed: controller.handleAddGroup,
       background: Colors.transparent,
-      width: 60.w,
-      height: 60.w,
+      width: 60,
+      height: 60,
     );
 
     /// appBar
@@ -122,7 +122,7 @@ class SetGroupView extends GetView<SetGroupController> {
             : ListView(
                 children: controller.state.groupList
                     .map((item) => Padding(
-                        padding: EdgeInsets.fromLTRB(10.w, 10.w, 10.w, 0),
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                         child: getButton(
                           child: groupList(
                             groupName: item.groupName,

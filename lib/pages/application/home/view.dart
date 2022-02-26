@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:card_swiper/card_swiper.dart';
 
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 
 import 'package:pinker/pages/application/home/library.dart';
 import 'package:pinker/routes/routes.dart';
-
 
 import 'package:pinker/values/colors.dart';
 
@@ -35,8 +33,8 @@ class HomeView extends StatelessWidget {
         //     'assets/svg/icon_mail_3.svg',
         //   ),
         //   background: Colors.transparent,
-        //   width: 33.h,
-        //   height: 33.h,
+        //   width: 33,
+        //   height: 33,
         //   onPressed: controller.handleMail,
         // );
 
@@ -60,8 +58,8 @@ class HomeView extends StatelessWidget {
                         controller
                             .applicationController.state.userInfo.value.avatar,
                         shape: BoxShape.circle,
-                        width: 26.w,
-                        height: 26.w,
+                        width: 26,
+                        height: 26,
                       ),
                     ),
                   ),
@@ -76,7 +74,7 @@ class HomeView extends StatelessWidget {
         Widget swiper = Obx(() => controller.applicationController.state
                 .homeSwiperKing.value.carousel.isNotEmpty
             ? SizedBox(
-                height: 160.h,
+                height: 160,
                 width: double.infinity,
                 // color: AppColors.secondBacground,
                 child: Obx(
@@ -114,13 +112,13 @@ class HomeView extends StatelessWidget {
               children: [
                 getNetworkImageBox(
                   url,
-                  width: 60.w,
-                  height: 60.w,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16.w),
+                  width: 60,
+                  height: 60,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(16),
                   ),
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 getSpan(text),
               ],
             ),
@@ -135,12 +133,12 @@ class HomeView extends StatelessWidget {
         }) {
           DateTime end = DateTime.fromMillisecondsSinceEpoch(endDate);
           return Container(
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(16),
+            decoration: const BoxDecoration(
               color: AppColors.secondBacground,
               border: Border(
                 top: BorderSide(
-                  width: 0.5.w,
+                  width: 0.5,
                   color: AppColors.line,
                 ),
               ),
@@ -149,13 +147,13 @@ class HomeView extends StatelessWidget {
               children: [
                 getNetworkImageBox(
                   avatar,
-                  width: 150.w,
-                  height: 100.w,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8.w),
+                  width: 150,
+                  height: 100,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
                   ),
                 ),
-                SizedBox(width: 16.w),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     children: [
@@ -163,17 +161,17 @@ class HomeView extends StatelessWidget {
                         width: double.infinity,
                         child: getSpan(
                           name,
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
                       ),
-                      SizedBox(height: 5.h),
+                      const SizedBox(height: 5),
                       SizedBox(
                         width: double.infinity,
                         child: getSpanMain('$joinCount 人参与'),
                       ),
-                      SizedBox(height: 5.h),
+                      const SizedBox(height: 5),
                       SizedBox(
                         width: double.infinity,
                         child: getSpan('活动时间：截止到${end.month}月${end.day}日',
@@ -214,9 +212,9 @@ class HomeView extends StatelessWidget {
         Widget warp = Obx(
           () => Container(
             color: AppColors.secondBacground,
-            padding: EdgeInsets.fromLTRB(0, 20.h, 0, 20.h),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: Wrap(
-              runSpacing: 20.h,
+              runSpacing: 20,
               children: controller.applicationController.state.homeSwiperKing
                           .value.category.length <=
                       8
@@ -298,7 +296,7 @@ class HomeView extends StatelessWidget {
                 .recommendUserList.value.list.isNotEmpty
             ? Column(
                 children: [
-                  SizedBox(height: 16.h),
+                  const SizedBox(height: 16),
                   getButtonList(title: '推荐订阅', iconRight: const SizedBox()),
                   recommend,
                   getButtonList(
@@ -319,23 +317,23 @@ class HomeView extends StatelessWidget {
         //             // getButtonList(title: '热门分类', iconRight: const SizedBox()),
         //             Container(
         //               width: double.infinity,
-        //               height: 1.h,
+        //               height: 1,
         //               color: AppColors.line,
         //             ),
         //             warp,
         //             // Container(
         //             //   width: double.infinity,
-        //             //   height: 1.h,
+        //             //   height: 1,
         //             //   color: AppColors.line,
         //             // ),
         //             // getButtonList(
         //             //     title: '查看更多热门分类',
         //             //     onPressed: controller.handleRemmondMore),
-        //             SizedBox(height: 16.h),
+        //             SizedBox(height: 16),
         //             getButtonList(title: '精彩活动', iconRight: const SizedBox()),
         //             activity,
         //             remmondBox,
-        //             SizedBox(height: 16.h),
+        //             SizedBox(height: 16),
         //           ],
         //         ),
         //       ),
@@ -358,18 +356,18 @@ class HomeView extends StatelessWidget {
               // getButtonList(title: '热门分类', iconRight: const SizedBox()),
               Container(
                 width: double.infinity,
-                height: 1.h,
+                height: 1,
                 color: AppColors.line,
               ),
               warp,
               Container(
                 width: double.infinity,
-                height: 1.h,
+                height: 1,
                 color: AppColors.line,
               ),
               getButtonList(
                   title: '查看更多热门分类', onPressed: controller.handleRemmondMore),
-              SizedBox(height: 16.h),
+              const SizedBox(height: 16),
               getButtonList(title: '精彩活动', iconRight: const SizedBox()),
               activity,
               remmondBox,

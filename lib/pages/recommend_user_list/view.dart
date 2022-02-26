@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/pages/recommend_user_list/library.dart';
@@ -38,9 +37,9 @@ class RecommendUserListView extends GetView<RecommendUserListController> {
                         item.nickName,
                         intro: item.intro,
                         color: AppColors.secondBacground,
-                        border: Border(
+                        border: const Border(
                           bottom: BorderSide(
-                            width: 0.5.w,
+                            width: 0.5,
                             color: AppColors.line,
                           ),
                         ),

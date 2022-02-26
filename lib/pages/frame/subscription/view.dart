@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/frame/subscription/library.dart';
@@ -17,7 +16,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
     Widget top = Column(
       children: [
         getTitle('推荐订阅'),
-        SizedBox(height: 20.h),
+        const SizedBox(height: 20),
         getSpanSecond('当你关注某人后，你会在自己的主页看到他们的推文'),
       ],
     );
@@ -51,9 +50,9 @@ class SubscriptionView extends GetView<SubscriptionController> {
         Expanded(
           child: ListView(
             children: [
-              SizedBox(height: 10.h),
+              const SizedBox(height: 10),
               top,
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               middle,
             ],
           ),

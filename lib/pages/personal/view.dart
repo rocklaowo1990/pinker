@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -27,36 +26,36 @@ class PersonalView extends GetView<PersonalController> {
   Widget build(BuildContext context) {
     /// 头像漂浮
     Widget avatar = Positioned(
-        top: 70.h,
-        left: 16.w,
+        top: 70,
+        left: 16,
         child: SafeArea(
           child: Obx(
             () => controller.state.intro.value.avatar.isNotEmpty
                 ? getNetworkImageBox(
                     controller.state.intro.value.avatar,
-                    width: 70.w * ((100 - controller.state.offsetWidth) / 100),
-                    height: 70.w * ((100 - controller.state.offsetWidth) / 100),
+                    width: 70 * ((100 - controller.state.offsetWidth) / 100),
+                    height: 70 * ((100 - controller.state.offsetWidth) / 100),
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: AppColors.secondBacground,
-                      width: 3.w,
+                      width: 3,
                     ),
                   )
                 : Container(
-                    width: 70.w * ((100 - controller.state.offsetWidth) / 100),
-                    height: 70.w * ((100 - controller.state.offsetWidth) / 100),
+                    width: 70 * ((100 - controller.state.offsetWidth) / 100),
+                    height: 70 * ((100 - controller.state.offsetWidth) / 100),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.line,
                       border: Border.all(
                         color: AppColors.secondBacground,
-                        width: 3.w,
+                        width: 3,
                       ),
                     ),
                     child: SvgPicture.asset(
                       'assets/svg/avatar_default.svg',
-                      width: 40.w,
-                      height: 40.w,
+                      width: 40,
+                      height: 40,
                     ),
                   ),
           ),
@@ -70,14 +69,14 @@ class PersonalView extends GetView<PersonalController> {
           () => controller.state.intro.value.bannerPic.isEmpty
               ? Image.asset(
                   'assets/images/personal_banner.png',
-                  height: 150.h,
+                  height: 150,
                   width: Get.width,
                   fit: BoxFit.cover,
                 )
               : getNetworkImageBox(
                   controller.state.intro.value.bannerPic,
                   width: Get.width,
-                  height: 150.h,
+                  height: 150,
                 ),
         ),
         Obx(() => controller.state.opacity == 0 ? avatar : const SizedBox()),
@@ -89,11 +88,11 @@ class PersonalView extends GetView<PersonalController> {
         getButtonSheet(
           child: getSpan('打赏'),
         ),
-        SizedBox(width: 8.w),
+        const SizedBox(width: 8),
         getButtonSheet(
           child: getSpan('私信'),
         ),
-        SizedBox(width: 8.w),
+        const SizedBox(width: 8),
         Obx(
           () => getButtonSheet(
             child: getSpan(
@@ -112,7 +111,7 @@ class PersonalView extends GetView<PersonalController> {
         getButtonSheet(
           child: getSpan('打赏列表'),
         ),
-        SizedBox(width: 8.w),
+        const SizedBox(width: 8),
         getButtonSheet(
           child: getSpan('个人资料'),
         ),
@@ -120,7 +119,7 @@ class PersonalView extends GetView<PersonalController> {
     );
 
     Widget nameBox = Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 16.h),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +128,7 @@ class PersonalView extends GetView<PersonalController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 30.h),
+                const SizedBox(height: 30),
                 Obx(
                   () => getSpan(
                     controller.state.intro.value.nickName,
@@ -157,7 +156,7 @@ class PersonalView extends GetView<PersonalController> {
 
     var appBar = SliverAppBar(
       pinned: true,
-      expandedHeight: 110.h,
+      expandedHeight: 110,
       title: Obx(() => controller.state.opacity == 1
           ? getSpan(controller.state.intro.value.nickName)
           : const SizedBox()),
@@ -166,13 +165,13 @@ class PersonalView extends GetView<PersonalController> {
       flexibleSpace: banner,
       leading: Center(
         child: getButton(
-          height: 32.w,
-          width: 32.w,
+          height: 32,
+          width: 32,
           background: AppColors.mainBacground50,
           child: SvgPicture.asset(
             'assets/svg/icon_back.svg',
-            height: 16.w,
-            width: 16.w,
+            height: 16,
+            width: 16,
           ),
           onPressed: () {
             Get.back();
@@ -182,7 +181,7 @@ class PersonalView extends GetView<PersonalController> {
     );
 
     Widget intro = Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: Obx(
         () => SizedBox(
           width: double.infinity,
@@ -197,14 +196,14 @@ class PersonalView extends GetView<PersonalController> {
     );
 
     Widget date = Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: Row(
         children: [
           SvgPicture.asset(
             'assets/svg/icon_date.svg',
-            height: 15.sp,
+            height: 15,
           ),
-          SizedBox(width: 4.w),
+          const SizedBox(width: 4),
           Obx(
             () => getSpan(
               '${DateTime.fromMillisecondsSinceEpoch(controller.state.intro.value.createDate).year} 年 ${DateTime.fromMillisecondsSinceEpoch(controller.state.intro.value.createDate).month} 月 ${DateTime.fromMillisecondsSinceEpoch(controller.state.intro.value.createDate).day} 日加入',
@@ -216,13 +215,13 @@ class PersonalView extends GetView<PersonalController> {
     );
 
     Widget count = Padding(
-      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 0),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Row(
         children: [
           getButton(
             background: Colors.transparent,
             overlayColor: Colors.transparent,
-            padding: EdgeInsets.fromLTRB(0, 0, 16.w, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
             child: Row(
               children: [
                 Obx(
@@ -232,11 +231,11 @@ class PersonalView extends GetView<PersonalController> {
               ],
             ),
           ),
-          SizedBox(width: 16.w),
+          const SizedBox(width: 16),
           getButton(
             background: Colors.transparent,
             overlayColor: Colors.transparent,
-            padding: EdgeInsets.fromLTRB(0, 0, 16.w, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
             child: Row(
               children: [
                 Obx(
@@ -258,12 +257,12 @@ class PersonalView extends GetView<PersonalController> {
         onTap: controller.handleChangedTab,
       ),
       width: double.infinity,
-      height: 55.h,
-      decoration: BoxDecoration(
+      height: 55,
+      decoration: const BoxDecoration(
         color: AppColors.secondBacground,
         border: Border(
-          top: BorderSide(width: 1.w, color: AppColors.line),
-          bottom: BorderSide(width: 1.w, color: AppColors.line),
+          top: BorderSide(width: 1, color: AppColors.line),
+          bottom: BorderSide(width: 1, color: AppColors.line),
         ),
       ),
     );
@@ -293,7 +292,7 @@ class PersonalView extends GetView<PersonalController> {
                 intro,
                 date,
                 count,
-                SizedBox(height: 16.w),
+                const SizedBox(height: 16),
               ],
             ),
           ),
@@ -302,8 +301,8 @@ class PersonalView extends GetView<PersonalController> {
             // floating: true,
             delegate: _SliverAppBarDelegate(
               child: tabBar,
-              maxHeight: 55.h,
-              minHeight: 55.h,
+              maxHeight: 55,
+              minHeight: 55,
             ),
           ),
         ];

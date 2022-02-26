@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
@@ -71,17 +70,17 @@ Future getCommentsView(
               }),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: AppColors.mainBacground,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.w),
-                      topRight: Radius.circular(16.w))),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16))),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -103,23 +102,23 @@ Future getCommentsView(
                   Obx(
                     () => controller.state.replyUserName.isNotEmpty
                         ? Padding(
-                            padding: EdgeInsets.only(left: 8.w),
+                            padding: const EdgeInsets.only(left: 8),
                             child: getButton(
                                 onPressed: controller.handleClearReply,
                                 height: 30,
                                 width: 200,
                                 background: AppColors.line,
-                                padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+                                padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     getSpan(
                                         '回复 ${controller.state.replyUserName}'),
-                                    Icon(
+                                    const Icon(
                                       Icons.close,
                                       color: AppColors.mainIcon,
-                                      size: 14.sp,
+                                      size: 14,
                                     ),
                                   ],
                                 )),
@@ -130,7 +129,7 @@ Future getCommentsView(
                     top: false,
                     child: Obx(
                       () => Padding(
-                        padding: EdgeInsets.all(8.w),
+                        padding: const EdgeInsets.all(8),
                         child: contentList.value.list[index].canReply == 1
                             ? Row(
                                 mainAxisAlignment:
@@ -138,7 +137,7 @@ Future getCommentsView(
                                 children: [
                                   Expanded(
                                     child: getInput(
-                                      height: 48.h,
+                                      height: 48,
                                       type: '文明回复，共创美好环境 ~',
                                       controller: controller.textController,
                                       focusNode: controller.focusNode,
@@ -147,8 +146,8 @@ Future getCommentsView(
                                   const SizedBox(width: 12),
                                   getButton(
                                     child: getSpan('回复'),
-                                    height: 48.h,
-                                    width: 70.w,
+                                    height: 48,
+                                    width: 70,
                                     onPressed: () {
                                       controller.handleCommentAdd(
                                           contentList, index,
@@ -158,7 +157,7 @@ Future getCommentsView(
                                 ],
                               )
                             : SizedBox(
-                                height: 48.h,
+                                height: 48,
                                 width: double.infinity,
                                 child: Center(
                                   child: getSpan(

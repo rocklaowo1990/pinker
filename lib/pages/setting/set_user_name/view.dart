@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -35,22 +34,22 @@ class SetUserNameView extends GetView<SetUserNameController> {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(16.w),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   getSpanSecond('当前用户名'),
-                  SizedBox(height: 8.h),
+                  const SizedBox(height: 8),
                   getSpanTitle(controller
                       .applicationController.state.userInfo.value.userName),
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: 20),
                   getInput(
                     type: '输入新的用户名',
                     controller: controller.textController,
                     focusNode: controller.focusNode,
                   ),
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: 20),
                   getSpan('6-16位字母开头，允许包含数字和下划线', color: AppColors.secondText),
-                  SizedBox(height: 10.h),
+                  const SizedBox(height: 10),
                   getSpan('*用户名只能修改一次，请认真填写', color: AppColors.errro),
                 ],
               ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/fogot/type/library.dart';
@@ -56,18 +56,18 @@ class ForgotTypeView extends GetView<ForgotTypeController> {
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(20.w),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   title,
-                  SizedBox(height: 20.h),
+                  const SizedBox(height: 20),
                   titleSecond,
                 ],
               ),
             ),
             if (controller.forgotController.forgotInfo.phone != '') listPhone,
             if (controller.forgotController.forgotInfo.email != '')
-              SizedBox(height: 8.w),
+              const SizedBox(height: 8),
             if (controller.forgotController.forgotInfo.email != '') listEmail,
           ],
         ),

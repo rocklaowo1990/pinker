@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/pages/fogot/library.dart';
 import 'package:pinker/routes/routes.dart';
-
 
 import 'package:pinker/values/colors.dart';
 import 'package:pinker/values/values.dart';
@@ -31,9 +30,9 @@ class ForgotView extends StatelessWidget {
           /// body布局
           Widget body = Column(
             children: [
-              Container(height: 15.h, color: AppColors.mainBacground),
+              Container(height: 15, color: AppColors.mainBacground),
               appBar,
-              Container(height: 1.h, color: AppColors.secondBacground),
+              Container(height: 1, color: AppColors.secondBacground),
               Expanded(
                 child: Container(
                   color: AppColors.mainBacground,

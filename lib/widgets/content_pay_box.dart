@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -18,7 +18,7 @@ Widget getImageCount(String count) {
   return Container(
     padding: const EdgeInsets.fromLTRB(12, 4, 12, 4),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(100.w),
+      borderRadius: BorderRadius.circular(100),
       color: AppColors.mainBacground50,
     ),
     child: getSpan(count),
@@ -68,17 +68,17 @@ Widget getContentPayBox(
   } else {
     url = contentList.value.list[index].works.video.previewsUrls[0];
     mediaType = Container(
-      width: 30.w,
-      height: 30.w,
-      child: Icon(
+      width: 30,
+      height: 30,
+      child: const Icon(
         Icons.play_arrow,
-        size: 20.w,
+        size: 20,
         color: AppColors.mainIcon,
       ),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AppColors.mainColor,
-        border: Border.all(color: AppColors.mainIcon, width: 1.5.w),
+        border: Border.all(color: AppColors.mainIcon, width: 1.5),
       ),
     );
     var time = getDuration(contentList.value.list[index].works.video.duration);
@@ -88,20 +88,20 @@ Widget getContentPayBox(
       ? getSpan(
           '需订阅',
           color: AppColors.thirdText,
-          fontSize: 16.sp,
+          fontSize: 16,
         )
       : contentList.value.list[index].works.payPermission.type == 2
           ? getSpan(
               '订阅或付费',
               color: AppColors.thirdText,
-              fontSize: 16.sp,
+              fontSize: 16,
             )
           : contentList.value.list[index].works.payPermission.type == 3 &&
                   contentList.value.list[index].subStatus == 0
               ? getSpan(
                   '订阅且付费',
                   color: AppColors.thirdText,
-                  fontSize: 16.sp,
+                  fontSize: 16,
                 )
               : Row(
                   children: [
@@ -109,11 +109,11 @@ Widget getContentPayBox(
                       'assets/svg/icon_diamond.svg',
                       height: 15,
                     ),
-                    SizedBox(width: 3.w),
+                    const SizedBox(width: 3),
                     getSpan(
                       '${contentList.value.list[index].works.payPermission.price}',
                       color: AppColors.thirdText,
-                      fontSize: 16.sp,
+                      fontSize: 16,
                     ),
                   ],
                 );
@@ -121,9 +121,9 @@ Widget getContentPayBox(
   return getButton(
     onPressed: _onPressed,
     width: double.infinity,
-    padding: EdgeInsets.fromLTRB(10.w, 10.w, 16.w, 10.w),
+    padding: const EdgeInsets.fromLTRB(10, 10, 16, 10),
     background: AppColors.line,
-    borderRadius: BorderRadius.all(Radius.circular(8.w)),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -133,13 +133,13 @@ Widget getContentPayBox(
               Stack(
                 children: [
                   getNetworkImageBox(url,
-                      width: 50.h,
-                      height: 50.h,
+                      width: 50,
+                      height: 50,
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(Radius.circular(8.w))),
+                      borderRadius: const BorderRadius.all(Radius.circular(8))),
                   SizedBox(
-                    height: 50.h,
-                    width: 50.h,
+                    height: 50,
+                    width: 50,
                     child: Center(
                       child: mediaType,
                     ),
@@ -156,12 +156,12 @@ Widget getContentPayBox(
                       getSpan(
                         '付费资源：',
                         color: AppColors.thirdText,
-                        fontSize: 16.sp,
+                        fontSize: 16,
                       ),
                       price,
                     ],
                   ),
-                  SizedBox(height: 4.h),
+                  const SizedBox(height: 4),
                   getSpanSecond(mediaInfo),
                 ],
               )

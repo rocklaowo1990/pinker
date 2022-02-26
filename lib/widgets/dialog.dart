@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
@@ -41,20 +41,20 @@ class DialogChild {
   }) {
     return Center(
       child: Container(
-        width: width ?? 80.w,
-        height: height ?? 80.w,
+        width: width ?? 80,
+        height: height ?? 80,
         decoration: BoxDecoration(
           color: AppColors.secondBacground,
-          borderRadius: BorderRadius.circular(16.w),
+          borderRadius: BorderRadius.circular(16),
         ),
-        child: Center(
+        child: const Center(
           child: SizedBox(
-            width: 16.w,
-            height: 16.w,
+            width: 16,
+            height: 16,
             child: CircularProgressIndicator(
               backgroundColor: AppColors.mainIcon,
               color: AppColors.mainColor,
-              strokeWidth: 1.5.w,
+              strokeWidth: 1.5,
             ),
           ),
         ),
@@ -77,17 +77,17 @@ class DialogChild {
       children: [
         Expanded(
           child: getButton(
-            height: 48.h,
+            height: 48,
             child: Text(leftText ?? Lang.edit.tr),
             width: double.infinity,
             background: Colors.transparent,
             borderRadius: onPressedRight != null
-                ? BorderRadius.only(
-                    bottomLeft: Radius.circular(16.w),
+                ? const BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
                   )
-                : BorderRadius.only(
-                    bottomLeft: Radius.circular(16.w),
-                    bottomRight: Radius.circular(16.w),
+                : const BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
                   ),
             onPressed: onPressedLeft,
           ),
@@ -95,19 +95,19 @@ class DialogChild {
         ),
         if (onPressedRight != null)
           Container(
-            width: 0.5.w,
-            height: 48.h,
+            width: 0.5,
+            height: 48,
             color: AppColors.line,
           ),
         if (onPressedRight != null)
           Expanded(
             child: getButton(
-              height: 48.h,
+              height: 48,
               child: Text(rightText ?? Lang.sure.tr),
               width: double.infinity,
               background: Colors.transparent,
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(16.w),
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(16),
               ),
               onPressed: onPressedRight,
             ),
@@ -120,7 +120,7 @@ class DialogChild {
     Widget contentBox = Column(
       children: [
         getSpanTitle(title ?? ''),
-        SizedBox(height: 20.h),
+        const SizedBox(height: 20),
         contentWidget ??
             getSpan(
               content,
@@ -132,27 +132,27 @@ class DialogChild {
 
     /// 整体组装
     Widget body = Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(16.w),
+          Radius.circular(16),
         ),
         color: AppColors.secondBacground,
       ),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(
-              left: 24.w,
-              right: 24.w,
-              top: 24.h,
-              bottom: 24.h,
+            padding: const EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 24,
+              bottom: 24,
             ),
             child: contentBox,
           ),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               border: Border(
-                top: BorderSide(width: 0.5.h, color: AppColors.line),
+                top: BorderSide(width: 0.5, color: AppColors.line),
               ),
             ),
             child: buttonBox,
@@ -174,7 +174,7 @@ class DialogChild {
               Get.back();
             }),
         Padding(
-          padding: EdgeInsets.all(64.w),
+          padding: const EdgeInsets.all(64),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -194,7 +194,7 @@ class DialogChild {
     Widget _buildCropImage() {
       return Container(
         color: Colors.black,
-        padding: EdgeInsets.only(bottom: 20.h),
+        padding: const EdgeInsets.only(bottom: 20),
         child: Crop(
           key: key,
           image: FileImage(File(image.path)),
@@ -214,25 +214,25 @@ class DialogChild {
             child: _buildCropImage(),
           ),
           Padding(
-            padding: EdgeInsets.all(20.h),
+            padding: const EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: getButton(
                       width: Get.width,
-                      height: 48.h,
+                      height: 48,
                       child: getSpan(Lang.cancel.tr),
                       onPressed: () {
                         Get.back();
                       },
                       background: AppColors.secondBacground),
                 ),
-                SizedBox(width: 10.w),
+                const SizedBox(width: 10),
                 Expanded(
                   child: getButton(
                     width: Get.width,
-                    height: 48.h,
+                    height: 48,
                     child: getSpan(Lang.sure.tr),
                     onPressed: onPressed ??
                         () {

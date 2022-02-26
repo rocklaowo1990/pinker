@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -33,13 +32,13 @@ class CheckPasswordView extends GetView<CheckPasswordController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               getTitle('验证您的密码'),
-              SizedBox(height: 16.h),
+              const SizedBox(height: 16),
               getSpan('重新输入您的密码以继续', color: AppColors.secondText),
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               getInput(
                 type: Lang.inputPassword.tr,
                 controller: controller.textController,

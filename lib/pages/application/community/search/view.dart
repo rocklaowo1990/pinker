@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -56,7 +55,7 @@ class SearchView extends StatelessWidget {
             children: [
               tabBar,
               Container(
-                height: 1.h,
+                height: 1,
                 width: double.infinity,
                 color: AppColors.line,
               ),
@@ -82,7 +81,7 @@ class SearchView extends StatelessWidget {
                         controller.state.userData.value.list.isEmpty
                     ? Column(
                         children: [
-                          SizedBox(height: 20.h),
+                          const SizedBox(height: 20),
                           Center(
                             child: getSpanSecond(
                               '您可以在这里找到您要找的用户，推文等信息',
@@ -105,7 +104,7 @@ class SearchView extends StatelessWidget {
                                 onPressed: () {}),
                             Container(
                               width: double.infinity,
-                              height: 0.5.w,
+                              height: 0.5,
                               color: AppColors.line,
                             ),
                             for (int i = 0;
@@ -125,7 +124,7 @@ class SearchView extends StatelessWidget {
                                   ),
                                   Container(
                                     width: double.infinity,
-                                    height: 1.w,
+                                    height: 1,
                                     color: AppColors.line,
                                   ),
                                 ],

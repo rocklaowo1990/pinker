@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/api/user.dart';
@@ -133,23 +133,23 @@ Future<void> getContentMoreSheet({
               })),
       Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: AppColors.secondBacground,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8.w),
-              topRight: Radius.circular(8.w),
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
             )),
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 16.w),
+              const SizedBox(height: 16),
               Row(
                 children: [
-                  SizedBox(width: 10.w),
+                  const SizedBox(width: 10),
                   getSpan('请选择对他的操作', color: AppColors.secondText),
                 ],
               ),
-              SizedBox(height: 16.w),
+              const SizedBox(height: 16),
               Container(height: 1, color: AppColors.line),
               block,
               Container(height: 1, color: AppColors.line),

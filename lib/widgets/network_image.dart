@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pinker/values/values.dart';
 
@@ -40,12 +39,12 @@ Widget getNetworkImageBox(
         color: color,
         shape: shape,
       ),
-      child: Center(
+      child: const Center(
         child: SizedBox(
           width: 20,
           height: 20,
           child: CircularProgressIndicator(
-            strokeWidth: 1.w,
+            strokeWidth: 1,
           ),
         ),
       ),

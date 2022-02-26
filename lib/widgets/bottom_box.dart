@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:pinker/lang/translation_service.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +24,7 @@ Widget getBottomBox({
       rightText ?? Lang.sure.tr,
       color: AppColors.mainText,
     ),
-    padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 8.h),
+    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
     onPressed: onPressed,
   );
 
@@ -34,9 +34,9 @@ Widget getBottomBox({
     color: AppColors.secondBacground,
     child: SafeArea(
       child: Container(
-        padding: EdgeInsets.fromLTRB(8.w, 5.w, 8.w, 5.w),
+        padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
         width: double.infinity,
-        height: 48.h,
+        height: 48,
         color: AppColors.secondBacground,
         child: Row(
           children: [

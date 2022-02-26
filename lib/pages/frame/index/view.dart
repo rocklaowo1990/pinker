@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
@@ -44,10 +44,10 @@ class IndexView extends GetView<IndexController> {
 
     /// body 布局
     Widget body = Padding(
-      padding: EdgeInsets.only(
-        right: 32.w,
-        bottom: 64.h,
-        left: 32.w,
+      padding: const EdgeInsets.only(
+        right: 32,
+        bottom: 64,
+        left: 32,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,7 +56,7 @@ class IndexView extends GetView<IndexController> {
           Column(
             children: [
               text,
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               signUpButton,
             ],
           ),

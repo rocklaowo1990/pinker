@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/pages/fogot/index/library.dart';
@@ -40,11 +40,11 @@ class ForgotIndexView extends GetView<ForgotIndexController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(20.w),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               title,
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               userCount,
             ],
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -35,11 +34,11 @@ class MoneySetView extends GetView<MoneySetController> {
               child: Center(
                 child: getSpan('-', fontSize: 17),
               ),
-              width: 22.h,
+              width: 22,
               background: AppColors.line,
-              height: 22.h,
+              height: 22,
               onPressed: subtraction,
-              borderRadius: BorderRadius.all(Radius.circular(1000.h))),
+              borderRadius: const BorderRadius.all(Radius.circular(1000))),
           // getSpan('$number'),
           Expanded(
             child: Slider(
@@ -53,11 +52,11 @@ class MoneySetView extends GetView<MoneySetController> {
               child: Center(
                 child: getSpan('+', fontSize: 17),
               ),
-              width: 22.h,
+              width: 22,
               background: AppColors.line,
-              height: 22.h,
+              height: 22,
               onPressed: addition,
-              borderRadius: BorderRadius.all(Radius.circular(1000.h))),
+              borderRadius: const BorderRadius.all(Radius.circular(1000))),
         ],
       );
     }
@@ -65,12 +64,12 @@ class MoneySetView extends GetView<MoneySetController> {
     Widget setJi = Container(
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.fromLTRB(9.w, 5.w, 9.w, 5.w),
+      padding: const EdgeInsets.fromLTRB(9, 5, 9, 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 80.w,
+            width: 80,
             child: Row(
               children: [
                 getSpan('鸡（ '),
@@ -113,27 +112,27 @@ class MoneySetView extends GetView<MoneySetController> {
     Widget setOnly = Container(
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 9.w),
+      padding: const EdgeInsets.fromLTRB(9, 9, 9, 9),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           getSpan('你的单独冲锋鸡，杠：（ 输入单倍 ）'),
-          SizedBox(height: 10.h),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('${controller.arguments.value.onlyId_1}（ '),
@@ -251,21 +250,21 @@ class MoneySetView extends GetView<MoneySetController> {
               ),
             ],
           ),
-          SizedBox(height: 3.h),
+          const SizedBox(height: 3),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('${controller.arguments.value.onlyId_2}（ '),
@@ -383,21 +382,21 @@ class MoneySetView extends GetView<MoneySetController> {
               ),
             ],
           ),
-          SizedBox(height: 3.h),
+          const SizedBox(height: 3),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('${controller.arguments.value.onlyId_3}（ '),
@@ -522,27 +521,27 @@ class MoneySetView extends GetView<MoneySetController> {
     Widget ma = Container(
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.fromLTRB(9.w, 9.w, 9.w, 9.w),
+      padding: const EdgeInsets.fromLTRB(9, 9, 9, 9),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           getSpan('你中的码号：'),
-          SizedBox(height: 10.h),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('1（ '),
@@ -588,21 +587,21 @@ class MoneySetView extends GetView<MoneySetController> {
               ),
             ],
           ),
-          SizedBox(height: 3.h),
+          const SizedBox(height: 3),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('2（ '),
@@ -648,21 +647,21 @@ class MoneySetView extends GetView<MoneySetController> {
               ),
             ],
           ),
-          SizedBox(height: 3.h),
+          const SizedBox(height: 3),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('3（ '),
@@ -708,21 +707,21 @@ class MoneySetView extends GetView<MoneySetController> {
               ),
             ],
           ),
-          SizedBox(height: 3.h),
+          const SizedBox(height: 3),
           Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(9.w, 3.w, 9.w, 3.w),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
+                  decoration: const BoxDecoration(
                       color: AppColors.mainBacground,
-                      borderRadius: BorderRadius.all(Radius.circular(4.w))),
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 80.w,
+                        width: 80,
                         child: Row(
                           children: [
                             getSpan('4（ '),
@@ -774,11 +773,11 @@ class MoneySetView extends GetView<MoneySetController> {
 
     Widget body = ListView(
       children: [
-        SizedBox(height: 10.h),
+        const SizedBox(height: 10),
         setJi,
-        SizedBox(height: 3.h),
+        const SizedBox(height: 3),
         ma,
-        SizedBox(height: 3.h),
+        const SizedBox(height: 3),
         setOnly,
       ],
     );

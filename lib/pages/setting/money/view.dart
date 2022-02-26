@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -31,9 +31,9 @@ class MoneyView extends GetView<MoneyController> {
     ) {
       return getButton(
         width: double.infinity,
-        padding: EdgeInsets.all(9.w),
+        padding: const EdgeInsets.all(9),
         background: AppColors.secondBacground,
-        borderRadius: BorderRadius.all(Radius.circular(8.w)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
         onPressed: () {
           controller.handleSet(player);
         },
@@ -48,7 +48,7 @@ class MoneyView extends GetView<MoneyController> {
                       'assets/svg/avatar_default.svg',
                       height: 30,
                     ),
-                    SizedBox(width: 6.w),
+                    const SizedBox(width: 6),
                     Obx(() => getSpan(
                         '玩家 ${player.value.playerId}  (被买：${player.value.beBuy})')),
                   ],
@@ -62,13 +62,13 @@ class MoneyView extends GetView<MoneyController> {
                             fontSize: 20, color: Colors.green)),
               ],
             ),
-            SizedBox(height: 8.h),
+            const SizedBox(height: 8),
             Container(
               width: double.infinity,
               height: 1,
               color: AppColors.line,
             ),
-            SizedBox(height: 6.h),
+            const SizedBox(height: 6),
             Column(
               children: [
                 Row(
@@ -162,7 +162,7 @@ class MoneyView extends GetView<MoneyController> {
 
     /// body 布局
     Widget body = Padding(
-      padding: EdgeInsets.all(16.w),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           Expanded(
@@ -170,17 +170,17 @@ class MoneyView extends GetView<MoneyController> {
               child: Column(
                 children: [
                   playerBox(controller.state.player_1),
-                  SizedBox(height: 6.h),
+                  const SizedBox(height: 6),
                   playerBox(controller.state.player_2),
-                  SizedBox(height: 6.h),
+                  const SizedBox(height: 6),
                   playerBox(controller.state.player_3),
-                  SizedBox(height: 6.h),
+                  const SizedBox(height: 6),
                   playerBox(controller.state.player_4),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 9.w),
+          const SizedBox(height: 9),
           Obx(() => getButtonMain(
                 child: getSpan('开始结算'),
                 background: controller.state.isReset

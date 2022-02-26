@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:pinker/utils/utils.dart';
@@ -21,7 +21,7 @@ Widget getButtonList({
   Widget left = Row(
     children: [
       icon ?? const SizedBox(),
-      SizedBox(width: 16.w),
+      const SizedBox(width: 16),
       getSpan(title),
     ],
   );
@@ -30,7 +30,7 @@ Widget getButtonList({
   Widget right = Row(
     children: [
       secondTitle ?? const SizedBox(),
-      SizedBox(width: 10.w),
+      const SizedBox(width: 10),
       getRightIcon(color: AppColors.secondIcon)
     ],
   );
@@ -50,7 +50,7 @@ Widget getButtonList({
     right = Row(
       children: [
         secondTitle ?? const SizedBox(),
-        SizedBox(width: 4.w),
+        const SizedBox(width: 4),
         iconRight,
       ],
     );
@@ -71,7 +71,7 @@ Widget getButtonList({
     borderRadius: BorderRadius.zero,
     background: AppColors.secondBacground,
     height: height,
-    padding: padding ?? EdgeInsets.all(16.w),
+    padding: padding ?? const EdgeInsets.all(16),
     onPressed: onPressed,
     borderSide: borderSide,
   );
@@ -89,8 +89,8 @@ Widget getUserAvatar(
 }) {
   /// 头像
   Widget avatarBox = Container(
-    width: 50.w,
-    height: 50.w,
+    width: 50,
+    height: 50,
     decoration: const BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
@@ -99,7 +99,7 @@ Widget getUserAvatar(
       child: avatar.isEmpty || isInclude(avatar, 'user_default_head.png')
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
-              width: 50.w,
+              width: 50,
             )
           : getNetworkImageBox(avatar, shape: BoxShape.circle),
     ),
@@ -111,7 +111,7 @@ Widget getUserAvatar(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       getSpanTitle(nickName),
-      SizedBox(height: 2.h),
+      const SizedBox(height: 2),
       SizedBox(
         width: double.infinity,
         child: getSpan(
@@ -129,11 +129,11 @@ Widget getUserAvatar(
     onPressed: onPressed,
     overlayColor: Colors.transparent,
     background: Colors.transparent,
-    // padding: EdgeInsets.fromLTRB(0.w, 10.h, 0.w, 10.h),
+    // padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
     child: Row(
       children: [
         avatarBox,
-        SizedBox(width: 16.w),
+        const SizedBox(width: 16),
         Expanded(child: userNameBox),
       ],
     ),
@@ -176,17 +176,17 @@ Widget getUserList(
   ///
   return Container(
     width: double.infinity,
-    padding: padding ?? EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 20.h),
+    padding: padding ?? const EdgeInsets.fromLTRB(16, 20, 16, 20),
     decoration: BoxDecoration(
       color: color,
       border: border ??
-          Border(top: BorderSide(width: 0.5.w, color: AppColors.line)),
+          const Border(top: BorderSide(width: 0.5, color: AppColors.line)),
     ),
     child: intro != null && intro.isNotEmpty
         ? Column(
             children: [
               body,
-              SizedBox(height: 8.h),
+              const SizedBox(height: 8),
               SizedBox(
                 width: double.infinity,
                 child: getSpan(

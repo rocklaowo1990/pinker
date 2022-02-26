@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinker/entities/entities.dart';
 
@@ -13,7 +12,7 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   // 推文的作者信息
   Widget author = Padding(
-    padding: EdgeInsets.fromLTRB(16.w, 16.w, 0, 0),
+    padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -21,8 +20,8 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
         getContentMore(
           contentList,
           index,
-          width: 55.w,
-          height: 50.w,
+          width: 55,
+          height: 50,
         ),
       ],
     ),
@@ -47,14 +46,14 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
   Widget _image(String url, int imageIndex) {
     return getButton(
       background: AppColors.mainBacground,
-      borderRadius: BorderRadius.all(Radius.circular(8.w)),
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
       child: getNetworkImageBox(
         url,
-        height: (Get.width - 40.w) / 3,
+        height: (Get.width - 40) / 3,
         width: double.infinity,
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8.w),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8),
         ),
       ),
       onPressed: () {
@@ -73,10 +72,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
       children: [
         Expanded(
             child: images.isNotEmpty ? _image(images[0], 0) : const SizedBox()),
-        SizedBox(width: 5.w),
+        const SizedBox(width: 5),
         Expanded(
             child: images.length > 1 ? _image(images[1], 1) : const SizedBox()),
-        SizedBox(width: 5.w),
+        const SizedBox(width: 5),
         Expanded(
             child: images.length > 2
                 ? Stack(
@@ -118,10 +117,10 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.w),
+                    : const SizedBox(height: 16),
                 _imageBox(contentList.value.list[index].works.pics),
               ],
             )
@@ -129,12 +128,12 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.w),
+                    : const SizedBox(height: 16),
                 _imageBox(contentList.value.list[index].works.pics),
-                SizedBox(height: 16.w),
+                const SizedBox(height: 16),
                 getContentPayBox(contentList, index),
               ],
             ));
@@ -144,19 +143,20 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.w),
+                    : const SizedBox(height: 16),
                 Stack(
                   children: [
                     getNetworkImageBox(
                         contentList.value.list[index].works.video.snapshotUrl,
                         width: double.infinity,
-                        height: 200.h,
+                        height: 200,
                         fit: BoxFit.contain,
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(8.w))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8))),
                     getButton(
                       onPressed: () {
                         Get.toNamed(AppRoutes.media, arguments: {
@@ -164,23 +164,23 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
                           'index': index,
                         });
                       },
-                      borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                      height: 200.h,
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      height: 200,
                       background: Colors.black54,
                       child: Center(
                         child: Container(
-                          width: 50.w,
-                          height: 50.w,
-                          child: Icon(
+                          width: 50,
+                          height: 50,
+                          child: const Icon(
                             Icons.play_arrow,
-                            size: 30.w,
+                            size: 30,
                             color: AppColors.mainIcon,
                           ),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColors.mainColor,
-                            border: Border.all(
-                                color: AppColors.mainIcon, width: 2.w),
+                            border:
+                                Border.all(color: AppColors.mainIcon, width: 2),
                           ),
                         ),
                       ),
@@ -199,19 +199,19 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               children: [
                 contentList.value.list[index].works.content.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.only(top: 16.w, bottom: 16.w),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16),
                         child: _workContent(),
                       )
-                    : SizedBox(height: 16.w),
+                    : const SizedBox(height: 16),
                 _imageBox(
                     contentList.value.list[index].works.video.previewsUrls),
-                SizedBox(height: 16.w),
+                const SizedBox(height: 16),
                 getContentPayBox(contentList, index),
               ],
             ));
     } else {
       return Padding(
-        padding: EdgeInsets.only(top: 16.w),
+        padding: const EdgeInsets.only(top: 16),
         child: _workContent(),
       );
     }
@@ -225,12 +225,12 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
     children: [
       author, // 头像部分
       Padding(
-        padding: EdgeInsets.only(left: 16.w, right: 16.w),
+        padding: const EdgeInsets.only(left: 16, right: 16),
         child: mediaBox,
       ), // 媒体部分，包含文字、图片和视频
       contentInfo, // 底部的留言、喜欢、转发、分享
       Container(
-        height: 10.h,
+        height: 10,
         width: double.infinity,
         color: AppColors.mainBacground,
       ),
@@ -247,7 +247,7 @@ Widget getContentListView(Rx<ContentListEntities> contentList, int index) {
               body,
               Image.asset(
                 'assets/images/xian.png',
-                height: 48.h,
+                height: 48,
               )
             ],
           ),

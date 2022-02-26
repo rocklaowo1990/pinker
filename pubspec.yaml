@@ -40,7 +40,7 @@ dependencies:
 
 
   # flutter 屏幕适配方案
-  flutter_screenutil: ^5.2.0
+  # flutter_screenutil: ^5.2.0
 
   # get 框架
   get: ^4.6.1

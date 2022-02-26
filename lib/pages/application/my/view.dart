@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/pages/application/my/library.dart';
@@ -23,8 +22,8 @@ class MyView extends StatelessWidget {
             return getButton(
               child: SvgPicture.asset(asset),
               background: Colors.transparent,
-              width: 60.w,
-              height: 60.w,
+              width: 60,
+              height: 60,
               onPressed: onPressed,
             );
           }
@@ -44,20 +43,20 @@ class MyView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10.w),
+                padding: const EdgeInsets.only(left: 10),
                 child: Obx(
                   () => Opacity(
                       opacity: controller.state.opacity,
                       child: getButton(
                         onPressed: controller.handlePersonal,
-                        width: 40.w,
-                        height: 32.w,
+                        width: 40,
+                        height: 32,
                         child: getNetworkImageBox(
                           controller.applicationController.state.userInfo.value
                               .avatar,
                           shape: BoxShape.circle,
-                          width: 32.w,
-                          height: 32.w,
+                          width: 32,
+                          height: 32,
                         ),
                       )),
                 ),
@@ -93,10 +92,10 @@ class MyView extends StatelessWidget {
                           controller.applicationController.state.userInfo.value
                               .avatar,
                           shape: BoxShape.circle,
-                          width: 60.w,
-                          height: 60.w,
+                          width: 60,
+                          height: 60,
                         )),
-                    SizedBox(width: 16.w),
+                    const SizedBox(width: 16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -131,27 +130,27 @@ class MyView extends StatelessWidget {
             required VoidCallback onPressed,
           }) {
             return Padding(
-              padding: EdgeInsets.all(16.w),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   Row(
                     children: [
                       SvgPicture.asset(svg),
-                      SizedBox(width: 5.w),
+                      const SizedBox(width: 5),
                       getSpan(title),
                     ],
                   ),
-                  SizedBox(height: 16.h),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       getSpan(number,
-                          fontSize: 36.sp, fontWeight: FontWeight.w300),
+                          fontSize: 36, fontWeight: FontWeight.w300),
                       getButtonSheet(
                         child: getSpan(buttonText),
                         onPressed: onPressed,
 
-                        // height: 18.h,
+                        // height: 18,
                       ),
                     ],
                   ),
@@ -163,9 +162,9 @@ class MyView extends StatelessWidget {
           /// 钱包模块
           Widget wallet = Container(
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.secondBacground,
-              borderRadius: BorderRadius.all(Radius.circular(16.w)),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             child: Column(
               children: [
@@ -179,7 +178,7 @@ class MyView extends StatelessWidget {
                     )),
                 Container(
                   width: double.infinity,
-                  height: 1.h,
+                  height: 1,
                   color: AppColors.line,
                 ),
                 Obx(() => _walletChild(
@@ -208,20 +207,20 @@ class MyView extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(svg),
-                      SizedBox(width: 4.w),
+                      const SizedBox(width: 4),
                       getSpan(title),
                     ],
                   ),
-                  SizedBox(height: 10.h),
+                  const SizedBox(height: 10),
                   getSpan(number, fontSize: 32, fontWeight: FontWeight.w300),
                 ],
               ),
               background: AppColors.secondBacground,
               onPressed: onPressed,
-              borderRadius: BorderRadius.all(
-                Radius.circular(16.w),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(16),
               ),
-              padding: EdgeInsets.all(16.w),
+              padding: const EdgeInsets.all(16),
             );
           }
 
@@ -236,7 +235,7 @@ class MyView extends StatelessWidget {
                     onPressed: controller.handleSubscribeList,
                   )),
             ),
-            SizedBox(width: 10.h),
+            const SizedBox(width: 10),
             Expanded(
               child: Obx(() => _userListBox(
                     title: '订阅的群聊',
@@ -260,7 +259,7 @@ class MyView extends StatelessWidget {
               child: Column(
                 children: [
                   SvgPicture.asset(svg),
-                  SizedBox(height: 10.h),
+                  const SizedBox(height: 10),
                   getSpan(title),
                 ],
               ),
@@ -270,10 +269,10 @@ class MyView extends StatelessWidget {
           /// 底部功能模块
           Widget buttons = Container(
             width: double.infinity,
-            padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.only(top: 16, bottom: 16),
+            decoration: const BoxDecoration(
               color: AppColors.secondBacground,
-              borderRadius: BorderRadius.all(Radius.circular(16.w)),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             child: Row(
               children: [
@@ -327,16 +326,16 @@ class MyView extends StatelessWidget {
                 ),
                 child: SafeArea(
                   child: Padding(
-                    padding: EdgeInsets.all(16.w),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        SizedBox(height: 60.h),
+                        const SizedBox(height: 60),
                         userInfo,
-                        SizedBox(height: 20.w),
+                        const SizedBox(height: 20),
                         wallet,
-                        SizedBox(height: 10.h),
+                        const SizedBox(height: 10),
                         subscription,
-                        SizedBox(height: 10.h),
+                        const SizedBox(height: 10),
                         buttons,
                       ],
                     ),

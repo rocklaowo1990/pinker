@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -26,7 +25,7 @@ class SettingView extends GetView<SettingController> {
     Widget langList = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_about.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: Lang.setLang.tr,
       secondTitle: Obx(() => getSpan(
@@ -42,7 +41,7 @@ class SettingView extends GetView<SettingController> {
     /// 未登录设置页面
     Widget bodyNoToken = ListView(
       children: [
-        SizedBox(height: 4.h),
+        const SizedBox(height: 4),
         langList,
       ],
     );
@@ -55,14 +54,14 @@ class SettingView extends GetView<SettingController> {
       onPressed: controller.handleSignOut,
       borderRadius: const BorderRadius.all(Radius.zero),
       background: AppColors.secondBacground,
-      padding: EdgeInsets.all(16.w),
+      padding: const EdgeInsets.all(16),
     );
 
     /// 用户名
     Widget setUserName = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_user_name.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '用户名',
       secondTitle: controller.arguments != null
@@ -78,7 +77,7 @@ class SettingView extends GetView<SettingController> {
     Widget setUserPhone = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_phone.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '手机',
       secondTitle: controller.arguments != null
@@ -98,7 +97,7 @@ class SettingView extends GetView<SettingController> {
     Widget setUserEmail = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_email.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '电子邮箱',
       secondTitle: controller.arguments != null
@@ -118,7 +117,7 @@ class SettingView extends GetView<SettingController> {
     Widget setPassword = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_password.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '密码',
       secondTitle: getSpan(
@@ -132,7 +131,7 @@ class SettingView extends GetView<SettingController> {
     Widget blockCount = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_shield_list.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '已屏蔽列表',
       secondTitle: controller.arguments != null
@@ -148,7 +147,7 @@ class SettingView extends GetView<SettingController> {
     Widget hiddenCount = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_hide_list.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '已隐藏列表',
       secondTitle: controller.arguments != null
@@ -164,7 +163,7 @@ class SettingView extends GetView<SettingController> {
     Widget setGroup = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_watermark.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '订阅组设置',
       secondTitle: getSpan(''),
@@ -175,7 +174,7 @@ class SettingView extends GetView<SettingController> {
     Widget setWatermark = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_watermark.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '水印设置',
       secondTitle: getSpan(''),
@@ -186,7 +185,7 @@ class SettingView extends GetView<SettingController> {
     Widget money = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_watermark.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '麻将结算系统',
       secondTitle: getSpan('内测版', color: AppColors.secondIcon),
@@ -197,7 +196,7 @@ class SettingView extends GetView<SettingController> {
     Widget logout = getButtonList(
       icon: SvgPicture.asset(
         'assets/svg/set_logout.svg',
-        height: 20.h,
+        height: 20,
       ),
       title: '注销账号',
       secondTitle: getSpan(''),
@@ -210,37 +209,37 @@ class SettingView extends GetView<SettingController> {
     Widget bodyToken = ListView(
       children: [
         Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: const EdgeInsets.all(16),
           child: getSpanMain('账号'),
         ),
         setUserName,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         setUserPhone,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         setUserEmail,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         setPassword,
         Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: const EdgeInsets.all(16),
           child: getSpanMain('隐私'),
         ),
         blockCount,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         hiddenCount,
         Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: const EdgeInsets.all(16),
           child: getSpanMain('设置'),
         ),
         setGroup,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         setWatermark,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         money,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         langList,
-        SizedBox(height: 1.h),
+        const SizedBox(height: 1),
         logout,
-        SizedBox(height: 12.h),
+        const SizedBox(height: 12),
         signOut,
       ],
     );

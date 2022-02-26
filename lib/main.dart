@@ -20,8 +20,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    screenInit(context);
-
     /// 填入设计稿中设备的屏幕尺寸,单位dp
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

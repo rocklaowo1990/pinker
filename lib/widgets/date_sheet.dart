@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 import 'package:pinker/values/values.dart';
@@ -43,7 +41,7 @@ Future getDateBox({
 
   /// 组合
   var body = SizedBox(
-    height: 260.h,
+    height: 260,
     child: SafeArea(
       top: false,
       child: Column(

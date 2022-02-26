@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/values/values.dart';
@@ -12,12 +12,12 @@ Widget getTabBar(
   TabController? controller,
 }) {
   return SizedBox(
-    width: tabs.length <= 1 ? 60.w : double.infinity,
+    width: tabs.length <= 1 ? 60 : double.infinity,
     height: tabs.length <= 1 ? 56 : double.infinity,
     child: TabBar(
       labelPadding: EdgeInsets.zero,
       indicatorPadding: EdgeInsets.zero,
-      indicatorWeight: 2.w,
+      indicatorWeight: 2,
       tabs: tabs
           .asMap()
           .keys
@@ -28,7 +28,7 @@ Widget getTabBar(
                 child: Center(
                   child: getSpan(
                     tabs[index],
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     color: rxInt.value == index
                         ? AppColors.mainColor
                         : AppColors.secondIcon,

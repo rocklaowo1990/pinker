@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -24,21 +23,21 @@ class ContentListSubView extends StatelessWidget {
           Widget noData = Column(
             children: [
               Container(
-                padding: EdgeInsets.all(40.w),
+                padding: const EdgeInsets.all(40),
                 color: AppColors.secondBacground,
                 width: double.infinity,
                 child: Column(
                   children: [
                     getTitle('什么？还没有推文？'),
-                    SizedBox(height: 20.h),
+                    const SizedBox(height: 20),
                     getSpan(
                       '这条空白的时间线将很快消失，开始关注用户，您再次回到这里将看到他们的推文',
                       textAlign: TextAlign.center,
                       color: AppColors.secondText,
                     ),
-                    SizedBox(height: 32.h),
+                    const SizedBox(height: 32),
                     Padding(
-                      padding: EdgeInsets.only(left: 40.w, right: 40.w),
+                      padding: const EdgeInsets.only(left: 40, right: 40),
                       child: getButtonMain(
                         child: getSpan('寻找值得订阅的用户'),
                         onPressed: controller.handleRemmondMore,

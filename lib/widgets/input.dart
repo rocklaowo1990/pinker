@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -115,14 +114,14 @@ Widget getInput({
                 child: Icon(
                   suffixIcon.value,
                   color: AppColors.inputHint,
-                  size: 16.sp,
+                  size: 16,
                 ),
                 onPressed: onPressed,
                 background: AppColors.inputFiled,
-                width: 20.w,
-                height: 20.w,
+                width: 20,
+                height: 20,
               ),
-        contentPadding: contentPadding ?? EdgeInsets.only(left: 20.w),
+        contentPadding: contentPadding ?? const EdgeInsets.only(left: 20),
         border: OutlineInputBorder(
           borderRadius: borderRadius ??
               BorderRadius.all(
@@ -131,12 +130,12 @@ Widget getInput({
           borderSide: BorderSide.none,
         ),
         hintText: type,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: AppColors.secondText,
-          fontSize: 14.sp,
+          fontSize: 14,
         ),
       ),
-      style: TextStyle(color: AppColors.mainText, fontSize: 14.sp),
+      style: const TextStyle(color: AppColors.mainText, fontSize: 14),
       obscureText: isPassword.value,
       onChanged: onChanged,
     );
@@ -147,7 +146,7 @@ Widget getInput({
       child: textField,
     ),
     width: width,
-    height: height ?? 48.h,
+    height: height ?? 48,
     decoration: BoxDecoration(
         color: AppColors.inputFiled,
         borderRadius:
@@ -163,8 +162,8 @@ Widget getSearchInput(
   void Function(String)? onSubmitted,
 }) {
   return getInput(
-    height: 48.h,
-    contentPadding: EdgeInsets.only(left: 20.w),
+    height: 48,
+    contentPadding: const EdgeInsets.only(left: 20),
     type: Lang.inputSearch.tr,
     controller: controller,
     focusNode: focusNode,
@@ -172,8 +171,8 @@ Widget getSearchInput(
     onSubmitted: onSubmitted,
     textInputAction: TextInputAction.search,
     prefixIcon: SizedBox(
-      width: 10.h,
-      height: 10.h,
+      width: 10,
+      height: 10,
       child: Center(
         child: SvgPicture.asset(
           'assets/svg/icon_search_2.svg',

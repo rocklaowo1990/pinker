@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -23,8 +23,8 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       alignment: AlignmentDirectional.bottomEnd,
       children: [
         Container(
-          width: 80.w,
-          height: 80.w,
+          width: 80,
+          height: 80,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.secondBacground,
@@ -33,13 +33,13 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
               child: Obx(() => controller.state.image == 0
                   ? controller.arguments != null
                       ? getNetworkImageBox(controller.arguments!.groupPic,
-                          shape: BoxShape.circle, width: 60.w, height: 60.w)
+                          shape: BoxShape.circle, width: 60, height: 60)
                       : SvgPicture.asset(
                           'assets/svg/avatar_default.svg',
-                          width: 80.w,
+                          width: 80,
                         )
                   : CircleAvatar(
-                      radius: 80.w,
+                      radius: 80,
                       backgroundImage: FileImage(controller.avatarFile),
                     ))),
         ),
@@ -48,17 +48,17 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
           background: Colors.transparent,
           overlayColor: Colors.transparent,
           child: Container(
-            width: 32.w,
-            height: 32.w,
+            width: 32,
+            height: 32,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(width: 1.w, color: AppColors.mainColor),
+              border: Border.all(width: 1, color: AppColors.mainColor),
               color: AppColors.secondBacground,
             ),
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.photo_camera,
-                size: 16.w,
+                size: 16,
                 color: AppColors.mainColor,
               ),
             ),
@@ -76,7 +76,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       child: Row(
         children: [
           getCheckIcon(isChooise: true),
-          SizedBox(width: 4.w),
+          const SizedBox(width: 4),
           Expanded(child: getSpan('30天'), flex: 1),
         ],
       ),
@@ -87,7 +87,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       child: Center(child: middle),
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.all(30.w),
+      padding: const EdgeInsets.all(30),
     );
 
     // 资料编辑区
@@ -105,7 +105,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
               alignment: Alignment.centerLeft,
             ),
           ),
-          SizedBox(height: 5.h),
+          const SizedBox(height: 5),
           getInput(
             type: '输入钻石数量',
             controller: controller.textEditingPrice,
@@ -126,7 +126,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
               alignment: Alignment.centerLeft,
             ),
           ),
-          SizedBox(height: 20.h),
+          const SizedBox(height: 20),
           Row(
             children: [
               const SizedBox(width: 20),
@@ -141,7 +141,7 @@ class SetGroupInfoView extends GetView<SetGroupInfoController> {
       ),
       width: double.infinity,
       color: AppColors.secondBacground,
-      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.w),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
     );
 
     /// 底部

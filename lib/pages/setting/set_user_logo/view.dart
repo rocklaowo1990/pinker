@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -54,7 +53,7 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
 
     /// 用户名
     Widget _switch = getButtonList(
-        height: 60.h,
+        height: 60,
         title: '水印开关',
         onPressed: controller.handleOnChangedNoValue,
         iconRight: Obx(() => Switch(
@@ -65,19 +64,19 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
     // 主体
     Widget _body = Column(
       children: [
-        SizedBox(height: 10.h),
+        const SizedBox(height: 10),
         _switch,
-        SizedBox(height: 2.h),
+        const SizedBox(height: 2),
         Container(
           child: Row(
             children: [
               getSpan('水印文字'),
-              SizedBox(width: 20.w),
+              const SizedBox(width: 20),
               Expanded(child: _userLogoInput),
             ],
           ),
           color: AppColors.secondBacground,
-          padding: EdgeInsets.all(16.w),
+          padding: const EdgeInsets.all(16),
         ),
       ],
     );
@@ -94,15 +93,15 @@ class SetUserLogoView extends GetView<SetUserLogoController> {
                     child: Center(
                       child: Column(
                         children: [
-                          SizedBox(height: 30.h),
-                          SizedBox(
-                              width: 16.w,
-                              height: 16.w,
+                          const SizedBox(height: 30),
+                          const SizedBox(
+                              width: 16,
+                              height: 16,
                               child: CircularProgressIndicator(
                                   backgroundColor: AppColors.mainIcon,
                                   color: AppColors.mainColor,
-                                  strokeWidth: 1.5.w)),
-                          SizedBox(height: 20.h),
+                                  strokeWidth: 1.5)),
+                          const SizedBox(height: 20),
                           getSpan('加载中...', color: AppColors.secondText),
                         ],
                       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -22,7 +22,7 @@ Widget getCommentList(
   final controller = CommentListController();
 
   return Container(
-      padding: EdgeInsets.fromLTRB(16.w, 20.h, 9.w, 20.h),
+      padding: const EdgeInsets.fromLTRB(16, 20, 9, 20),
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.line))),
       child: Row(
@@ -31,10 +31,10 @@ Widget getCommentList(
           getNetworkImageBox(
             commentList.value.list[index].author.avatar,
             shape: BoxShape.circle,
-            width: 40.w,
-            height: 40.w,
+            width: 40,
+            height: 40,
           ),
-          SizedBox(width: 16.w),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ Widget getCommentList(
             ),
           ),
           SizedBox(
-            width: 40.w,
+            width: 40,
             child: Column(
               children: [
                 LikeButton(
@@ -104,7 +104,7 @@ Widget getCommentList(
                       return !isLike;
                     }
                   },
-                  size: 18.sp,
+                  size: 18,
                   isLiked:
                       commentList.value.list[index].isLike == 0 ? false : true,
                   likeCount: commentList.value.list[index].likeCount,
@@ -127,7 +127,7 @@ Widget getCommentList(
                           ? LikeCountAnimationType.part
                           : LikeCountAnimationType.none,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 Obx(() => commentList.value.list[index].likeCount == 0
                     ? getSpan('喜欢 ', color: AppColors.secondText)
                     : getSpan('${commentList.value.list[index].likeCount}')),
@@ -145,11 +145,11 @@ Widget getCommentList(
           //       Obx(() => commentList.value.list[index].isLike == 0
           //           ? SvgPicture.asset(
           //               'assets/svg/icon_like.svg',
-          //               height: 9.w,
+          //               height: 9,
           //             )
           //           : SvgPicture.asset(
           //               'assets/svg/icon_like_press.svg',
-          //               height: 9.w,
+          //               height: 9,
           //             )),
           //       const SizedBox(height: 4),
           //       Obx(() => commentList.value.list[index].likeCount == 0

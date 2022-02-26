@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
@@ -27,7 +27,7 @@ class RegisterView extends GetView<RegisterController> {
                   child: getSpanMain('+${controller.state.code}'),
                   background: Colors.transparent,
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   onPressed: controller.handleGoCodeList,
                 )
               : null,
@@ -36,8 +36,8 @@ class RegisterView extends GetView<RegisterController> {
     /// 生日输入框
     Widget userBirth = Obx(
       () => getButton(
-        height: 48.h,
-        padding: EdgeInsets.only(left: 20.w),
+        height: 48,
+        padding: const EdgeInsets.only(left: 20),
         onPressed: controller.birthChoice,
         child: getSpan(
             '${controller.state.showTime.year}-${controller.state.showTime.month}-${controller.state.showTime.day}'),
@@ -80,10 +80,10 @@ class RegisterView extends GetView<RegisterController> {
     //   child: Row(
     //     children: [
     //       Obx(() => getCheckIcon(isChooise: controller.state.isChooise)),
-    //       SizedBox(width: 8.w),
+    //       SizedBox(width: 8),
     //       getButton(
     //           child: richText,
-    //           height: 20.h,
+    //           height: 20,
     //           onPressed: () {
     //             print('object');
     //           })
@@ -94,14 +94,14 @@ class RegisterView extends GetView<RegisterController> {
     Widget agreen = SizedBox(
       width: double.infinity,
       child: Wrap(
-        runSpacing: 8.h,
+        runSpacing: 8,
         children: [
           getButtonTransparent(
             child:
                 Obx(() => getCheckIcon(isChooise: controller.state.isChooise)),
             onPressed: controller.handleAgreen,
           ),
-          SizedBox(width: 10.w),
+          const SizedBox(width: 10),
           getButtonTransparent(
             child: getSpanSecond(Lang.registerAgreen_1.tr),
             onPressed: controller.handleAgreen,
@@ -160,19 +160,19 @@ class RegisterView extends GetView<RegisterController> {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(
-                top: 24.h,
-                right: 20.w,
-                left: 20.w,
+              padding: const EdgeInsets.only(
+                top: 24,
+                right: 20,
+                left: 20,
               ),
               child: Column(
                 children: [
                   title,
-                  SizedBox(height: 30.h),
+                  const SizedBox(height: 30),
                   userRegister,
-                  SizedBox(height: 4.h),
+                  const SizedBox(height: 4),
                   userBirth,
-                  SizedBox(height: 16.h),
+                  const SizedBox(height: 16),
                   agreen,
                 ],
               ),

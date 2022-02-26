@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -42,7 +41,7 @@ class SetPhoneView extends GetView<SetPhoneController> {
             ),
             background: Colors.transparent,
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 10.w, right: 5.w),
+            padding: const EdgeInsets.only(left: 10, right: 5),
             onPressed: controller.handleGoCodeList,
           ),
         ));
@@ -51,14 +50,14 @@ class SetPhoneView extends GetView<SetPhoneController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(20.w),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               getTitle('更改手机号码'),
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               getSpan('输入您想要更改的与账号关联的手机号码', color: AppColors.secondText),
               getSpan('您将通过此号码接收验证码', color: AppColors.secondText),
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               userRegister,
             ],
           ),

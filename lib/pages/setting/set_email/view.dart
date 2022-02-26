@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -40,14 +39,14 @@ class SetEmailView extends GetView<SetEmailController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(20.w),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               getTitle('更改邮箱地址'),
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               getSpan('输入您想要更改的与账号关联的邮箱地址', color: AppColors.secondText),
               getSpan('您将通过此邮箱接收验证码', color: AppColors.secondText),
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               userRegister,
             ],
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:pinker/values/values.dart';
 import 'package:pinker/widgets/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -25,15 +25,15 @@ Widget getRefresher({
         WaterDropHeader(
           complete: getSpanSecond('刷新成功'),
           idleIcon:
-              Icon(Icons.autorenew, size: 16.sp, color: AppColors.mainIcon),
+              const Icon(Icons.autorenew, size: 16, color: AppColors.mainIcon),
           waterDropColor: AppColors.secondText,
-          refresh: SizedBox(
-              width: 16.w,
-              height: 16.w,
+          refresh: const SizedBox(
+              width: 16,
+              height: 16,
               child: CircularProgressIndicator(
                   backgroundColor: AppColors.mainIcon,
                   color: AppColors.mainColor,
-                  strokeWidth: 1.5.w)),
+                  strokeWidth: 1.5)),
         ),
     footer: isFooter
         ? CustomFooter(
@@ -43,13 +43,13 @@ Widget getRefresher({
               if (mode == LoadStatus.idle) {
                 body = getSpanSecond("加载完成");
               } else if (mode == LoadStatus.loading) {
-                body = SizedBox(
-                    width: 16.w,
-                    height: 16.w,
+                body = const SizedBox(
+                    width: 16,
+                    height: 16,
                     child: CircularProgressIndicator(
                         backgroundColor: AppColors.mainIcon,
                         color: AppColors.mainColor,
-                        strokeWidth: 1.5.w));
+                        strokeWidth: 1.5));
               } else if (mode == LoadStatus.failed) {
                 body = getSpanSecond("加载失败！点击重试！");
               } else if (mode == LoadStatus.canLoading) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
@@ -17,7 +17,7 @@ class AvatarView extends GetView<AvatarController> {
     Widget top = Column(
       children: [
         getTitle('挑选一个个人的资料图片'),
-        SizedBox(height: 20.h),
+        const SizedBox(height: 20),
         getSpanSecond('有最爱的自拍？赶紧上传吧'),
       ],
     );
@@ -27,8 +27,8 @@ class AvatarView extends GetView<AvatarController> {
       alignment: AlignmentDirectional.bottomEnd,
       children: [
         Container(
-          width: 128.w,
-          height: 128.w,
+          width: 128,
+          height: 128,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.secondBacground,
@@ -38,10 +38,10 @@ class AvatarView extends GetView<AvatarController> {
               () => controller.state.image == 0
                   ? SvgPicture.asset(
                       'assets/svg/avatar_default.svg',
-                      width: 128.w,
+                      width: 128,
                     )
                   : CircleAvatar(
-                      radius: 128.w,
+                      radius: 128,
                       backgroundImage: FileImage(controller.avatarFile),
                     ),
             ),
@@ -52,17 +52,17 @@ class AvatarView extends GetView<AvatarController> {
           background: Colors.transparent,
           overlayColor: Colors.transparent,
           child: Container(
-            width: 40.w,
-            height: 40.w,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(width: 1.w, color: AppColors.mainColor),
+              border: Border.all(width: 1, color: AppColors.mainColor),
               color: AppColors.secondBacground,
             ),
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.photo_camera,
-                size: 16.w,
+                size: 16,
                 color: AppColors.mainColor,
               ),
             ),
@@ -83,9 +83,9 @@ class AvatarView extends GetView<AvatarController> {
                 controller.state.image <= 0 ? null : controller.handleNext,
           ),
         ),
-        SizedBox(height: 10.h),
+        const SizedBox(height: 10),
         getButton(
-          height: 48.h,
+          height: 48,
           child: getSpanMain('暂时跳过'),
           width: Get.width,
           background: Colors.transparent,
@@ -96,7 +96,7 @@ class AvatarView extends GetView<AvatarController> {
 
     /// body布局
     Widget body = Padding(
-      padding: EdgeInsets.all(40.w),
+      padding: const EdgeInsets.all(40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

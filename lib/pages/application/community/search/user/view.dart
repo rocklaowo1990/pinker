@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -96,9 +95,9 @@ class ContentListSearchUserView extends StatelessWidget {
                               },
                             );
                           },
-                              border: Border(
+                              border: const Border(
                                   bottom: BorderSide(
-                                      width: 0.5.w, color: AppColors.line)));
+                                      width: 0.5, color: AppColors.line)));
                         }),
                     onLoading: controller.onLoading,
                     onRefresh: controller.onRefresh,

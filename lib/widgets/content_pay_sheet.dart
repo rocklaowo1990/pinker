@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -76,7 +76,7 @@ Future<void> getContentPaySheet({
                   },
           ),
         ),
-        SizedBox(width: 8.w),
+        const SizedBox(width: 8),
         Obx(
           () => getContentPayChooiseBox(
             title: '单独购买',
@@ -163,7 +163,7 @@ Future<void> getContentPaySheet({
       );
     }
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 4.h, 0, 4.h),
+      padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: body,
@@ -172,8 +172,8 @@ Future<void> getContentPaySheet({
   }
 
   Widget button = getButton(
-      width: 250.w,
-      height: 48.h,
+      width: 250,
+      height: 48,
       child: Obx(() => getSpan('确认支付 ${amount.value} 钻石')),
       onPressed: () async {
         Get.back();
@@ -188,7 +188,7 @@ Future<void> getContentPaySheet({
                   'assets/svg/icon_diamond.svg',
                   height: 15,
                 ),
-                SizedBox(width: 3.w),
+                const SizedBox(width: 3),
                 getSpan('${amount.value} 钻石'),
               ],
             ),
@@ -239,8 +239,8 @@ Future<void> getContentPaySheet({
 
   /// 头像
   Widget avatarBox = Container(
-    width: 60.w,
-    height: 60.w,
+    width: 60,
+    height: 60,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       color: AppColors.thirdIcon,
@@ -255,7 +255,7 @@ Future<void> getContentPaySheet({
                   'user_default_head.png')
           ? SvgPicture.asset(
               'assets/svg/avatar_default.svg',
-              width: 32.w,
+              width: 32,
             )
           : getNetworkImageBox(contentList.value.list[index].author.avatar,
               shape: BoxShape.circle),
@@ -277,28 +277,28 @@ Future<void> getContentPaySheet({
         children: [
           Column(
             children: [
-              SizedBox(height: 48.h),
+              const SizedBox(height: 48),
               Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: AppColors.secondBacground,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.w),
-                      topRight: Radius.circular(16.w),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
                     )),
                 child: SafeArea(
                   top: false,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(24.w, 12.w, 24.w, 12.w),
+                    padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
                     child: Column(
                       children: [
-                        SizedBox(height: 20.h),
+                        const SizedBox(height: 20),
                         span,
-                        SizedBox(height: 20.h),
+                        const SizedBox(height: 20),
                         _payBody(),
-                        SizedBox(height: 20.h),
+                        const SizedBox(height: 20),
                         button,
-                        SizedBox(height: 20.h),
+                        const SizedBox(height: 20),
                         getSpan(
                           '当前钻石余额：${subscribeInfo.balance}',
                           color: AppColors.secondText,

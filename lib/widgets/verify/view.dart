@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 import 'package:pinker/lang/translation_service.dart';
 
@@ -43,15 +43,15 @@ Widget getVerifyView({
 
       Widget _codeChild(int index) {
         return Container(
-          width: 40.w,
-          height: 40.w,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(2.w)),
+            borderRadius: const BorderRadius.all(Radius.circular(2)),
             border: Border.all(
               color: controller.state.codeList.length >= index
                   ? AppColors.mainColor
                   : AppColors.thirdIcon,
-              width: 1.w,
+              width: 1,
             ),
           ),
           child: Center(
@@ -62,13 +62,13 @@ Widget getVerifyView({
                     alwaysIncludeSemantics: true,
                     onEnd: controller.handleOnEnd,
                     child: Container(
-                        width: 1.5.w, height: 16.h, color: AppColors.mainColor),
+                        width: 1.5, height: 16, color: AppColors.mainColor),
                   )
                 : controller.state.codeList.length < index
                     ? null
                     : getSpan(
                         controller.state.codeList[index],
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         color: AppColors.mainColor,
                       ),
           ),
@@ -98,14 +98,14 @@ Widget getVerifyView({
             child: time.value <= 0
                 ? getSpanMain(Lang.codeResend.tr)
                 : getSpanSecond('${Lang.codeResend.tr} ( ${time.value} )'),
-            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            padding: const EdgeInsets.only(left: 10, right: 10),
             background: Colors.transparent,
             onPressed: time.value <= 0 ? resendCode : null,
           ));
 
       /// body 布局
       Widget body = Padding(
-        padding: EdgeInsets.all(20.w),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Expanded(
@@ -113,11 +113,11 @@ Widget getVerifyView({
                 child: Column(
                   children: [
                     title,
-                    SizedBox(height: 20.h),
+                    const SizedBox(height: 20),
                     secndTitle,
-                    SizedBox(height: 32.h),
+                    const SizedBox(height: 32),
                     codeShow,
-                    SizedBox(height: 32.h),
+                    const SizedBox(height: 32),
                     resendButton,
                   ],
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pinker/values/colors.dart';
 
@@ -22,7 +21,7 @@ Widget getSpan(
     softWrap: true,
     style: TextStyle(
       height: 1.1,
-      fontSize: fontSize ?? 14.sp,
+      fontSize: fontSize ?? 14,
       color: color ?? AppColors.mainText,
       fontWeight: fontWeight ?? FontWeight.normal,
       decoration: TextDecoration.none,
@@ -33,7 +32,7 @@ Widget getSpan(
 Widget getIndexTitle(String text) {
   return getSpan(
     text,
-    fontSize: 30.sp,
+    fontSize: 30,
     fontWeight: FontWeight.w600,
   );
 }
@@ -41,7 +40,7 @@ Widget getIndexTitle(String text) {
 Widget getTitle(String text) {
   return getSpan(
     text,
-    fontSize: 20.sp,
+    fontSize: 20,
     // fontWeight: FontWeight.w400,
   );
 }
@@ -49,7 +48,7 @@ Widget getTitle(String text) {
 Widget getSpanTitle(String text) {
   return getSpan(
     text,
-    fontSize: 16.sp,
+    fontSize: 16,
     // fontWeight: FontWeight.w400,
   );
 }

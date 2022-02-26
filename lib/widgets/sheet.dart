@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/values/colors.dart';
@@ -22,13 +22,13 @@ Future getImage(VoidCallback handleCamera, VoidCallback handleGallery) async {
         ),
         Container(
           color: AppColors.mainBacground,
-          padding: EdgeInsets.all(40.w),
+          padding: const EdgeInsets.all(40),
           child: SafeArea(
             top: false,
             child: Column(
               children: [
                 _button(1, handleCamera),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 _button(2, handleGallery),
               ],
             ),
@@ -43,8 +43,8 @@ Widget _button(int index, VoidCallback onPressed) {
   return getButton(
     child: getSpan(index == 1 ? '拍照' : '从相册里选取'),
     width: Get.width,
-    // padding: EdgeInsets.only(top: 7.h, bottom: 7.h),
-    height: 48.h,
+    // padding: EdgeInsets.only(top: 7, bottom: 7),
+    height: 48,
     background: index == 1 ? AppColors.mainColor : AppColors.secondBacground,
     onPressed: onPressed,
   );

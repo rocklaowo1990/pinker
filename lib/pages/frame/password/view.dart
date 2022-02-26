@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:pinker/lang/translation_service.dart';
@@ -48,19 +48,19 @@ class PasswordView extends GetView<PasswordController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            top: 24.h,
-            right: 20.w,
-            left: 20.w,
+          padding: const EdgeInsets.only(
+            top: 24,
+            right: 20,
+            left: 20,
           ),
           child: Column(
             children: [
               title,
-              SizedBox(height: 20.h),
+              const SizedBox(height: 20),
               secndTitle,
-              SizedBox(height: 4.h),
+              const SizedBox(height: 4),
               thirdTitle,
-              SizedBox(height: 30.h),
+              const SizedBox(height: 30),
               userPassword,
             ],
           ),

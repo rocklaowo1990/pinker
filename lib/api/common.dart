@@ -149,6 +149,8 @@ class CommonApi {
     required String token,
     required String filePath,
     required String fileName,
+
+    /// 文件类型（1-图片；2-视频；3语音）
     required String type,
     void Function(int, int)? onSendProgress,
   }) async {

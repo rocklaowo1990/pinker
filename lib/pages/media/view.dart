@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:extended_image/extended_image.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
@@ -28,15 +28,15 @@ class MediaView extends GetView<MediaController> {
     // Widget moreButton = getContentMore(
     //   contentList,
     //   index,
-    //   width: 20.w,
-    //   height: 20.w,
+    //   width: 20,
+    //   height: 20,
     // );
 
     // appBar 左侧的返回按钮
     Widget leading = Obx(() => Center(
           child: getButton(
-            height: 60.w,
-            width: 60.w,
+            height: 60,
+            width: 60,
             background: Colors.transparent,
             child: SvgPicture.asset('assets/svg/icon_back.svg'),
             onPressed: controller.state.opacity == 0.0
@@ -57,7 +57,7 @@ class MediaView extends GetView<MediaController> {
       backgroundColor: Colors.black54,
       // actions: [
       //   moreButton,
-      //   SizedBox(width: 4.w),
+      //   SizedBox(width: 4),
       // ],
     );
 
@@ -77,14 +77,14 @@ class MediaView extends GetView<MediaController> {
             ),
             Obx(() => controller.state.isLoading
                 ? getButtonSheetOutline(
-                    child: Center(
+                    child: const Center(
                       child: SizedBox(
-                        width: 13.w,
-                        height: 13.w,
+                        width: 13,
+                        height: 13,
                         child: CircularProgressIndicator(
                           backgroundColor: AppColors.mainIcon,
                           color: AppColors.mainColor,
-                          strokeWidth: 1.w,
+                          strokeWidth: 1,
                         ),
                       ),
                     ),
@@ -114,7 +114,7 @@ class MediaView extends GetView<MediaController> {
           ],
         ),
         if (contentList.value.list[index].works.content.isNotEmpty)
-          SizedBox(height: 16.h),
+          const SizedBox(height: 16),
         if (contentList.value.list[index].works.content.isNotEmpty)
           SizedBox(
             width: double.infinity,
@@ -142,7 +142,7 @@ class MediaView extends GetView<MediaController> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(16.w, 16.w, 16.w, 0.w),
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                         child: contentBody,
                       ),
                       contentButton,
@@ -171,7 +171,7 @@ class MediaView extends GetView<MediaController> {
         ),
         child: Center(
           child: Container(
-            padding: EdgeInsets.fromLTRB(9.w, 0, 9.w, 0),
+            padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
             width: double.infinity,
             height: 70,
             child: Center(
