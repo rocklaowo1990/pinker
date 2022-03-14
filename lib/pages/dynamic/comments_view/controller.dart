@@ -22,6 +22,14 @@ class CommentsViewController extends GetxController {
   int? beUserId;
   int? cid;
 
+  @override
+  void onReady() {
+    super.onReady();
+    textController.addListener(() {
+      state.isDisplay = textController.text.isEmpty ? false : true;
+    });
+  }
+
   void handleMail() {}
 
   void handleClearReply() {

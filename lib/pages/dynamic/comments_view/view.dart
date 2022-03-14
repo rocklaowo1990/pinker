@@ -144,15 +144,22 @@ Future getCommentsView(
                                     ),
                                   ),
                                   const SizedBox(width: 12),
-                                  getButton(
-                                    child: getSpan('回复'),
-                                    height: 48,
-                                    width: 70,
-                                    onPressed: () {
-                                      controller.handleCommentAdd(
-                                          contentList, index,
-                                          storageKey: storageKey);
-                                    },
+                                  Obx(
+                                    () => getButton(
+                                      child: getSpan('回复'),
+                                      background: controller.state.isDisplay
+                                          ? AppColors.mainColor
+                                          : AppColors.buttonDisable,
+                                      height: 48,
+                                      width: 70,
+                                      onPressed: controller.state.isDisplay
+                                          ? () {
+                                              controller.handleCommentAdd(
+                                                  contentList, index,
+                                                  storageKey: storageKey);
+                                            }
+                                          : null,
+                                    ),
                                   ),
                                 ],
                               )

@@ -30,7 +30,7 @@ Widget getContentAvatar(Rx<ContentListEntities> contentList, int index) {
 }
 
 /// 这是推文里的更多按钮
-Widget getContentMore(
+Center getContentMore(
   Rx<ContentListEntities> contentList,
   int index, {
   Color background = Colors.transparent,

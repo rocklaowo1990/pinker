@@ -14,4 +14,9 @@ class CommentsViewState {
   final RxString _replyUserName = ''.obs;
   set replyUserName(String value) => _replyUserName.value = value;
   String get replyUserName => _replyUserName.value;
+
+  /// 按钮禁用
+  final _isDisplay = false.obs;
+  set isDisplay(bool value) => _isDisplay.value = value;
+  bool get isDisplay => _isDisplay.value;
 }

@@ -195,9 +195,7 @@ class MediaView extends GetView<MediaController> {
     if (imageIndex == null) {
       controller.fijkPlayer = FijkPlayer();
       controller.fijkPlayer!.setDataSource(
-          serverApiUrl +
-              serverPort +
-              contentList.value.list[index].works.video.url,
+          serverMediaUrl + contentList.value.list[index].works.video.url,
           autoPlay: true);
 
       mediaBox = Obx(() => FijkView(
@@ -244,9 +242,7 @@ class MediaView extends GetView<MediaController> {
                   children: [
                     Center(
                       child: ExtendedImage.network(
-                        serverApiUrl +
-                            serverPort +
-                            controller.state.imagesList[_index],
+                        serverMediaUrl + controller.state.imagesList[_index],
                         enableSlideOutPage: true,
                         mode: ExtendedImageMode.gesture,
                         initGestureConfigHandler: (state) {
@@ -273,9 +269,7 @@ class MediaView extends GetView<MediaController> {
                 );
               } else {
                 return ExtendedImage.network(
-                  serverApiUrl +
-                      serverPort +
-                      controller.state.imagesList[_index],
+                  serverMediaUrl + controller.state.imagesList[_index],
                   enableSlideOutPage: true,
                   mode: ExtendedImageMode.gesture,
                   initGestureConfigHandler: (state) {
@@ -315,9 +309,7 @@ class MediaView extends GetView<MediaController> {
                 itemBuilder: ((context, _index) {
                   if (_index < 3) {
                     return ExtendedImage.network(
-                      serverApiUrl +
-                          serverPort +
-                          controller.state.imagesList[_index],
+                      serverMediaUrl + controller.state.imagesList[_index],
                       // enableSlideOutPage: true,
                       mode: ExtendedImageMode.gesture,
                       initGestureConfigHandler: (state) {
@@ -339,8 +331,7 @@ class MediaView extends GetView<MediaController> {
                       children: [
                         Center(
                           child: ExtendedImage.network(
-                            serverApiUrl +
-                                serverPort +
+                            serverMediaUrl +
                                 controller.state.imagesList[_index],
                             // enableSlideOutPage: true,
                             mode: ExtendedImageMode.gesture,

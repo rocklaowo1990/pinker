@@ -55,9 +55,7 @@ class MediaController extends GetxController {
       state.imagesList.clear();
       fijkPlayer = FijkPlayer();
       fijkPlayer!.setDataSource(
-          serverApiUrl +
-              serverPort +
-              contentList.value.list[index].works.video.url,
+          serverMediaUrl + contentList.value.list[index].works.video.url,
           autoPlay: true);
     }
 

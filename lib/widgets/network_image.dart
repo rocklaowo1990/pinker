@@ -18,7 +18,7 @@ Widget getNetworkImageBox(
   BorderRadius? borderRadius,
 }) {
   return CachedNetworkImage(
-    imageUrl: serverApiUrl + serverPort + url,
+    imageUrl: serverMediaUrl + url,
     imageBuilder: (context, image) => Container(
       width: width,
       height: height,
@@ -68,6 +68,6 @@ Widget getNetworkImageBox(
 
 ImageProvider getNetworkImageProvider(String url) {
   return CachedNetworkImageProvider(
-    serverApiUrl + serverPort + url,
+    serverMediaUrl + url,
   );
 }
