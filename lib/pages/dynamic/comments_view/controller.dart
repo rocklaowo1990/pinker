@@ -20,7 +20,7 @@ class CommentsViewController extends GetxController {
 
   int pageNo = 1;
   int? beUserId;
-  int? cid;
+  String? cid;
 
   @override
   void onReady() {
@@ -34,7 +34,7 @@ class CommentsViewController extends GetxController {
 
   void handleClearReply() {
     beUserId = 0;
-    cid = 0;
+    cid = '';
     state.replyUserName = '';
     focusNode.unfocus();
   }

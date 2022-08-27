@@ -37,7 +37,7 @@ class _ListElement {
     this.replyUser,
   });
 
-  int cid;
+  String cid;
   _Author author;
   int createDate;
   String content;

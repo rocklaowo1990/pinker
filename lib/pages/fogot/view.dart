@@ -30,7 +30,12 @@ class ForgotView extends StatelessWidget {
           /// body布局
           Widget body = Column(
             children: [
-              Container(height: 15, color: AppColors.mainBacground),
+              Container(
+                child: const SafeArea(
+                  child: SizedBox(),
+                ),
+                color: AppColors.mainBacground,
+              ),
               appBar,
               Container(height: 1, color: AppColors.secondBacground),
               Expanded(

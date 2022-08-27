@@ -14,7 +14,7 @@ import 'package:pinker/widgets/widgets.dart';
 Widget getCommentList(
   Rx<CommentsListEntities> commentList,
   int index, {
-  required int wid,
+  required String wid,
 }) {
   // 初始化
   // 这种结构的只能在这里初始化

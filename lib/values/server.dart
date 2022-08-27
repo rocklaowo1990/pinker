@@ -1,5 +1,5 @@
 /// 接口地址
-const String serverApiUrl = 'https://api.pkpinfo.xyz';
+const String serverApiUrl = 'https://www.pkapp.buzz';
 
 /// 资源服务器端口
-const String serverMediaUrl = 'https://www.pkpresources.xyz/files/';
+const String serverMediaUrl = 'https://www.pkapp.buzz/files/';

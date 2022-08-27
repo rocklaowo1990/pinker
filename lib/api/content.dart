@@ -55,7 +55,7 @@ class ContentApi {
 
   /// 作品详情
   ///
-  static Future contentDetail({required int wid}) async {
+  static Future contentDetail({required String wid}) async {
     var response = await HttpUtil().get(
       '/api/content/contentDetail',
       queryParameters: {'wid': wid},
@@ -89,7 +89,7 @@ class ContentApi {
   ///
   /// 'pageSize':1
   static Future commentsList({
-    required int wid,
+    required String wid,
     required int pageNo,
   }) async {
     var response = await HttpUtil().get(
@@ -108,8 +108,8 @@ class ContentApi {
 
   /// 添加评论 /////////////////////////////////////////////////
   static Future commentsAdd(
-      {required int wid,
-      int? cid,
+      {required String wid,
+      String? cid,
       required String content,
       int? beUserId}) async {
     var response = await HttpUtil().postForm(
@@ -138,8 +138,8 @@ class ContentApi {
   ///
   /// 'isLike':'1点赞  0取消点赞',
   static Future like({
-    required int wid,
-    int? cid,
+    required String wid,
+    String? cid,
     required int type,
     required int isLike,
   }) async {
@@ -165,7 +165,7 @@ class ContentApi {
   ///
   /// 'isForward':'（1-转发；0-取消转发）',
   static Future forward({
-    required int wid,
+    required String wid,
     required int isForward,
   }) async {
     var response = await HttpUtil().postForm(
@@ -184,7 +184,7 @@ class ContentApi {
 
   /// 支付作品
   static Future payment({
-    required int wid,
+    required String wid,
     int? type,
   }) async {
     var response = await HttpUtil().postForm(

@@ -237,7 +237,7 @@ Future<void> getContentListAll() async {
 ///
 /// 重置用户数据
 Future<void> getContentOnly({
-  required int wid,
+  required String wid,
 }) async {
   final ApplicationController applicationController = Get.find();
 

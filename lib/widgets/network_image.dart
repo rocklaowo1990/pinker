@@ -17,52 +17,22 @@ Widget getNetworkImageBox(
   BoxBorder? border,
   BorderRadius? borderRadius,
 }) {
-  return CachedNetworkImage(
-    imageUrl: serverMediaUrl + url,
-    imageBuilder: (context, image) => Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        border: border,
-        borderRadius: borderRadius,
-        color: color,
-        shape: shape,
-        image: DecorationImage(image: image, fit: fit),
-      ),
+  var image = DecorationImage(
+    image: NetworkImage(serverMediaUrl + url),
+    fit: fit,
+  );
+
+  return Container(
+    width: width,
+    height: height,
+    decoration: BoxDecoration(
+      shape: shape,
+      color: color,
+      border: border,
+      borderRadius: borderRadius,
+      image: url.contains('public') ? image : null,
     ),
-    placeholder: (context, url) => Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        border: border,
-        borderRadius: borderRadius,
-        color: color,
-        shape: shape,
-      ),
-      child: const Center(
-        child: SizedBox(
-          width: 20,
-          height: 20,
-          child: CircularProgressIndicator(
-            strokeWidth: 1,
-          ),
-        ),
-      ),
-    ),
-    errorWidget: (context, url, error) => Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        border: border,
-        borderRadius: borderRadius,
-        color: color,
-        shape: shape,
-      ),
-      child: const Center(
-        child:
-            SizedBox(width: 20, height: 20, child: Icon(Icons.error, size: 20)),
-      ),
-    ),
+    clipBehavior: Clip.antiAlias,
   );
 }
 

@@ -45,7 +45,7 @@ class ContentDetailElement {
     this.subStatus,
   });
 
-  int wid;
+  String wid;
   int createDate;
   int commentCount;
   int forwardCount;
